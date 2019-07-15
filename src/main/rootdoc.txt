@@ -1,0 +1,353 @@
+This is the documentation for the LiCOS's JSON library for Scala.
+
+== Package structure ==
+
+Notable packages includes:
+
+  - [[licos.json.engine]] and its sub-packages contain LiCOS's JSON framework.
+    - [[licos.json.engine.BOX `BOX`]] is the container that manages information to give to analysis engines.
+    - [[licos.json.engine.processing `licos.json.processing`]] contains LiCOS's JSON processing engines.
+      - [[licos.json.engine.processing.LobbyProcessingEngine `LobbyProcessingEngine`]]
+      - [[licos.json.engine.processing.VillageProcessingEngine `VillageProcessingEngine`]]
+    - [[licos.json.engine.analysis `licos.json.engine.analysis`]] and its sub-packages contain LiCOS's JSON analysis engines.
+      - [[licos.json.engine.analysis.lobby `licos.json.engine.analysis.lobby`]] contains LiCOS's JSON analysis engines for lobby such as
+        [[licos.json.engine.analysis.lobby.AdvancedSearchAnalysisEngine `AdvancedSearchAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.BuildVillageAnalysisEngine `BuildVillageAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.ChangeLangAnalysisEngine `ChangeLangAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.ChangeUserEmailAnalysisEngine `ChangeUserEmailAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.ChangeUserNameAnalysisEngine `ChangeUserNameAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.ChangeUserPasswordAnalysisEngine `ChangeUserPasswordAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.EnterLobbyAnalysisEngine `EnterLobbyAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.GetAvatarInfoAnalysisEngine `GetAvatarInfoAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.GetSettingsAnalysisEngine `GetSettingsAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.IdSearchAnalysisEngine `IdSearchAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.KickOutPlayerAnalysisEngine `KickOutPlayerAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.LeaveWaitingPageAnalysisEngine `LeaveWaitingAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.LobbyAnalysisEngine `LobbyAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.PingAnalysisEngine `PingAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.PlayAnalysisEngine `PlayAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.PlayedWithTokenAnalysisEngine `PlayedWithTokenAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.PongAnalysisEngine `PongAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.ReadyAnalysisEngine `ReadyAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.SearchResultAnalysisEngine `SearchResultAnalysisEngine`]],
+        [[licos.json.engine.analysis.lobby.SelectVillageAnalysisEngine `SelectVillageAnalysisEngine`]] and
+        [[licos.json.engine.analysis.lobby.WaitingPageAnalysisEngine `WaitingPageAnalysisEngine`]].
+      - [[licos.json.engine.analysis.village `licos.json.engine.analysis.village`]] contains LiCOS's JSON analysis engines for village such as
+        [[licos.json.engine.analysis.village.BoardAnalysisEngine `BoardAnalysisEngine`]],
+        [[licos.json.engine.analysis.village.ChatFromClientAnalysisEngine `ChatFromClientAnalysisEngine`]],
+        [[licos.json.engine.analysis.village.ChatFromServerAnalysisEngine `ChatFromServerAnalysisEngine`]],
+        [[licos.json.engine.analysis.village.ErrorAnalysisEngine `ErrorAnalysisEngine`]],
+        [[licos.json.engine.analysis.village.FlavorTextAnalysisEngine `FlavorTextAnalysisEngine`]],
+        [[licos.json.engine.analysis.village.GameResultAnalysisEngine `GameResultAnalysisEngine`]],
+        [[licos.json.engine.analysis.village.PhaseAnalysisEngine `PhaseAnalysisEngine`]],
+        [[licos.json.engine.analysis.village.ReceivedFlavorTextMessageAnalysisEngine `ReceivedFlavorTextMessageAnalysisEngine`]],
+        [[licos.json.engine.analysis.village.ReceivedPlayerMessageAnalysisEngine `ReceivedPlayerMessageAnalysisEngine`]],
+        [[licos.json.engine.analysis.village.ReceivedSystemMessageAnalysisEngine `ReceivedSystemMessageAnalysisEngine`]],
+        [[licos.json.engine.analysis.village.ScrollAnalysisEngine `ScrollAnalysisEngine`]] and
+        [[licos.json.engine.analysis.village.VoteAnalysisEngine `VoteAnalysisEngine`]].
+  - [[licos.json.lobby `licos.json.lobby`]] contains LiCOS's JSON entities for lobby such as
+    [[licos.json.lobby.JsonAdvancedSearch `JsonAdvancedSearch`]],
+    [[licos.json.lobby.JsonAvatarInfo `JsonAvatarInfo`]],
+    [[licos.json.lobby.JsonBuildVillage `JsonBuildVillage`]],
+    [[licos.json.lobby.JsonChangeLang `JsonChangeLang`]],
+    [[licos.json.lobby.JsonChangeUserEmail `JsonChangeUserEmail`]],
+    [[licos.json.lobby.JsonChangeUserName `JsonChangeUserName`]],
+    [[licos.json.lobby.JsonChangeUserPassword `JsonChangeUserPassword`]],
+    [[licos.json.lobby.JsonEnterLobby `JsonEnterLobby`]],
+    [[licos.json.lobby.JsonGetSettings `JsonGetSettings`]],
+    [[licos.json.lobby.JsonIdSearch `JsonIdSearch`]],
+    [[licos.json.lobby.JsonKickOutPlayer `JsonKickOutPlayer`]],
+    [[licos.json.lobby.JsonLeaveWaitingPage `JsonLeaveWaitingPage`]],
+    [[licos.json.lobby.JsonLobby `JsonLobby`]],
+    [[licos.json.lobby.JsonPing `JsonPing`]],
+    [[licos.json.lobby.JsonPlay `JsonPlay`]],
+    [[licos.json.lobby.JsonPlayed `JsonPlayed`]],
+    [[licos.json.lobby.JsonPlayedWithToken `JsonPlayedWithToken`]],
+    [[licos.json.lobby.JsonPong `JsonPong`]],
+    [[licos.json.lobby.JsonReady `JsonReady`]],
+    [[licos.json.lobby.JsonSearchResult `JsonSearchResult`]],
+    [[licos.json.lobby.JsonSelectVillage `JsonSelectVillage`]],
+    [[licos.json.lobby.JsonSettings `JsonSettings`]],
+    [[licos.json.lobby.JsonVillage `JsonVillage`]] and
+    [[licos.json.lobby.JsonWaitingPage `JsonWaitingPage`]].
+  - [[licos.json.village `licos.json.village`]] contains LiCOS's JSON entities for village such as
+    [[licos.json.village.JsonAvatar `JsonAvatar`]],
+    [[licos.json.village.JsonBase `JsonBase`]],
+    [[licos.json.village.JsonBoard `JsonBoard`]],
+    [[licos.json.village.JsonBoardPolarity `JsonBoardPolarity`]],
+    [[licos.json.village.JsonChatFromClient `JsonChatFromClient`]],
+    [[licos.json.village.JsonChatFromServer `JsonChatFromServer`]],
+    [[licos.json.village.JsonChatSettings `JsonChatSettings`]],
+    [[licos.json.village.JsonChatText `JsonChatText`]],
+    [[licos.json.village.JsonError `JsonError`]],
+    [[licos.json.village.JsonFlavorText `JsonFlavorText`]],
+    [[licos.json.village.JsonGameResult `JsonGameResult`]],
+    [[licos.json.village.JsonName `JsonName`]],
+    [[licos.json.village.JsonPhase `JsonPhase`]],
+    [[licos.json.village.JsonScroll `JsonScroll`]],
+    [[licos.json.village.JsonUpdate `JsonUpdate`]],
+    [[licos.json.village.JsonVillage `JsonVillage`]],
+    [[licos.json.village.JsonVote `JsonVote`]],
+    [[licos.json.village.JsonVotingResultDetail `JsonVotingResultDetail`]] and
+    [[licos.json.village.JsonVotingResultSummary `JsonVotingResultSummary`]].
+
+== How to use ==
+
+{{{
+//TODO: Define the contractor as you like.
+class Box(intParameter: Int, stringParameter: String) extends BOX
+
+class BuildVillageAE extends BuildVillageAnalysisEngine {
+    override def process(box: BOX, buildVillage: JsonBuildVillage): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class LeaveWaitingPageAE extends LeaveWaitingPageAnalysisEngine {
+    override def process(box: BOX, leaveWaitingPage: JsonLeaveWaitingPage): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class ReadyAE extends ReadyAnalysisEngine {
+    override def process(box: BOX, ready: JsonReady): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class BoardAE extends BoardAnalysisEngine {
+    override def process(box: BOX, board: JsonBoard): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class ChatFromClientAE extends ChatFromClientAnalysisEngine {
+    override def process(box: BOX, chatFromClient: JsonChatFromClient): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class ChatFromServerAE extends ChatFromServerAnalysisEngine {
+    override def process(box: BOX, chatFromServer: JsonChatFromServer): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class ErrorAE extends ErrorAnalysisEngine {
+    override def process(box: BOX, error: JsonError): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class FlavorTextAE extends FlavorTextAnalysisEngine {
+    override def process(box: BOX, flavorText: JsonFlavorText): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class GameResultAE extends GameResultAnalysisEngine {
+    override def process(box: BOX, gameResult: JsonGameResult): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class PhaseAE extends PhaseAnalysisEngine {
+    override def process(box: BOX, phase: JsonPhase): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class ReceivedFlavorTextMessageAE extends ReceivedFlavorTextMessageAnalysisEngine {
+    override def process(box: BOX, receivedFlavorTextMessage: JsonReceivedFlavorTextMessage): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class ReceivedPlayerMessageAE extends ReceivedPlayerMessageAnalysisEngine {
+    override def process(box: BOX, receivedPlayerMessage: JsonReceivedPlayerMessage): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class ReceivedSystemMessageAE extends ReceivedSystemMessageAnalysisEngine {
+    override def process(box: BOX, receivedSystemMessage: JsonReceivedSystemMessage): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class ScrollAE extends ScrollAnalysisEngine {
+    override def process(box: BOX, scroll: JsonScroll): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+class VoteAE extends VoteAnalysisEngine {
+    override def process(box: BOX, vote: JsonVote): Option[JsValue] = {
+        box match {
+            case x: Box =>
+                //TODO: Write here.
+            case _ => None
+        }
+    }
+}
+
+object Runner extends App {
+    private val processingEngine = new VillageProcessingEngine(
+        new ReadyAE(),
+        new ReceivedPlayerMessageAE(),
+        new ReceivedSystemMessageAE(),
+        new ReceivedFlavorTextMessageAE(),
+        new ChatFromClientAE(),
+        new ChatFromServerAE(),
+        new BoardAE(),
+        new VoteAE(),
+        new ScrollAE(),
+        new PhaseAE(),
+        new FlavorTextAE(),
+        new GameResultAE(),
+        new BuildVillageAE(),
+        new LeaveWaitingPageAE(),
+        new ErrorAE()
+    )
+
+    private val aJSONExampleOfTheLiCOSProtocol: String = {
+        s"""{
+           |	"@context": [
+           |		"https://werewolf.world/context/0.2/base.jsonld",
+           |		"https://werewolf.world/context/0.2/chat.jsonld"
+           |	],
+           |	"@id": "https://licos.online/state/0.2/village#3/playerMessage",
+           |
+           |	"village": {
+           |		"@context": "https://werewolf.world/context/0.2/village.jsonld",
+           |		"@id": "https://licos.online/state/0.2/village",
+           |		"id": 3,
+           |		"name": "横国の森の奥にある時代に取り残された小さな村",
+           |		"totalNumberOfAgents": 15,
+           |		"lang": "ja",
+           |		"chatSettings": {
+           |			"@context": "https://werewolf.world/context/0.2/chatSettings.jsonld",
+           |			"@id": "https://licos.online/state/0.2/village#3/chatSettings",
+           |			"limit": 10,
+           |			"characterLimit": 140
+           |		}
+           |	},
+           |	"token": "eFVr3O93oLhmnE8OqTMl5VSVGIV",
+           |	"phase": "morning",
+           |	"date": 1,
+           |	"phaseTimeLimit": 600,
+           |	"phaseStartTime": "2006-10-07T12:06:56.568+09:00",
+           |	"serverTimestamp": "2006-10-07T12:06:56.568+09:00",
+           |	"clientTimestamp": "2006-10-07T12:06:56.568+09:00",
+           |	"directionality": "client to server",
+           |	"intensionalDisclosureRange": "public",
+           |	"extensionalDisclosureRange": [],
+           |	"myAgent": {
+           |		"@context": "https://werewolf.world/context/0.2/agent.jsonld",
+           |		"@id": "https://licos.online/state/0.2/village#3/myAgent",
+           |		"id": 1,
+           |		"name": {
+           |			"en": "Walter",
+           |			"ja": "ヴァルター"
+           |		},
+           |		"image": "https://werewolf.world/image/0.2/Walter.jpg",
+           |		"role": {
+           |			"@context": "https://werewolf.world/context/0.2/role.jsonld",
+           |			"@id": "https://licos.online/state/0.2/village#3/agent#1/role",
+           |			"name": {
+           |				"en": "Werewolf",
+           |				"ja": "人狼"
+           | 			},
+           |			"image": "https://werewolf.world/image/0.2/werewolf.jpg"
+           |		}
+           |	},
+           |
+           |	"agent": {
+           |		"@context": "https://werewolf.world/context/0.2/agent.jsonld",
+           |		"@id": "https://licos.online/state/0.2/village#3/agent",
+           |		"id": 1,
+           |		"name": {
+           |			"en": "Walter",
+           |			"ja": "ヴァルター"
+           |		},
+           |		"image": "https://werewolf.world/image/0.2/Walter.jpg"
+           |	},
+           |	"isMine": true,
+           |	"text": {
+           |		"@value": ">>11\nそれで、あなたは人狼が誰だと思うの？\n\n私はパメラが人狼だと思う。",
+           |		"@language": "ja"
+           |	},
+           |	"characterLimit": 140,
+           |	"isOver": false
+           |}
+           |""".stripMargin
+    }
+
+    private val anExampleOfBOX: BOX = new Box(3, "test")
+
+    processingEngine.process(aJSONExampleOfTheLiCOSProtocol, anExampleOfBOX) match {
+        case Some(jsValue: JsValue) =>
+            println("Send a response:")
+            println(Json.prettyPrint(jsValue))
+        case None =>
+            println("Send no response")
+    }
+
+}
+}}}
