@@ -391,7 +391,7 @@
 
     private val anExampleOfBOX: BOX = new Box(3, "</span>test<span class="lit">")
 
-    processingEngine.process(aJSONExampleOfTheLiCOSProtocol, anExampleOfBOX) match {
+    processingEngine.process(anExampleOfBOX, aJSONExampleOfTheLiCOSProtocol) match {
         case Some(jsValue: JsValue) =>
             println("</span>Send a response:<span class="lit">")
             println(Json.prettyPrint(jsValue))

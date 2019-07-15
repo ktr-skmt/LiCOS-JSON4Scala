@@ -20,6 +20,11 @@
         <url>https://github.com/ktr-skmt/LiCOS-JSON4Scala</url>
     </organization>
     <scm>
+        <url>https://kotaro_sakamoto@bitbucket.org/kotaro_sakamoto/werewolfgame</url>
+        <connection>scm:git:https://kotaro_sakamoto@bitbucket.org/kotaro_sakamoto/werewolfgame.git</connection>
+        <developerConnection>scm:git:git@kotaro_sakamoto@bitbucket.org:kotaro_sakamoto/werewolfgame.git</developerConnection>
+    </scm>
+    <scm>
         <url>git@github.com:ktr-skmt/LiCOS-JSON4Scala.git</url>
         <connection>scm:git@github.com:ktr-skmt/LiCOS-JSON4Scala.git</connection>
     </scm>
