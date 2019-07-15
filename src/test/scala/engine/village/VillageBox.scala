@@ -2,4 +2,4 @@ package engine.village
 
 import licos.json.engine.BOX
 
-class Box(text: String) extends BOX
+class VillageBox(text: String) extends BOX

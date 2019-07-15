@@ -341,7 +341,7 @@ object Runner extends App {
 
     private val anExampleOfBOX: BOX = new Box(3, "test")
 
-    processingEngine.process(aJSONExampleOfTheLiCOSProtocol, anExampleOfBOX) match {
+    processingEngine.process(anExampleOfBOX, aJSONExampleOfTheLiCOSProtocol) match {
         case Some(jsValue: JsValue) =>
             println("Send a response:")
             println(Json.prettyPrint(jsValue))

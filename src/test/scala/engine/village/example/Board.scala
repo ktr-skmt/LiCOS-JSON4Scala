@@ -3,5 +3,9 @@ package engine.village.example
 import engine.Example
 
 case class Board(filePath: String) extends Example(filePath) {
-  override val `type`: String = "Board"
+  override val `type`: String = Board.`type`
+}
+
+object Board {
+  val `type`: String = "Board"
 }

@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets
 
 import engine.Example
 import engine.village.analysis.{BoardAE, BuildVillageAE, ChatFromClientAE, ChatFromServerAE, ErrorAE, FlavorTextAE, GameResultAE, LeaveWaitingPageAE, PhaseAE, ReadyAE, ReceivedFlavorTextMessageAE, ReceivedPlayerMessageAE, ReceivedSystemMessageAE, ScrollAE, VoteAE}
-import engine.village.example.{Board, ChatFromClient, ChatFromServer, Error, FlavorText, Phase, ReceivedFlavorTextMessage, ReceivedPlayerMessage, ReceivedSystemMessage, Scroll, Vote}
+import engine.village.example.{Board, ChatFromClient, ChatFromServer, Error, FlavorText, GameResult, Phase, ReceivedFlavorTextMessage, ReceivedPlayerMessage, ReceivedSystemMessage, Scroll, Vote}
 import entity.JsonTest
 import licos.json.engine.processing.VillageProcessingEngine
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
@@ -45,7 +45,7 @@ object VillageProcessingEngineSpec {
     Phase("server2client/night.jsonld"),
     //ChatFromServer("server2client/onymous-audience-chat.jsonld"),
     Phase("server2client/post-mortem.jsonld"),
-    //Phase("server2client/result.jsonld"),
+    //GameResult("server2client/result.jsonld"),
     ChatFromServer("server2client/their-message-on-chat.jsonld")
   )
 }
@@ -78,7 +78,7 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit {
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()
-    processingEngine.process(new Box(jsonType), msg) match {
+    processingEngine.process(new VillageBox(jsonType), msg) match {
       case Some(jsValue: JsValue) =>
         parseJsonTest(jsValue) match {
           case Some(json: JsonTest) =>

@@ -1,6 +1,7 @@
 package engine.village.analysis
 
-import engine.village.Box
+import engine.lobby.example.LeaveWaitingPage
+import engine.village.VillageBox
 import entity.JsonTest
 import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.LeaveWaitingPageAnalysisEngine
@@ -10,7 +11,7 @@ import play.api.libs.json.{JsValue, Json}
 class LeaveWaitingPageAE extends LeaveWaitingPageAnalysisEngine {
   override def process(box: BOX, leaveWaitingPage: JsonLeaveWaitingPage): Option[JsValue] = {
     box match {
-      case _: Box => Option(Json.toJson(JsonTest("LeaveWaitingPage")))
+      case _: VillageBox => Option(Json.toJson(JsonTest(LeaveWaitingPage.`type`)))
       case _ => None
     }
   }

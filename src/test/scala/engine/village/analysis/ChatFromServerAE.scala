@@ -1,6 +1,7 @@
 package engine.village.analysis
 
-import engine.village.Box
+import engine.village.VillageBox
+import engine.village.example.ChatFromServer
 import entity.JsonTest
 import licos.json.engine.BOX
 import licos.json.engine.analysis.village.ChatFromServerAnalysisEngine
@@ -10,7 +11,7 @@ import play.api.libs.json.{JsValue, Json}
 class ChatFromServerAE extends ChatFromServerAnalysisEngine {
   override def process(box: BOX, chatFromServer: JsonChatFromServer): Option[JsValue] = {
     box match {
-      case _: Box => Option(Json.toJson(JsonTest("ChatFromServer")))
+      case _: VillageBox => Option(Json.toJson(JsonTest(ChatFromServer.`type`)))
       case _ => None
     }
   }
