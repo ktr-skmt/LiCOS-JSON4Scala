@@ -19,7 +19,7 @@ resolvers += "LiCOS-JSON4Scala-snapshots-repository" at "https://github.com/ktr-
 ```
 
 ```scala
-dependences += "online.licos" % "licos-json4scala_2.12" % "0.0.1"
+libraryDependences += "online.licos" % "licos-json4scala_2.12" % "0.0.1"
 ```
 
 ### Gradle
