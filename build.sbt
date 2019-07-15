@@ -2,6 +2,8 @@ val jsonLibraryName: String = "LiCOS-JSON4Scala"
 
 name := jsonLibraryName
 
+//organization := "online.licos"
+
 //maintainer in Linux := "Kotaro Sakamoto <sakamoto-kotaro-pn@ynu.jp>"
 
 sources in (Compile, doc) := Seq.empty
@@ -72,7 +74,8 @@ val pomExtraTemplate = {
 val jsonLibraryProjectName: String = "json"
 
 lazy val json = (project in file(".")).
-  enablePlugins(GhpagesPlugin).
+  //enablePlugins(GhpagesPlugin).
+  //enablePlugins(SiteScaladocPlugin).
   settings(commonSettings: _*).
   settings(
     scalacOptions in (Compile, doc) ++= Seq(
@@ -99,6 +102,6 @@ lazy val json = (project in file(".")).
       "org.projectlombok" % "lombok" % "1.16.20",
       "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
     )
-  ).settings(
-    git.remoteRepo := "git@github.com:ktr-skmt/LiCOS-JSON4Scala.git"
-  )
+  )//.settings(
+    //git.remoteRepo := "git@github.com:ktr-skmt/LiCOS-JSON4Scala.git"
+  //)
