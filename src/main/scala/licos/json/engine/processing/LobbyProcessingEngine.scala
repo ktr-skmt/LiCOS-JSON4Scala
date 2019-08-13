@@ -14,6 +14,7 @@ import play.api.libs.json.{JsValue, Json}
   * @param lobbyEngine the analysis engine for Lobby JSON.
   * @param enterLobbyEngine the analysis engine for Enter-lobby JSON.
   * @param getAvatarInfoEngine the analysis engine for Get-avatar-info JSON.
+  * @param avatarInfoEngine the analysis engine for Avatar-info JSON.
   * @param selectVillageEngine the analysis engine for Select-village JSON.
   * @param leaveWaitingPageEngine the analysis engine for Leave-waiting-page JSON.
   * @param kickOutPlayerEngine the analysis engine for Kick-out-player JSON.
@@ -29,6 +30,7 @@ import play.api.libs.json.{JsValue, Json}
   * @param changeUserNameEngine the analysis engine for Change-user-name JSON.
   * @param changeUserPasswordEngine the analysis engine for Change-user-password JSON.
   * @param getSettingsEngine the analysis engine for Get-settings JSON.
+  * @param settingsEngine the analysis engine for Settings JSON.
   * @author Kotaro Sakamoto
   */
 class LobbyProcessingEngine(pongEngine: PongAnalysisEngine,
@@ -37,6 +39,7 @@ class LobbyProcessingEngine(pongEngine: PongAnalysisEngine,
                             lobbyEngine: LobbyAnalysisEngine,
                             enterLobbyEngine: EnterLobbyAnalysisEngine,
                             getAvatarInfoEngine: GetAvatarInfoAnalysisEngine,
+                            avatarInfoEngine: AvatarInfoAnalysisEngine,
                             selectVillageEngine: SelectVillageAnalysisEngine,
                             leaveWaitingPageEngine: LeaveWaitingPageAnalysisEngine,
                             kickOutPlayerEngine: KickOutPlayerAnalysisEngine,
@@ -51,7 +54,8 @@ class LobbyProcessingEngine(pongEngine: PongAnalysisEngine,
                             changeUserEmailEngine: ChangeUserEmailAnalysisEngine,
                             changeUserNameEngine: ChangeUserNameAnalysisEngine,
                             changeUserPasswordEngine: ChangeUserPasswordAnalysisEngine,
-                            getSettingsEngine: GetSettingsAnalysisEngine) extends ProcessingEngine {
+                            getSettingsEngine: GetSettingsAnalysisEngine,
+                            settingsEngine: SettingsAnalysisEngine) extends ProcessingEngine {
 
   override protected val flowController = new LobbyFlowController()
 
@@ -65,49 +69,81 @@ class LobbyProcessingEngine(pongEngine: PongAnalysisEngine,
 
     val jsValue: JsValue = Json.parse(msg)
 
+    def log(label: String): Unit = {
+      val format: String = "LobbyProcessingEngine.process %s%n"
+      System.err.printf(format, label)
+    }
+
     flowController.flow(jsValue) match {
       case Some(pong: JsonPong) =>
+        log("JsonPong")
         pongEngine.process(box, pong)
       case Some(ping: JsonPing) =>
+        log("JsonPing")
         pingEngine.process(box, ping)
       case Some(waitingPage: JsonWaitingPage) =>
+        log("JsonWaitingPage")
         waitingPageEngine.process(box, waitingPage)
       case Some(lobby: JsonLobby) =>
+        log("JsonLobby")
         lobbyEngine.process(box, lobby)
       case Some(enterLobby: JsonEnterLobby) =>
+        log("JsonEnterLobby")
         enterLobbyEngine.process(box, enterLobby)
       case Some(getAvatarInfo: JsonGetAvatarInfo) =>
+        log("JsonGetAvatarInfo")
         getAvatarInfoEngine.process(box, getAvatarInfo)
+      case Some(avatarInfo: JsonAvatarInfo) =>
+        log("JsonAvatarInfo")
+        avatarInfoEngine.process(box, avatarInfo)
       case Some(selectVillage: JsonSelectVillage) =>
+        log("JsonSelectVillage")
         selectVillageEngine.process(box, selectVillage)
       case Some(leaveWaitingPage: JsonLeaveWaitingPage) =>
+        log("JsonLeaveWaitingPage")
         leaveWaitingPageEngine.process(box, leaveWaitingPage)
       case Some(kickOutPlayer: JsonKickOutPlayer) =>
+        log("JsonKickOutPlayer")
         kickOutPlayerEngine.process(box, kickOutPlayer)
       case Some(buildVillage: JsonBuildVillage) =>
+        log("JsonBuildVillage")
         buildVillageEngine.process(box, buildVillage)
       case Some(advancedSearch: JsonAdvancedSearch) =>
+        log("JsonAdvancedSearch")
         advancedSearchEngine.process(box, advancedSearch)
       case Some(idSearch: JsonIdSearch) =>
+        log("JsonIdSearch")
         idSearchEngine.process(box, idSearch)
       case Some(play: JsonPlay) =>
+        log("JsonPlay")
         playEngine.process(box, play)
       case Some(playedWithToken: JsonPlayedWithToken) =>
+        log("JsonPlayedWithToken")
         playedWithTokenEngine.process(box, playedWithToken)
       case Some(ready: JsonReady) =>
+        log("JsonReady")
         readyEngine.process(box, ready)
       case Some(searchResult: JsonSearchResult) =>
+        log("JsonSearchResult")
         searchResultEngine.process(box, searchResult)
       case Some(changeLang: JsonChangeLang) =>
+        log("JsonChangeLang")
         changeLangEngine.process(box, changeLang)
       case Some(changeUserEmail: JsonChangeUserEmail) =>
+        log("JsonChangeUserEmail")
         changeUserEmailEngine.process(box, changeUserEmail)
       case Some(changeUserName: JsonChangeUserName) =>
+        log("JsonChangeUserName")
         changeUserNameEngine.process(box, changeUserName)
       case Some(changeUserPassword: JsonChangeUserPassword) =>
+        log("JsonChangeUserPassword")
         changeUserPasswordEngine.process(box, changeUserPassword)
       case Some(getSettings: JsonGetSettings) =>
+        log("JsonGetSettings")
         getSettingsEngine.process(box, getSettings)
+      case Some(settings: JsonSettings) =>
+        log("JsonSettings")
+        settingsEngine.process(box, settings)
       case _ =>
         None
     }

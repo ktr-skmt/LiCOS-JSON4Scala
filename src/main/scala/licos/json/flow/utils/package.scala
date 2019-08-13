@@ -9,6 +9,7 @@ import scala.reflect.ClassTag
   * @author Kotaro Sakamoto
   */
 package object utils {
+
   implicit class FlowControllerUtilsWithTypeSystem[A <: TypeSystem: ClassTag, B](op: Option[A] ) {
 
     /** Runs scala.Option.getOrElse after checking a type correctness of A.

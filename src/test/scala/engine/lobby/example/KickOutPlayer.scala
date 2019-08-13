@@ -1,8 +1,8 @@
 package engine.lobby.example
 
-import engine.Example
+import engine.ClientToServerLobbyExample
 
-case class KickOutPlayer(filePath: String) extends Example(filePath) {
+case class KickOutPlayer(filePath: String) extends ClientToServerLobbyExample(filePath) {
   override val `type`: String = KickOutPlayer.`type`
 }
 

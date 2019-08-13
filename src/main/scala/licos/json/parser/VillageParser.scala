@@ -1,6 +1,7 @@
 package licos.json.parser
 
-import licos.json.village.{JsonBoard, JsonChatFromClient, JsonChatFromServer, JsonError, JsonFlavorText, JsonGameResult, JsonPhase, JsonScroll, JsonVote}
+import licos.json.village.invite.{JsonNextGameInvitation, JsonNextGameInvitationIsClosed}
+import licos.json.village.{JsonBoard, JsonChatFromClient, JsonChatFromServer, JsonError, JsonFlavorText, JsonGameResult, JsonPhase, JsonScroll, JsonStar, JsonVote}
 import licos.json.village.receipt.{JsonReceivedFlavorTextMessage, JsonReceivedPlayerMessage, JsonReceivedSystemMessage}
 import play.api.libs.json.{JsResult, JsValue}
 
@@ -11,25 +12,6 @@ import scala.util.{Failure, Success, Try}
   * @author Kotaro Sakamoto
   */
 trait VillageParser extends LiCOSParser {
-  /*
-  protected def parseNextGameInvitation(jsValue: JsValue): Option[JsonNextGameInvitation] = {
-    Try(jsValue.validate[JsonNextGameInvitation]) match {
-      case Success(json: JsResult[JsonNextGameInvitation]) => json.asOpt
-      case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
-        None
-    }
-  }
-
-  protected def parseNextGameInvitationIsClosed(jsValue: JsValue): Option[JsonNextGameInvitationIsClosed] = {
-    Try(jsValue.validate[JsonNextGameInvitationIsClosed]) match {
-      case Success(json: JsResult[JsonNextGameInvitationIsClosed]) => json.asOpt
-      case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
-        None
-    }
-  }
-  */
 
   /** Tries to parse play.api.libs.json.JsValue as Phase JSON.
     *
@@ -95,6 +77,20 @@ trait VillageParser extends LiCOSParser {
   protected def parseBoard(jsValue: JsValue): Option[JsonBoard] = {
     Try(jsValue.validate[JsonBoard]) match {
       case Success(json: JsResult[JsonBoard]) => json.asOpt
+      case Failure(err: Throwable) =>
+        System.err.println(err.getMessage)
+        None
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Star JSON.
+    *
+    * @param jsValue a play.api.libs.jsob.JsValue to parse
+    * @return a Star JSON option
+    */
+  protected def parseStar(jsValue: JsValue): Option[JsonStar] = {
+    Try(jsValue.validate[JsonStar]) match {
+      case Success(json: JsResult[JsonStar]) => json.asOpt
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -193,6 +189,34 @@ trait VillageParser extends LiCOSParser {
   def parseReceivedFlavorTextMessage(jsValue: JsValue): Option[JsonReceivedFlavorTextMessage] = {
     Try(jsValue.validate[JsonReceivedFlavorTextMessage]) match {
       case Success(json: JsResult[JsonReceivedFlavorTextMessage]) => json.asOpt
+      case Failure(err: Throwable) =>
+        System.err.println(err.getMessage)
+        None
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Next-game-invitation-is-closed JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return a Next-game-invitation-is-closed JSON option.
+    */
+  def parseNextGameInvitationIsClosed(jsValue: JsValue): Option[JsonNextGameInvitationIsClosed] = {
+    Try(jsValue.validate[JsonNextGameInvitationIsClosed]) match {
+      case Success(json: JsResult[JsonNextGameInvitationIsClosed]) => json.asOpt
+      case Failure(err: Throwable) =>
+        System.err.println(err.getMessage)
+        None
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Next-game-invitation JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return a Next-game-invitation JSON option.
+    */
+  def parseNextGameInvitation(jsValue: JsValue): Option[JsonNextGameInvitation] = {
+    Try(jsValue.validate[JsonNextGameInvitation]) match {
+      case Success(json: JsResult[JsonNextGameInvitation]) => json.asOpt
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None

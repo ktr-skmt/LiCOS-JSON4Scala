@@ -1,6 +1,6 @@
 package licos.json.parser
 
-import licos.json.lobby.{JsonAdvancedSearch, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetAvatarInfo, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLobby, JsonPing, JsonPlay, JsonPlayedWithToken, JsonPong, JsonSearchResult, JsonSelectVillage, JsonWaitingPage}
+import licos.json.lobby.{JsonAdvancedSearch, JsonAvatarInfo, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetAvatarInfo, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLobby, JsonPing, JsonPlay, JsonPlayedWithToken, JsonPong, JsonSearchResult, JsonSelectVillage, JsonSettings, JsonWaitingPage}
 import play.api.libs.json.{JsResult, JsValue}
 
 import scala.util.{Failure, Success, Try}
@@ -89,6 +89,20 @@ trait LobbyParser extends LiCOSParser {
   protected def parseGetAvatarInfo(jsValue: JsValue): Option[JsonGetAvatarInfo] = {
     Try(jsValue.validate[JsonGetAvatarInfo]) match {
       case Success(json: JsResult[JsonGetAvatarInfo]) => json.asOpt
+      case Failure(err: Throwable) =>
+        System.err.println(err.getMessage)
+        None
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Avatar-info JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse
+    * @return an Avatar-info JSON option.
+    */
+  protected def parseAvatarInfo(jsValue: JsValue): Option[JsonAvatarInfo] = {
+    Try(jsValue.validate[JsonAvatarInfo]) match {
+      case Success(json: JsResult[JsonAvatarInfo]) => json.asOpt
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -257,6 +271,20 @@ trait LobbyParser extends LiCOSParser {
   protected def parseGetSettings(jsValue: JsValue): Option[JsonGetSettings] = {
     Try(jsValue.validate[JsonGetSettings]) match {
       case Success(json: JsResult[JsonGetSettings]) => json.asOpt
+      case Failure(err: Throwable) =>
+        System.err.println(err.getMessage)
+        None
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Settings JSON
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse
+    * @return a Settings JSON option.
+    */
+  protected def parseSettings(jsValue: JsValue): Option[JsonSettings] = {
+    Try(jsValue.validate[JsonSettings]) match {
+      case Success(json: JsResult[JsonSettings]) => json.asOpt
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None

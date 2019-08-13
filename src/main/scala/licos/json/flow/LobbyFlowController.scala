@@ -23,21 +23,26 @@ class LobbyFlowController() extends FlowController with LobbyParser {
             parseLobby(jsValue) >>> {
               parseEnterLobby(jsValue) >>> {
                 parseGetAvatarInfo(jsValue) >>> {
-                  parseSelectVillage(jsValue) >>> {
-                    parseLeaveWaitingPage(jsValue) >>> {
-                      parseKickOutPlayer(jsValue) >>> {
-                        parseBuildVillage(jsValue) >>> {
-                          parseAdvancedSearch(jsValue) >>> {
-                            parseIdSearch(jsValue) >>> {
-                              parsePlay(jsValue) >>> {
-                                parsePlayedWithToken(jsValue) >-> {
-                                  parseReady(jsValue) >>> {
-                                    parseSearchResult(jsValue) >>> {
-                                      parseChangeLang(jsValue) >>> {
-                                        parseChangeUserEmail(jsValue) >>> {
-                                          parseChangeUserName(jsValue) >>> {
-                                            parseChangeUserPassword(jsValue) >>>
-                                              parseGetSettings(jsValue).orNull
+                  parseAvatarInfo(jsValue) >>> {
+                    parseSelectVillage(jsValue) >>> {
+                      parseLeaveWaitingPage(jsValue) >>> {
+                        parseKickOutPlayer(jsValue) >>> {
+                          parseBuildVillage(jsValue) >>> {
+                            parseAdvancedSearch(jsValue) >>> {
+                              parseIdSearch(jsValue) >>> {
+                                parsePlay(jsValue) >>> {
+                                  parsePlayedWithToken(jsValue) >-> {
+                                    parseReady(jsValue) >>> {
+                                      parseSearchResult(jsValue) >>> {
+                                        parseChangeLang(jsValue) >>> {
+                                          parseChangeUserEmail(jsValue) >>> {
+                                            parseChangeUserName(jsValue) >>> {
+                                              parseChangeUserPassword(jsValue) >>> {
+                                                parseGetSettings(jsValue) >>> {
+                                                  parseSettings(jsValue).orNull
+                                                }
+                                              }
+                                            }
                                           }
                                         }
                                       }

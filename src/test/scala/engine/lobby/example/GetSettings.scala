@@ -1,8 +1,8 @@
 package engine.lobby.example
 
-import engine.Example
+import engine.ClientToServerLobbyExample
 
-case class GetSettings(filePath: String) extends Example(filePath) {
+case class GetSettings(filePath: String) extends ClientToServerLobbyExample(filePath) {
   override val `type`: String = GetSettings.`type`
 }
 

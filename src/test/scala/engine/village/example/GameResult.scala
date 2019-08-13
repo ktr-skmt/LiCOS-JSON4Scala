@@ -1,8 +1,8 @@
 package engine.village.example
 
-import engine.Example
+import engine.ServerToClientVillageExample
 
-case class GameResult(filePath: String) extends Example(filePath) {
+case class GameResult(filePath: String) extends ServerToClientVillageExample(filePath) {
   override val `type`: String = GameResult.`type`
 }
 

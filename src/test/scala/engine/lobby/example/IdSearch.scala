@@ -1,8 +1,8 @@
 package engine.lobby.example
 
-import engine.Example
+import engine.ClientToServerLobbyExample
 
-case class IdSearch(filePath: String) extends Example(filePath) {
+case class IdSearch(filePath: String) extends ClientToServerLobbyExample(filePath) {
   override val `type`: String = IdSearch.`type`
 }
 

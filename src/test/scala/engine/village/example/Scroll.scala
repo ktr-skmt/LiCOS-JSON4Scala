@@ -1,8 +1,8 @@
 package engine.village.example
 
-import engine.Example
+import engine.ClientToServerVillageExample
 
-case class Scroll(filePath: String) extends Example(filePath) {
+case class Scroll(filePath: String) extends ClientToServerVillageExample(filePath) {
   override val `type`: String = Scroll.`type`
 }
 

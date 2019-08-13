@@ -2,10 +2,11 @@ package licos.json.engine.processing
 
 import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.{BuildVillageAnalysisEngine, LeaveWaitingPageAnalysisEngine, ReadyAnalysisEngine}
-import licos.json.engine.analysis.village.{BoardAnalysisEngine, ChatFromClientAnalysisEngine, ChatFromServerAnalysisEngine, ErrorAnalysisEngine, FlavorTextAnalysisEngine, GameResultAnalysisEngine, PhaseAnalysisEngine, ReceivedFlavorTextMessageAnalysisEngine, ReceivedPlayerMessageAnalysisEngine, ReceivedSystemMessageAnalysisEngine, ScrollAnalysisEngine, VoteAnalysisEngine}
+import licos.json.engine.analysis.village.{BoardAnalysisEngine, ChatFromClientAnalysisEngine, ChatFromServerAnalysisEngine, ErrorAnalysisEngine, FlavorTextAnalysisEngine, GameResultAnalysisEngine, NextGameInvitationAnalysisEngine, NextGameInvitationIsClosedAnalysisEngine, PhaseAnalysisEngine, ReceivedFlavorTextMessageAnalysisEngine, ReceivedPlayerMessageAnalysisEngine, ReceivedSystemMessageAnalysisEngine, ScrollAnalysisEngine, StarAnalysisEngine, VoteAnalysisEngine}
 import licos.json.flow.{FlowController, VillageFlowController}
 import licos.json.lobby.{JsonBuildVillage, JsonLeaveWaitingPage, JsonReady}
-import licos.json.village.{JsonBoard, JsonChatFromClient, JsonChatFromServer, JsonError, JsonFlavorText, JsonGameResult, JsonPhase, JsonScroll, JsonVote}
+import licos.json.village.invite.{JsonNextGameInvitation, JsonNextGameInvitationIsClosed}
+import licos.json.village.{JsonBoard, JsonChatFromClient, JsonChatFromServer, JsonError, JsonFlavorText, JsonGameResult, JsonPhase, JsonScroll, JsonStar, JsonVote}
 import licos.json.village.receipt.{JsonReceivedFlavorTextMessage, JsonReceivedPlayerMessage, JsonReceivedSystemMessage}
 import play.api.libs.json.{JsValue, Json}
 
@@ -20,6 +21,7 @@ import play.api.libs.json.{JsValue, Json}
   * @param boardEngine the analysis engine for Board JSON.
   * @param voteEngine the analysis engine for Vote JSON.
   * @param scrollEngine the analysis engine for Scroll JSON.
+  * @param starEngine the analysis engine for Star JSON.
   * @param phaseEngine the analysis engine for Phase JSON.
   * @param flavorTextEngine the analysis engine for Flavor-text JSON.
   * @param gameResultEngine the analysis engine for Game-result JSON.
@@ -37,11 +39,14 @@ class VillageProcessingEngine(readyEngine: ReadyAnalysisEngine,
                               boardEngine: BoardAnalysisEngine,
                               voteEngine: VoteAnalysisEngine,
                               scrollEngine: ScrollAnalysisEngine,
+                              starEngine: StarAnalysisEngine,
                               phaseEngine: PhaseAnalysisEngine,
                               flavorTextEngine: FlavorTextAnalysisEngine,
                               gameResultEngine: GameResultAnalysisEngine,
                               buildVillageEngine: BuildVillageAnalysisEngine,
                               leaveWaitingPageEngine: LeaveWaitingPageAnalysisEngine,
+                              nextGameInvitationEngine: NextGameInvitationAnalysisEngine,
+                              nextGameInvitationIsClosedEngine: NextGameInvitationIsClosedAnalysisEngine,
                               errorEngine: ErrorAnalysisEngine) extends ProcessingEngine {
 
   override protected val flowController: FlowController = new VillageFlowController()
@@ -56,54 +61,68 @@ class VillageProcessingEngine(readyEngine: ReadyAnalysisEngine,
 
     val jsValue: JsValue = Json.parse(msg)
 
+    def log(label: String): Unit = {
+      val format: String = "VillageProcessingEngine.process %s%n"
+      System.err.printf(format, label)
+    }
+
     flowController.flow(jsValue) match {
       case Some(ready: JsonReady) =>
-        System.err.println("VillageProcessingEngine.process JsonReady")
+        log("JsonReady")
         readyEngine.process(box, ready)
       case Some(receivedPlayerMessage: JsonReceivedPlayerMessage) =>
-        System.err.println("VillageProcessingEngine.process JsonReceivedPlayerMessage")
+        log("JsonReceivedPlayerMessage")
         receivedPlayerMessageEngine.process(box, receivedPlayerMessage)
       case Some(receivedSystemMessage: JsonReceivedSystemMessage) =>
-        System.err.println("VillageProcessingEngine.process JsonReceivedSystemMessage")
+        log("JsonReceivedSystemMessage")
         receivedSystemMessageEngine.process(box, receivedSystemMessage)
       case Some(receivedFlavorTextMessage: JsonReceivedFlavorTextMessage) =>
-        System.err.println("VillageProcessingEngine.process JsonReceivedFlavorTestMessage")
+        log("JsonReceivedFlavorTestMessage")
         receivedFlavorTextMessageEngine.process(box, receivedFlavorTextMessage)
       case Some(chatFromClient: JsonChatFromClient) =>
-        System.err.println("VillageProcessingEngine.process JsonChatFromClient")
+        log("JsonChatFromClient")
         chatFromClientEngine.process(box, chatFromClient)
       case Some(chatFromServer: JsonChatFromServer) =>
-        System.err.println("VillageProcessingEngine.process JsonChatFromServer")
+        log("JsonChatFromServer")
         chatFromServerEngine.process(box, chatFromServer)
       case Some(board: JsonBoard) =>
-        System.err.println("VillageProcessingEngine.process JsonBoard")
+        log("JsonBoard")
         boardEngine.process(box, board)
       case Some(vote: JsonVote) =>
-        System.err.println("VillageProcessingEngine.process JsonVote")
+        log("JsonVote")
         voteEngine.process(box, vote)
       case Some(scroll: JsonScroll) =>
-        System.err.println("VillageProcessingEngine.process JsonScroll")
+        log("JsonScroll")
         scrollEngine.process(box, scroll)
+      case Some(star: JsonStar) =>
+        log("JsonStar")
+        starEngine.process(box, star)
       case Some(phase: JsonPhase) =>
-        System.err.println("VillageProcessingEngine.process JsonPhase")
+        log("JsonPhase")
         phaseEngine.process(box, phase)
       case Some(flavorText: JsonFlavorText) =>
-        System.err.println("VillageProcessingEngine.process JsonFlavorText")
+        log("JsonFlavorText")
         flavorTextEngine.process(box, flavorText)
       case Some(gameResult: JsonGameResult) =>
-        System.err.println("VillageProcessingEngine.process JsonGameResult")
+        log("JsonGameResult")
         gameResultEngine.process(box, gameResult)
       case Some(buildVillage: JsonBuildVillage) =>
-        System.err.println("VillageProcessingEngine.process JsonBuildVillage")
+        log("JsonBuildVillage")
         buildVillageEngine.process(box, buildVillage)
       case Some(leaveWaitingPage: JsonLeaveWaitingPage) =>
-        System.err.println("VillageProcessingEngine.process JsonLeaveWaitingPage")
+        log("JsonLeaveWaitingPage")
         leaveWaitingPageEngine.process(box, leaveWaitingPage)
+      case Some(nextGameInvitation: JsonNextGameInvitation) =>
+        log("JsonNextGameInvitation")
+        nextGameInvitationEngine.process(box, nextGameInvitation)
+      case Some(nextGameInvitationIsClosed: JsonNextGameInvitationIsClosed) =>
+        log("JsonNextGameInvitationIsClosed")
+        nextGameInvitationIsClosedEngine.process(box, nextGameInvitationIsClosed)
       case Some(error: JsonError) =>
-        System.err.println("VillageProcessingEngine.process JsonError")
+        log("JsonError")
         errorEngine.process(box, error)
       case _ =>
-        System.err.println("VillageProcessingEngine.process return None")
+        log("return None")
         None
     }
   }

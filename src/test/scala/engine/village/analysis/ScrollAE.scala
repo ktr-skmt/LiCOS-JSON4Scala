@@ -9,10 +9,12 @@ import licos.json.village.JsonScroll
 import play.api.libs.json.{JsValue, Json}
 
 class ScrollAE extends ScrollAnalysisEngine {
+
   override def process(box: BOX, scroll: JsonScroll): Option[JsValue] = {
     box match {
       case _: VillageBox => Option(Json.toJson(JsonTest(Scroll.`type`)))
       case _ => None
     }
   }
+
 }

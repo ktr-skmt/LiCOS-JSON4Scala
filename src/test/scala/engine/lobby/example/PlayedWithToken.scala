@@ -1,8 +1,8 @@
 package engine.lobby.example
 
-import engine.Example
+import engine.ServerToClientLobbyExample
 
-case class PlayedWithToken(filePath: String) extends Example(filePath) {
+case class PlayedWithToken(filePath: String) extends ServerToClientLobbyExample(filePath) {
   override val `type`: String = PlayedWithToken.`type`
 }
 

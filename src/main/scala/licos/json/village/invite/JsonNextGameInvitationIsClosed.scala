@@ -1,8 +1,12 @@
 package licos.json.village.invite
 
+import licos.json.lobby.TypeSystem
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonNextGameInvitationIsClosed(`type`: String) {
+case class JsonNextGameInvitationIsClosed(`type`: String) extends TypeSystem(`type`) {
+
+  override protected def validType: String = JsonNextGameInvitationIsClosed.`type`
+
   def this() = {
     this(JsonNextGameInvitationIsClosed.`type`)
   }

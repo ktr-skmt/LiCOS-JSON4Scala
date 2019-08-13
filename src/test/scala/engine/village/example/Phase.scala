@@ -1,8 +1,8 @@
 package engine.village.example
 
-import engine.Example
+import engine.ServerToClientVillageExample
 
-case class Phase(filePath: String) extends Example(filePath) {
+case class Phase(filePath: String) extends ServerToClientVillageExample(filePath) {
   override val `type`: String = Phase.`type`
 }
 

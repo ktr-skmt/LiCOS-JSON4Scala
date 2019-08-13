@@ -10,6 +10,8 @@ sources in (Compile, doc) := Seq.empty
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
+coverageEnabled := true
+
 lazy val javaVersion: String = "1.8"
 
 lazy val commonSettings = Seq(
