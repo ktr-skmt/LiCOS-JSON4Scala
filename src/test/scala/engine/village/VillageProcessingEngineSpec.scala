@@ -3,10 +3,12 @@ package engine.village
 import java.nio.charset.StandardCharsets
 
 import engine.VillageExample
-import engine.village.analysis.{BoardAE, BuildVillageAE, ChatFromClientAE, ChatFromServerAE, ErrorAE, FlavorTextAE, GameResultAE, LeaveWaitingPageAE, NextGameInvitationAE, NextGameInvitationIsClosedAE, PhaseAE, ReadyAE, ReceivedFlavorTextMessageAE, ReceivedPlayerMessageAE, ReceivedSystemMessageAE, ScrollAE, StarAE, VoteAE}
-import engine.village.example.{Board, ChatFromClient, ChatFromServer, Error, FlavorText, GameResult, NextGameInvitation, NextGameInvitationIsClosed, Phase, ReceivedFlavorTextMessage, ReceivedPlayerMessage, ReceivedSystemMessage, Scroll, Star, Vote}
-import entity.JsonTest
-import licos.json.engine.processing.VillageProcessingEngine
+import engine.village.analysis.client2server._
+import engine.village.analysis.server2client._
+import engine.village.example.client2server._
+import engine.village.example.server2client._
+import element.JsonTest
+import licos.json.engine.processing.{SpecificProcessingEngineFactory, VillagePE, VillageProcessingEngine, VillageProcessingEngineFactory}
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit
@@ -27,56 +29,63 @@ object VillageProcessingEngineSpec {
     ReceivedFlavorTextMessage(receipt("received-flavor-text-message.json")),
     ReceivedPlayerMessage(receipt("received-player-message.json")),
     ReceivedSystemMessage(receipt("received-system-message.json")),
-    //ChatFromClient("anonymous-audience-chat.jsonld"),
+    example.client2server.AudienceChat("anonymous-audience-chat.jsonld"),
     Board("board.jsonld"),
-    ChatFromClient("chat.jsonld"),
+    example.client2server.Chat("chat.jsonld"),
     Vote("day-vote.jsonld"),
-    Error(client2server("error.jsonld")),
+    //example.client2server.Error(client2server("error.jsonld")),
     Vote("night-vote.jsonld"),
     //Board("onymous-audience-board.jsonld"),
-    //ChatFromClient("onymous-audience-chat.jsonld"),
+    //example.client2server.AudienceChat("onymous-audience-chat.jsonld"),
     Scroll("onymous-audience-scroll.jsonld"),
     Scroll("scroll.jsonld"),
     Star("star.jsonld"),
     NextGameInvitationIsClosed(invitation("next-game-invitation-is-closed.json")),
     NextGameInvitation(invitation("next-game-invitation.json")),
-    //ChatFromServer("anonymous-audience-chat.jsonld"),
+    //example.server2client.AudienceChat("anonymous-audience-chat.jsonld"),
     Phase("day.jsonld"),
-    Error(server2client("error.jsonld")),
+    //example.server2client.Error(server2client("error.jsonld")),
     Phase("first-morning.jsonld"),
     FlavorText("flavor-text.jsonld"),
     Phase("morning.jsonld"),
-    ChatFromServer("my-message-on-chat.jsonld"),
+    example.server2client.Chat("my-message-on-chat.jsonld"),
     Phase("night.jsonld"),
-    //ChatFromServer("onymous-audience-chat.jsonld"),
+    //example.server2client.AudienceChat("onymous-audience-chat.jsonld"),
     Phase("post-mortem.jsonld"),
     //GameResult("result.jsonld"),
-    ChatFromServer("their-message-on-chat.jsonld")
+    example.server2client.Chat("their-message-on-chat.jsonld")
   )
 }
 
 @RunWith(classOf[Theories])
 class VillageProcessingEngineSpec extends AssertionsForJUnit {
-  private val processingEngine = new VillageProcessingEngine(
-    new ReadyAE(),
-    new ReceivedPlayerMessageAE(),
-    new ReceivedSystemMessageAE(),
-    new ReceivedFlavorTextMessageAE(),
-    new ChatFromClientAE(),
-    new ChatFromServerAE(),
-    new BoardAE(),
-    new VoteAE(),
-    new ScrollAE(),
-    new StarAE(),
-    new PhaseAE(),
-    new FlavorTextAE(),
-    new GameResultAE(),
-    new BuildVillageAE(),
-    new LeaveWaitingPageAE(),
-    new NextGameInvitationAE(),
-    new NextGameInvitationIsClosedAE(),
-    new ErrorAE()
-  )
+
+  private val processingEngineFactory: VillageProcessingEngineFactory = SpecificProcessingEngineFactory.
+    create(VillagePE).
+    asInstanceOf[VillageProcessingEngineFactory].
+    set(new ReadyAE()).
+    set(new ReceivedPlayerMessageAE()).
+    set(new ReceivedSystemMessageAE()).
+    set(new ReceivedFlavorTextMessageAE()).
+    set(new ChatFromClientAE()).
+    set(new ChatFromServerAE()).
+    set(new AudienceChatFromClientAE()).
+    set(new AudienceChatFromServerAE()).
+    set(new BoardAE()).
+    set(new VoteAE()).
+    set(new ScrollAE()).
+    set(new StarAE()).
+    set(new PhaseAE()).
+    set(new FlavorTextAE()).
+    set(new GameResultAE()).
+    set(new BuildVillageAE()).
+    set(new LeaveWaitingPageAE()).
+    set(new NextGameInvitationAE()).
+    set(new NextGameInvitationIsClosedAE()).
+    set(new ErrorFromClientAE()).
+    set(new ErrorFromServerAE())
+
+  private val processingEngine: VillageProcessingEngine = processingEngineFactory.create
 
   @Theory
   def process(jsonExample: VillageExample): Unit = {

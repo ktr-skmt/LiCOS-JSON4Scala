@@ -1,6 +1,7 @@
 package licos.json.parser
 
-import licos.json.lobby.{JsonAdvancedSearch, JsonAvatarInfo, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetAvatarInfo, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLobby, JsonPing, JsonPlay, JsonPlayedWithToken, JsonPong, JsonSearchResult, JsonSelectVillage, JsonSettings, JsonWaitingPage}
+import licos.json.element.lobby.{JsonAdvancedSearch, JsonAvatarInfo, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetAvatarInfo, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLobby, JsonPing, JsonPlay, JsonPlayedWithToken, JsonPong, JsonSearchResult, JsonSelectVillage, JsonSettings, JsonWaitingPage}
+import licos.json.lobby._
 import play.api.libs.json.{JsResult, JsValue}
 
 import scala.util.{Failure, Success, Try}

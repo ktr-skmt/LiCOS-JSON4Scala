@@ -3,10 +3,10 @@ package engine.lobby
 import java.nio.charset.StandardCharsets
 
 import engine.LobbyExample
-import engine.lobby.analysis.{AdvancedSearchAE, AvatarInfoAE, BuildVillageAE, ChangeLangAE, ChangeUserEmailAE, ChangeUserNameAE, ChangeUserPasswordAE, EnterLobbyAE, GetAvatarInfoAE, GetSettingsAE, IdSearchAE, KickOutPlayerAE, LeaveWaitingPageAE, LobbyAE, PingAE, PlayAE, PlayedWithTokenAE, PongAE, ReadyAE, SearchResultAE, SelectVillageAE, SettingsAE, WaitingPageAE}
-import engine.lobby.example.{AdvancedSearch, AvatarInfo, BuildVillage, ChangeLang, ChangeUserEmail, ChangeUserName, ChangeUserPassword, EnterLobby, GetAvatarInfo, GetSettings, IdSearch, KickOutPlayer, LeaveWaitingPage, Lobby, Ping, Play, PlayedWithToken, Pong, Ready, SearchResult, SelectVillage, Settings, WaitingPage}
-import entity.JsonTest
-import licos.json.engine.processing.LobbyProcessingEngine
+import engine.lobby.analysis._
+import engine.lobby.example._
+import element.JsonTest
+import licos.json.engine.processing.{LobbyPE, LobbyProcessingEngine, LobbyProcessingEngineFactory, SpecificProcessingEngineFactory}
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit
@@ -48,31 +48,35 @@ object LobbyProcessingEngineSpec {
 
 @RunWith(classOf[Theories])
 class LobbyProcessingEngineSpec extends AssertionsForJUnit {
-  private val processingEngine = new LobbyProcessingEngine(
-    new PongAE(),
-    new PingAE(),
-    new WaitingPageAE(),
-    new LobbyAE(),
-    new EnterLobbyAE(),
-    new GetAvatarInfoAE(),
-    new AvatarInfoAE(),
-    new SelectVillageAE(),
-    new LeaveWaitingPageAE(),
-    new KickOutPlayerAE(),
-    new BuildVillageAE(),
-    new AdvancedSearchAE(),
-    new IdSearchAE(),
-    new PlayAE(),
-    new PlayedWithTokenAE(),
-    new ReadyAE(),
-    new SearchResultAE(),
-    new ChangeLangAE(),
-    new ChangeUserEmailAE(),
-    new ChangeUserNameAE(),
-    new ChangeUserPasswordAE(),
-    new GetSettingsAE(),
-    new SettingsAE()
-  )
+
+  private val processingEngineFactory: LobbyProcessingEngineFactory = SpecificProcessingEngineFactory.
+    create(LobbyPE).
+    asInstanceOf[LobbyProcessingEngineFactory].
+    set(new PongAE()).
+    set(new PingAE()).
+    set(new WaitingPageAE()).
+    set(new LobbyAE()).
+    set(new EnterLobbyAE()).
+    set(new GetAvatarInfoAE()).
+    set(new AvatarInfoAE()).
+    set(new SelectVillageAE()).
+    set(new LeaveWaitingPageAE()).
+    set(new KickOutPlayerAE()).
+    set(new BuildVillageAE()).
+    set(new AdvancedSearchAE()).
+    set(new IdSearchAE()).
+    set(new PlayAE()).
+    set(new PlayedWithTokenAE()).
+    set(new ReadyAE()).
+    set(new SearchResultAE()).
+    set(new ChangeLangAE()).
+    set(new ChangeUserEmailAE()).
+    set(new ChangeUserNameAE()).
+    set(new ChangeUserPasswordAE()).
+    set(new GetSettingsAE()).
+    set(new SettingsAE())
+
+  private val processingEngine: LobbyProcessingEngine = processingEngineFactory.create
 
   @Theory
   def process(jsonExample: LobbyExample): Unit = {

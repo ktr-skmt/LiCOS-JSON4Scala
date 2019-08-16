@@ -24,7 +24,7 @@ $(document).ready(function()
 		// store initial dimensions
 		$(this).data("width", $("svg", $(this)).width());
 		$(this).data("height", $("svg", $(this)).height());
-		// store unscaled clone of SVG element
+		// store unscaled clone of SVG licos.bson.element
 		$(this).data("svg", $(this).get(0).childNodes[0].cloneNode(true));
 	});
 
@@ -185,7 +185,7 @@ diagrams.toggle = function(container, dontAnimate)
 {
     // change class of link
     $(".diagram-link", container).toggleClass("open");
-    // get element to show / hide
+    // get licos.bson.element to show / hide
     var div = $(".diagram", container);
     if (div.is(':visible')) {
         $(".diagram-help", container).hide();
@@ -218,7 +218,7 @@ diagrams.toggle = function(container, dontAnimate)
 };
 
 /**
- * Helper method that adds a class to a SVG element.
+ * Helper method that adds a class to a SVG licos.bson.element.
  */
 diagrams.addClass = function(svgElem, newClass) {
 	newClass = newClass || "over";
@@ -230,7 +230,7 @@ diagrams.addClass = function(svgElem, newClass) {
 };
 
 /**
- * Helper method that removes a class from a SVG element.
+ * Helper method that removes a class from a SVG licos.bson.element.
  */
 diagrams.removeClass = function(svgElem, oldClass) {
 	oldClass = oldClass || "over";

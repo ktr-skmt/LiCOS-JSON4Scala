@@ -2,10 +2,10 @@ package engine.lobby.analysis
 
 import engine.lobby.LobbyBox
 import engine.lobby.example.Ready
-import entity.JsonTest
+import element.JsonTest
+import licos.json.element.lobby.JsonReady
 import licos.json.engine.BOX
-import licos.json.engine.analysis.lobby.ReadyAnalysisEngine
-import licos.json.lobby.JsonReady
+import licos.json.engine.analysis.lobby.client2server.ReadyAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
 class ReadyAE extends ReadyAnalysisEngine {

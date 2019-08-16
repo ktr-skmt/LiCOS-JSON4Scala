@@ -2,10 +2,10 @@ package engine.lobby.analysis
 
 import engine.lobby.LobbyBox
 import engine.lobby.example.ChangeLang
-import entity.JsonTest
+import element.JsonTest
+import licos.json.element.lobby.JsonChangeLang
 import licos.json.engine.BOX
-import licos.json.engine.analysis.lobby.ChangeLangAnalysisEngine
-import licos.json.lobby.JsonChangeLang
+import licos.json.engine.analysis.lobby.client2server.ChangeLangAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
 class ChangeLangAE extends ChangeLangAnalysisEngine {

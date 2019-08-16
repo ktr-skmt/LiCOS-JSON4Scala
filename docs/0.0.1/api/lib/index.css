@@ -236,7 +236,7 @@ textarea, input { outline: none; }
   cursor: pointer;
 }
 
-/* Pseudo element replacing UTF8-symbol "Trigram From Heaven" */
+/* Pseudo licos.bson.element replacing UTF8-symbol "Trigram From Heaven" */
 #search > span.toggle-sidebar:before {
   position: absolute;
   top: -0.45em;

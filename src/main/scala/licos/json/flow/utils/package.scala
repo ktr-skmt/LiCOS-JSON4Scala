@@ -1,6 +1,6 @@
 package licos.json.flow
 
-import licos.json.lobby.TypeSystem
+import licos.json.element.lobby.TypeSystem
 
 import scala.reflect.ClassTag
 

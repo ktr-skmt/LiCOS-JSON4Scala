@@ -1,7 +1,7 @@
 package engine
 
 abstract class LobbyExample(filePath: String) {
-  private val baseUrl: String = "https://raw.githubusercontent.com/ktr-skmt/werewolfworld/gh-pages/lobby/example/0.2/"
+  private val baseUrl: String = "https://raw.githubusercontent.com/ktr-skmt/werewolfworld/gh-pages/lobby/example/0.3/"
 
   val path: String = baseUrl.concat(filePath)
 

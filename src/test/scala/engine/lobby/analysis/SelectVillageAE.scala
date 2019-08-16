@@ -2,10 +2,10 @@ package engine.lobby.analysis
 
 import engine.lobby.LobbyBox
 import engine.lobby.example.SelectVillage
-import entity.JsonTest
+import element.JsonTest
+import licos.json.element.lobby.JsonSelectVillage
 import licos.json.engine.BOX
-import licos.json.engine.analysis.lobby.SelectVillageAnalysisEngine
-import licos.json.lobby.JsonSelectVillage
+import licos.json.engine.analysis.lobby.client2server.SelectVillageAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
 class SelectVillageAE extends SelectVillageAnalysisEngine {

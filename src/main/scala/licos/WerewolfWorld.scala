@@ -6,7 +6,7 @@ package licos
   */
 object WerewolfWorld {
   private val baseUrl: String = "https://werewolf.world"
-  private val version: String = "0.2"
+  private val version: String = "0.3"
   //private val imageVersion: String = "0.3"
 
   /** Returns a URI of a JSON-LD context.

@@ -2,10 +2,10 @@ package engine.lobby.analysis
 
 import engine.lobby.LobbyBox
 import engine.lobby.example.ChangeUserPassword
-import entity.JsonTest
+import element.JsonTest
+import licos.json.element.lobby.JsonChangeUserPassword
 import licos.json.engine.BOX
-import licos.json.engine.analysis.lobby.ChangeUserPasswordAnalysisEngine
-import licos.json.lobby.JsonChangeUserPassword
+import licos.json.engine.analysis.lobby.client2server.ChangeUserPasswordAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
 class ChangeUserPasswordAE extends ChangeUserPasswordAnalysisEngine {

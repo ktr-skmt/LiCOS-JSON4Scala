@@ -74,8 +74,8 @@ function handleKeyNavigation() {
         if (litems.length == 0)
             this.items = ritems;
 
-        /** Returns the next entry - if trying to select past last element, it
-         * returns the last element
+        /** Returns the next entry - if trying to select past last licos.bson.element, it
+         * returns the last licos.bson.element
          */
         it.next = function() {
             it.index = Math.min(it.items.length - 1, it.index + 1);
@@ -83,7 +83,7 @@ function handleKeyNavigation() {
         };
 
         /** Returns the previous entry - will return `undefined` instead if
-         * selecting up from first element
+         * selecting up from first licos.bson.element
          */
         it.prev = function() {
             it.index = Math.max(-1, it.index - 1);

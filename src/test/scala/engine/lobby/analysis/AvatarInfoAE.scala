@@ -2,10 +2,10 @@ package engine.lobby.analysis
 
 import engine.lobby.LobbyBox
 import engine.lobby.example.AvatarInfo
-import entity.JsonTest
+import element.JsonTest
+import licos.json.element.lobby.JsonAvatarInfo
 import licos.json.engine.BOX
-import licos.json.engine.analysis.lobby.AvatarInfoAnalysisEngine
-import licos.json.lobby.JsonAvatarInfo
+import licos.json.engine.analysis.lobby.server2client.AvatarInfoAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
 class AvatarInfoAE extends AvatarInfoAnalysisEngine {

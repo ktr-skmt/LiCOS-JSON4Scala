@@ -2,10 +2,10 @@ package engine.lobby.analysis
 
 import engine.lobby.LobbyBox
 import engine.lobby.example.ChangeUserEmail
-import entity.JsonTest
+import element.JsonTest
+import licos.json.element.lobby.JsonChangeUserEmail
 import licos.json.engine.BOX
-import licos.json.engine.analysis.lobby.ChangeUserEmailAnalysisEngine
-import licos.json.lobby.JsonChangeUserEmail
+import licos.json.engine.analysis.lobby.client2server.ChangeUserEmailAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
 class ChangeUserEmailAE extends ChangeUserEmailAnalysisEngine {

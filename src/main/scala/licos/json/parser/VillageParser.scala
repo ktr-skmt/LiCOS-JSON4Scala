@@ -1,7 +1,7 @@
 package licos.json.parser
 
 import licos.json.village.invite.{JsonNextGameInvitation, JsonNextGameInvitationIsClosed}
-import licos.json.village.{JsonBoard, JsonChatFromClient, JsonChatFromServer, JsonError, JsonFlavorText, JsonGameResult, JsonPhase, JsonScroll, JsonStar, JsonVote}
+import licos.json.village._
 import licos.json.village.receipt.{JsonReceivedFlavorTextMessage, JsonReceivedPlayerMessage, JsonReceivedSystemMessage}
 import play.api.libs.json.{JsResult, JsValue}
 
@@ -119,6 +119,20 @@ trait VillageParser extends LiCOSParser {
   protected def parseChatFromServer(jsValue: JsValue): Option[JsonChatFromServer] = {
     Try(jsValue.validate[JsonChatFromServer]) match {
       case Success(json: JsResult[JsonChatFromServer]) => json.asOpt
+      case Failure(err: Throwable) =>
+        System.err.println(err.getMessage)
+        None
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Audience-chat JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return an Audience-chat JSON option.
+    */
+  protected def parseAudienceChat(jsValue: JsValue): Option[JsonAudienceChat] = {
+    Try(jsValue.validate[JsonAudienceChat]) match {
+      case Success(json: JsResult[JsonAudienceChat]) => json.asOpt
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None

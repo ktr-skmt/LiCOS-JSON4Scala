@@ -2,10 +2,10 @@ package engine.lobby.analysis
 
 import engine.lobby.LobbyBox
 import engine.lobby.example.WaitingPage
-import entity.JsonTest
+import element.JsonTest
+import licos.json.element.lobby.JsonWaitingPage
 import licos.json.engine.BOX
-import licos.json.engine.analysis.lobby.WaitingPageAnalysisEngine
-import licos.json.lobby.JsonWaitingPage
+import licos.json.engine.analysis.lobby.server2client.WaitingPageAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
 class WaitingPageAE extends WaitingPageAnalysisEngine {

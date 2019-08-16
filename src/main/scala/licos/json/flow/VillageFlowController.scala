@@ -23,18 +23,20 @@ class VillageFlowController extends FlowController with VillageParser {
             parseReceivedFlavorTextMessage(jsValue) >>> {
               parseChatFromClient(jsValue) >-> {
                 parseChatFromServer(jsValue) >-> {
-                  parseBoard(jsValue) >-> {
-                    parseVote(jsValue) >-> {
-                      parseScroll(jsValue) >-> {
-                        parseStar(jsValue) >-> {
-                          parsePhase(jsValue) >-> {
-                            parseFlavorText(jsValue) >-> {
-                              parseGameResult(jsValue) >-> {
-                                parseBuildVillage(jsValue) >>> {
-                                  parseLeaveWaitingPage(jsValue) >>> {
-                                    parseNextGameInvitation(jsValue) >>> {
-                                      parseNextGameInvitationIsClosed(jsValue) >>> {
-                                        parseError(jsValue).orNull
+                  parseAudienceChat(jsValue) >-> {
+                    parseBoard(jsValue) >-> {
+                      parseVote(jsValue) >-> {
+                        parseScroll(jsValue) >-> {
+                          parseStar(jsValue) >-> {
+                            parsePhase(jsValue) >-> {
+                              parseFlavorText(jsValue) >-> {
+                                parseGameResult(jsValue) >-> {
+                                  parseBuildVillage(jsValue) >>> {
+                                    parseLeaveWaitingPage(jsValue) >>> {
+                                      parseNextGameInvitation(jsValue) >>> {
+                                        parseNextGameInvitationIsClosed(jsValue) >>> {
+                                          parseError(jsValue).orNull
+                                        }
                                       }
                                     }
                                   }
