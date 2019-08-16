@@ -2,7 +2,7 @@ package licos.json.engine.analysis.village.client2server
 
 import licos.json.engine.BOX
 import licos.json.engine.analysis.AnalysisEngine
-import licos.json.village.JsonVote
+import licos.json.element.village.JsonVote
 import play.api.libs.json.JsValue
 
 /** The analysis engine for a vote.

@@ -1,8 +1,8 @@
 package licos.json.parser
 
-import licos.json.village.invite.{JsonNextGameInvitation, JsonNextGameInvitationIsClosed}
-import licos.json.village._
-import licos.json.village.receipt.{JsonReceivedFlavorTextMessage, JsonReceivedPlayerMessage, JsonReceivedSystemMessage}
+import licos.json.element.village.invite.{JsonNextGameInvitation, JsonNextGameInvitationIsClosed}
+import licos.json.element.village._
+import licos.json.element.village.receipt.{JsonReceivedFlavorTextMessage, JsonReceivedPlayerMessage, JsonReceivedSystemMessage}
 import play.api.libs.json.{JsResult, JsValue}
 
 import scala.util.{Failure, Success, Try}

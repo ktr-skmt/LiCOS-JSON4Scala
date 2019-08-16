@@ -15,8 +15,8 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
   private var receivedFlavorTextMessageEngine: Option[ReceivedFlavorTextMessageAnalysisEngine] = None
   private var chatFromClientEngine: Option[village.client2server.ChatAnalysisEngine] = None
   private var chatFromServerEngine: Option[village.server2client.ChatAnalysisEngine] = None
-  private var audienceChatFromClientEngine: Option[licos.json.engine.analysis.village.client2server.AudienceChatAnalysisEngine] = None
-  private var audienceChatFromServerEngine: Option[licos.json.engine.analysis.village.server2client.AudienceChatAnalysisEngine] = None
+  private var audienceChatFromClientEngine: Option[village.client2server.AudienceChatAnalysisEngine] = None
+  private var audienceChatFromServerEngine: Option[village.server2client.AudienceChatAnalysisEngine] = None
   private var boardEngine: Option[BoardAnalysisEngine] = None
   private var voteEngine: Option[VoteAnalysisEngine] = None
   private var scrollEngine: Option[ScrollAnalysisEngine] = None
@@ -28,8 +28,8 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
   private var leaveWaitingPageEngine: Option[LeaveWaitingPageAnalysisEngine] = None
   private var nextGameInvitationEngine: Option[NextGameInvitationAnalysisEngine] = None
   private var nextGameInvitationIsClosedEngine: Option[NextGameInvitationIsClosedAnalysisEngine] = None
-  private var errorFromClientEngine: Option[licos.json.engine.analysis.village.client2server.ErrorAnalysisEngine] = None
-  private var errorFromServerEngine: Option[licos.json.engine.analysis.village.server2client.ErrorAnalysisEngine] = None
+  private var errorFromClientEngine: Option[village.client2server.ErrorAnalysisEngine] = None
+  private var errorFromServerEngine: Option[village.server2client.ErrorAnalysisEngine] = None
 
   /** Create a village processing engine.
     *
@@ -43,8 +43,8 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
       receivedFlavorTextMessageEngine: Option[ReceivedFlavorTextMessageAnalysisEngine],
       chatFromClientEngine: Option[village.client2server.ChatAnalysisEngine],
       chatFromServerEngine: Option[village.server2client.ChatAnalysisEngine],
-      audienceChatFromClientEngine: Option[licos.json.engine.analysis.village.client2server.AudienceChatAnalysisEngine],
-      audienceChatFromServerEngine: Option[licos.json.engine.analysis.village.server2client.AudienceChatAnalysisEngine],
+      audienceChatFromClientEngine: Option[village.client2server.AudienceChatAnalysisEngine],
+      audienceChatFromServerEngine: Option[village.server2client.AudienceChatAnalysisEngine],
       boardEngine: Option[BoardAnalysisEngine],
       voteEngine: Option[VoteAnalysisEngine],
       scrollEngine: Option[ScrollAnalysisEngine],
@@ -56,8 +56,8 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
       leaveWaitingPageEngine: Option[LeaveWaitingPageAnalysisEngine],
       nextGameInvitationEngine: Option[NextGameInvitationAnalysisEngine],
       nextGameInvitationIsClosedEngine: Option[NextGameInvitationIsClosedAnalysisEngine],
-      errorFromClientEngine: Option[licos.json.engine.analysis.village.client2server.ErrorAnalysisEngine],
-      errorFromServerEngine: Option[licos.json.engine.analysis.village.server2client.ErrorAnalysisEngine]
+      errorFromClientEngine: Option[village.client2server.ErrorAnalysisEngine],
+      errorFromServerEngine: Option[village.server2client.ErrorAnalysisEngine]
     )
   }
 
@@ -91,12 +91,12 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(audienceChatFromClientEngine: licos.json.engine.analysis.village.client2server.AudienceChatAnalysisEngine): VillageProcessingEngineFactory = {
+  def set(audienceChatFromClientEngine: village.client2server.AudienceChatAnalysisEngine): VillageProcessingEngineFactory = {
     this.audienceChatFromClientEngine = Option(audienceChatFromClientEngine)
     this
   }
 
-  def set(audienceChatFromServerEngine: licos.json.engine.analysis.village.server2client.AudienceChatAnalysisEngine): VillageProcessingEngineFactory = {
+  def set(audienceChatFromServerEngine: village.server2client.AudienceChatAnalysisEngine): VillageProcessingEngineFactory = {
     this.audienceChatFromServerEngine = Option(audienceChatFromServerEngine)
     this
   }
@@ -156,12 +156,12 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(errorFromClientEngine: licos.json.engine.analysis.village.client2server.ErrorAnalysisEngine): VillageProcessingEngineFactory = {
+  def set(errorFromClientEngine: village.client2server.ErrorAnalysisEngine): VillageProcessingEngineFactory = {
     this.errorFromClientEngine = Option(errorFromClientEngine)
     this
   }
 
-  def set(errorFromServerEngine: licos.json.engine.analysis.village.server2client.ErrorAnalysisEngine): VillageProcessingEngineFactory = {
+  def set(errorFromServerEngine: village.server2client.ErrorAnalysisEngine): VillageProcessingEngineFactory = {
     this.errorFromServerEngine = Option(errorFromServerEngine)
     this
   }

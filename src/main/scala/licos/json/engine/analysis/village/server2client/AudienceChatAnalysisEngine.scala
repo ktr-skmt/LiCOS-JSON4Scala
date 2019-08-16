@@ -1,3 +1,5 @@
 package licos.json.engine.analysis.village.server2client
 
-trait AudienceChatAnalysisEngine extends licos.json.engine.analysis.village.AudienceChatAnalysisEngine
+import licos.json.engine.analysis.village.MetaAudienceChatAnalysisEngine
+
+trait AudienceChatAnalysisEngine extends MetaAudienceChatAnalysisEngine

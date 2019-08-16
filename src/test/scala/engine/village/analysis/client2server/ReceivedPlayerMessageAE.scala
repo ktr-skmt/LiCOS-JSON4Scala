@@ -5,7 +5,7 @@ import engine.village.example.client2server.ReceivedPlayerMessage
 import element.JsonTest
 import licos.json.engine.BOX
 import licos.json.engine.analysis.village.client2server.ReceivedPlayerMessageAnalysisEngine
-import licos.json.village.receipt.JsonReceivedPlayerMessage
+import licos.json.element.village.receipt.JsonReceivedPlayerMessage
 import play.api.libs.json.{JsValue, Json}
 
 class ReceivedPlayerMessageAE extends ReceivedPlayerMessageAnalysisEngine {

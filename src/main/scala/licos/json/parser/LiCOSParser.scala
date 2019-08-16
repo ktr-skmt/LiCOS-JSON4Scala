@@ -1,7 +1,6 @@
 package licos.json.parser
 
 import licos.json.element.lobby.{JsonBuildVillage, JsonLeaveWaitingPage, JsonReady}
-import licos.json.lobby.{JsonLeaveWaitingPage, JsonReady}
 import play.api.libs.json.{JsResult, JsValue}
 
 import scala.util.{Failure, Success, Try}

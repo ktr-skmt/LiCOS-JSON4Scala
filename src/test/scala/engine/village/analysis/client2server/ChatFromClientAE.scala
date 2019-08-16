@@ -5,7 +5,7 @@ import engine.village.example.client2server.Chat
 import element.JsonTest
 import licos.json.engine.BOX
 import licos.json.engine.analysis.village.client2server.ChatAnalysisEngine
-import licos.json.village.JsonChatFromClient
+import licos.json.element.village.JsonChatFromClient
 import play.api.libs.json.{JsValue, Json}
 
 class ChatFromClientAE extends ChatAnalysisEngine {

@@ -2,7 +2,7 @@ package licos.json.engine.analysis.village.client2server
 
 import licos.json.engine.BOX
 import licos.json.engine.analysis.AnalysisEngine
-import licos.json.village.receipt.JsonReceivedSystemMessage
+import licos.json.element.village.receipt.JsonReceivedSystemMessage
 import play.api.libs.json.JsValue
 
 /** The analysis engine for a received system message.

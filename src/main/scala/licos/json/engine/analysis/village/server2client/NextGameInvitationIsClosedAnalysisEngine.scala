@@ -2,7 +2,7 @@ package licos.json.engine.analysis.village.server2client
 
 import licos.json.engine.BOX
 import licos.json.engine.analysis.AnalysisEngine
-import licos.json.village.invite.JsonNextGameInvitationIsClosed
+import licos.json.element.village.invite.JsonNextGameInvitationIsClosed
 import play.api.libs.json.JsValue
 
 /** The analysis engine for a next-game-invitation-is-closed message.

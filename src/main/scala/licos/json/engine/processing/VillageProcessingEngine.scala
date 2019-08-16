@@ -1,16 +1,15 @@
 package licos.json.engine.processing
 
-import licos.json.element.lobby.{JsonBuildVillage, JsonLeaveWaitingPage, JsonReady}
 import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.client2server._
 import licos.json.engine.analysis.village
 import licos.json.engine.analysis.village.client2server._
 import licos.json.engine.analysis.village.server2client._
 import licos.json.flow.{FlowController, VillageFlowController}
-import licos.json.lobby.{JsonLeaveWaitingPage, JsonReady}
-import licos.json.village._
-import licos.json.village.invite.{JsonNextGameInvitation, JsonNextGameInvitationIsClosed}
-import licos.json.village.receipt.{JsonReceivedFlavorTextMessage, JsonReceivedPlayerMessage, JsonReceivedSystemMessage}
+import licos.json.element.lobby.{JsonBuildVillage, JsonLeaveWaitingPage, JsonReady}
+import licos.json.element.village._
+import licos.json.element.village.invite.{JsonNextGameInvitation, JsonNextGameInvitationIsClosed}
+import licos.json.element.village.receipt.{JsonReceivedFlavorTextMessage, JsonReceivedPlayerMessage, JsonReceivedSystemMessage}
 import play.api.libs.json.{JsValue, Json}
 
 /** This class implements the processing engine that aggregates and runs analysis engines for village.
@@ -42,8 +41,8 @@ class VillageProcessingEngine(readyEngine: Option[ReadyAnalysisEngine],
                               receivedFlavorTextMessageEngine: Option[ReceivedFlavorTextMessageAnalysisEngine],
                               chatFromClientEngine: Option[village.client2server.ChatAnalysisEngine],
                               chatFromServerEngine: Option[village.server2client.ChatAnalysisEngine],
-                              audienceChatFromClientEngine: Option[licos.json.engine.analysis.village.client2server.AudienceChatAnalysisEngine],
-                              audienceChatFromServerEngine: Option[licos.json.engine.analysis.village.server2client.AudienceChatAnalysisEngine],
+                              audienceChatFromClientEngine: Option[village.client2server.AudienceChatAnalysisEngine],
+                              audienceChatFromServerEngine: Option[village.server2client.AudienceChatAnalysisEngine],
                               boardEngine: Option[BoardAnalysisEngine],
                               voteEngine: Option[VoteAnalysisEngine],
                               scrollEngine: Option[ScrollAnalysisEngine],
@@ -55,8 +54,8 @@ class VillageProcessingEngine(readyEngine: Option[ReadyAnalysisEngine],
                               leaveWaitingPageEngine: Option[LeaveWaitingPageAnalysisEngine],
                               nextGameInvitationEngine: Option[NextGameInvitationAnalysisEngine],
                               nextGameInvitationIsClosedEngine: Option[NextGameInvitationIsClosedAnalysisEngine],
-                              errorFromClientEngine: Option[licos.json.engine.analysis.village.client2server.ErrorAnalysisEngine],
-                              errorFromServerEngine: Option[licos.json.engine.analysis.village.server2client.ErrorAnalysisEngine]) extends ProcessingEngine {
+                              errorFromClientEngine: Option[village.client2server.ErrorAnalysisEngine],
+                              errorFromServerEngine: Option[village.server2client.ErrorAnalysisEngine]) extends ProcessingEngine {
 
   override protected val flowController: FlowController = new VillageFlowController()
 
