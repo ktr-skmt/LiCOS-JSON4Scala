@@ -1,4 +1,4 @@
-package licos.bson.element.village.agent;
+package licos.bson.element.village.character;
 
 import licos.bson.element.village.BsonName;
 import licos.bson.element.village.BsonElement;
@@ -8,7 +8,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
 
-public abstract class BsonAbstractAgent extends BsonElement {
+public abstract class BsonAbstractCharacter extends BsonElement {
     @Id @SuppressWarnings("unused")
     protected ObjectId _id;
 

@@ -1,6 +1,6 @@
 package licos.bson.element.village;
 
-import licos.bson.element.village.agent.BsonSimpleAgent;
+import licos.bson.element.village.character.BsonSimpleCharacter;
 import licos.json.element.village.JsonVotingResultSummary;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +25,7 @@ public class BsonVotingResultSummary extends BsonElement {
     private String $id;
 
     @Getter @Setter @Reference
-    private BsonSimpleAgent agentToLynch;
+    private BsonSimpleCharacter characterToLynch;
 
     @Getter @Setter
     private int numberOfVotes;
@@ -40,12 +40,12 @@ public class BsonVotingResultSummary extends BsonElement {
 
     public BsonVotingResultSummary(ObjectId _id,
                                    String $id,
-                                   BsonSimpleAgent agentToLynch,
+                                   BsonSimpleCharacter characterToLynch,
                                    int numberOfVotes,
                                    int rankOfVotes) {
         this._id = _id;
         this.$id = $id;
-        this.agentToLynch = agentToLynch;
+        this.characterToLynch = characterToLynch;
         this.numberOfVotes = numberOfVotes;
         this.rankOfVotes = rankOfVotes;
     }
@@ -54,7 +54,7 @@ public class BsonVotingResultSummary extends BsonElement {
     public JsonVotingResultSummary toJson() {
         return new JsonVotingResultSummary(
                 $id,
-                agentToLynch.toJson(),
+                characterToLynch.toJson(),
                 numberOfVotes,
                 rankOfVotes
         );

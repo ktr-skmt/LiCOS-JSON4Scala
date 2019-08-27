@@ -3,10 +3,10 @@ package licos.json.element.village.role
 import java.util.{List => JList}
 
 import licos.bson.element.village.BsonName
-import licos.bson.element.village.agent.BsonSimpleAgent
+import licos.bson.element.village.character.BsonSimpleCharacter
 import licos.bson.element.village.role.BsonResultRole
 import licos.json.element.village.JsonName
-import licos.json.element.village.agent.JsonSimpleAgent
+import licos.json.element.village.character.JsonSimpleCharacter
 import licos.json.element.village.iri.RoleContext
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
@@ -25,8 +25,8 @@ case class JsonResultRole(`@context`: String,
                           isMine: Boolean,
                           name: JsonName,
                           image: String,
-                          numberOfAgents: Int,
-                          agent: Seq[JsonSimpleAgent])
+                          numberOfCharacters: Int,
+                          character: Seq[JsonSimpleCharacter])
   extends JsonAbstractRole(
     `@context`: String,
     `@id`: String,
@@ -38,16 +38,16 @@ case class JsonResultRole(`@context`: String,
            isMine: Boolean,
            name: JsonName,
            image: String,
-           numberOfAgents: Int,
-           agent: Seq[JsonSimpleAgent]) = {
+           numberOfCharacters: Int,
+           character: Seq[JsonSimpleCharacter]) = {
     this(
       RoleContext.iri: String,
       `@id`: String,
       isMine: Boolean,
       name: JsonName,
       image: String,
-      numberOfAgents: Int,
-      agent: Seq[JsonSimpleAgent]
+      numberOfCharacters: Int,
+      character: Seq[JsonSimpleCharacter]
     )
   }
 
@@ -56,16 +56,16 @@ case class JsonResultRole(`@context`: String,
            isMine: Boolean,
            name: JsonName,
            image: String,
-           numberOfAgents: Int,
-           agent: JList[JsonSimpleAgent]) = {
+           numberOfCharacters: Int,
+           character: JList[JsonSimpleCharacter]) = {
     this(
       `@context`: String,
       `@id`: String,
       isMine: Boolean,
       name: JsonName,
       image: String,
-      numberOfAgents: Int,
-      agent.asScala: Seq[JsonSimpleAgent]
+      numberOfCharacters: Int,
+      character.asScala: Seq[JsonSimpleCharacter]
     )
   }
 
@@ -77,8 +77,8 @@ case class JsonResultRole(`@context`: String,
       isMine: Boolean,
       name.toBson: BsonName,
       image: String,
-      numberOfAgents: Int,
-      agent.map(_.toBson).asJava: JList[BsonSimpleAgent]
+      numberOfCharacters: Int,
+      character.map(_.toBson).asJava: JList[BsonSimpleCharacter]
     )
   }
 }
@@ -90,15 +90,15 @@ object JsonResultRole {
             isMine: Boolean,
             name: JsonName,
             image: String,
-            numberOfAgents: Int,
-            agent: Seq[JsonSimpleAgent]): JsonResultRole = {
+            numberOfCharacters: Int,
+            character: Seq[JsonSimpleCharacter]): JsonResultRole = {
     new JsonResultRole(
       `@id`: String,
       isMine: Boolean,
       name: JsonName,
       image: String,
-      numberOfAgents: Int,
-      agent: Seq[JsonSimpleAgent]
+      numberOfCharacters: Int,
+      character: Seq[JsonSimpleCharacter]
     )
   }
 }

@@ -1,7 +1,7 @@
 package licos.bson.element.village;
 
-import licos.bson.element.village.agent.BsonRoleAgent;
-import licos.bson.element.village.agent.BsonSimpleAgent;
+import licos.bson.element.village.character.BsonRoleCharacter;
+import licos.bson.element.village.character.BsonSimpleCharacter;
 import licos.json.element.village.JsonVote;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,10 +26,10 @@ public class BsonVote extends BsonElement {
     private BsonBase base;
 
     @Getter @Setter @Reference
-    private BsonSimpleAgent agent;
+    private BsonSimpleCharacter character;
 
     @Getter @Setter @Reference
-    private BsonRoleAgent myAgent;
+    private BsonRoleCharacter myCharacter;
 
     @SuppressWarnings("unused")
     private BsonVote() {
@@ -38,20 +38,20 @@ public class BsonVote extends BsonElement {
 
     public BsonVote(ObjectId _id,
                     BsonBase base,
-                    BsonSimpleAgent agent,
-                    BsonRoleAgent myAgent) {
+                    BsonSimpleCharacter character,
+                    BsonRoleCharacter myCharacter) {
         this._id = _id;
         this.base = base;
-        this.agent = agent;
-        this.myAgent = myAgent;
+        this.character = character;
+        this.myCharacter = myCharacter;
     }
 
     @Override
     public JsonVote toJson() {
         return new JsonVote(
                 base.toJson(),
-                agent.toJson(),
-                myAgent.toJson()
+                character.toJson(),
+                myCharacter.toJson()
         );
     }
 }

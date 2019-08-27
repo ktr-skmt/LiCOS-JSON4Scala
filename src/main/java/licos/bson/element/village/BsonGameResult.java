@@ -1,9 +1,9 @@
 package licos.bson.element.village;
 
-import licos.bson.element.village.agent.BsonResultAgent;
+import licos.bson.element.village.character.BsonResultCharacter;
 import licos.bson.element.village.role.BsonResultRole;
 import licos.json.element.village.JsonGameResult;
-import licos.json.element.village.agent.JsonResultAgent;
+import licos.json.element.village.character.JsonResultCharacter;
 import licos.json.element.village.role.JsonResultRole;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +32,7 @@ public class BsonGameResult extends BsonElementToJsonElement {
     private BsonBase base;
 
     @Getter @Setter @Reference
-    private List<BsonResultAgent> agent;
+    private List<BsonResultCharacter> character;
 
     @Getter @Setter @Reference
     private List<BsonResultRole> role;
@@ -44,17 +44,17 @@ public class BsonGameResult extends BsonElementToJsonElement {
 
     public BsonGameResult(ObjectId _id,
                           BsonBase base,
-                          List<BsonResultAgent> agent,
+                          List<BsonResultCharacter> character,
                           List<BsonResultRole> role) {
         this._id = _id;
         this.base = base;
-        this.agent = agent;
+        this.character = character;
         this.role = role;
     }
 
-    private List<JsonResultAgent> agentToJson() {
-        return elementToJson(agent).
-                map(element -> (JsonResultAgent) element).
+    private List<JsonResultCharacter> characterToJson() {
+        return elementToJson(character).
+                map(element -> (JsonResultCharacter) element).
                 collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -68,7 +68,7 @@ public class BsonGameResult extends BsonElementToJsonElement {
     public JsonGameResult toJson() {
         return new JsonGameResult(
                 base.toJson(),
-                agentToJson(),
+                characterToJson(),
                 roleToJson()
         );
     }

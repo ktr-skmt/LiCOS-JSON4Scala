@@ -83,10 +83,11 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit {
     val jsonType: String = jsonExample.`type`
     val url: String = jsonExample.path
     implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
+    System.err.println(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()
-
+    System.err.println(msg)
     processingEngine.process(new LobbyBox(jsonType), msg) match {
       case Some(jsValue: JsValue) =>
         parseJsonTest(jsValue) match {

@@ -29,7 +29,7 @@ public class BsonAudienceChat extends BsonElement {
     private BsonChatText text;
 
     @Getter @Setter
-    private int characterLimit;
+    private int maxLengthOfUnicodeCodePoints;
 
     @Getter @Setter
     private boolean isFromServer;
@@ -44,7 +44,7 @@ public class BsonAudienceChat extends BsonElement {
                             Option<BsonAvatar> avatar,
                             boolean isMine,
                             BsonChatText text,
-                            int characterLimit,
+                            int maxLengthOfUnicodeCodePoints,
                             boolean isFromServer) {
         this._id = _id;
         this.base = base;
@@ -53,7 +53,7 @@ public class BsonAudienceChat extends BsonElement {
         }
         this.isMine = isMine;
         this.text = text;
-        this.characterLimit = characterLimit;
+        this.maxLengthOfUnicodeCodePoints = maxLengthOfUnicodeCodePoints;
         this.isFromServer = isFromServer;
     }
 
@@ -73,7 +73,7 @@ public class BsonAudienceChat extends BsonElement {
                         jsonAvatar(),
                         isMine,
                         text.toJson(),
-                        characterLimit,
+                        maxLengthOfUnicodeCodePoints,
                         isFromServer
                 )
         );

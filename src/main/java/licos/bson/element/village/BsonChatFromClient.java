@@ -1,7 +1,7 @@
 package licos.bson.element.village;
 
-import licos.bson.element.village.agent.BsonRoleAgent;
-import licos.bson.element.village.agent.BsonSimpleAgent;
+import licos.bson.element.village.character.BsonRoleCharacter;
+import licos.bson.element.village.character.BsonSimpleCharacter;
 import licos.json.element.village.JsonChatFromClient;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,10 +26,10 @@ public class BsonChatFromClient extends BsonElement {
     private BsonBase base;
 
     @Getter @Setter @Reference
-    private BsonRoleAgent myAgent;
+    private BsonRoleCharacter myCharacter;
 
     @Getter @Setter @Reference
-    private BsonSimpleAgent agent;
+    private BsonSimpleCharacter character;
 
     @Getter @Setter
     private boolean isMine;
@@ -38,7 +38,7 @@ public class BsonChatFromClient extends BsonElement {
     private BsonChatText text;
 
     @Getter @Setter
-    private int characterLimit;
+    private int maxLengthOfUnicodeCodePoints;
 
     @Getter @Setter
     private boolean isOver;
@@ -50,19 +50,19 @@ public class BsonChatFromClient extends BsonElement {
 
     public BsonChatFromClient(ObjectId _id,
                               BsonBase base,
-                              BsonRoleAgent myAgent,
-                              BsonSimpleAgent agent,
+                              BsonRoleCharacter myCharacter,
+                              BsonSimpleCharacter character,
                               boolean isMine,
                               BsonChatText text,
-                              int characterLimit,
+                              int maxLengthOfUnicodeCodePoints,
                               boolean isOver) {
         this._id = _id;
         this.base = base;
-        this.myAgent = myAgent;
-        this.agent = agent;
+        this.myCharacter = myCharacter;
+        this.character = character;
         this.isMine = isMine;
         this.text = text;
-        this.characterLimit = characterLimit;
+        this.maxLengthOfUnicodeCodePoints = maxLengthOfUnicodeCodePoints;
         this.isOver = isOver;
     }
 
@@ -70,11 +70,11 @@ public class BsonChatFromClient extends BsonElement {
     public JsonChatFromClient toJson() {
         return new JsonChatFromClient(
                 base.toJson(),
-                myAgent.toJson(),
-                agent.toJson(),
+                myCharacter.toJson(),
+                character.toJson(),
                 isMine,
                 text.toJson(),
-                characterLimit,
+                maxLengthOfUnicodeCodePoints,
                 isOver
         );
     }

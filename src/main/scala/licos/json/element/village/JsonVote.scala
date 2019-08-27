@@ -1,41 +1,41 @@
 package licos.json.element.village
 
 import licos.bson.element.village.{BsonBase, BsonVote}
-import licos.bson.element.village.agent.{BsonRoleAgent, BsonSimpleAgent}
-import licos.json.element.village.agent.{JsonRoleAgent, JsonSimpleAgent}
+import licos.bson.element.village.character.{BsonRoleCharacter, BsonSimpleCharacter}
+import licos.json.element.village.character.{JsonRoleCharacter, JsonSimpleCharacter}
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
 case class JsonVote private (base: JsonBase, sub: JsonSubVote) extends JsonElement {
   def this(base: JsonBase,
-           agent: JsonSimpleAgent,
-           myAgent: JsonRoleAgent) = this(
+           character: JsonSimpleCharacter,
+           myCharacter: JsonRoleCharacter) = this(
     base: JsonBase,
     JsonSubVote(
-      agent: JsonSimpleAgent,
-      myAgent: JsonRoleAgent
+      character: JsonSimpleCharacter,
+      myCharacter: JsonRoleCharacter
     )
   )
-  def agent: JsonSimpleAgent = sub.agent
-  def myAgent: JsonRoleAgent = sub.myAgent
+  def character: JsonSimpleCharacter = sub.character
+  def myCharacter: JsonRoleCharacter = sub.myCharacter
   override def toBson: BsonVote = {
     new BsonVote(
       new ObjectId(),
       base.toBson: BsonBase,
-      agent.toBson: BsonSimpleAgent,
-      myAgent.toBson: BsonRoleAgent
+      character.toBson: BsonSimpleCharacter,
+      myCharacter.toBson: BsonRoleCharacter
     )
   }
 }
 
 object JsonVote {
   def apply(base: JsonBase,
-            agent: JsonSimpleAgent,
-            myAgent: JsonRoleAgent): JsonVote = new JsonVote(
+            character: JsonSimpleCharacter,
+            myCharacter: JsonRoleCharacter): JsonVote = new JsonVote(
     base: JsonBase,
-    agent: JsonSimpleAgent,
-    myAgent: JsonRoleAgent
+    character: JsonSimpleCharacter,
+    myCharacter: JsonRoleCharacter
   )
 
   implicit val jsonFormat: Format[JsonVote] = (
@@ -44,7 +44,7 @@ object JsonVote {
     )(JsonVote.apply, unlift(JsonVote.unapply))
 }
 
-case class JsonSubVote(agent: JsonSimpleAgent, myAgent: JsonRoleAgent)
+case class JsonSubVote(character: JsonSimpleCharacter, myCharacter: JsonRoleCharacter)
 
 object JsonSubVote {
   implicit val jsonFormat: OFormat[JsonSubVote] = Json.format[JsonSubVote]

@@ -2,9 +2,9 @@ package licos.json.element.village
 
 import java.util.{List => JList}
 
-import licos.bson.element.village.agent.BsonStatusAgent
+import licos.bson.element.village.character.BsonStatusCharacter
 import licos.bson.element.village.{BsonBase, BsonVillage, BsonVotingResultDetail, BsonVotingResultSummary}
-import licos.json.element.village.agent.JsonStatusAgent
+import licos.json.element.village.character.JsonStatusCharacter
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
 
@@ -22,7 +22,7 @@ case class JsonBase(`@context`: Seq[String],
                     clientTimestamp: String,
                     directionality: String,
                     intensionalDisclosureRange: String,
-                    extensionalDisclosureRange: Seq[JsonStatusAgent],
+                    extensionalDisclosureRange: Seq[JsonStatusCharacter],
                     votingResultsSummary: Option[Seq[JsonVotingResultSummary]],
                     votingResultsDetails: Option[Seq[JsonVotingResultDetail]]) extends JsonElement {
   def this(`@context`: JList[String],
@@ -37,7 +37,7 @@ case class JsonBase(`@context`: Seq[String],
            clientTimestamp: String,
            directionality: String,
            intensionalDisclosureRange: String,
-           extensionalDisclosureRange: JList[JsonStatusAgent],
+           extensionalDisclosureRange: JList[JsonStatusCharacter],
            votingResultsSummary: JList[JsonVotingResultSummary],
            votingResultsDetails: JList[JsonVotingResultDetail]) = {
     this(`@context`.asScala: Seq[String],
@@ -52,7 +52,7 @@ case class JsonBase(`@context`: Seq[String],
          clientTimestamp: String,
          directionality: String,
          intensionalDisclosureRange: String,
-         extensionalDisclosureRange.asScala: Seq[JsonStatusAgent],
+         extensionalDisclosureRange.asScala: Seq[JsonStatusCharacter],
          Option(votingResultsSummary.asScala): Option[Seq[JsonVotingResultSummary]],
          Option(votingResultsDetails.asScala): Option[Seq[JsonVotingResultDetail]]
     )
@@ -75,7 +75,7 @@ case class JsonBase(`@context`: Seq[String],
         clientTimestamp: String,
         directionality: String,
         intensionalDisclosureRange: String,
-        extensionalDisclosureRange: Seq[JsonStatusAgent],
+        extensionalDisclosureRange: Seq[JsonStatusCharacter],
         votingResultsSummary: Option[Seq[JsonVotingResultSummary]],
         votingResultsDetails: Option[Seq[JsonVotingResultDetail]]
       )
@@ -113,7 +113,7 @@ case class JsonBase(`@context`: Seq[String],
       clientTimestamp: String,
       directionality: String,
       intensionalDisclosureRange: String,
-      extensionalDisclosureRange.map(_.toBson).asJava: JList[BsonStatusAgent],
+      extensionalDisclosureRange.map(_.toBson).asJava: JList[BsonStatusCharacter],
       bsonVotingResultSummary: JList[BsonVotingResultSummary],
       bsonVotingResultDetail: JList[BsonVotingResultDetail]
     )
@@ -133,7 +133,7 @@ case class JsonBase(`@context`: Seq[String],
       clientTimestamp: String,
       directionality: String,
       intensionalDisclosureRange: String,
-      Nil: Seq[JsonStatusAgent],
+      Nil: Seq[JsonStatusCharacter],
       votingResultsSummary: Option[Seq[JsonVotingResultSummary]],
       votingResultsDetails: Option[Seq[JsonVotingResultDetail]]
     )

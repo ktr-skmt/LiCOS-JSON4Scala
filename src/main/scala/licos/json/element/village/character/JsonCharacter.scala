@@ -1,8 +1,8 @@
-package licos.json.element.village.agent
+package licos.json.element.village.character
 
 import licos.bson.element.village.{BsonName, BsonUpdate}
-import licos.bson.element.village.agent.BsonAgent
-import licos.json.element.village.iri.AgentContext
+import licos.bson.element.village.character.BsonCharacter
+import licos.json.element.village.iri.CharacterContext
 import licos.json.element.village.{JsonName, JsonUpdate}
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
@@ -14,16 +14,16 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonAgent(`@context`: String,
-                     `@id`: String,
-                     id: Long,
-                     name: JsonName,
-                     image: String,
-                     isMine: Boolean,
-                     status: String,
-                     update: JsonUpdate,
-                     isAChoice: Boolean)
-  extends JsonAbstractAgent(
+case class JsonCharacter(`@context`: String,
+                         `@id`: String,
+                         id: Long,
+                         name: JsonName,
+                         image: String,
+                         isMine: Boolean,
+                         status: String,
+                         update: JsonUpdate,
+                         isAChoice: Boolean)
+  extends JsonAbstractCharacter(
     `@context`: String,
     `@id`: String,
     id: Long,
@@ -40,7 +40,7 @@ case class JsonAgent(`@context`: String,
            update: JsonUpdate,
            isAChoice: Boolean) = {
     this(
-      AgentContext.iri: String,
+      CharacterContext.iri: String,
       `@id`: String,
       id: Long,
       name: JsonName,
@@ -52,8 +52,8 @@ case class JsonAgent(`@context`: String,
     )
   }
 
-  override def toBson: BsonAgent = {
-    new BsonAgent(
+  override def toBson: BsonCharacter = {
+    new BsonCharacter(
       new ObjectId(),
       `@context`: String,
       `@id`: String,
@@ -68,8 +68,8 @@ case class JsonAgent(`@context`: String,
   }
 }
 
-object JsonAgent {
-  implicit val jsonFormat: OFormat[JsonAgent] = Json.format[JsonAgent]
+object JsonCharacter {
+  implicit val jsonFormat: OFormat[JsonCharacter] = Json.format[JsonCharacter]
 
   def apply(`@id`: String,
             id: Long,
@@ -78,8 +78,8 @@ object JsonAgent {
             isMine: Boolean,
             status: String,
             update: JsonUpdate,
-            isAChoice: Boolean): JsonAgent = {
-    new JsonAgent(
+            isAChoice: Boolean): JsonCharacter = {
+    new JsonCharacter(
       `@id`: String,
       id: Long,
       name: JsonName,

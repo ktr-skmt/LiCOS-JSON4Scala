@@ -1,8 +1,8 @@
 package licos.json.element.village
 
 import licos.bson.element.village.{BsonBase, BsonStar, BsonStarInfo}
-import licos.bson.element.village.agent.BsonRoleAgent
-import licos.json.element.village.agent.JsonRoleAgent
+import licos.bson.element.village.character.BsonRoleCharacter
+import licos.json.element.village.character.JsonRoleCharacter
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
@@ -14,7 +14,7 @@ case class JsonStar(base: JsonBase,
     new BsonStar(
       new ObjectId(),
       base.toBson: BsonBase,
-      sub.myAgent.toBson: BsonRoleAgent,
+      sub.myCharacter.toBson: BsonRoleCharacter,
       sub.star.toBson: BsonStarInfo
     )
   }
@@ -27,7 +27,7 @@ object JsonStar {
     )(JsonStar.apply, unlift(JsonStar.unapply))
 }
 
-case class JsonSubStar(myAgent: JsonRoleAgent,
+case class JsonSubStar(myCharacter: JsonRoleCharacter,
                        star: JsonStarInfo)
 
 object JsonSubStar {

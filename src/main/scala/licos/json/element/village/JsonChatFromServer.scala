@@ -1,8 +1,8 @@
 package licos.json.element.village
 
-import licos.bson.element.village.agent.BsonSimpleAgent
+import licos.bson.element.village.character.BsonSimpleCharacter
 import licos.bson.element.village.{BsonBase, BsonChatFromServer, BsonChatText}
-import licos.json.element.village.agent.JsonSimpleAgent
+import licos.json.element.village.character.JsonSimpleCharacter
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
@@ -10,7 +10,7 @@ import play.api.libs.json.{Format, JsPath, Json, OFormat}
 case class JsonChatFromServer private (base: JsonBase,
                                        sub: JsonSubChatFromServer) extends JsonElement {
   def this(base: JsonBase,
-           agent: JsonSimpleAgent,
+           character: JsonSimpleCharacter,
            isMine: Boolean,
            id: Int,
            counter: Int,
@@ -22,7 +22,7 @@ case class JsonChatFromServer private (base: JsonBase,
     this(
       base,
       JsonSubChatFromServer(
-        agent: JsonSimpleAgent,
+        character: JsonSimpleCharacter,
         isMine: Boolean,
         id: Int,
         counter: Int,
@@ -36,12 +36,12 @@ case class JsonChatFromServer private (base: JsonBase,
   }
 
   def fromHostPlayerToAvatar(guid: String): JsonChatFromServer = {
-    def isAgentMine: Boolean = guid == base.token
+    def isCharacterMine: Boolean = guid == base.token
     JsonChatFromServer(
       base.otherAvatar(guid): JsonBase,
       JsonSubChatFromServer(
-        agent: JsonSimpleAgent,
-        isAgentMine: Boolean,
+        character: JsonSimpleCharacter,
+        isCharacterMine: Boolean,
         id: Int,
         counter: Int,
         limit: Int,
@@ -53,7 +53,7 @@ case class JsonChatFromServer private (base: JsonBase,
     )
   }
 
-  def agent: JsonSimpleAgent = sub.agent
+  def character: JsonSimpleCharacter = sub.character
   def isMine: Boolean = sub.isMine
   def id: Int = sub.id
   def counter: Int = sub.counter
@@ -67,7 +67,7 @@ case class JsonChatFromServer private (base: JsonBase,
     JsonChatFromServer(
       base: JsonBase,
       JsonSubChatFromServer(
-        agent: JsonSimpleAgent,
+        character: JsonSimpleCharacter,
         isMine: Boolean,
         id: Int,
         counter: Int,
@@ -89,7 +89,7 @@ case class JsonChatFromServer private (base: JsonBase,
     new BsonChatFromServer(
       new ObjectId(),
       base.toBson: BsonBase,
-      agent.toBson: BsonSimpleAgent,
+      character.toBson: BsonSimpleCharacter,
       isMine: Boolean,
       id: Int,
       counter: Int,
@@ -104,7 +104,7 @@ case class JsonChatFromServer private (base: JsonBase,
 
 object JsonChatFromServer {
   def apply(base: JsonBase,
-            agent: JsonSimpleAgent,
+            character: JsonSimpleCharacter,
             isMine: Boolean,
             id: Int,
             counter: Int,
@@ -115,7 +115,7 @@ object JsonChatFromServer {
             isOver: Boolean): JsonChatFromServer = {
     new JsonChatFromServer(
       base: JsonBase,
-      agent: JsonSimpleAgent,
+      character: JsonSimpleCharacter,
       isMine: Boolean,
       id: Int,
       counter: Int,
@@ -133,7 +133,7 @@ object JsonChatFromServer {
     )(JsonChatFromServer.apply, unlift(JsonChatFromServer.unapply))
 }
 
-case class JsonSubChatFromServer(agent: JsonSimpleAgent,
+case class JsonSubChatFromServer(character: JsonSimpleCharacter,
                                  isMine: Boolean,
                                  id: Int,
                                  counter: Int,

@@ -1,8 +1,8 @@
-package licos.bson.element.village.agent;
+package licos.bson.element.village.character;
 
 import licos.bson.element.village.BsonUpdate;
 import licos.bson.element.village.BsonName;
-import licos.json.element.village.agent.JsonAgent;
+import licos.json.element.village.character.JsonCharacter;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -16,8 +16,8 @@ import org.mongodb.morphia.annotations.Reference;
  *
  * @author K.Sakamoto
  */
-@Entity("entities")
-public class BsonAgent extends BsonAbstractAgent {
+@Entity("characters")
+public class BsonCharacter extends BsonAbstractCharacter {
     @Getter @Setter
     private boolean isMine;
 
@@ -31,20 +31,20 @@ public class BsonAgent extends BsonAbstractAgent {
     private boolean isAChoice;
 
     @SuppressWarnings("unused")
-    private BsonAgent() {
+    private BsonCharacter() {
         // Do nothing
     }
 
-    public BsonAgent(ObjectId _id,
-                     String $context,
-                     String $id,
-                     long id,
-                     BsonName name,
-                     String image,
-                     boolean isMine,
-                     String status,
-                     BsonUpdate update,
-                     boolean isAChoice) {
+    public BsonCharacter(ObjectId _id,
+                         String $context,
+                         String $id,
+                         long id,
+                         BsonName name,
+                         String image,
+                         boolean isMine,
+                         String status,
+                         BsonUpdate update,
+                         boolean isAChoice) {
         this._id = _id;
         this.$context = $context;
         this.$id = $id;
@@ -58,8 +58,8 @@ public class BsonAgent extends BsonAbstractAgent {
     }
 
     @Override
-    public JsonAgent toJson() {
-        return new JsonAgent(
+    public JsonCharacter toJson() {
+        return new JsonCharacter(
                 $context,
                 $id,
                 id,

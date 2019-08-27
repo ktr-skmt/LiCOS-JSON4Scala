@@ -1,6 +1,6 @@
 package licos.bson.element.village;
 
-import licos.bson.element.village.agent.BsonRoleAgent;
+import licos.bson.element.village.character.BsonRoleCharacter;
 import licos.json.element.village.JsonStar;
 import licos.json.element.village.JsonSubStar;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public class BsonStar extends BsonElement {
     private BsonBase base;
 
     @Getter @Setter @Reference
-    private BsonRoleAgent myAgent;
+    private BsonRoleCharacter myCharacter;
 
     @Getter @Setter @Reference
     private BsonStarInfo star;
@@ -32,11 +32,11 @@ public class BsonStar extends BsonElement {
 
     public BsonStar(ObjectId _id,
                     BsonBase base,
-                    BsonRoleAgent myAgent,
+                    BsonRoleCharacter myCharacter,
                     BsonStarInfo star) {
         this._id = _id;
         this.base = base;
-        this.myAgent = myAgent;
+        this.myCharacter = myCharacter;
         this.star = star;
     }
 
@@ -45,7 +45,7 @@ public class BsonStar extends BsonElement {
         return new JsonStar(
                 base.toJson(),
                 new JsonSubStar(
-                    myAgent.toJson(),
+                    myCharacter.toJson(),
                     star.toJson()
                 )
         );

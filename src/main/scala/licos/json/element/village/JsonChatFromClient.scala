@@ -1,8 +1,8 @@
 package licos.json.element.village
 
 import licos.bson.element.village.{BsonBase, BsonChatFromClient, BsonChatText}
-import licos.bson.element.village.agent.{BsonRoleAgent, BsonSimpleAgent}
-import licos.json.element.village.agent.{JsonRoleAgent, JsonSimpleAgent}
+import licos.bson.element.village.character.{BsonRoleCharacter, BsonSimpleCharacter}
+import licos.json.element.village.character.{JsonRoleCharacter, JsonSimpleCharacter}
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
@@ -10,8 +10,8 @@ import play.api.libs.json.{Format, JsPath, Json, OFormat}
 case class JsonChatFromClient private (base: JsonBase,
                                        sub: JsonSubChatFromClient) extends JsonElement {
   def this(base: JsonBase,
-           myAgent: JsonRoleAgent,
-           agent: JsonSimpleAgent,
+           myCharacter: JsonRoleCharacter,
+           character: JsonSimpleCharacter,
            isMine: Boolean,
            text: JsonChatText,
            characterLimit: Int,
@@ -19,8 +19,8 @@ case class JsonChatFromClient private (base: JsonBase,
     this(
       base: JsonBase,
       JsonSubChatFromClient(
-        myAgent: JsonRoleAgent,
-        agent: JsonSimpleAgent,
+        myCharacter: JsonRoleCharacter,
+        character: JsonSimpleCharacter,
         isMine: Boolean,
         text: JsonChatText,
         characterLimit: Int,
@@ -29,8 +29,8 @@ case class JsonChatFromClient private (base: JsonBase,
     )
   }
 
-  def myAgent: JsonRoleAgent = sub.myAgent
-  def agent: JsonSimpleAgent = sub.agent
+  def myCharacter: JsonRoleCharacter = sub.myCharacter
+  def character: JsonSimpleCharacter = sub.character
   def isMine: Boolean = sub.isMine
   def text: JsonChatText = sub.text
   def characterLimit: Int = sub.characterLimit
@@ -40,8 +40,8 @@ case class JsonChatFromClient private (base: JsonBase,
     new BsonChatFromClient(
       new ObjectId(),
       base.toBson: BsonBase,
-      myAgent.toBson: BsonRoleAgent,
-      agent.toBson: BsonSimpleAgent,
+      myCharacter.toBson: BsonRoleCharacter,
+      character.toBson: BsonSimpleCharacter,
       isMine: Boolean,
       text.toBson: BsonChatText,
       characterLimit: Int,
@@ -52,16 +52,16 @@ case class JsonChatFromClient private (base: JsonBase,
 
 object JsonChatFromClient {
   def apply(base: JsonBase,
-            myAgent: JsonRoleAgent,
-            agent: JsonSimpleAgent,
+            myCharacter: JsonRoleCharacter,
+            character: JsonSimpleCharacter,
             isMine: Boolean,
             text: JsonChatText,
             characterLimit: Int,
             isOver: Boolean): JsonChatFromClient = {
     new JsonChatFromClient(
       base: JsonBase,
-      myAgent: JsonRoleAgent,
-      agent: JsonSimpleAgent,
+      myCharacter: JsonRoleCharacter,
+      character: JsonSimpleCharacter,
       isMine: Boolean,
       text: JsonChatText,
       characterLimit: Int,
@@ -74,8 +74,8 @@ object JsonChatFromClient {
     )(JsonChatFromClient.apply, unlift(JsonChatFromClient.unapply))
 }
 
-case class JsonSubChatFromClient(myAgent: JsonRoleAgent,
-                                 agent: JsonSimpleAgent,
+case class JsonSubChatFromClient(myCharacter: JsonRoleCharacter,
+                                 character: JsonSimpleCharacter,
                                  isMine: Boolean,
                                  text: JsonChatText,
                                  characterLimit: Int,

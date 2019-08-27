@@ -1,14 +1,14 @@
 package licos.json.element.village
 
-import licos.bson.element.village.agent.BsonSimpleAgent
+import licos.bson.element.village.character.BsonSimpleCharacter
 import licos.bson.element.village.BsonBoardPolarity
-import licos.json.element.village.agent.JsonSimpleAgent
+import licos.json.element.village.character.JsonSimpleCharacter
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
 
 case class JsonBoardPolarity(`@context`: String,
                              `@id`: String,
-                             agent: JsonSimpleAgent,
+                             character: JsonSimpleCharacter,
                              polarity: String,
                              phase: String,
                              date: Int) extends JsonElement {
@@ -17,7 +17,7 @@ case class JsonBoardPolarity(`@context`: String,
       new ObjectId(),
       `@context`: String,
       `@id`: String,
-      agent.toBson: BsonSimpleAgent,
+      character.toBson: BsonSimpleCharacter,
       polarity: String,
       phase: String,
       date: Int

@@ -1,9 +1,9 @@
-package licos.bson.element.village.agent;
+package licos.bson.element.village.character;
 
 import licos.bson.element.village.BsonAvatar;
 import licos.bson.element.village.BsonName;
 import licos.bson.element.village.role.BsonSimpleRole;
-import licos.json.element.village.agent.JsonResultAgent;
+import licos.json.element.village.character.JsonResultCharacter;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -17,8 +17,8 @@ import org.mongodb.morphia.annotations.Reference;
  *
  * @author K.Sakamoto
  */
-@Entity("resultAgents")
-public class BsonResultAgent extends BsonAbstractAgent {
+@Entity("resultCharacters")
+public class BsonResultCharacter extends BsonAbstractCharacter {
     @Getter @Setter
     private boolean isMine;
 
@@ -35,21 +35,21 @@ public class BsonResultAgent extends BsonAbstractAgent {
     private BsonAvatar avatar;
 
     @SuppressWarnings("unused")
-    private BsonResultAgent() {
+    private BsonResultCharacter() {
         // Do nothing
     }
 
-    public BsonResultAgent(ObjectId _id,
-                           String $context,
-                           String $id,
-                           long id,
-                           BsonName name,
-                           String image,
-                           boolean isMine,
-                           BsonSimpleRole role,
-                           String status,
-                           String result,
-                           BsonAvatar avatar) {
+    public BsonResultCharacter(ObjectId _id,
+                               String $context,
+                               String $id,
+                               long id,
+                               BsonName name,
+                               String image,
+                               boolean isMine,
+                               BsonSimpleRole role,
+                               String status,
+                               String result,
+                               BsonAvatar avatar) {
         this._id = _id;
         this.$context = $context;
         this.$id = $id;
@@ -64,8 +64,8 @@ public class BsonResultAgent extends BsonAbstractAgent {
     }
 
     @Override
-    public JsonResultAgent toJson() {
-        return new JsonResultAgent(
+    public JsonResultCharacter toJson() {
+        return new JsonResultCharacter(
                 $context,
                 $id,
                 id,

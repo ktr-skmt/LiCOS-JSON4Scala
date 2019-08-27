@@ -1,9 +1,9 @@
 package licos.bson.element.village;
 
-import licos.bson.element.village.agent.BsonAgent;
+import licos.bson.element.village.character.BsonCharacter;
 import licos.bson.element.village.role.BsonRole;
 import licos.json.element.village.JsonPhase;
-import licos.json.element.village.agent.JsonAgent;
+import licos.json.element.village.character.JsonCharacter;
 import licos.json.element.village.role.JsonRole;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +32,7 @@ public class BsonPhase extends BsonElementToJsonElement {
     private BsonBase base;
 
     @Getter @Setter @Reference
-    private List<BsonAgent> agent;
+    private List<BsonCharacter> character;
 
     @Getter @Setter @Reference
     private List<BsonRole> role;
@@ -44,17 +44,17 @@ public class BsonPhase extends BsonElementToJsonElement {
 
     public BsonPhase(ObjectId _id,
                      BsonBase base,
-                     List<BsonAgent> agent,
+                     List<BsonCharacter> character,
                      List<BsonRole> role) {
         this._id = _id;
         this.base = base;
-        this.agent = agent;
+        this.character = character;
         this.role = role;
     }
 
-    private List<JsonAgent> agentToJson() {
-        return elementToJson(agent).
-                map(element -> (JsonAgent) element).
+    private List<JsonCharacter> characterToJson() {
+        return elementToJson(character).
+                map(element -> (JsonCharacter) element).
                 collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -68,7 +68,7 @@ public class BsonPhase extends BsonElementToJsonElement {
     public JsonPhase toJson() {
         return new JsonPhase(
                 base.toJson(),
-                agentToJson(),
+                characterToJson(),
                 roleToJson()
         );
     }

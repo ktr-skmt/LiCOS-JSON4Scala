@@ -1,10 +1,10 @@
-package licos.json.element.village.agent
+package licos.json.element.village.character
 
 import licos.bson.element.village.BsonName
-import licos.bson.element.village.agent.BsonRoleAgent
+import licos.bson.element.village.character.BsonRoleCharacter
 import licos.bson.element.village.role.BsonSimpleRole
 import licos.json.element.village.JsonName
-import licos.json.element.village.iri.AgentContext
+import licos.json.element.village.iri.CharacterContext
 import licos.json.element.village.role.JsonSimpleRole
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
@@ -16,13 +16,13 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonRoleAgent(`@context`: String,
-                         `@id`: String,
-                         id: Long,
-                         name: JsonName,
-                         image: String,
-                         role: JsonSimpleRole)
-  extends JsonAbstractAgent(
+case class JsonRoleCharacter(`@context`: String,
+                             `@id`: String,
+                             id: Long,
+                             name: JsonName,
+                             image: String,
+                             role: JsonSimpleRole)
+  extends JsonAbstractCharacter(
     `@context`: String,
     `@id`: String,
     id: Long,
@@ -36,7 +36,7 @@ case class JsonRoleAgent(`@context`: String,
            image: String,
            role: JsonSimpleRole) = {
     this(
-      AgentContext.iri: String,
+      CharacterContext.iri: String,
       `@id`: String,
       id: Long,
       name: JsonName,
@@ -45,8 +45,8 @@ case class JsonRoleAgent(`@context`: String,
     )
   }
 
-  override def toBson: BsonRoleAgent = {
-    new BsonRoleAgent(
+  override def toBson: BsonRoleCharacter = {
+    new BsonRoleCharacter(
       new ObjectId(),
       `@context`: String,
       `@id`: String,
@@ -58,15 +58,15 @@ case class JsonRoleAgent(`@context`: String,
   }
 }
 
-object JsonRoleAgent {
-  implicit val jsonFormat: OFormat[JsonRoleAgent] = Json.format[JsonRoleAgent]
+object JsonRoleCharacter {
+  implicit val jsonFormat: OFormat[JsonRoleCharacter] = Json.format[JsonRoleCharacter]
 
   def apply(`@id`: String,
             id: Long,
             name: JsonName,
             image: String,
-            role: JsonSimpleRole): JsonRoleAgent = {
-    new JsonRoleAgent(
+            role: JsonSimpleRole): JsonRoleCharacter = {
+    new JsonRoleCharacter(
       `@id`: String,
       id: Long,
       name: JsonName,

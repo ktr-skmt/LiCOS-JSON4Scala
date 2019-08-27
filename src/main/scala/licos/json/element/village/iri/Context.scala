@@ -15,7 +15,7 @@ sealed abstract class Context(label: String) {
 
 case object BaseContext         extends Context("base")
 case object ErrorContext        extends Context("error")
-case object AgentContext        extends Context("agent")
+case object CharacterContext    extends Context("character")
 case object AvatarContext       extends Context("avatar")
 case object RoleContext         extends Context("role")
 case object BoardContext        extends Context("board")

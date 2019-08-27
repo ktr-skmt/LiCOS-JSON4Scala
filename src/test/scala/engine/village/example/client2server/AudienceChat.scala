@@ -1,8 +1,8 @@
 package engine.village.example.client2server
 
-import engine.ServerToClientVillageExample
+import engine.ClientToServerVillageExample
 
-case class AudienceChat(filePath: String) extends ServerToClientVillageExample(filePath) {
+case class AudienceChat(filePath: String) extends ClientToServerVillageExample(filePath) {
   override val `type`: String = AudienceChat.`type`
 }
 

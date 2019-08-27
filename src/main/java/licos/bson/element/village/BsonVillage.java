@@ -25,7 +25,7 @@ public class BsonVillage extends BsonElement {
     private String name;
 
     @Getter @Setter
-    private int totalNumberOfAgents;
+    private int totalNumberOfCharacters;
 
     @Getter @Setter
     private String lang;
@@ -43,7 +43,7 @@ public class BsonVillage extends BsonElement {
                        String $id,
                        long id,
                        String name,
-                       int totalNumberOfAgents,
+                       int totalNumberOfCharacters,
                        String lang,
                        BsonChatSettings chatSettings) {
         this._id = _id;
@@ -51,7 +51,7 @@ public class BsonVillage extends BsonElement {
         this.$id = $id;
         this.id = id;
         this.name = name;
-        this.totalNumberOfAgents = totalNumberOfAgents;
+        this.totalNumberOfCharacters = totalNumberOfCharacters;
         this.lang = lang;
         this.chatSettings = chatSettings;
     }
@@ -63,7 +63,7 @@ public class BsonVillage extends BsonElement {
           $id,
           id,
           name,
-          totalNumberOfAgents,
+          totalNumberOfCharacters,
           lang,
           chatSettings.toJson()
         );

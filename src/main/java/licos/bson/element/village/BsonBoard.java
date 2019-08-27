@@ -1,7 +1,7 @@
 package licos.bson.element.village;
 
-import licos.bson.element.village.agent.BsonRoleAgent;
-import licos.bson.element.village.agent.BsonSimpleAgent;
+import licos.bson.element.village.character.BsonRoleCharacter;
+import licos.bson.element.village.character.BsonSimpleCharacter;
 import licos.bson.element.village.role.BsonSimpleRole;
 import licos.json.element.village.JsonBoard;
 import lombok.Getter;
@@ -27,10 +27,10 @@ public class BsonBoard extends BsonElement {
     private BsonBase base;
 
     @Getter @Setter @Reference
-    private BsonRoleAgent myAgent;
+    private BsonRoleCharacter myCharacter;
 
     @Getter @Setter @Reference
-    private BsonSimpleAgent agent;
+    private BsonSimpleCharacter character;
 
     @Getter @Setter @Reference
     private BsonSimpleRole role;
@@ -45,14 +45,14 @@ public class BsonBoard extends BsonElement {
 
     public BsonBoard(ObjectId _id,
                      BsonBase base,
-                     BsonRoleAgent myAgent,
-                     BsonSimpleAgent agent,
+                     BsonRoleCharacter myCharacter,
+                     BsonSimpleCharacter character,
                      BsonSimpleRole role,
                      String prediction) {
         this._id = _id;
         this.base = base;
-        this.myAgent = myAgent;
-        this.agent = agent;
+        this.myCharacter = myCharacter;
+        this.character = character;
         this.role = role;
         this.prediction = prediction;
     }
@@ -61,8 +61,8 @@ public class BsonBoard extends BsonElement {
     public JsonBoard toJson() {
         return new JsonBoard(
                 base.toJson(),
-                myAgent.toJson(),
-                agent.toJson(),
+                myCharacter.toJson(),
+                character.toJson(),
                 role.toJson(),
                 prediction
         );

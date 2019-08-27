@@ -29,14 +29,14 @@ object VillageProcessingEngineSpec {
     ReceivedFlavorTextMessage(receipt("receivedFlavorTextMessage.json")),
     ReceivedPlayerMessage(receipt("receivedPlayerMessage.json")),
     ReceivedSystemMessage(receipt("receivedSystemMessage.json")),
-    example.client2server.AudienceChat("anonymousAudienceChat.jsonld"),
-    Board("board.jsonld"),
+    //example.client2server.AudienceChat("anonymousAudienceChat.jsonld"),
+    //example.client2server.AudienceChat("onymousAudienceChat.jsonld"),
+    ///Board("board.jsonld"),
     example.client2server.Chat("chat.jsonld"),
     Vote("dayVote.jsonld"),
     //example.client2server.Error(client2server("error.jsonld")),
     Vote("nightVote.jsonld"),
     //Board("onymousAudienceBoard.jsonld"),
-    //example.client2server.AudienceChat("onymousAudienceChat.jsonld"),
     Scroll("onymousAudienceScroll.jsonld"),
     Scroll("scroll.jsonld"),
     Star("star.jsonld"),
@@ -51,7 +51,7 @@ object VillageProcessingEngineSpec {
     example.server2client.Chat("myMessageOnChat.jsonld"),
     Phase("night.jsonld"),
     //example.server2client.AudienceChat("onymousAudienceChat.jsonld"),
-    Phase("postMortem.jsonld"),
+    Phase("postMortemDiscussion.jsonld"),
     //GameResult("result.jsonld"),
     example.server2client.Chat("theirMessageOnChat.jsonld")
   )
@@ -92,9 +92,11 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit {
     val jsonType: String = jsonExample.`type`
     val url: String = jsonExample.path
     implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
+    System.err.println(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()
+    System.err.println(msg)
     processingEngine.process(new VillageBox(jsonType), msg) match {
       case Some(jsValue: JsValue) =>
         parseJsonTest(jsValue) match {

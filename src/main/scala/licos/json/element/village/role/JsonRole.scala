@@ -23,7 +23,7 @@ case class JsonRole(`@context`: String,
                     name: JsonName,
                     image: String,
                     isMine: Boolean,
-                    numberOfAgents: Int,
+                    numberOfCharacters: Int,
                     board: Seq[JsonBoardPolarity]) extends JsonAbstractRole(
     `@context`: String,
     `@id`: String,
@@ -36,7 +36,7 @@ case class JsonRole(`@context`: String,
            name: JsonName,
            image: String,
            isMine: Boolean,
-           numberOfAgents: Int,
+           numberOfCharacters: Int,
            board: JList[JsonBoardPolarity]) = {
     this(
       `@context`: String,
@@ -44,7 +44,7 @@ case class JsonRole(`@context`: String,
       name: JsonName,
       image: String,
       isMine: Boolean,
-      numberOfAgents: Int,
+      numberOfCharacters: Int,
       board.asScala: Seq[JsonBoardPolarity]
     )
   }
@@ -53,7 +53,7 @@ case class JsonRole(`@context`: String,
            name: JsonName,
            image: String,
            isMine: Boolean,
-           numberOfAgents: Int,
+           numberOfCharacters: Int,
            board: Seq[JsonBoardPolarity]) = {
     this(
       RoleContext.iri: String,
@@ -61,7 +61,7 @@ case class JsonRole(`@context`: String,
       name: JsonName,
       image: String,
       isMine: Boolean,
-      numberOfAgents: Int,
+      numberOfCharacters: Int,
       board: Seq[JsonBoardPolarity]
     )
   }
@@ -74,7 +74,7 @@ case class JsonRole(`@context`: String,
       name.toBson: BsonName,
       image: String,
       isMine: Boolean,
-      numberOfAgents: Int,
+      numberOfCharacters: Int,
       board.map(_.toBson).asJava: JList[BsonBoardPolarity]
     )
   }
@@ -87,14 +87,14 @@ object JsonRole {
             name: JsonName,
             image: String,
             isMine: Boolean,
-            numberOfAgents: Int,
+            numberOfCharacters: Int,
             board: Seq[JsonBoardPolarity]): JsonRole = {
     new JsonRole(
       `@id`: String,
       name: JsonName,
       image: String,
       isMine: Boolean,
-      numberOfAgents: Int,
+      numberOfCharacters: Int,
       board: Seq[JsonBoardPolarity]
     )
   }

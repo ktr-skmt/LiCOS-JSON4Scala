@@ -1,8 +1,8 @@
-package licos.bson.element.village.agent;
+package licos.bson.element.village.character;
 
 import licos.bson.element.village.BsonName;
 import licos.bson.element.village.role.BsonSimpleRole;
-import licos.json.element.village.agent.JsonRoleAgent;
+import licos.json.element.village.character.JsonRoleCharacter;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -16,23 +16,23 @@ import org.mongodb.morphia.annotations.Reference;
  *
  * @author K.Sakamoto
  */
-@Entity("roleAgents")
-public class BsonRoleAgent extends BsonAbstractAgent {
+@Entity("roleCharacters")
+public class BsonRoleCharacter extends BsonAbstractCharacter {
     @Getter @Setter @Reference
     private BsonSimpleRole role;
 
     @SuppressWarnings("unused")
-    private BsonRoleAgent() {
+    private BsonRoleCharacter() {
         // Do nothing
     }
 
-    public BsonRoleAgent(ObjectId _id,
-                         String $context,
-                         String $id,
-                         long id,
-                         BsonName name,
-                         String image,
-                         BsonSimpleRole role) {
+    public BsonRoleCharacter(ObjectId _id,
+                             String $context,
+                             String $id,
+                             long id,
+                             BsonName name,
+                             String image,
+                             BsonSimpleRole role) {
         this._id = _id;
         this.$context = $context;
         this.$id = $id;
@@ -43,8 +43,8 @@ public class BsonRoleAgent extends BsonAbstractAgent {
     }
 
     @Override
-    public JsonRoleAgent toJson() {
-        return new JsonRoleAgent(
+    public JsonRoleCharacter toJson() {
+        return new JsonRoleCharacter(
                 $context,
                 $id,
                 id,

@@ -1,10 +1,10 @@
 package licos.bson.element.village;
 
-import licos.bson.element.village.agent.BsonStatusAgent;
+import licos.bson.element.village.character.BsonStatusCharacter;
 import licos.json.element.village.JsonBase;
 import licos.json.element.village.JsonVotingResultDetail;
 import licos.json.element.village.JsonVotingResultSummary;
-import licos.json.element.village.agent.JsonStatusAgent;
+import licos.json.element.village.character.JsonStatusCharacter;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -65,7 +65,7 @@ public class BsonBase extends BsonElementToJsonElement {
     private String intensionalDisclosureRange;
 
     @Getter @Setter @Reference
-    private List<BsonStatusAgent> extensionalDisclosureRange;
+    private List<BsonStatusCharacter> extensionalDisclosureRange;
 
     @Getter @Setter @Reference
     private List<BsonVotingResultSummary> votingResultSummary;
@@ -91,7 +91,7 @@ public class BsonBase extends BsonElementToJsonElement {
                     String clientTimestamp,
                     String directionality,
                     String intensionalDisclosureRange,
-                    List<BsonStatusAgent> extensionalDisclosureRange,
+                    List<BsonStatusCharacter> extensionalDisclosureRange,
                     List<BsonVotingResultSummary> votingResultSummary,
                     List<BsonVotingResultDetail> votingResultDetail) {
         this._id = _id;
@@ -112,9 +112,9 @@ public class BsonBase extends BsonElementToJsonElement {
         this.votingResultDetail = votingResultDetail;
     }
 
-    private List<JsonStatusAgent> extensionalDisclosureRangeToJson() {
+    private List<JsonStatusCharacter> extensionalDisclosureRangeToJson() {
         return  elementToJson(extensionalDisclosureRange).
-                map(element -> (JsonStatusAgent) element).
+                map(element -> (JsonStatusCharacter) element).
                 collect(Collectors.toCollection(LinkedList::new));
     }
 

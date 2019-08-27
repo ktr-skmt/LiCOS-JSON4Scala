@@ -1,21 +1,21 @@
 package licos.json.element.village
 
 import licos.bson.element.village.BsonVotingResultSummary
-import licos.bson.element.village.agent.BsonSimpleAgent
-import licos.json.element.village.agent.JsonSimpleAgent
+import licos.bson.element.village.character.BsonSimpleCharacter
+import licos.json.element.village.character.JsonSimpleCharacter
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
 ;
 
 case class JsonVotingResultSummary(`@id`: String,
-                                   agentToLynch: JsonSimpleAgent,
+                                   characterToLynch: JsonSimpleCharacter,
                                    numberOfVotes: Int,
                                    rankOfVotes: Int) extends JsonElement {
   override def toBson: BsonVotingResultSummary = {
     new BsonVotingResultSummary(
       new ObjectId(),
       `@id`: String,
-      agentToLynch.toBson: BsonSimpleAgent,
+      characterToLynch.toBson: BsonSimpleCharacter,
       numberOfVotes: Int,
       rankOfVotes: Int
     )

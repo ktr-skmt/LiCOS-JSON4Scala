@@ -1,6 +1,6 @@
 package licos.bson.element.village;
 
-import licos.bson.element.village.agent.BsonSimpleAgent;
+import licos.bson.element.village.character.BsonSimpleCharacter;
 import licos.json.element.village.JsonBoardPolarity;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +28,7 @@ public class BsonBoardPolarity extends BsonElement {
     private String $id;
 
     @Getter @Setter @Reference
-    private BsonSimpleAgent agent;
+    private BsonSimpleCharacter character;
 
     @Getter @Setter
     private String polarity;
@@ -47,14 +47,14 @@ public class BsonBoardPolarity extends BsonElement {
     public BsonBoardPolarity(ObjectId _id,
                              String $context,
                              String $id,
-                             BsonSimpleAgent agent,
+                             BsonSimpleCharacter character,
                              String polarity,
                              String phase,
                              int date) {
         this.$context = $context;
         this.$id = $id;
         this._id = _id;
-        this.agent = agent;
+        this.character = character;
         this.polarity = polarity;
         this.phase = phase;
         this.date = date;
@@ -65,7 +65,7 @@ public class BsonBoardPolarity extends BsonElement {
         return new JsonBoardPolarity(
                 $context,
                 $id,
-                agent.toJson(),
+                character.toJson(),
                 polarity,
                 phase,
                 date

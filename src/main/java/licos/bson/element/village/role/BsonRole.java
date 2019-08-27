@@ -27,7 +27,7 @@ public class BsonRole extends BsonAbstractRole {
     private boolean isMine;
 
     @Getter @Setter
-    private int numberOfAgents;
+    private int numberOfCharacters;
 
     @Getter @ Setter @Reference
     private List<BsonBoardPolarity> board;
@@ -43,7 +43,7 @@ public class BsonRole extends BsonAbstractRole {
                     BsonName name,
                     String image,
                     boolean isMine,
-                    int numberOfAgents,
+                    int numberOfCharacters,
                     List<BsonBoardPolarity> board) {
         this._id = _id;
         this.$context = $context;
@@ -51,7 +51,7 @@ public class BsonRole extends BsonAbstractRole {
         this.name = name;
         this.image = image;
         this.isMine = isMine;
-        this.numberOfAgents = numberOfAgents;
+        this.numberOfCharacters = numberOfCharacters;
         this.board = board;
     }
 
@@ -67,7 +67,7 @@ public class BsonRole extends BsonAbstractRole {
             name.toJson(),
             image,
             isMine,
-            numberOfAgents,
+            numberOfCharacters,
             boardList
         );
     }

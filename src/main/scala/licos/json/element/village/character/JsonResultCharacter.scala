@@ -1,11 +1,11 @@
-package licos.json.element.village.agent
+package licos.json.element.village.character
 
 import licos.bson.element.village.{BsonAvatar, BsonName}
-import licos.bson.element.village.agent.BsonResultAgent
+import licos.bson.element.village.character.BsonResultCharacter
 import licos.bson.element.village.role.BsonSimpleRole
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
-import licos.json.element.village.iri.AgentContext
+import licos.json.element.village.iri.CharacterContext
 import licos.json.element.village.role.JsonSimpleRole
 import licos.json.element.village.{JsonAvatar, JsonName}
 
@@ -16,17 +16,17 @@ import licos.json.element.village.{JsonAvatar, JsonName}
   *
   * @author K.Sakamoto
   */
-case class JsonResultAgent(`@context`: String,
-                           `@id`: String,
-                           id: Long,
-                           name: JsonName,
-                           image: String,
-                           isMine: Boolean,
-                           role: JsonSimpleRole,
-                           status: String,
-                           result: String,
-                           avatar: JsonAvatar)
-  extends JsonAbstractAgent(
+case class JsonResultCharacter(`@context`: String,
+                               `@id`: String,
+                               id: Long,
+                               name: JsonName,
+                               image: String,
+                               isMine: Boolean,
+                               role: JsonSimpleRole,
+                               status: String,
+                               result: String,
+                               avatar: JsonAvatar)
+  extends JsonAbstractCharacter(
     `@context`: String,
     `@id`: String,
     id: Long,
@@ -44,7 +44,7 @@ case class JsonResultAgent(`@context`: String,
            result: String,
            avatar: JsonAvatar) = {
     this(
-      AgentContext.iri: String,
+      CharacterContext.iri: String,
       `@id`: String,
       id: Long,
       name: JsonName,
@@ -57,8 +57,8 @@ case class JsonResultAgent(`@context`: String,
     )
   }
 
-  override def toBson: BsonResultAgent = {
-    new BsonResultAgent(
+  override def toBson: BsonResultCharacter = {
+    new BsonResultCharacter(
       new ObjectId(),
       `@context`: String,
       `@id`: String,
@@ -74,8 +74,8 @@ case class JsonResultAgent(`@context`: String,
   }
 }
 
-object JsonResultAgent {
-  implicit val jsonFormat: OFormat[JsonResultAgent] = Json.format[JsonResultAgent]
+object JsonResultCharacter {
+  implicit val jsonFormat: OFormat[JsonResultCharacter] = Json.format[JsonResultCharacter]
 
   def apply(`@id`: String,
             id: Long,
@@ -85,8 +85,8 @@ object JsonResultAgent {
             role: JsonSimpleRole,
             status: String,
             result: String,
-            avatar: JsonAvatar): JsonResultAgent = {
-    new JsonResultAgent(
+            avatar: JsonAvatar): JsonResultCharacter = {
+    new JsonResultCharacter(
       `@id`: String,
       id: Long,
       name: JsonName,

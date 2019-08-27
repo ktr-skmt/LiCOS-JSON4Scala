@@ -1,8 +1,8 @@
 package licos.bson.element.village.role;
 
 import licos.bson.element.village.BsonName;
-import licos.bson.element.village.agent.BsonSimpleAgent;
-import licos.json.element.village.agent.JsonSimpleAgent;
+import licos.bson.element.village.character.BsonSimpleCharacter;
+import licos.json.element.village.character.JsonSimpleCharacter;
 import licos.json.element.village.role.JsonResultRole;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,10 +27,10 @@ public class BsonResultRole extends BsonAbstractRole {
     private boolean isMine;
 
     @Getter @Setter
-    private int numberOfAgents;
+    private int numberOfCharacters;
 
     @Getter @Setter @Reference
-    private List<BsonSimpleAgent> agentId;
+    private List<BsonSimpleCharacter> characterId;
 
     @SuppressWarnings("unused")
     private BsonResultRole() {
@@ -43,23 +43,23 @@ public class BsonResultRole extends BsonAbstractRole {
                           boolean isMine,
                           BsonName name,
                           String image,
-                          int numberOfAgents,
-                          List<BsonSimpleAgent> agentId) {
+                          int numberOfCharacters,
+                          List<BsonSimpleCharacter> characterId) {
         this._id = _id;
         this.$context = $context;
         this.$id = $id;
         this.isMine = isMine;
         this.name = name;
         this.image = image;
-        this.numberOfAgents = numberOfAgents;
-        this.agentId = agentId;
+        this.numberOfCharacters = numberOfCharacters;
+        this.characterId = characterId;
     }
 
     public JsonResultRole toJson() {
-        Iterator<BsonSimpleAgent> agentIterator = agentId.iterator();
-        List<JsonSimpleAgent> agentList = new LinkedList<>();
-        while (agentIterator.hasNext()) {
-            agentList.add(agentIterator.next().toJson());
+        Iterator<BsonSimpleCharacter> characterIterator = characterId.iterator();
+        List<JsonSimpleCharacter> characterList = new LinkedList<>();
+        while (characterIterator.hasNext()) {
+            characterList.add(characterIterator.next().toJson());
         }
         return new JsonResultRole(
                 $context,
@@ -67,8 +67,8 @@ public class BsonResultRole extends BsonAbstractRole {
                 isMine,
                 name.toJson(),
                 image,
-                numberOfAgents,
-                agentList
+                numberOfCharacters,
+                characterList
         );
     }
 }

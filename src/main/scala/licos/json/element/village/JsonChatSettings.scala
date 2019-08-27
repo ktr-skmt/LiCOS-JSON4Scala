@@ -7,16 +7,16 @@ import play.api.libs.json.{Json, OFormat}
 
 case class JsonChatSettings(`@context`: Option[String],
                             `@id`: Option[String],
-                            limit: Int,
-                            characterLimit: Int) extends JsonElement {
+                            maxNumberOfChatMessages: Int,
+                            maxLengthOfUnicodeCodePoints: Int) extends JsonElement {
   def this(villageId: Long,
-           limit: Int,
-           characterLimit: Int) = {
+           maxNumberOfChatMessages: Int,
+           maxLengthOfUnicodeCodePoints: Int) = {
     this(
       Option(WerewolfWorld.context("chatSettings")): Option[String],
       Option(WerewolfWorld.state(s"#$villageId/chatSettings")): Option[String],
-      limit: Int,
-      characterLimit: Int
+      maxNumberOfChatMessages: Int,
+      maxLengthOfUnicodeCodePoints: Int
     )
   }
 
@@ -25,8 +25,8 @@ case class JsonChatSettings(`@context`: Option[String],
       new ObjectId(),
       `@context`.getOrElse(""): String,
       `@id`.getOrElse(""): String,
-      limit: Int,
-      characterLimit: Int
+      maxNumberOfChatMessages: Int,
+      maxLengthOfUnicodeCodePoints: Int
     )
   }
 }
@@ -35,12 +35,12 @@ object JsonChatSettings {
   implicit val jsonFormat: OFormat[JsonChatSettings] = Json.format[JsonChatSettings]
 
   def apply(villageId: Long,
-            limit: Int,
-            characterLimit: Int): JsonChatSettings = {
+            maxNumberOfChatMessages: Int,
+            maxLengthOfUnicodeCodePoints: Int): JsonChatSettings = {
     new JsonChatSettings(
       villageId: Long,
-      limit: Int,
-      characterLimit: Int
+      maxNumberOfChatMessages: Int,
+      maxLengthOfUnicodeCodePoints: Int
     )
   }
 }

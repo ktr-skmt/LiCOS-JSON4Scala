@@ -2,8 +2,8 @@ package licos.json.element.village
 
 import licos.bson.element.village.role.BsonSimpleRole
 import licos.bson.element.village.{BsonBase, BsonBoard}
-import licos.bson.element.village.agent.{BsonRoleAgent, BsonSimpleAgent}
-import licos.json.element.village.agent.{JsonRoleAgent, JsonSimpleAgent}
+import licos.bson.element.village.character.{BsonRoleCharacter, BsonSimpleCharacter}
+import licos.json.element.village.character.{JsonRoleCharacter, JsonSimpleCharacter}
 import licos.json.element.village.role.JsonSimpleRole
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
@@ -12,23 +12,23 @@ import play.api.libs.json.{Format, JsPath, Json, OFormat}
 case class JsonBoard private (base: JsonBase,
                               sub: JsonSubBoard) extends JsonElement {
   def this(base: JsonBase,
-           myAgent: JsonRoleAgent,
-           agent: JsonSimpleAgent,
+           myCharacter: JsonRoleCharacter,
+           character: JsonSimpleCharacter,
            role: JsonSimpleRole,
            prediction: String) = {
     this(
       base,
       JsonSubBoard(
-        myAgent: JsonRoleAgent,
-        agent: JsonSimpleAgent,
+        myCharacter: JsonRoleCharacter,
+        character: JsonSimpleCharacter,
         role: JsonSimpleRole,
         prediction: String
       )
     )
   }
 
-  def myAgent: JsonRoleAgent = sub.myAgent
-  def agent: JsonSimpleAgent = sub.agent
+  def myCharacter: JsonRoleCharacter = sub.myCharacter
+  def character: JsonSimpleCharacter = sub.character
   def role: JsonSimpleRole = sub.role
   def prediction: String = sub.prediction
 
@@ -36,8 +36,8 @@ case class JsonBoard private (base: JsonBase,
     new BsonBoard(
       new ObjectId(),
       base.toBson: BsonBase,
-      myAgent.toBson: BsonRoleAgent,
-      agent.toBson: BsonSimpleAgent,
+      myCharacter.toBson: BsonRoleCharacter,
+      character.toBson: BsonSimpleCharacter,
       role.toBson: BsonSimpleRole,
       prediction: String
     )
@@ -46,14 +46,14 @@ case class JsonBoard private (base: JsonBase,
 
 object JsonBoard {
   def apply(base: JsonBase,
-            myAgent: JsonRoleAgent,
-            agent: JsonSimpleAgent,
+            myCharacter: JsonRoleCharacter,
+            character: JsonSimpleCharacter,
             role: JsonSimpleRole,
             prediction: String): JsonBoard = {
     new JsonBoard(
       base: JsonBase,
-      myAgent: JsonRoleAgent,
-      agent: JsonSimpleAgent,
+      myCharacter: JsonRoleCharacter,
+      character: JsonSimpleCharacter,
       role: JsonSimpleRole,
       prediction: String
     )
@@ -65,8 +65,8 @@ object JsonBoard {
     )(JsonBoard.apply, unlift(JsonBoard.unapply))
 }
 
-case class JsonSubBoard(myAgent: JsonRoleAgent,
-                        agent: JsonSimpleAgent,
+case class JsonSubBoard(myCharacter: JsonRoleCharacter,
+                        character: JsonSimpleCharacter,
                         role: JsonSimpleRole,
                         prediction: String)
 

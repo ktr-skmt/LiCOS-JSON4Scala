@@ -1,17 +1,17 @@
-package licos.bson.element.village.agent;
+package licos.bson.element.village.character;
 
 import licos.bson.element.village.BsonAvatar;
 import licos.bson.element.village.BsonName;
 import licos.bson.element.village.role.BsonSimpleRole;
-import licos.json.element.village.agent.JsonStatusAgent;
+import licos.json.element.village.character.JsonStatusCharacter;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Reference;
 
-@Entity("statusAgents")
-public class BsonStatusAgent extends BsonAbstractAgent {
+@Entity("statusCharacters")
+public class BsonStatusCharacter extends BsonAbstractCharacter {
     @Getter @Setter @Reference
     private BsonSimpleRole role;
 
@@ -22,17 +22,19 @@ public class BsonStatusAgent extends BsonAbstractAgent {
     private BsonAvatar avatar;
 
     @SuppressWarnings("unused")
-    private BsonStatusAgent() {}
+    private BsonStatusCharacter() {
+        // Do nothing
+    }
 
-    public BsonStatusAgent(ObjectId _id,
-                           String $context,
-                           String $id,
-                           long id,
-                           BsonName name,
-                           String image,
-                           BsonSimpleRole role,
-                           String status,
-                           BsonAvatar avatar) {
+    public BsonStatusCharacter(ObjectId _id,
+                               String $context,
+                               String $id,
+                               long id,
+                               BsonName name,
+                               String image,
+                               BsonSimpleRole role,
+                               String status,
+                               BsonAvatar avatar) {
         this._id = _id;
         this.$context = $context;
         this.$id = $id;
@@ -45,8 +47,8 @@ public class BsonStatusAgent extends BsonAbstractAgent {
     }
 
     @Override
-    public JsonStatusAgent toJson() {
-        return new JsonStatusAgent(
+    public JsonStatusCharacter toJson() {
+        return new JsonStatusCharacter(
                 $context,
                 $id,
                 id,

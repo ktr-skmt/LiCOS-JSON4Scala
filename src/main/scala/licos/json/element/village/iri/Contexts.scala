@@ -8,15 +8,15 @@ object Contexts {
           BaseContext.iri,
           BoardContext.iri
         )
+      case ChatMessage =>
+        Seq[String](
+          BaseContext.iri,
+          ChatContext.iri
+        )
       case ErrorMessage =>
         Seq[String](
           BaseContext.iri,
           ErrorContext.iri
-        )
-      case PlayerMessage =>
-        Seq[String](
-          BaseContext.iri,
-          ChatContext.iri
         )
       case ScrollMessage =>
         Seq[String](

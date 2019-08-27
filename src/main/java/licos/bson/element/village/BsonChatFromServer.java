@@ -1,6 +1,6 @@
 package licos.bson.element.village;
 
-import licos.bson.element.village.agent.BsonSimpleAgent;
+import licos.bson.element.village.character.BsonSimpleCharacter;
 import licos.json.element.village.JsonChatFromServer;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +25,7 @@ public class BsonChatFromServer extends BsonElement {
     private BsonBase base;
 
     @Getter @Setter @Reference
-    private BsonSimpleAgent agent;
+    private BsonSimpleCharacter character;
 
     @Getter @Setter
     private boolean isMine;
@@ -46,7 +46,7 @@ public class BsonChatFromServer extends BsonElement {
     private BsonChatText text;
 
     @Getter @Setter
-    private int characterLimit;
+    private int maxLengthOfUnicodeCodePoints;
 
     @Getter @Setter
     private boolean isOver;
@@ -58,25 +58,25 @@ public class BsonChatFromServer extends BsonElement {
 
     public BsonChatFromServer(ObjectId _id,
                               BsonBase base,
-                              BsonSimpleAgent agent,
+                              BsonSimpleCharacter character,
                               boolean isMine,
                               int id,
                               int counter,
                               int limit,
                               String interval,
                               BsonChatText text,
-                              int characterLimit,
+                              int maxLengthOfUnicodeCodePoints,
                               boolean isOver) {
         this._id = _id;
         this.base = base;
-        this.agent = agent;
+        this.character = character;
         this.isMine = isMine;
         this.id = id;
         this.counter = counter;
         this.limit = limit;
         this.interval = interval;
         this.text = text;
-        this.characterLimit = characterLimit;
+        this.maxLengthOfUnicodeCodePoints = maxLengthOfUnicodeCodePoints;
         this.isOver = isOver;
     }
 
@@ -84,14 +84,14 @@ public class BsonChatFromServer extends BsonElement {
     public JsonChatFromServer toJson() {
         return new JsonChatFromServer(
                 base.toJson(),
-                agent.toJson(),
+                character.toJson(),
                 isMine,
                 id,
                 counter,
                 limit,
                 interval,
                 text.toJson(),
-                characterLimit,
+                maxLengthOfUnicodeCodePoints,
                 isOver
         );
     }

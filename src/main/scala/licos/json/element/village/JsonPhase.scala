@@ -3,9 +3,9 @@ package licos.json.element.village
 import java.util.{List => JList}
 
 import licos.bson.element.village.{BsonBase, BsonPhase}
-import licos.bson.element.village.agent.BsonAgent
+import licos.bson.element.village.character.BsonCharacter
 import licos.bson.element.village.role.BsonRole
-import licos.json.element.village.agent.JsonAgent
+import licos.json.element.village.character.JsonCharacter
 import licos.json.element.village.role.JsonRole
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
@@ -16,35 +16,35 @@ import scala.collection.JavaConverters._
 case class JsonPhase private (base: JsonBase,
                               sub: JsonSubPhase) extends JsonElement {
   def this(base: JsonBase,
-           agent: Seq[JsonAgent],
+           character: Seq[JsonCharacter],
            role: Seq[JsonRole]) = {
     this(
       base: JsonBase,
       JsonSubPhase(
-        agent.sortWith { (a1: JsonAgent, a2: JsonAgent) => a1.name.en < a2.name.en }.sortBy(!_.isMine): Seq[JsonAgent],
+        character.sortWith { (a1: JsonCharacter, a2: JsonCharacter) => a1.name.en < a2.name.en }.sortBy(!_.isMine): Seq[JsonCharacter],
         role.sortWith { (r1: JsonRole, r2: JsonRole) => r1.name.en < r2.name.en }: Seq[JsonRole]
       )
     )
   }
 
   def this(base: JsonBase,
-           agent: JList[JsonAgent],
+           character: JList[JsonCharacter],
            role: JList[JsonRole]) = {
     this(
       base: JsonBase,
-      agent.asScala.sortWith { (a1: JsonAgent, a2: JsonAgent) => a1.name.en < a2.name.en }.sortBy(!_.isMine): Seq[JsonAgent],
+      character.asScala.sortWith { (a1: JsonCharacter, a2: JsonCharacter) => a1.name.en < a2.name.en }.sortBy(!_.isMine): Seq[JsonCharacter],
       role.asScala.sortWith { (r1: JsonRole, r2: JsonRole) => r1.name.en < r2.name.en }: Seq[JsonRole]
     )
   }
 
-  def agent: Seq[JsonAgent] = sub.agent.sortWith { (a1: JsonAgent, a2: JsonAgent) => a1.name.en < a2.name.en }.sortBy(!_.isMine)
+  def character: Seq[JsonCharacter] = sub.character.sortWith { (a1: JsonCharacter, a2: JsonCharacter) => a1.name.en < a2.name.en }.sortBy(!_.isMine)
   def role: Seq[JsonRole] = sub.role.sortWith { (r1: JsonRole, r2: JsonRole) => r1.name.en < r2.name.en }
 
   override def toBson: BsonPhase = {
     new BsonPhase(
       new ObjectId(),
       base.toBson: BsonBase,
-      agent.map(_.toBson).asJava: JList[BsonAgent],
+      character.map(_.toBson).asJava: JList[BsonCharacter],
       role.map(_.toBson).asJava: JList[BsonRole]
     )
   }
@@ -59,11 +59,11 @@ case class JsonPhase private (base: JsonBase,
 
 object JsonPhase {
   def apply(base: JsonBase,
-            agent: Seq[JsonAgent],
+            character: Seq[JsonCharacter],
             role: Seq[JsonRole]): JsonPhase = {
     new JsonPhase(
       base: JsonBase,
-      agent.sortWith { (a1: JsonAgent, a2: JsonAgent) => a1.name.en < a2.name.en }.sortBy(!_.isMine): Seq[JsonAgent],
+      character.sortWith { (a1: JsonCharacter, a2: JsonCharacter) => a1.name.en < a2.name.en }.sortBy(!_.isMine): Seq[JsonCharacter],
       role.sortWith { (r1: JsonRole, r2: JsonRole) => r1.name.en < r2.name.en }: Seq[JsonRole]
     )
   }
@@ -74,7 +74,7 @@ object JsonPhase {
     )(JsonPhase.apply, unlift(JsonPhase.unapply))
 }
 
-case class JsonSubPhase(agent: Seq[JsonAgent],
+case class JsonSubPhase(character: Seq[JsonCharacter],
                         role: Seq[JsonRole])
 
 object JsonSubPhase {
