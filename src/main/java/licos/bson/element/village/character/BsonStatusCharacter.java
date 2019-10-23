@@ -1,6 +1,5 @@
 package licos.bson.element.village.character;
 
-import licos.bson.element.village.BsonAvatar;
 import licos.bson.element.village.BsonName;
 import licos.bson.element.village.role.BsonSimpleRole;
 import licos.json.element.village.character.JsonStatusCharacter;
@@ -19,7 +18,8 @@ public class BsonStatusCharacter extends BsonAbstractCharacter {
     private String status;
 
     @Getter @Setter
-    private BsonAvatar avatar;
+    private boolean isHumanPlayer;
+    //private BsonAvatar avatar;
 
     @SuppressWarnings("unused")
     private BsonStatusCharacter() {
@@ -34,7 +34,8 @@ public class BsonStatusCharacter extends BsonAbstractCharacter {
                                String image,
                                BsonSimpleRole role,
                                String status,
-                               BsonAvatar avatar) {
+                               boolean isHumanPlayer) {
+                               //BsonAvatar avatar) {
         this._id = _id;
         this.$context = $context;
         this.$id = $id;
@@ -43,7 +44,8 @@ public class BsonStatusCharacter extends BsonAbstractCharacter {
         this.image = image;
         this.role = role;
         this.status = status;
-        this.avatar = avatar;
+        this.isHumanPlayer = isHumanPlayer;
+        //this.avatar = avatar;
     }
 
     @Override
@@ -56,7 +58,8 @@ public class BsonStatusCharacter extends BsonAbstractCharacter {
                 image,
                 role.toJson(),
                 status,
-                avatar.toJson()
+                isHumanPlayer
+                //avatar.toJson()
         );
     }
 }

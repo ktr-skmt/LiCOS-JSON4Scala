@@ -7,7 +7,7 @@ case class JsonReceivedFlavorTextMessage(`type`: String,
                                          token: String,
                                          villageId: Long,
                                          phase: String,
-                                         date: Int) extends JsonReceivedMessage(`type`, token, villageId) {
+                                         day: Int) extends JsonReceivedMessage(`type`, token, villageId) {
   override protected def validType: String = JsonReceivedFlavorTextMessage.`type`
 
   def this(flavorText: JsonFlavorText) = {
@@ -16,7 +16,7 @@ case class JsonReceivedFlavorTextMessage(`type`: String,
       flavorText.base.token,
       flavorText.base.village.id,
       flavorText.base.phase,
-      flavorText.base.date
+      flavorText.base.day
     )
   }
 

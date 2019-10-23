@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Id;
-import scala.Option;
 
 public class BsonChatSettings extends BsonElement {
     @Id @SuppressWarnings("unused")
@@ -43,8 +42,8 @@ public class BsonChatSettings extends BsonElement {
     @Override
     public JsonChatSettings toJson() {
         return new JsonChatSettings(
-                Option.apply($context),
-                Option.apply($id),
+                $context,
+                $id,
                 limit,
                 characterLimit
         );

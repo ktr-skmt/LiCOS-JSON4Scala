@@ -10,12 +10,12 @@ case class JsonVillage(`@context`: String,
                        `@id`: String,
                        id: Long,
                        name: String,
-                       totalNumberOfAgents: Int,
+                       totalNumberOfCharacters: Int,
                        lang: String,
                        chatSettings: JsonChatSettings) extends JsonElement {
   def this(id: Long,
            name: String,
-           totalNumberOfAgents: Int,
+           totalNumberOfCharacters: Int,
            lang: String,
            chatSettings: JsonChatSettings) = {
     this(
@@ -23,7 +23,7 @@ case class JsonVillage(`@context`: String,
       WerewolfWorld.stateVillage: String,
       id: Long,
       name: String,
-      totalNumberOfAgents: Int,
+      totalNumberOfCharacters: Int,
       lang: String,
       chatSettings: JsonChatSettings
     )
@@ -36,7 +36,7 @@ case class JsonVillage(`@context`: String,
       `@id`: String,
       id: Long,
       name: String,
-      totalNumberOfAgents: Int,
+      totalNumberOfCharacters: Int,
       lang: String,
       chatSettings.toBson
     )
@@ -45,18 +45,4 @@ case class JsonVillage(`@context`: String,
 
 object JsonVillage {
   implicit val jsonFormat: OFormat[JsonVillage] = Json.format[JsonVillage]
-
-  def apply(id: Long,
-            name: String,
-            totalNumberOfAgents: Int,
-            lang: String,
-            chatSettings: JsonChatSettings): JsonVillage = {
-    new JsonVillage(
-      id: Long,
-      name: String,
-      totalNumberOfAgents: Int,
-      lang: String,
-      chatSettings: JsonChatSettings
-    )
-  }
 }

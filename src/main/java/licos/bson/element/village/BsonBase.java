@@ -44,10 +44,10 @@ public class BsonBase extends BsonElementToJsonElement {
     private String phase;
 
     @Getter @Setter
-    private int date;
+    private int day;
 
     @Getter @Setter
-    private int phaseTimeLimit;
+    private String phaseTimeLimit;
 
     @Getter @Setter
     private String phaseStartTime;
@@ -84,8 +84,8 @@ public class BsonBase extends BsonElementToJsonElement {
                     BsonVillage village,
                     String token,
                     String phase,
-                    int date,
-                    int phaseTimeLimit,
+                    int day,
+                    String phaseTimeLimit,
                     String phaseStartTime,
                     String serverTimestamp,
                     String clientTimestamp,
@@ -100,7 +100,7 @@ public class BsonBase extends BsonElementToJsonElement {
         this.village = village;
         this.token = token;
         this.phase = phase;
-        this.date = date;
+        this.day = day;
         this.phaseTimeLimit = phaseTimeLimit;
         this.phaseStartTime = phaseStartTime;
         this.serverTimestamp = serverTimestamp;
@@ -138,7 +138,7 @@ public class BsonBase extends BsonElementToJsonElement {
                 village.toJson(),
                 token,
                 phase,
-                date,
+                day,
                 phaseTimeLimit,
                 phaseStartTime,
                 serverTimestamp,

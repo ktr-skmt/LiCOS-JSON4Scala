@@ -37,7 +37,7 @@ public class BsonBoardPolarity extends BsonElement {
     private String phase;
 
     @Getter @Setter
-    private int date;
+    private int day;
 
     @SuppressWarnings("unused")
     private BsonBoardPolarity() {
@@ -50,14 +50,14 @@ public class BsonBoardPolarity extends BsonElement {
                              BsonSimpleCharacter character,
                              String polarity,
                              String phase,
-                             int date) {
+                             int day) {
         this.$context = $context;
         this.$id = $id;
         this._id = _id;
         this.character = character;
         this.polarity = polarity;
         this.phase = phase;
-        this.date = date;
+        this.day = day;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class BsonBoardPolarity extends BsonElement {
                 character.toJson(),
                 polarity,
                 phase,
-                date
+                day
         );
     }
 }

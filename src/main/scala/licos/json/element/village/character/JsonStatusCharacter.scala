@@ -1,11 +1,11 @@
 package licos.json.element.village.character
 
-import licos.bson.element.village.{BsonAvatar, BsonName}
+import licos.bson.element.village.BsonName
 import licos.bson.element.village.character.BsonStatusCharacter
 import licos.bson.element.village.role.BsonSimpleRole
 import licos.json.element.village.iri.CharacterContext
 import licos.json.element.village.role.JsonSimpleRole
-import licos.json.element.village.{JsonAvatar, JsonName}
+import licos.json.element.village.JsonName
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
 
@@ -16,7 +16,8 @@ case class JsonStatusCharacter(`@context`: String,
                                image: String,
                                role: JsonSimpleRole,
                                status: String,
-                               avatar: JsonAvatar)
+                               isHumanPlayer: Boolean)
+                               //avatar: JsonAvatar)
   extends JsonAbstractCharacter(
     `@context`: String,
     `@id`: String,
@@ -31,7 +32,8 @@ case class JsonStatusCharacter(`@context`: String,
            image: String,
            role: JsonSimpleRole,
            status: String,
-           avatar: JsonAvatar) = {
+           isHumanPlayer: Boolean) = {
+           //avatar: JsonAvatar) = {
     this(
       CharacterContext.iri: String,
       `@id`: String,
@@ -40,9 +42,11 @@ case class JsonStatusCharacter(`@context`: String,
       image: String,
       role: JsonSimpleRole,
       status: String,
-      avatar: JsonAvatar
+      isHumanPlayer: Boolean
+      //avatar: JsonAvatar
     )
   }
+
   override def toBson: BsonStatusCharacter = {
     new BsonStatusCharacter(
       new ObjectId(),
@@ -53,7 +57,8 @@ case class JsonStatusCharacter(`@context`: String,
       image: String,
       role.toBson: BsonSimpleRole,
       status: String,
-      avatar.toBson: BsonAvatar
+      isHumanPlayer: Boolean
+      //avatar.toBson: BsonAvatar
     )
   }
 }
@@ -67,7 +72,8 @@ object JsonStatusCharacter {
             image: String,
             role: JsonSimpleRole,
             status: String,
-            avatar: JsonAvatar): JsonStatusCharacter = {
+            isHumanPlayer: Boolean): JsonStatusCharacter = {
+            //avatar: JsonAvatar): JsonStatusCharacter = {
     new JsonStatusCharacter(
       `@id`: String,
       id: Long,
@@ -75,7 +81,8 @@ object JsonStatusCharacter {
       image: String,
       role: JsonSimpleRole,
       status: String,
-      avatar: JsonAvatar
+      isHumanPlayer: Boolean
+      //avatar: JsonAvatar
     )
   }
 }

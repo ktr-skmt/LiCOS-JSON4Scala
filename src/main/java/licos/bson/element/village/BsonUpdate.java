@@ -19,7 +19,7 @@ public class BsonUpdate extends BsonElement {
     private String phase;
 
     @Getter @Setter
-    private int date;
+    private int day;
 
     @SuppressWarnings("unused")
     private BsonUpdate() {
@@ -29,11 +29,11 @@ public class BsonUpdate extends BsonElement {
     public BsonUpdate(ObjectId _id,
                       String $id,
                       String phase,
-                      int date) {
+                      int day) {
         this._id = _id;
         this.$id = $id;
         this.phase = phase;
-        this.date = date;
+        this.day = day;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class BsonUpdate extends BsonElement {
         return new JsonUpdate(
                 $id,
                 phase,
-                date
+                day
         );
     }
 }

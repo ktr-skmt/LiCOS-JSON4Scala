@@ -14,7 +14,7 @@ case class JsonChatFromClient private (base: JsonBase,
            character: JsonSimpleCharacter,
            isMine: Boolean,
            text: JsonChatText,
-           characterLimit: Int,
+           maxLengthOfUnicodeCodePoints: Int,
            isOver: Boolean) = {
     this(
       base: JsonBase,
@@ -23,7 +23,7 @@ case class JsonChatFromClient private (base: JsonBase,
         character: JsonSimpleCharacter,
         isMine: Boolean,
         text: JsonChatText,
-        characterLimit: Int,
+        maxLengthOfUnicodeCodePoints: Int,
         isOver: Boolean
       )
     )
@@ -33,7 +33,7 @@ case class JsonChatFromClient private (base: JsonBase,
   def character: JsonSimpleCharacter = sub.character
   def isMine: Boolean = sub.isMine
   def text: JsonChatText = sub.text
-  def characterLimit: Int = sub.characterLimit
+  def maxLengthOfUnicodeCodePoints: Int = sub.maxLengthOfUnicodeCodePoints
   def isOver: Boolean = sub.isOver
 
   override def toBson: BsonChatFromClient = {
@@ -44,7 +44,7 @@ case class JsonChatFromClient private (base: JsonBase,
       character.toBson: BsonSimpleCharacter,
       isMine: Boolean,
       text.toBson: BsonChatText,
-      characterLimit: Int,
+      maxLengthOfUnicodeCodePoints: Int,
       isOver: Boolean
     )
   }
@@ -56,7 +56,7 @@ object JsonChatFromClient {
             character: JsonSimpleCharacter,
             isMine: Boolean,
             text: JsonChatText,
-            characterLimit: Int,
+            maxLengthOfUnicodeCodePoints: Int,
             isOver: Boolean): JsonChatFromClient = {
     new JsonChatFromClient(
       base: JsonBase,
@@ -64,7 +64,7 @@ object JsonChatFromClient {
       character: JsonSimpleCharacter,
       isMine: Boolean,
       text: JsonChatText,
-      characterLimit: Int,
+      maxLengthOfUnicodeCodePoints: Int,
       isOver: Boolean)
   }
 
@@ -78,7 +78,7 @@ case class JsonSubChatFromClient(myCharacter: JsonRoleCharacter,
                                  character: JsonSimpleCharacter,
                                  isMine: Boolean,
                                  text: JsonChatText,
-                                 characterLimit: Int,
+                                 maxLengthOfUnicodeCodePoints: Int,
                                  isOver: Boolean)
 
 object JsonSubChatFromClient {

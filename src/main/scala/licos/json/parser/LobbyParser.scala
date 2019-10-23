@@ -1,7 +1,7 @@
 package licos.json.parser
 
 import licos.json.element.lobby.{JsonAdvancedSearch, JsonAvatarInfo, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetAvatarInfo, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLobby, JsonPing, JsonPlay, JsonPlayedWithToken, JsonPong, JsonSearchResult, JsonSelectVillage, JsonSettings, JsonWaitingPage}
-import play.api.libs.json.{JsResult, JsValue}
+import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
 
 import scala.util.{Failure, Success, Try}
 
@@ -18,7 +18,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parsePing(jsValue: JsValue): Option[JsonPing] = {
     Try(jsValue.validate[JsonPing]) match {
-      case Success(json: JsResult[JsonPing]) => json.asOpt
+      case Success(json: JsResult[JsonPing]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -32,7 +38,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parsePong(jsValue: JsValue): Option[JsonPong] = {
     Try(jsValue.validate[JsonPong]) match {
-      case Success(json: JsResult[JsonPong]) => json.asOpt
+      case Success(json: JsResult[JsonPong]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -46,7 +58,13 @@ trait LobbyParser extends LiCOSParser {
     */
   def parseWaitingPage(jsValue: JsValue): Option[JsonWaitingPage] = {
     Try(jsValue.validate[JsonWaitingPage]) match {
-      case Success(json: JsResult[JsonWaitingPage]) => json.asOpt
+      case Success(json: JsResult[JsonWaitingPage]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -60,7 +78,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseLobby(jsValue: JsValue): Option[JsonLobby] = {
     Try(jsValue.validate[JsonLobby]) match {
-      case Success(json: JsResult[JsonLobby]) => json.asOpt
+      case Success(json: JsResult[JsonLobby]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -74,7 +98,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseEnterLobby(jsValue: JsValue): Option[JsonEnterLobby] = {
     Try(jsValue.validate[JsonEnterLobby]) match {
-      case Success(json: JsResult[JsonEnterLobby]) => json.asOpt
+      case Success(json: JsResult[JsonEnterLobby]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -88,7 +118,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseGetAvatarInfo(jsValue: JsValue): Option[JsonGetAvatarInfo] = {
     Try(jsValue.validate[JsonGetAvatarInfo]) match {
-      case Success(json: JsResult[JsonGetAvatarInfo]) => json.asOpt
+      case Success(json: JsResult[JsonGetAvatarInfo]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -102,7 +138,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseAvatarInfo(jsValue: JsValue): Option[JsonAvatarInfo] = {
     Try(jsValue.validate[JsonAvatarInfo]) match {
-      case Success(json: JsResult[JsonAvatarInfo]) => json.asOpt
+      case Success(json: JsResult[JsonAvatarInfo]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -116,7 +158,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseSelectVillage(jsValue: JsValue): Option[JsonSelectVillage] = {
     Try(jsValue.validate[JsonSelectVillage]) match {
-      case Success(json: JsResult[JsonSelectVillage]) => json.asOpt
+      case Success(json: JsResult[JsonSelectVillage]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -130,7 +178,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseKickOutPlayer(jsValue: JsValue): Option[JsonKickOutPlayer] = {
     Try(jsValue.validate[JsonKickOutPlayer]) match {
-      case Success(json: JsResult[JsonKickOutPlayer]) => json.asOpt
+      case Success(json: JsResult[JsonKickOutPlayer]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -144,7 +198,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseAdvancedSearch(jsValue: JsValue): Option[JsonAdvancedSearch] = {
     Try(jsValue.validate[JsonAdvancedSearch]) match {
-      case Success(json: JsResult[JsonAdvancedSearch]) => json.asOpt
+      case Success(json: JsResult[JsonAdvancedSearch]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -158,7 +218,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseIdSearch(jsValue: JsValue): Option[JsonIdSearch] = {
     Try(jsValue.validate[JsonIdSearch]) match {
-      case Success(json: JsResult[JsonIdSearch]) => json.asOpt
+      case Success(json: JsResult[JsonIdSearch]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -172,7 +238,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parsePlay(jsValue: JsValue): Option[JsonPlay] = {
     Try(jsValue.validate[JsonPlay]) match {
-      case Success(json: JsResult[JsonPlay]) => json.asOpt
+      case Success(json: JsResult[JsonPlay]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -186,7 +258,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parsePlayedWithToken(jsValue: JsValue): Option[JsonPlayedWithToken] = {
     Try(jsValue.validate[JsonPlayedWithToken]) match {
-      case Success(json: JsResult[JsonPlayedWithToken]) => json.asOpt
+      case Success(json: JsResult[JsonPlayedWithToken]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -200,7 +278,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseSearchResult(jsValue: JsValue): Option[JsonSearchResult] = {
     Try(jsValue.validate[JsonSearchResult]) match {
-      case Success(json: JsResult[JsonSearchResult]) => json.asOpt
+      case Success(json: JsResult[JsonSearchResult]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -214,7 +298,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseChangeLang(jsValue: JsValue): Option[JsonChangeLang] = {
     Try(jsValue.validate[JsonChangeLang]) match {
-      case Success(json: JsResult[JsonChangeLang]) => json.asOpt
+      case Success(json: JsResult[JsonChangeLang]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -228,7 +318,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseChangeUserEmail(jsValue: JsValue): Option[JsonChangeUserEmail] = {
     Try(jsValue.validate[JsonChangeUserEmail]) match {
-      case Success(json: JsResult[JsonChangeUserEmail]) => json.asOpt
+      case Success(json: JsResult[JsonChangeUserEmail]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -242,7 +338,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseChangeUserName(jsValue: JsValue): Option[JsonChangeUserName] = {
     Try(jsValue.validate[JsonChangeUserName]) match {
-      case Success(json: JsResult[JsonChangeUserName]) => json.asOpt
+      case Success(json: JsResult[JsonChangeUserName]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -256,7 +358,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseChangeUserPassword(jsValue: JsValue): Option[JsonChangeUserPassword] = {
     Try(jsValue.validate[JsonChangeUserPassword]) match {
-      case Success(json: JsResult[JsonChangeUserPassword]) => json.asOpt
+      case Success(json: JsResult[JsonChangeUserPassword]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -270,7 +378,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseGetSettings(jsValue: JsValue): Option[JsonGetSettings] = {
     Try(jsValue.validate[JsonGetSettings]) match {
-      case Success(json: JsResult[JsonGetSettings]) => json.asOpt
+      case Success(json: JsResult[JsonGetSettings]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -284,7 +398,13 @@ trait LobbyParser extends LiCOSParser {
     */
   protected def parseSettings(jsValue: JsValue): Option[JsonSettings] = {
     Try(jsValue.validate[JsonSettings]) match {
-      case Success(json: JsResult[JsonSettings]) => json.asOpt
+      case Success(json: JsResult[JsonSettings]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None

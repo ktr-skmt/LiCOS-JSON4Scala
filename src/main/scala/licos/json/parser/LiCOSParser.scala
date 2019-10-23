@@ -1,7 +1,7 @@
 package licos.json.parser
 
 import licos.json.element.lobby.{JsonBuildVillage, JsonLeaveWaitingPage, JsonReady}
-import play.api.libs.json.{JsResult, JsValue}
+import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
 
 import scala.util.{Failure, Success, Try}
 
@@ -18,7 +18,13 @@ trait LiCOSParser {
     */
   protected def parseReady(jsValue: JsValue): Option[JsonReady] = {
     Try(jsValue.validate[JsonReady]) match {
-      case Success(json: JsResult[JsonReady]) => json.asOpt
+      case Success(json: JsResult[JsonReady]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -32,7 +38,13 @@ trait LiCOSParser {
     */
   protected def parseBuildVillage(jsValue: JsValue): Option[JsonBuildVillage] = {
     Try(jsValue.validate[JsonBuildVillage]) match {
-      case Success(json: JsResult[JsonBuildVillage]) => json.asOpt
+      case Success(json: JsResult[JsonBuildVillage]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None
@@ -46,7 +58,13 @@ trait LiCOSParser {
     */
   protected def parseLeaveWaitingPage(jsValue: JsValue): Option[JsonLeaveWaitingPage] = {
     Try(jsValue.validate[JsonLeaveWaitingPage]) match {
-      case Success(json: JsResult[JsonLeaveWaitingPage]) => json.asOpt
+      case Success(json: JsResult[JsonLeaveWaitingPage]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
       case Failure(err: Throwable) =>
         System.err.println(err.getMessage)
         None

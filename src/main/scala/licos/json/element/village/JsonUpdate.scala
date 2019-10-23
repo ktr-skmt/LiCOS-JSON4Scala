@@ -6,13 +6,13 @@ import play.api.libs.json.{Json, OFormat}
 
 case class JsonUpdate(`@id`: String,
                       phase: String,
-                      date: Int) extends JsonElement {
+                      day: Int) extends JsonElement {
   override def toBson: BsonUpdate = {
     new BsonUpdate(
       new ObjectId(),
       `@id`: String,
       phase: String,
-      date: Int
+      day: Int
     )
   }
 }

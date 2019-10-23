@@ -11,7 +11,7 @@ case class JsonBoardPolarity(`@context`: String,
                              character: JsonSimpleCharacter,
                              polarity: String,
                              phase: String,
-                             date: Int) extends JsonElement {
+                             day: Int) extends JsonElement {
   override def toBson: BsonBoardPolarity = {
     new BsonBoardPolarity(
       new ObjectId(),
@@ -20,7 +20,7 @@ case class JsonBoardPolarity(`@context`: String,
       character.toBson: BsonSimpleCharacter,
       polarity: String,
       phase: String,
-      date: Int
+      day: Int
     )
   }
 }

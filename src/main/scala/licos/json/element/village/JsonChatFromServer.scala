@@ -14,10 +14,10 @@ case class JsonChatFromServer private (base: JsonBase,
            isMine: Boolean,
            id: Int,
            counter: Int,
-           limit: Int,
+           maxNumberOfChatMessages: Int,
            interval: String,
            text: JsonChatText,
-           characterLimit: Int,
+           maxLengthOfUnicodeCodePoints: Int,
            isOver: Boolean) = {
     this(
       base,
@@ -26,10 +26,10 @@ case class JsonChatFromServer private (base: JsonBase,
         isMine: Boolean,
         id: Int,
         counter: Int,
-        limit: Int,
+        maxNumberOfChatMessages: Int,
         interval: String,
         text: JsonChatText,
-        characterLimit: Int,
+        maxLengthOfUnicodeCodePoints: Int,
         isOver: Boolean
       )
     )
@@ -44,10 +44,10 @@ case class JsonChatFromServer private (base: JsonBase,
         isCharacterMine: Boolean,
         id: Int,
         counter: Int,
-        limit: Int,
+        maxNumberOfChatMessages: Int,
         interval: String,
         text: JsonChatText,
-        characterLimit: Int,
+        maxLengthOfUnicodeCodePoints: Int,
         isOver: Boolean
       )
     )
@@ -57,10 +57,10 @@ case class JsonChatFromServer private (base: JsonBase,
   def isMine: Boolean = sub.isMine
   def id: Int = sub.id
   def counter: Int = sub.counter
-  def limit: Int = sub.limit
+  def maxNumberOfChatMessages: Int = sub.maxNumberOfChatMessages
   def interval: String = sub.interval
   def text: JsonChatText = sub.text
-  def characterLimit: Int = sub.characterLimit
+  def maxLengthOfUnicodeCodePoints: Int = sub.maxLengthOfUnicodeCodePoints
   def isOver: Boolean = sub.isOver
 
   def appendText(t: String): JsonChatFromServer = {
@@ -71,7 +71,7 @@ case class JsonChatFromServer private (base: JsonBase,
         isMine: Boolean,
         id: Int,
         counter: Int,
-        limit: Int,
+        maxNumberOfChatMessages: Int,
         interval: String,
         JsonChatText(
           s"""${text.`@value`}
@@ -79,7 +79,7 @@ case class JsonChatFromServer private (base: JsonBase,
              |$t""".stripMargin,
           text.`@language`: String
         ),
-        characterLimit: Int,
+        maxLengthOfUnicodeCodePoints: Int,
         isOver: Boolean
       )
     )
@@ -93,10 +93,10 @@ case class JsonChatFromServer private (base: JsonBase,
       isMine: Boolean,
       id: Int,
       counter: Int,
-      limit: Int,
+      maxNumberOfChatMessages: Int,
       interval: String,
       text.toBson: BsonChatText,
-      characterLimit: Int,
+      maxLengthOfUnicodeCodePoints: Int,
       isOver: Boolean
     )
   }
@@ -111,7 +111,7 @@ object JsonChatFromServer {
             limit: Int,
             interval: String,
             text: JsonChatText,
-            characterLimit: Int,
+            maxLengthOfUnicodeCodePoints: Int,
             isOver: Boolean): JsonChatFromServer = {
     new JsonChatFromServer(
       base: JsonBase,
@@ -122,7 +122,7 @@ object JsonChatFromServer {
       limit: Int,
       interval: String,
       text: JsonChatText,
-      characterLimit: Int,
+      maxLengthOfUnicodeCodePoints: Int,
       isOver: Boolean
     )
   }
@@ -137,10 +137,10 @@ case class JsonSubChatFromServer(character: JsonSimpleCharacter,
                                  isMine: Boolean,
                                  id: Int,
                                  counter: Int,
-                                 limit: Int,
+                                 maxNumberOfChatMessages: Int,
                                  interval: String,
                                  text: JsonChatText,
-                                 characterLimit: Int,
+                                 maxLengthOfUnicodeCodePoints: Int,
                                  isOver: Boolean)
 
 object JsonSubChatFromServer {

@@ -37,7 +37,7 @@ public class BsonChatFromServer extends BsonElement {
     private int counter;
 
     @Getter @Setter
-    private int limit;
+    private int maxNumberOfChatMessages;
 
     @Getter @Setter
     private String interval;
@@ -62,7 +62,7 @@ public class BsonChatFromServer extends BsonElement {
                               boolean isMine,
                               int id,
                               int counter,
-                              int limit,
+                              int maxNumberOfChatMessages,
                               String interval,
                               BsonChatText text,
                               int maxLengthOfUnicodeCodePoints,
@@ -73,7 +73,7 @@ public class BsonChatFromServer extends BsonElement {
         this.isMine = isMine;
         this.id = id;
         this.counter = counter;
-        this.limit = limit;
+        this.maxNumberOfChatMessages = maxNumberOfChatMessages;
         this.interval = interval;
         this.text = text;
         this.maxLengthOfUnicodeCodePoints = maxLengthOfUnicodeCodePoints;
@@ -88,7 +88,7 @@ public class BsonChatFromServer extends BsonElement {
                 isMine,
                 id,
                 counter,
-                limit,
+                maxNumberOfChatMessages,
                 interval,
                 text.toJson(),
                 maxLengthOfUnicodeCodePoints,
