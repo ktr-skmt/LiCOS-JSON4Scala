@@ -21,7 +21,7 @@ class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var advancedSearchEngine: Option[AdvancedSearchAnalysisEngine] = None
   private var idSearchEngine: Option[IdSearchAnalysisEngine] = None
   private var playEngine: Option[PlayAnalysisEngine] = None
-  private var playedWithTokenEngine: Option[PlayedWithTokenAnalysisEngine] = None
+  private var playedEngine: Option[PlayedAnalysisEngine] = None
   private var readyEngine: Option[ReadyAnalysisEngine] = None
   private var searchResultEngine: Option[SearchResultAnalysisEngine] = None
   private var changeLangEngine: Option[ChangeLangAnalysisEngine] = None
@@ -51,7 +51,7 @@ class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       advancedSearchEngine: Option[AdvancedSearchAnalysisEngine],
       idSearchEngine: Option[IdSearchAnalysisEngine],
       playEngine: Option[PlayAnalysisEngine],
-      playedWithTokenEngine: Option[PlayedWithTokenAnalysisEngine],
+      playedEngine: Option[PlayedAnalysisEngine],
       readyEngine: Option[ReadyAnalysisEngine],
       searchResultEngine: Option[SearchResultAnalysisEngine],
       changeLangEngine: Option[ChangeLangAnalysisEngine],
@@ -133,8 +133,8 @@ class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(playedWithTokenEngine: PlayedWithTokenAnalysisEngine): LobbyProcessingEngineFactory = {
-    this.playedWithTokenEngine = Option(playedWithTokenEngine)
+  def set(playedEngine: PlayedAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.playedEngine = Option(playedEngine)
     this
   }
 

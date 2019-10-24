@@ -9,4 +9,3 @@ case class Error(filePath: String) extends VillageExample(filePath) {
 object Error {
   val `type`: String = "ErrorFromServer"
 }
-

@@ -1,6 +1,7 @@
 package licos.json.parser
 
 import licos.json.element.lobby.{JsonBuildVillage, JsonLeaveWaitingPage, JsonReady}
+import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
 
 import scala.util.{Failure, Success, Try}
@@ -10,6 +11,8 @@ import scala.util.{Failure, Success, Try}
   * @author Kotaro Sakamoto
   */
 trait LiCOSParser {
+
+  private final val logger: Logger = LoggerFactory.getLogger(classOf[LiCOSParser])
 
   /** Tries to parse play.api.libs.json.JsValue as Ready JSON.
     *
@@ -22,11 +25,11 @@ trait LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -42,11 +45,11 @@ trait LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -62,11 +65,11 @@ trait LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }

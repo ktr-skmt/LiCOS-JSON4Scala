@@ -11,7 +11,7 @@ import play.api.libs.json.{Json, OFormat}
   */
 case class JsonKickOutPlayer(`type`: String,
                              token: String,
-                             players: Seq[JsonPlayerToken]) extends TypeSystem(`type`) {
+                             players: Seq[JsonPlayerTokenInKickOutPlayer]) extends TypeSystem(`type`) {
   override protected def validType: String = JsonKickOutPlayer.`type`
 }
 
@@ -21,8 +21,8 @@ object JsonKickOutPlayer {
   val `type`: String = "kickOutPlayer"
 }
 
-case class JsonPlayerToken(token: String)
+case class JsonPlayerTokenInKickOutPlayer(token: String)
 
-object JsonPlayerToken {
-  implicit val jsonFormat: OFormat[JsonPlayerToken] = Json.format[JsonPlayerToken]
+object JsonPlayerTokenInKickOutPlayer {
+  implicit val jsonFormat: OFormat[JsonPlayerTokenInKickOutPlayer] = Json.format[JsonPlayerTokenInKickOutPlayer]
 }

@@ -2,6 +2,7 @@ package engine.lobby
 
 import java.nio.charset.StandardCharsets
 
+import com.typesafe.scalalogging.Logger
 import engine.LobbyExample
 import engine.lobby.analysis._
 import engine.lobby.example._
@@ -37,17 +38,19 @@ object LobbyProcessingEngineSpec {
     Ready("ready.json"),
     SelectVillage("selectVillageForHumanPlayer.json"),
     AvatarInfo("avatar.json"),
-    //Lobby("lobbyForHumanPlayer.json"),
     Ping("ping.json"),
-    //PlayedWithToken("played.json"),
-    //SearchResult("searchResult.json"),
     Settings("settings.json"),
-    //WaitingPage("waitingPageForHumanPlayer.json")
+    Lobby("lobbyForHumanPlayer.json"),
+    Played("played.json"),
+    SearchResult("searchResult.json"),
+    WaitingPage("waitingPageForHumanPlayer.json")
   )
 }
 
 @RunWith(classOf[Theories])
 class LobbyProcessingEngineSpec extends AssertionsForJUnit {
+
+  private final val logger: Logger = Logger[LobbyProcessingEngine]
 
   private val processingEngineFactory: LobbyProcessingEngineFactory = SpecificProcessingEngineFactory.
     create(LobbyPE).
@@ -66,7 +69,7 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit {
     set(new AdvancedSearchAE()).
     set(new IdSearchAE()).
     set(new PlayAE()).
-    set(new PlayedWithTokenAE()).
+    set(new PlayedAE()).
     set(new ReadyAE()).
     set(new SearchResultAE()).
     set(new ChangeLangAE()).
@@ -83,11 +86,11 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit {
     val jsonType: String = jsonExample.`type`
     val url: String = jsonExample.path
     implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
-    System.err.println(url)
+    logger.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()
-    System.err.println(msg)
+    logger.debug(msg)
     processingEngine.process(new LobbyBox(jsonType), msg) match {
       case Some(jsValue: JsValue) =>
         parseJsonTest(jsValue) match {

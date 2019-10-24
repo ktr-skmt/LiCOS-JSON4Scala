@@ -2,6 +2,7 @@ package engine.village
 
 import java.nio.charset.StandardCharsets
 
+import com.typesafe.scalalogging.Logger
 import engine.VillageExample
 import engine.village.analysis.client2server._
 import engine.village.analysis.server2client._
@@ -60,6 +61,8 @@ object VillageProcessingEngineSpec {
 @RunWith(classOf[Theories])
 class VillageProcessingEngineSpec extends AssertionsForJUnit {
 
+  private final val logger: Logger = Logger[VillageProcessingEngineSpec]
+
   private val processingEngineFactory: VillageProcessingEngineFactory = SpecificProcessingEngineFactory.
     create(VillagePE).
     asInstanceOf[VillageProcessingEngineFactory].
@@ -96,11 +99,11 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit {
     val jsonType: String = jsonExample.`type`
     val url: String = jsonExample.path
     implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
-    //System.err.println(url)
+    logger.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()
-    //System.err.println(msg)
+    logger.debug(msg)
     processingEngine.process(new VillageBox(jsonType), msg) match {
       case Some(jsValue: JsValue) =>
         parseJsonTest(jsValue) match {

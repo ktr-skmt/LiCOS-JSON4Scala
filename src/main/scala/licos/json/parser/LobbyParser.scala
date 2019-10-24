@@ -1,6 +1,7 @@
 package licos.json.parser
 
-import licos.json.element.lobby.{JsonAdvancedSearch, JsonAvatarInfo, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetAvatarInfo, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLobby, JsonPing, JsonPlay, JsonPlayedWithToken, JsonPong, JsonSearchResult, JsonSelectVillage, JsonSettings, JsonWaitingPage}
+import licos.json.element.lobby.{JsonAdvancedSearch, JsonAvatarInfo, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetAvatarInfo, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLobby, JsonPing, JsonPlay, JsonPlayed, JsonPong, JsonSearchResult, JsonSelectVillage, JsonSettings, JsonWaitingPage}
+import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
 
 import scala.util.{Failure, Success, Try}
@@ -10,6 +11,8 @@ import scala.util.{Failure, Success, Try}
   * @author Kotaro Sakamoto
   */
 trait LobbyParser extends LiCOSParser {
+
+  private val logger: Logger = LoggerFactory.getLogger(classOf[LiCOSParser])
 
   /** Tries to parse play.api.libs.json.JsValue as Ping JSON.
     *
@@ -22,11 +25,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -42,11 +45,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -62,11 +65,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -82,11 +85,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -102,11 +105,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -122,11 +125,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -142,11 +145,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -162,11 +165,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -182,11 +185,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -202,11 +205,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -222,11 +225,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -242,31 +245,31 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
 
-  /** Tries to parse play.api.libs.json.JsValue as Played-with-token JSON.
+  /** Tries to parse play.api.libs.json.JsValue as Played JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Played-with-token JSON option.
+    * @return a Played JSON option.
     */
-  protected def parsePlayedWithToken(jsValue: JsValue): Option[JsonPlayedWithToken] = {
-    Try(jsValue.validate[JsonPlayedWithToken]) match {
-      case Success(json: JsResult[JsonPlayedWithToken]) =>
+  protected def parsePlayed(jsValue: JsValue): Option[JsonPlayed] = {
+    Try(jsValue.validate[JsonPlayed]) match {
+      case Success(json: JsResult[JsonPlayed]) =>
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -282,11 +285,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -302,11 +305,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -322,11 +325,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -342,11 +345,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -362,11 +365,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -382,11 +385,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -402,11 +405,11 @@ trait LobbyParser extends LiCOSParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }

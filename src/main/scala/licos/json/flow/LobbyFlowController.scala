@@ -31,7 +31,7 @@ class LobbyFlowController() extends FlowController with LobbyParser {
                             parseAdvancedSearch(jsValue) >>> {
                               parseIdSearch(jsValue) >>> {
                                 parsePlay(jsValue) >>> {
-                                  parsePlayedWithToken(jsValue) >-> {
+                                  parsePlayed(jsValue) >>> {
                                     parseReady(jsValue) >>> {
                                       parseSearchResult(jsValue) >>> {
                                         parseChangeLang(jsValue) >>> {

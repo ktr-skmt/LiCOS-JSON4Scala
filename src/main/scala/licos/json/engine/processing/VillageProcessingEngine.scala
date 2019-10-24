@@ -1,5 +1,6 @@
 package licos.json.engine.processing
 
+import com.typesafe.scalalogging.Logger
 import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.client2server._
 import licos.json.engine.analysis.village
@@ -67,6 +68,8 @@ class VillageProcessingEngine(readyEngine: Option[ReadyAnalysisEngine],
 
   override protected val flowController: FlowController = new VillageFlowController()
 
+  private final val logger: Logger = Logger[VillageProcessingEngine]
+
   /** Returns a play.api.libs.json.JsValue response from a JSON message.
     *
     * @param box a box.
@@ -78,8 +81,8 @@ class VillageProcessingEngine(readyEngine: Option[ReadyAnalysisEngine],
     val jsValue: JsValue = Json.parse(msg)
 
     def log(label: String): Unit = {
-      val format: String = "VillageProcessingEngine.process %s%n"
-      System.err.printf(format, label)
+      val format: String = "process %s%n"
+      logger.info(format.format(label))
     }
 
     flowController.flow(jsValue) match {

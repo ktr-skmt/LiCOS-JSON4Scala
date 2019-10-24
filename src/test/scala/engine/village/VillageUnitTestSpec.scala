@@ -2,8 +2,9 @@ package engine.village
 
 import java.nio.charset.StandardCharsets
 
+import com.typesafe.scalalogging.Logger
 import engine.VillageUnitTestExample
-import engine.village.unitTestExample.{Avatar, Base, BoardPolarity, ChatSettings, ChatText, Name, StarInfo, SubOnymousAudienceBoard, SubAnonymousAudienceChat, SubOnymousAudienceChat, SubOnymousAudienceScroll, SubBoard, SubChatFromClient, SubChatFromServer, SubErrorFromClient, SubErrorFromServer, SubFlavorText, SubGameResult, SubPhase, SubScroll, SubStar, SubVote, Update, Village, VotingResultDetail, VotingResultSummary}
+import engine.village.unitTestExample.{Avatar, Base, BoardPolarity, ChatSettings, ChatText, Name, StarInfo, SubAnonymousAudienceChat, SubBoard, SubChatFromClient, SubChatFromServer, SubErrorFromClient, SubErrorFromServer, SubFlavorText, SubGameResult, SubOnymousAudienceBoard, SubOnymousAudienceChat, SubOnymousAudienceScroll, SubPhase, SubScroll, SubStar, SubVote, Update, Village, VotingResultDetail, VotingResultSummary}
 import engine.village.unitTestExample.character.{Character, ResultCharacter, RoleCharacter, SimpleCharacter, StatusCharacter}
 import engine.village.unitTestExample.role.{ResultRole, Role, SimpleRole}
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
@@ -58,16 +59,18 @@ object VillageUnitTestSpec {
 @RunWith(classOf[Theories])
 class VillageUnitTestSpec extends AssertionsForJUnit with VillageUnitTestParser {
 
+  private final val logger: Logger = Logger[VillageUnitTestSpec]
+
   @Theory
   def process(jsonExample: VillageUnitTestExample): Unit = {
     val jsonType: String = jsonExample.`type`
     val url: String = jsonExample.path
     implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
-    System.err.println(url)
+    logger.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()
-    //System.err.println(msg)
+    logger.debug(msg)
     val json: JsValue = Json.parse(msg)
 
     jsonType match {

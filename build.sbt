@@ -15,7 +15,7 @@ coverageEnabled := true
 lazy val javaVersion: String = "1.8"
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.8",
+  scalaVersion := "2.12.10",
   organization := "online.licos",
   fork in run := true
 ) ++ {
@@ -40,7 +40,7 @@ val mavenRepo: String = "maven-repo"
 val snapshotsStr: String = "snapshots"
 val releasesStr: String = "releases"
 
-def getPublishTo(isSnapshot: Boolean, f: String, n: String): Option[Resolver] = {
+def getPublishTo(isSnapshot: Boolean, n: String): Option[Resolver] = {
   val version: String = {
     if (isSnapshot) {
       snapshotsStr
@@ -52,7 +52,7 @@ def getPublishTo(isSnapshot: Boolean, f: String, n: String): Option[Resolver] = 
   Option(
     Resolver.file(
       s"$n-$version-repository",
-      file(s"$f/$mavenRepo/$version")
+      file(s"$mavenRepo/$version")
     )
   )
 }
@@ -73,8 +73,6 @@ val pomExtraTemplate = {
     </developers>
 }
 
-val jsonLibraryProjectName: String = "json"
-
 lazy val json = (project in file(".")).
   //enablePlugins(GhpagesPlugin).
   //enablePlugins(SiteScaladocPlugin).
@@ -88,22 +86,27 @@ lazy val json = (project in file(".")).
     autoAPIMappings := true
   ).settings(
   isSnapshot := true,
-  version := "0.0.1",
+  version := "0.0.2",
   name := jsonLibraryName,
   publishMavenStyle := true,
   publishArtifact in Test := false,
   pomIncludeRepository := { _ => false},
-  publishTo := getPublishTo(isSnapshot.value, jsonLibraryProjectName, name.value),
+  publishTo := getPublishTo(isSnapshot.value, name.value),
   licenses := licensesTemplate,
   homepage := homepageTemplate,
   pomExtra := pomExtraTemplate
   ).settings(
-    libraryDependencies ++= Seq(
-      "com.typesafe.play" %% "play-json" % "2.7.4",
-      "org.mongodb.morphia" % "morphia" % "1.3.2",
-      "org.projectlombok" % "lombok" % "1.16.20",
-      "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
-    )
+    libraryDependencies ++= {
+      Seq(
+        "com.typesafe.play" %% "play-json" % "2.7.4",
+        "org.mongodb.morphia" % "morphia" % "1.3.2",
+        "org.projectlombok" % "lombok" % "1.16.20",
+        "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
+        "org.slf4j" % "slf4j-api" % "1.7.28" % "compile",// withSources() withJavadoc()
+        "ch.qos.logback" % "logback-classic" % "1.2.3",
+        "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
+      )
+    }
   )//.settings(
     //git.remoteRepo := "git@github.com:ktr-skmt/LiCOS-JSON4Scala.git"
   //)

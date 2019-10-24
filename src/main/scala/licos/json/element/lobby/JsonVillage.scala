@@ -9,7 +9,7 @@ case class JsonVillage(name: String,
                        playerSetting: JsonPlayerSetting,
                        roleSetting: JsonRoleSetting,
                        avatar: String,
-                       comment: String)
+                       comment: Option[String])
 
 object JsonVillage {
   implicit val jsonFormat: OFormat[JsonVillage] = Json.format[JsonVillage]
