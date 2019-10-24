@@ -14,10 +14,10 @@ Notable packages includes:
         [[licos.json.engine.analysis.lobby.client2server.AdvancedSearchAnalysisEngine `AdvancedSearchAnalysisEngine`]].
       - [[licos.json.engine.analysis.village `licos.json.engine.analysis.village`]] contains LiCOS's JSON analysis engines for village such as
         [[licos.json.engine.analysis.village.client2server.BoardAnalysisEngine `BoardAnalysisEngine`]].
-  - [[licos.json.lobby `licos.json.lobby`]] contains LiCOS's JSON entities for lobby such as
-    [[licos.json.lobby.JsonAdvancedSearch `JsonAdvancedSearch`]].
-  - [[licos.json.village `licos.json.village`]] contains LiCOS's JSON entities for village such as
-    [[licos.json.village.JsonAvatar `JsonAvatar`]].
+  - [[licos.json.element.lobby `licos.json.element.lobby`]] contains LiCOS's JSON entities for lobby such as
+    [[licos.json.element.lobby.JsonAdvancedSearch `JsonAdvancedSearch`]].
+  - [[licos.json.element.village `licos.json.village`]] contains LiCOS's JSON entities for village such as
+    [[licos.json.element.village.JsonAvatar `JsonAvatar`]].
 
 == How to use ==
 
