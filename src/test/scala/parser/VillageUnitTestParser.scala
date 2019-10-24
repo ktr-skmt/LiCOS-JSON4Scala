@@ -1,6 +1,6 @@
 package parser
 
-import licos.json.element.village.{JsonAvatar, JsonBase, JsonBoardPolarity, JsonChatSettings, JsonChatText, JsonName, JsonStarInfo, JsonSubAnonymousAudienceChat, JsonSubBoard, JsonSubChatFromClient, JsonSubChatFromServer, JsonSubError, JsonSubFlavorText, JsonSubGameResult, JsonSubOnymousAudienceBoard, JsonSubOnymousAudienceChat, JsonSubPhase, JsonSubScroll, JsonSubStar, JsonSubVote, JsonUpdate, JsonVillage, JsonVotingResultDetail, JsonVotingResultSummary}
+import licos.json.element.village.{JsonAvatar, JsonBase, JsonBoardPolarity, JsonChatSettings, JsonChatText, JsonName, JsonStarInfo, JsonSubAnonymousAudienceChat, JsonSubBoard, JsonSubChatFromClient, JsonSubChatFromServer, JsonSubError, JsonSubFlavorText, JsonSubGameResult, JsonSubOnymousAudienceBoard, JsonSubOnymousAudienceChat, JsonSubOnymousAudienceScroll, JsonSubPhase, JsonSubScroll, JsonSubStar, JsonSubVote, JsonUpdate, JsonVillage, JsonVotingResultDetail, JsonVotingResultSummary}
 import licos.json.element.village.character.{JsonCharacter, JsonResultCharacter, JsonRoleCharacter, JsonSimpleCharacter, JsonStatusCharacter}
 import licos.json.element.village.role.{JsonResultRole, JsonRole, JsonSimpleRole}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
@@ -264,9 +264,9 @@ trait VillageUnitTestParser {
     }
   }
 
-  def parseSubOnymousAudienceScroll(jsValue: JsValue): Option[JsonSubScroll] = {
-    Try(jsValue.validate[JsonSubScroll]) match {
-      case Success(json: JsResult[JsonSubScroll]) =>
+  def parseSubOnymousAudienceScroll(jsValue: JsValue): Option[JsonSubOnymousAudienceScroll] = {
+    Try(jsValue.validate[JsonSubOnymousAudienceScroll]) match {
+      case Success(json: JsResult[JsonSubOnymousAudienceScroll]) =>
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
