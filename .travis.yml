@@ -8,5 +8,8 @@ scala:
 script:
   - sbt clean coverage test coverageReport
 
+env:
+  - CODECOV_TOKEN=ec808af4-9698-45c4-a5a4-290d22820ea9
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
