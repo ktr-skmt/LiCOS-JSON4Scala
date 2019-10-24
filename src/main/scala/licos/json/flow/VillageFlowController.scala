@@ -18,24 +18,30 @@ class VillageFlowController extends FlowController with VillageParser {
   override def flow(jsValue: JsValue): Option[Any] = {
     Option(
       parseReady(jsValue) >>> {
-        parseReceivedPlayerMessage(jsValue) >>> {
+        parseReceivedChatMessage(jsValue) >>> {
           parseReceivedSystemMessage(jsValue) >>> {
             parseReceivedFlavorTextMessage(jsValue) >>> {
               parseChatFromClient(jsValue) >-> {
                 parseChatFromServer(jsValue) >-> {
-                  parseAudienceChat(jsValue) >-> {
-                    parseBoard(jsValue) >-> {
-                      parseVote(jsValue) >-> {
-                        parseScroll(jsValue) >-> {
-                          parseStar(jsValue) >-> {
-                            parsePhase(jsValue) >-> {
-                              parseFlavorText(jsValue) >-> {
-                                parseGameResult(jsValue) >-> {
-                                  parseBuildVillage(jsValue) >>> {
-                                    parseLeaveWaitingPage(jsValue) >>> {
-                                      parseNextGameInvitation(jsValue) >>> {
-                                        parseNextGameInvitationIsClosed(jsValue) >>> {
-                                          parseError(jsValue).orNull
+                  parseOnymousAudienceChat(jsValue) >-> {
+                    parseAnonymousAudienceChat(jsValue) >-> {
+                      parseBoard(jsValue) >-> {
+                        parseOnymousAudienceBoard(jsValue) >-> {
+                          parseVote(jsValue) >-> {
+                            parseScroll(jsValue) >-> {
+                              parseOnymousAudienceScroll(jsValue) >-> {
+                                parseStar(jsValue) >-> {
+                                  parsePhase(jsValue) >-> {
+                                    parseFlavorText(jsValue) >-> {
+                                      parseGameResult(jsValue) >-> {
+                                        parseBuildVillage(jsValue) >>> {
+                                          parseLeaveWaitingPage(jsValue) >>> {
+                                            parseNextGameInvitation(jsValue) >>> {
+                                              parseNextGameInvitationIsClosed(jsValue) >>> {
+                                                parseError(jsValue).orNull
+                                              }
+                                            }
+                                          }
                                         }
                                       }
                                     }

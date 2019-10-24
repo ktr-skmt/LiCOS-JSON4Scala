@@ -2,7 +2,7 @@ package licos.json.parser
 
 import licos.json.element.village.invite.{JsonNextGameInvitation, JsonNextGameInvitationIsClosed}
 import licos.json.element.village._
-import licos.json.element.village.receipt.{JsonReceivedFlavorTextMessage, JsonReceivedPlayerMessage, JsonReceivedSystemMessage}
+import licos.json.element.village.receipt.{JsonReceivedChatMessage, JsonReceivedFlavorTextMessage, JsonReceivedSystemMessage}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
 
 import scala.util.{Failure, Success, Try}
@@ -113,6 +113,26 @@ trait VillageParser extends LiCOSParser {
     }
   }
 
+  /** Tries to parse play.api.libs.json.JsValue as Onymous Audience Board JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return a Board JSON option.
+    */
+  protected def parseOnymousAudienceBoard(jsValue: JsValue): Option[JsonOnymousAudienceBoard] = {
+    Try(jsValue.validate[JsonOnymousAudienceBoard]) match {
+      case Success(json: JsResult[JsonOnymousAudienceBoard]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
+      case Failure(err: Throwable) =>
+        System.err.println(err.getMessage)
+        None
+    }
+  }
+
   /** Tries to parse play.api.libs.json.JsValue as Star JSON.
     *
     * @param jsValue a play.api.libs.jsob.JsValue to parse
@@ -173,14 +193,34 @@ trait VillageParser extends LiCOSParser {
     }
   }
 
-  /** Tries to parse play.api.libs.json.JsValue as Audience-chat JSON.
+  /** Tries to parse play.api.libs.json.JsValue as Onymous-audience-chat JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return an Audience-chat JSON option.
+    * @return an Onymous-audience-chat JSON option.
     */
-  protected def parseAudienceChat(jsValue: JsValue): Option[JsonAudienceChat] = {
-    Try(jsValue.validate[JsonAudienceChat]) match {
-      case Success(json: JsResult[JsonAudienceChat]) =>
+  protected def parseOnymousAudienceChat(jsValue: JsValue): Option[JsonOnymousAudienceChat] = {
+    Try(jsValue.validate[JsonOnymousAudienceChat]) match {
+      case Success(json: JsResult[JsonOnymousAudienceChat]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
+      case Failure(err: Throwable) =>
+        System.err.println(err.getMessage)
+        None
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Anonymous-audience-chat JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return an Anonymous-audience-chat JSON option.
+    */
+  protected def parseAnonymousAudienceChat(jsValue: JsValue): Option[JsonAnonymousAudienceChat] = {
+    Try(jsValue.validate[JsonAnonymousAudienceChat]) match {
+      case Success(json: JsResult[JsonAnonymousAudienceChat]) =>
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
@@ -233,14 +273,34 @@ trait VillageParser extends LiCOSParser {
     }
   }
 
-  /** Tries to parse play.api.libs.json.JsValue as Received-player-message JSON.
+  /** Tries to parse play.api.libs.json.JsValue as Onymous-audience-scroll JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Received-player-message JSON option.
+    * @return a Scroll JSON option.
     */
-  def parseReceivedPlayerMessage(jsValue: JsValue): Option[JsonReceivedPlayerMessage] = {
-    Try(jsValue.validate[JsonReceivedPlayerMessage]) match {
-      case Success(json: JsResult[JsonReceivedPlayerMessage]) =>
+  protected def parseOnymousAudienceScroll(jsValue: JsValue): Option[JsonOnymousAudienceScroll] = {
+    Try(jsValue.validate[JsonOnymousAudienceScroll]) match {
+      case Success(json: JsResult[JsonOnymousAudienceScroll]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
+      case Failure(err: Throwable) =>
+        System.err.println(err.getMessage)
+        None
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Received-chat-message JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return a Received-chat-message JSON option.
+    */
+  def parseReceivedChatMessage(jsValue: JsValue): Option[JsonReceivedChatMessage] = {
+    Try(jsValue.validate[JsonReceivedChatMessage]) match {
+      case Success(json: JsResult[JsonReceivedChatMessage]) =>
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>

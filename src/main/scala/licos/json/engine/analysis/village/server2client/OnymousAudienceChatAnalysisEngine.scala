@@ -1,0 +1,5 @@
+package licos.json.engine.analysis.village.server2client
+
+import licos.json.engine.analysis.village.MetaOnymousAudienceChatAnalysisEngine
+
+trait OnymousAudienceChatAnalysisEngine extends MetaOnymousAudienceChatAnalysisEngine

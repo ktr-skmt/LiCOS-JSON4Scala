@@ -1,21 +1,21 @@
 package licos.json.engine.analysis.village.client2server
 
+import licos.json.element.village.JsonOnymousAudienceBoard
 import licos.json.engine.BOX
 import licos.json.engine.analysis.AnalysisEngine
-import licos.json.element.village.receipt.JsonReceivedPlayerMessage
 import play.api.libs.json.JsValue
 
-/** The analysis engine for a received player message.
+/** The analysis engine for onymous audience board.
   *
   * @author Kotaro Sakamoto
   */
-trait ReceivedPlayerMessageAnalysisEngine extends AnalysisEngine {
+trait OnymousAudienceBoardAnalysisEngine extends AnalysisEngine {
 
   /** Returns a play.api.libs.json.JsValue response from a JSON message.
     *
     * @param box a box.
-    * @param receivedPlayerMessage a JSON message.
+    * @param onymousAudienceBoard a JSON message.
     * @return a play.api.libs.json.JsValue option.
     */
-  def process(box: BOX, receivedPlayerMessage: JsonReceivedPlayerMessage): Option[JsValue]
+  def process(box: BOX, onymousAudienceBoard: JsonOnymousAudienceBoard): Option[JsValue]
 }

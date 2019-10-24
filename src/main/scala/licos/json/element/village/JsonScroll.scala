@@ -1,6 +1,8 @@
 package licos.json.element.village
 
+import licos.bson.element.village.character.BsonRoleCharacter
 import licos.bson.element.village.{BsonBase, BsonScroll}
+import licos.json.element.village.character.JsonRoleCharacter
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
@@ -8,6 +10,7 @@ import play.api.libs.json.{Format, JsPath, Json, OFormat}
 case class JsonScroll private (base: JsonBase,
                                sub: JsonSubScroll) extends JsonElement {
   def this(base: JsonBase,
+           myCharacter: JsonRoleCharacter,
            nodeId: String,
            scrollTop: Int,
            scrollHeight: Int,
@@ -15,6 +18,7 @@ case class JsonScroll private (base: JsonBase,
     this(
       base: JsonBase,
       JsonSubScroll(
+        myCharacter: JsonRoleCharacter,
         nodeId: String,
         scrollTop: Int,
         scrollHeight: Int,
@@ -23,6 +27,7 @@ case class JsonScroll private (base: JsonBase,
     )
   }
 
+  def myCharacter: JsonRoleCharacter = sub.myCharacter
   def nodeId: String = sub.nodeId
   def scrollTop: Int = sub.scrollTop
   def scrollHeight: Int = sub.scrollHeight
@@ -32,6 +37,7 @@ case class JsonScroll private (base: JsonBase,
     new BsonScroll(
       new ObjectId(),
       base.toBson: BsonBase,
+      myCharacter.toBson: BsonRoleCharacter,
       nodeId: String,
       scrollTop: Int,
       scrollHeight: Int,
@@ -42,12 +48,14 @@ case class JsonScroll private (base: JsonBase,
 
 object JsonScroll {
   def apply(base: JsonBase,
+            myCharacter: JsonRoleCharacter,
             nodeId: String,
             scrollTop: Int,
             scrollHeight: Int,
             offsetHeight: Int): JsonScroll = {
     new JsonScroll(
       base: JsonBase,
+      myCharacter: JsonRoleCharacter,
       nodeId: String,
       scrollTop: Int,
       scrollHeight: Int,
@@ -60,7 +68,8 @@ object JsonScroll {
     )(JsonScroll.apply, unlift(JsonScroll.unapply))
 }
 
-case class JsonSubScroll(nodeId: String,
+case class JsonSubScroll(myCharacter: JsonRoleCharacter,
+                         nodeId: String,
                          scrollTop: Int,
                          scrollHeight: Int,
                          offsetHeight: Int)

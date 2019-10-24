@@ -3,18 +3,19 @@ package engine.village
 import java.nio.charset.StandardCharsets
 
 import engine.VillageUnitTestExample
-import engine.village.unitTestExample.{Avatar, Base, BoardPolarity, ChatSettings, ChatText, Name, StarInfo, SubAudienceBoard_onymous, SubAudienceChatFromClient_anonymous, SubAudienceChatFromClient_onymous, SubAudienceScroll_onymous, SubBoard, SubChatFromClient, SubChatFromServer, SubError_fromClient, SubError_fromServer, SubFlavorText, SubGameResult, SubPhase, SubScroll, SubStar, SubVote, Update, Village, VotingResultDetail, VotingResultSummary}
+import engine.village.unitTestExample.{Avatar, Base, BoardPolarity, ChatSettings, ChatText, Name, StarInfo, SubOnymousAudienceBoard, SubAnonymousAudienceChat, SubOnymousAudienceChat, SubOnymousAudienceScroll, SubBoard, SubChatFromClient, SubChatFromServer, SubErrorFromClient, SubErrorFromServer, SubFlavorText, SubGameResult, SubPhase, SubScroll, SubStar, SubVote, Update, Village, VotingResultDetail, VotingResultSummary}
 import engine.village.unitTestExample.character.{Character, ResultCharacter, RoleCharacter, SimpleCharacter, StatusCharacter}
 import engine.village.unitTestExample.role.{ResultRole, Role, SimpleRole}
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit
 import parser.VillageUnitTestParser
-import play.api.libs.json.{JsError, JsSuccess, JsValue, Json}
+import play.api.libs.json.{JsValue, Json}
 
 import scala.io.{Codec, Source}
 
 object VillageUnitTestSpec {
+
   @DataPoints
   def exampleSeq: Array[VillageUnitTestExample] = Array[VillageUnitTestExample](
     Character("character/character.json"),
@@ -32,13 +33,13 @@ object VillageUnitTestSpec {
     Name("name.json"),
     StarInfo("starInfo.json"),
     Update("update.json"),
-    //SubAudienceBoard_onymous("subAudienceBoard-onymous.json"),
-    //SubAudienceChatFromClient_anonymous("subAudienceChatFromClient-anonymous.json"),
-    //SubAudienceChatFromClient_onymous("subAudienceChatFromClient-onymous.json"),
-    SubAudienceScroll_onymous("subAudienceScroll-onymous.json"),
+    SubOnymousAudienceBoard("subOnymousAudienceBoard.json"),
+    SubAnonymousAudienceChat("subAnonymousAudienceChat.json"),
+    SubOnymousAudienceChat("subOnymousAudienceChat.json"),
+    SubOnymousAudienceScroll("subOnymousAudienceScroll.json"),
     SubBoard("subBoard.json"),
-    SubError_fromClient("subError-fromClient.json"),
-    SubError_fromServer("subError-fromServer.json"),
+    SubErrorFromClient("subErrorFromClient.json"),
+    SubErrorFromServer("subErrorFromServer.json"),
     SubPhase("subPhase.json"),
     SubScroll("subScroll.json"),
     SubStar("subStar.json"),
@@ -100,24 +101,24 @@ class VillageUnitTestSpec extends AssertionsForJUnit with VillageUnitTestParser 
         assert(parseName(json).nonEmpty)
       case "unitTest/StarInfo" =>
         assert(parseStarInfo(json).nonEmpty)
-      case "unitTest/SubAudienceBoard_onymous" =>
-        assert(parseSubAudienceBoard_onymous(json).nonEmpty)
-      case "unitTest/SubAudienceChatFromClient_anonymous" =>
-        assert(parseSubAudienceChatFromClient_anonymous(json).nonEmpty)
-      case "unitTest/SubAudienceChatFromClient_onymous" =>
-        assert(parseSubAudienceChatFromClient_onymous(json).nonEmpty)
-      case "unitTest/SubAudienceScroll_onymous" =>
-        assert(parseSubAudienceScroll_onymous(json).nonEmpty)
+      case "unitTest/SubOnymousAudienceBoard" =>
+        assert(parseSubOnymousAudienceBoard(json).nonEmpty)
+      case "unitTest/SubAnonymousAudienceChat" =>
+        assert(parseSubAnonymousAudienceChat(json).nonEmpty)
+      case "unitTest/SubOnymousAudienceChat" =>
+        assert(parseSubOnymousAudienceChat(json).nonEmpty)
+      case "unitTest/SubOnymousAudienceScroll" =>
+        assert(parseSubOnymousAudienceScroll(json).nonEmpty)
       case "unitTest/SubBoard" =>
         assert(parseSubBoard(json).nonEmpty)
       case "unitTest/SubChatFromClient" =>
         assert(parseSubChatFromClient(json).nonEmpty)
       case "unitTest/SubChatFromServer" =>
         assert(parseSubChatFromServer(json).nonEmpty)
-      case "unitTest/SubError_fromClient" =>
-        assert(parseSubError_fromClient(json).nonEmpty)
-      case "unitTest/SubError_fromServer" =>
-        assert(parseSubError_fromServer(json).nonEmpty)
+      case "unitTest/SubErrorFromClient" =>
+        assert(parseSubErrorFromClient(json).nonEmpty)
+      case "unitTest/SubErrorFromServer" =>
+        assert(parseSubErrorFromServer(json).nonEmpty)
       case "unitTest/SubFlavorText" =>
         assert(parseSubFlavorText(json).nonEmpty)
       case "unitTest/SubGameResult" =>

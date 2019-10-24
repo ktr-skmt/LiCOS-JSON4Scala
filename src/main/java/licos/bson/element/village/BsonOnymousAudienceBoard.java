@@ -1,9 +1,8 @@
 package licos.bson.element.village;
 
-import licos.bson.element.village.character.BsonRoleCharacter;
 import licos.bson.element.village.character.BsonSimpleCharacter;
 import licos.bson.element.village.role.BsonSimpleRole;
-import licos.json.element.village.JsonBoard;
+import licos.json.element.village.JsonOnymousAudienceBoard;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -11,23 +10,17 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
 
-/**
- * <pre>
- * Created on 2018/01/11.
- * </pre>
- *
- * @author K.Sakamoto
- */
-@Entity("boards")
-public class BsonBoard extends BsonElement {
-    @Id @SuppressWarnings("unused")
+@Entity("onymousAudienceBoards")
+public class BsonOnymousAudienceBoard extends BsonElement {
+    @Id
+    @SuppressWarnings("unused")
     private ObjectId _id;
 
     @Getter @Setter @Reference
     private BsonBase base;
 
     @Getter @Setter @Reference
-    private BsonRoleCharacter myCharacter;
+    private BsonAvatar avatar;
 
     @Getter @Setter @Reference
     private BsonSimpleCharacter character;
@@ -39,29 +32,29 @@ public class BsonBoard extends BsonElement {
     private String prediction;
 
     @SuppressWarnings("unused")
-    private BsonBoard() {
+    private BsonOnymousAudienceBoard() {
         // Do nothing
     }
 
-    public BsonBoard(ObjectId _id,
-                     BsonBase base,
-                     BsonRoleCharacter myCharacter,
-                     BsonSimpleCharacter character,
-                     BsonSimpleRole role,
-                     String prediction) {
+    public BsonOnymousAudienceBoard(ObjectId _id,
+                                    BsonBase base,
+                                    BsonAvatar avatar,
+                                    BsonSimpleCharacter character,
+                                    BsonSimpleRole role,
+                                    String prediction) {
         this._id = _id;
         this.base = base;
-        this.myCharacter = myCharacter;
+        this.avatar = avatar;
         this.character = character;
         this.role = role;
         this.prediction = prediction;
     }
 
     @Override
-    public JsonBoard toJson() {
-        return new JsonBoard(
+    public JsonOnymousAudienceBoard toJson() {
+        return new JsonOnymousAudienceBoard(
                 base.toJson(),
-                myCharacter.toJson(),
+                avatar.toJson(),
                 character.toJson(),
                 role.toJson(),
                 prediction

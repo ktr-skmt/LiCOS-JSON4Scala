@@ -10,16 +10,20 @@ import licos.json.engine.analysis.village.server2client._
 class VillageProcessingEngineFactory extends ProcessingEngineFactory {
 
   private var readyEngine: Option[ReadyAnalysisEngine] = None
-  private var receivedPlayerMessageEngine: Option[ReceivedPlayerMessageAnalysisEngine] = None
+  private var receivedPlayerMessageEngine: Option[ReceivedChatMessageAnalysisEngine] = None
   private var receivedSystemMessageEngine: Option[ReceivedSystemMessageAnalysisEngine] = None
   private var receivedFlavorTextMessageEngine: Option[ReceivedFlavorTextMessageAnalysisEngine] = None
   private var chatFromClientEngine: Option[village.client2server.ChatAnalysisEngine] = None
   private var chatFromServerEngine: Option[village.server2client.ChatAnalysisEngine] = None
-  private var audienceChatFromClientEngine: Option[village.client2server.AudienceChatAnalysisEngine] = None
-  private var audienceChatFromServerEngine: Option[village.server2client.AudienceChatAnalysisEngine] = None
+  private var onymousAudienceChatFromClientEngine: Option[village.client2server.OnymousAudienceChatAnalysisEngine] = None
+  private var onymousAudienceChatFromServerEngine: Option[village.server2client.OnymousAudienceChatAnalysisEngine] = None
+  private var anonymousAudienceChatFromClientEngine: Option[village.client2server.AnonymousAudienceChatAnalysisEngine] = None
+  private var anonymousAudienceChatFromServerEngine: Option[village.server2client.AnonymousAudienceChatAnalysisEngine] = None
   private var boardEngine: Option[BoardAnalysisEngine] = None
+  private var onymousAudienceBoardEngine: Option[OnymousAudienceBoardAnalysisEngine] = None
   private var voteEngine: Option[VoteAnalysisEngine] = None
   private var scrollEngine: Option[ScrollAnalysisEngine] = None
+  private var onymousAudienceScrollEngine: Option[OnymousAudienceScrollAnalysisEngine] = None
   private var starEngine: Option[StarAnalysisEngine] = None
   private var phaseEngine: Option[PhaseAnalysisEngine] = None
   private var flavorTextEngine: Option[FlavorTextAnalysisEngine] = None
@@ -38,16 +42,20 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
   override def create: VillageProcessingEngine = {
     new VillageProcessingEngine(
       readyEngine: Option[ReadyAnalysisEngine],
-      receivedPlayerMessageEngine: Option[ReceivedPlayerMessageAnalysisEngine],
+      receivedPlayerMessageEngine: Option[ReceivedChatMessageAnalysisEngine],
       receivedSystemMessageEngine: Option[ReceivedSystemMessageAnalysisEngine],
       receivedFlavorTextMessageEngine: Option[ReceivedFlavorTextMessageAnalysisEngine],
       chatFromClientEngine: Option[village.client2server.ChatAnalysisEngine],
       chatFromServerEngine: Option[village.server2client.ChatAnalysisEngine],
-      audienceChatFromClientEngine: Option[village.client2server.AudienceChatAnalysisEngine],
-      audienceChatFromServerEngine: Option[village.server2client.AudienceChatAnalysisEngine],
+      onymousAudienceChatFromClientEngine: Option[village.client2server.OnymousAudienceChatAnalysisEngine],
+      onymousAudienceChatFromServerEngine: Option[village.server2client.OnymousAudienceChatAnalysisEngine],
+      anonymousAudienceChatFromClientEngine: Option[village.client2server.AnonymousAudienceChatAnalysisEngine],
+      anonymousAudienceChatFromServerEngine: Option[village.server2client.AnonymousAudienceChatAnalysisEngine],
       boardEngine: Option[BoardAnalysisEngine],
+      onymousAudienceBoardEngine: Option[OnymousAudienceBoardAnalysisEngine],
       voteEngine: Option[VoteAnalysisEngine],
       scrollEngine: Option[ScrollAnalysisEngine],
+      onymousAudienceScrollEngine: Option[OnymousAudienceScrollAnalysisEngine],
       starEngine: Option[StarAnalysisEngine],
       phaseEngine: Option[PhaseAnalysisEngine],
       flavorTextEngine: Option[FlavorTextAnalysisEngine],
@@ -66,7 +74,7 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(receivedPlayerMessageEngine: ReceivedPlayerMessageAnalysisEngine): VillageProcessingEngineFactory = {
+  def set(receivedPlayerMessageEngine: ReceivedChatMessageAnalysisEngine): VillageProcessingEngineFactory = {
     this.receivedPlayerMessageEngine = Option(receivedPlayerMessageEngine)
     this
   }
@@ -91,18 +99,33 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(audienceChatFromClientEngine: village.client2server.AudienceChatAnalysisEngine): VillageProcessingEngineFactory = {
-    this.audienceChatFromClientEngine = Option(audienceChatFromClientEngine)
+  def set(onymousAudienceChatFromClientEngine: village.client2server.OnymousAudienceChatAnalysisEngine): VillageProcessingEngineFactory = {
+    this.onymousAudienceChatFromClientEngine = Option(onymousAudienceChatFromClientEngine)
     this
   }
 
-  def set(audienceChatFromServerEngine: village.server2client.AudienceChatAnalysisEngine): VillageProcessingEngineFactory = {
-    this.audienceChatFromServerEngine = Option(audienceChatFromServerEngine)
+  def set(onymousAudienceChatFromServerEngine: village.server2client.OnymousAudienceChatAnalysisEngine): VillageProcessingEngineFactory = {
+    this.onymousAudienceChatFromServerEngine = Option(onymousAudienceChatFromServerEngine)
+    this
+  }
+
+  def set(anonymousAudienceChatFromClientEngine: village.client2server.AnonymousAudienceChatAnalysisEngine): VillageProcessingEngineFactory = {
+    this.anonymousAudienceChatFromClientEngine = Option(anonymousAudienceChatFromClientEngine)
+    this
+  }
+
+  def set(anonymousAudienceChatFromServerEngine: village.server2client.AnonymousAudienceChatAnalysisEngine): VillageProcessingEngineFactory = {
+    this.anonymousAudienceChatFromServerEngine = Option(anonymousAudienceChatFromServerEngine)
     this
   }
 
   def set(boardEngine: BoardAnalysisEngine): VillageProcessingEngineFactory = {
     this.boardEngine = Option(boardEngine)
+    this
+  }
+
+  def set(onymousAudienceBoardEngine: OnymousAudienceBoardAnalysisEngine): VillageProcessingEngineFactory = {
+    this.onymousAudienceBoardEngine = Option(onymousAudienceBoardEngine)
     this
   }
 
@@ -113,6 +136,11 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
 
   def set(scrollEngine: ScrollAnalysisEngine): VillageProcessingEngineFactory = {
     this.scrollEngine = Option(scrollEngine)
+    this
+  }
+
+  def set(onymousAudienceScrollEngine: OnymousAudienceScrollAnalysisEngine): VillageProcessingEngineFactory = {
+    this.onymousAudienceScrollEngine = Option(onymousAudienceScrollEngine)
     this
   }
 

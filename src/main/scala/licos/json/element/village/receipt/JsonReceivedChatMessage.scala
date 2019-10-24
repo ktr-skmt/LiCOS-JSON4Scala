@@ -3,16 +3,16 @@ package licos.json.element.village.receipt
 import licos.json.element.village.JsonChatFromServer
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonReceivedPlayerMessage(`type`: String,
-                                     token: String,
-                                     villageId: Long,
-                                     serverTimestamp: String,
-                                     clientTimestamp: String) extends JsonReceivedMessage(`type`, token, villageId) {
-  override protected def validType: String = JsonReceivedPlayerMessage.`type`
+case class JsonReceivedChatMessage(`type`: String,
+                                   token: String,
+                                   villageId: Long,
+                                   serverTimestamp: String,
+                                   clientTimestamp: String) extends JsonReceivedMessage(`type`, token, villageId) {
+  override protected def validType: String = JsonReceivedChatMessage.`type`
 
   def this(chat: JsonChatFromServer) = {
     this(
-      JsonReceivedPlayerMessage.`type`,
+      JsonReceivedChatMessage.`type`,
       chat.base.token,
       chat.base.village.id,
       chat.base.serverTimestamp,
@@ -30,8 +30,8 @@ case class JsonReceivedPlayerMessage(`type`: String,
   //}
 }
 
-object JsonReceivedPlayerMessage {
-  implicit val jsonFormat: OFormat[JsonReceivedPlayerMessage] = Json.format[JsonReceivedPlayerMessage]
+object JsonReceivedChatMessage {
+  implicit val jsonFormat: OFormat[JsonReceivedChatMessage] = Json.format[JsonReceivedChatMessage]
 
-  val `type`: String = "receivedPlayerMessage"
+  val `type`: String = "receivedChatMessage"
 }

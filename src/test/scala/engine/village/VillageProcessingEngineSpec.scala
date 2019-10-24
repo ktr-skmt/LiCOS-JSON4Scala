@@ -27,32 +27,32 @@ object VillageProcessingEngineSpec {
   @DataPoints
   def jsonExampleSeq: Array[VillageExample] = Array[VillageExample](
     ReceivedFlavorTextMessage(receipt("receivedFlavorTextMessage.json")),
-    ReceivedPlayerMessage(receipt("receivedPlayerMessage.json")),
+    ReceivedChatMessage(receipt("receivedChatMessage.json")),
     ReceivedSystemMessage(receipt("receivedSystemMessage.json")),
-    //example.client2server.AudienceChat("anonymousAudienceChat.jsonld"),
-    //example.client2server.AudienceChat("onymousAudienceChat.jsonld"),
-    ///Board("board.jsonld"),
+    example.client2server.AnonymousAudienceChat("anonymousAudienceChat.jsonld"),
+    example.client2server.OnymousAudienceChat("onymousAudienceChat.jsonld"),
+    Board("board.jsonld"),
     example.client2server.Chat("chat.jsonld"),
-    Vote("dayVote.jsonld"),
-    //example.client2server.Error(client2server("error.jsonld")),
+    Vote("noonVote.jsonld"),
+    example.client2server.Error(client2server("error.jsonld")),
     Vote("nightVote.jsonld"),
-    //Board("onymousAudienceBoard.jsonld"),
-    Scroll("onymousAudienceScroll.jsonld"),
+    OnymousAudienceBoard("onymousAudienceBoard.jsonld"),
+    OnymousAudienceScroll("onymousAudienceScroll.jsonld"),
     Scroll("scroll.jsonld"),
     Star("star.jsonld"),
     NextGameInvitationIsClosed(invitation("nextGameInvitationIsClosed.json")),
     NextGameInvitation(invitation("nextGameInvitation.json")),
-    //example.server2client.AudienceChat("anonymousAudienceChat.jsonld"),
-    Phase("day.jsonld"),
-    //example.server2client.Error(server2client("error.jsonld")),
+    example.server2client.AnonymousAudienceChat("anonymousAudienceChat.jsonld"),
+    Phase("noon.jsonld"),
+    example.server2client.Error(server2client("error.jsonld")),
     Phase("firstMorning.jsonld"),
     FlavorText("flavorText.jsonld"),
     Phase("morning.jsonld"),
     example.server2client.Chat("myMessageOnChat.jsonld"),
     Phase("night.jsonld"),
-    //example.server2client.AudienceChat("onymousAudienceChat.jsonld"),
+    example.server2client.OnymousAudienceChat("onymousAudienceChat.jsonld"),
     Phase("postMortemDiscussion.jsonld"),
-    //GameResult("result.jsonld"),
+    GameResult("result.jsonld"),
     example.server2client.Chat("theirMessageOnChat.jsonld")
   )
 }
@@ -64,16 +64,20 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit {
     create(VillagePE).
     asInstanceOf[VillageProcessingEngineFactory].
     set(new ReadyAE()).
-    set(new ReceivedPlayerMessageAE()).
+    set(new ReceivedChatMessageAE()).
     set(new ReceivedSystemMessageAE()).
     set(new ReceivedFlavorTextMessageAE()).
     set(new ChatFromClientAE()).
     set(new ChatFromServerAE()).
-    set(new AudienceChatFromClientAE()).
-    set(new AudienceChatFromServerAE()).
+    set(new OnymousAudienceChatFromClientAE()).
+    set(new AnonymousAudienceChatFromClientAE()).
+    set(new OnymousAudienceChatFromServerAE()).
+    set(new AnonymousAudienceChatFromServerAE()).
     set(new BoardAE()).
+    set(new OnymousAudienceBoardAE()).
     set(new VoteAE()).
     set(new ScrollAE()).
+    set(new OnymousAudienceScrollAE()).
     set(new StarAE()).
     set(new PhaseAE()).
     set(new FlavorTextAE()).
@@ -92,11 +96,11 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit {
     val jsonType: String = jsonExample.`type`
     val url: String = jsonExample.path
     implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
-    System.err.println(url)
+    //System.err.println(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()
-    System.err.println(msg)
+    //System.err.println(msg)
     processingEngine.process(new VillageBox(jsonType), msg) match {
       case Some(jsValue: JsValue) =>
         parseJsonTest(jsValue) match {

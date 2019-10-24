@@ -1,6 +1,6 @@
 package parser
 
-import licos.json.element.village.{JsonAvatar, JsonBase, JsonBoardPolarity, JsonChatSettings, JsonChatText, JsonName, JsonStarInfo, JsonSubAudienceChat, JsonSubBoard, JsonSubChatFromClient, JsonSubChatFromServer, JsonSubError, JsonSubFlavorText, JsonSubGameResult, JsonSubPhase, JsonSubScroll, JsonSubStar, JsonSubVote, JsonUpdate, JsonVillage, JsonVotingResultDetail, JsonVotingResultSummary}
+import licos.json.element.village.{JsonAvatar, JsonBase, JsonBoardPolarity, JsonChatSettings, JsonChatText, JsonName, JsonStarInfo, JsonSubAnonymousAudienceChat, JsonSubBoard, JsonSubChatFromClient, JsonSubChatFromServer, JsonSubError, JsonSubFlavorText, JsonSubGameResult, JsonSubOnymousAudienceBoard, JsonSubOnymousAudienceChat, JsonSubPhase, JsonSubScroll, JsonSubStar, JsonSubVote, JsonUpdate, JsonVillage, JsonVotingResultDetail, JsonVotingResultSummary}
 import licos.json.element.village.character.{JsonCharacter, JsonResultCharacter, JsonRoleCharacter, JsonSimpleCharacter, JsonStatusCharacter}
 import licos.json.element.village.role.{JsonResultRole, JsonRole, JsonSimpleRole}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
@@ -234,9 +234,9 @@ trait VillageUnitTestParser {
     }
   }
 
-  def parseSubAudienceBoard_onymous(jsValue: JsValue): Option[JsonSubBoard] = {
-    Try(jsValue.validate[JsonSubBoard]) match {
-      case Success(json: JsResult[JsonSubBoard]) =>
+  def parseSubAnonymousAudienceChat(jsValue: JsValue): Option[JsonSubAnonymousAudienceChat] = {
+    Try(jsValue.validate[JsonSubAnonymousAudienceChat]) match {
+      case Success(json: JsResult[JsonSubAnonymousAudienceChat]) =>
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
@@ -249,9 +249,9 @@ trait VillageUnitTestParser {
     }
   }
 
-  def parseSubAudienceChatFromClient_anonymous(jsValue: JsValue): Option[JsonSubAudienceChat] = {
-    Try(jsValue.validate[JsonSubAudienceChat]) match {
-      case Success(json: JsResult[JsonSubAudienceChat]) =>
+  def parseSubOnymousAudienceChat(jsValue: JsValue): Option[JsonSubOnymousAudienceChat] = {
+    Try(jsValue.validate[JsonSubOnymousAudienceChat]) match {
+      case Success(json: JsResult[JsonSubOnymousAudienceChat]) =>
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
@@ -264,22 +264,7 @@ trait VillageUnitTestParser {
     }
   }
 
-  def parseSubAudienceChatFromClient_onymous(jsValue: JsValue): Option[JsonSubAudienceChat] = {
-    Try(jsValue.validate[JsonSubAudienceChat]) match {
-      case Success(json: JsResult[JsonSubAudienceChat]) =>
-        json match {
-          case JsSuccess(j, _) => Option(j)
-          case e: JsError =>
-            System.err.println(e)
-            None
-        }
-      case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
-        None
-    }
-  }
-
-  def parseSubAudienceScroll_onymous(jsValue: JsValue): Option[JsonSubScroll] = {
+  def parseSubOnymousAudienceScroll(jsValue: JsValue): Option[JsonSubScroll] = {
     Try(jsValue.validate[JsonSubScroll]) match {
       case Success(json: JsResult[JsonSubScroll]) =>
         json match {
@@ -297,6 +282,21 @@ trait VillageUnitTestParser {
   def parseSubBoard(jsValue: JsValue): Option[JsonSubBoard] = {
     Try(jsValue.validate[JsonSubBoard]) match {
       case Success(json: JsResult[JsonSubBoard]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            System.err.println(e)
+            None
+        }
+      case Failure(err: Throwable) =>
+        System.err.println(err.getMessage)
+        None
+    }
+  }
+
+  def parseSubOnymousAudienceBoard(jsValue: JsValue): Option[JsonSubOnymousAudienceBoard] = {
+    Try(jsValue.validate[JsonSubOnymousAudienceBoard]) match {
+      case Success(json: JsResult[JsonSubOnymousAudienceBoard]) =>
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
@@ -339,7 +339,7 @@ trait VillageUnitTestParser {
     }
   }
 
-  def parseSubError_fromClient(jsValue: JsValue): Option[JsonSubError] = {
+  def parseSubErrorFromClient(jsValue: JsValue): Option[JsonSubError] = {
     Try(jsValue.validate[JsonSubError]) match {
       case Success(json: JsResult[JsonSubError]) =>
         json match {
@@ -354,7 +354,7 @@ trait VillageUnitTestParser {
     }
   }
 
-  def parseSubError_fromServer(jsValue: JsValue): Option[JsonSubError] = {
+  def parseSubErrorFromServer(jsValue: JsValue): Option[JsonSubError] = {
     Try(jsValue.validate[JsonSubError]) match {
       case Success(json: JsResult[JsonSubError]) =>
         json match {

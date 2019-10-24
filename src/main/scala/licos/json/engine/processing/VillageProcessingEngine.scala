@@ -9,22 +9,26 @@ import licos.json.flow.{FlowController, VillageFlowController}
 import licos.json.element.lobby.{JsonBuildVillage, JsonLeaveWaitingPage, JsonReady}
 import licos.json.element.village._
 import licos.json.element.village.invite.{JsonNextGameInvitation, JsonNextGameInvitationIsClosed}
-import licos.json.element.village.receipt.{JsonReceivedFlavorTextMessage, JsonReceivedPlayerMessage, JsonReceivedSystemMessage}
+import licos.json.element.village.receipt.{JsonReceivedChatMessage, JsonReceivedFlavorTextMessage, JsonReceivedSystemMessage}
 import play.api.libs.json.{JsValue, Json}
 
 /** This class implements the processing engine that aggregates and runs analysis engines for village.
   *
   * @param readyEngine the analysis engine for Ready JSON.
-  * @param receivedPlayerMessageEngine the analysis engine for Received-player-message JSON.
+  * @param receivedChatMessageEngine the analysis engine for Received-player-message JSON.
   * @param receivedSystemMessageEngine the analysis engine for Received-system-message JSON.
   * @param receivedFlavorTextMessageEngine the analysis engine for Flavor-text-message JSON.
   * @param chatFromClientEngine the analysis engine for Chat-from-client JSON.
   * @param chatFromServerEngine the analysis engine for Chat-from-server JSON.
-  * @param audienceChatFromClientEngine the analysis engine for Audience-chat-from-client JSON.
-  * @param audienceChatFromServerEngine the analysis engine for Audience-chat-from-server JSON.
+  * @param onymousAudienceChatFromClientEngine the analysis engine for Onymous-audience-chat-from-client JSON.
+  * @param onymousAudienceChatFromServerEngine the analysis engine for Onymous-audience-chat-from-server JSON.
+  * @param anonymousAudienceChatFromClientEngine the analysis engine for Anonymous-audience-chat-from-client JSON.
+  * @param anonymousAudienceChatFromServerEngine the analysis engine for Anonymous-audience-chat-from-server JSON.
   * @param boardEngine the analysis engine for Board JSON.
+  * @param onymousAudienceBoardEngine the analysis engine for Onymous-audience-board JSON.
   * @param voteEngine the analysis engine for Vote JSON.
   * @param scrollEngine the analysis engine for Scroll JSON.
+  * @param onymousAudienceScrollEngine the analysis engine for Onymous-audience-scroll JSON.
   * @param starEngine the analysis engine for Star JSON.
   * @param phaseEngine the analysis engine for Phase JSON.
   * @param flavorTextEngine the analysis engine for Flavor-text JSON.
@@ -36,16 +40,20 @@ import play.api.libs.json.{JsValue, Json}
   * @author Kotaro Sakamoto
   */
 class VillageProcessingEngine(readyEngine: Option[ReadyAnalysisEngine],
-                              receivedPlayerMessageEngine: Option[ReceivedPlayerMessageAnalysisEngine],
+                              receivedChatMessageEngine: Option[ReceivedChatMessageAnalysisEngine],
                               receivedSystemMessageEngine: Option[ReceivedSystemMessageAnalysisEngine],
                               receivedFlavorTextMessageEngine: Option[ReceivedFlavorTextMessageAnalysisEngine],
                               chatFromClientEngine: Option[village.client2server.ChatAnalysisEngine],
                               chatFromServerEngine: Option[village.server2client.ChatAnalysisEngine],
-                              audienceChatFromClientEngine: Option[village.client2server.AudienceChatAnalysisEngine],
-                              audienceChatFromServerEngine: Option[village.server2client.AudienceChatAnalysisEngine],
+                              onymousAudienceChatFromClientEngine: Option[village.client2server.OnymousAudienceChatAnalysisEngine],
+                              onymousAudienceChatFromServerEngine: Option[village.server2client.OnymousAudienceChatAnalysisEngine],
+                              anonymousAudienceChatFromClientEngine: Option[village.client2server.AnonymousAudienceChatAnalysisEngine],
+                              anonymousAudienceChatFromServerEngine: Option[village.server2client.AnonymousAudienceChatAnalysisEngine],
                               boardEngine: Option[BoardAnalysisEngine],
+                              onymousAudienceBoardEngine: Option[OnymousAudienceBoardAnalysisEngine],
                               voteEngine: Option[VoteAnalysisEngine],
                               scrollEngine: Option[ScrollAnalysisEngine],
+                              onymousAudienceScrollEngine: Option[OnymousAudienceScrollAnalysisEngine],
                               starEngine: Option[StarAnalysisEngine],
                               phaseEngine: Option[PhaseAnalysisEngine],
                               flavorTextEngine: Option[FlavorTextAnalysisEngine],
@@ -78,9 +86,9 @@ class VillageProcessingEngine(readyEngine: Option[ReadyAnalysisEngine],
       case Some(ready: JsonReady) =>
         log("JsonReady")
         readyEngine.flatMap(_.process(box, ready))
-      case Some(receivedPlayerMessage: JsonReceivedPlayerMessage) =>
-        log("JsonReceivedPlayerMessage")
-        receivedPlayerMessageEngine.flatMap(_.process(box, receivedPlayerMessage))
+      case Some(receivedChatMessage: JsonReceivedChatMessage) =>
+        log("JsonReceivedChatMessage")
+        receivedChatMessageEngine.flatMap(_.process(box, receivedChatMessage))
       case Some(receivedSystemMessage: JsonReceivedSystemMessage) =>
         log("JsonReceivedSystemMessage")
         receivedSystemMessageEngine.flatMap(_.process(box, receivedSystemMessage))
@@ -93,24 +101,39 @@ class VillageProcessingEngine(readyEngine: Option[ReadyAnalysisEngine],
       case Some(chatFromServer: JsonChatFromServer) =>
         log("JsonChatFromServer")
         chatFromServerEngine.flatMap(_.process(box, chatFromServer))
-      case Some(audienceChat: JsonAudienceChat) =>
-        log("JsonAudienceChat")
-        if (audienceChat.isFromServer) {
-          log("JsonAudienceChatFromServer")
-          audienceChatFromServerEngine.flatMap(_.process(box, audienceChat))
+      case Some(onymousAudienceChat: JsonOnymousAudienceChat) =>
+        log("JsonOnymousAudienceChat")
+        if (onymousAudienceChat.isFromServer) {
+          log("JsonOnymousAudienceChatFromServer")
+          onymousAudienceChatFromServerEngine.flatMap(_.process(box, onymousAudienceChat))
         } else {
-          log("JsonAudienceChatFromClient")
-          audienceChatFromClientEngine.flatMap(_.process(box, audienceChat))
+          log("JsonOnymousAudienceChatFromClient")
+          onymousAudienceChatFromClientEngine.flatMap(_.process(box, onymousAudienceChat))
+        }
+      case Some(anonymousAudienceChat: JsonAnonymousAudienceChat) =>
+        log("JsonAnonymousAudienceChat")
+        if (anonymousAudienceChat.isFromServer) {
+          log("JsonAnonymousAudienceChatFromServer")
+          anonymousAudienceChatFromServerEngine.flatMap(_.process(box, anonymousAudienceChat))
+        } else {
+          log("JsonAnonymousAudienceChatFromClient")
+          anonymousAudienceChatFromClientEngine.flatMap(_.process(box, anonymousAudienceChat))
         }
       case Some(board: JsonBoard) =>
         log("JsonBoard")
         boardEngine.flatMap(_.process(box, board))
+      case Some(onymousAudienceBoard: JsonOnymousAudienceBoard) =>
+        log("JsonOnymousAudienceBoard")
+        onymousAudienceBoardEngine.flatMap(_.process(box, onymousAudienceBoard))
       case Some(vote: JsonVote) =>
         log("JsonVote")
         voteEngine.flatMap(_.process(box, vote))
       case Some(scroll: JsonScroll) =>
         log("JsonScroll")
         scrollEngine.flatMap(_.process(box, scroll))
+      case Some(onymousAudienceScroll: JsonOnymousAudienceScroll) =>
+        log("JsonOnymousAudienceScroll")
+        onymousAudienceScrollEngine.flatMap(_.process(box, onymousAudienceScroll))
       case Some(star: JsonStar) =>
         log("JsonStar")
         starEngine.flatMap(_.process(box, star))

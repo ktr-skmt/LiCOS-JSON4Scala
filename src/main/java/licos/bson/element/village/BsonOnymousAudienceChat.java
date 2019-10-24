@@ -1,18 +1,16 @@
 package licos.bson.element.village;
 
-import licos.json.element.village.JsonAudienceChat;
-import licos.json.element.village.JsonAvatar;
-import licos.json.element.village.JsonSubAudienceChat;
+import licos.json.element.village.JsonOnymousAudienceChat;
+import licos.json.element.village.JsonSubOnymousAudienceChat;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
-import scala.Option;
 
-@Entity("audienceChats")
-public class BsonAudienceChat extends BsonElement {
+@Entity("onymousAudienceChats")
+public class BsonOnymousAudienceChat extends BsonElement {
     @Id @SuppressWarnings("unused")
     private ObjectId _id;
 
@@ -35,42 +33,32 @@ public class BsonAudienceChat extends BsonElement {
     private boolean isFromServer;
 
     @SuppressWarnings("unused")
-    private BsonAudienceChat() {
+    private BsonOnymousAudienceChat() {
         // Do nothing
     }
 
-    public BsonAudienceChat(ObjectId _id,
-                            BsonBase base,
-                            Option<BsonAvatar> avatar,
-                            boolean isMine,
-                            BsonChatText text,
-                            int maxLengthOfUnicodeCodePoints,
-                            boolean isFromServer) {
+    public BsonOnymousAudienceChat(ObjectId _id,
+                                   BsonBase base,
+                                   BsonAvatar avatar,
+                                   boolean isMine,
+                                   BsonChatText text,
+                                   int maxLengthOfUnicodeCodePoints,
+                                   boolean isFromServer) {
         this._id = _id;
         this.base = base;
-        if (avatar.nonEmpty()) {
-            this.avatar = avatar.get();
-        }
+        this.avatar = avatar;
         this.isMine = isMine;
         this.text = text;
         this.maxLengthOfUnicodeCodePoints = maxLengthOfUnicodeCodePoints;
         this.isFromServer = isFromServer;
     }
 
-    private Option<JsonAvatar> jsonAvatar() {
-        if (avatar == null) {
-            return Option.empty();
-        } else {
-            return Option.apply(avatar.toJson());
-        }
-    }
-
     @Override
-    public JsonAudienceChat toJson() {
-        return new JsonAudienceChat(
+    public JsonOnymousAudienceChat toJson() {
+        return new JsonOnymousAudienceChat(
                 base.toJson(),
-                new JsonSubAudienceChat(
-                        jsonAvatar(),
+                new JsonSubOnymousAudienceChat(
+                        avatar.toJson(),
                         isMine,
                         text.toJson(),
                         maxLengthOfUnicodeCodePoints,

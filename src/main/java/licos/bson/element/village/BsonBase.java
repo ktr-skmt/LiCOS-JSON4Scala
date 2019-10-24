@@ -47,7 +47,7 @@ public class BsonBase extends BsonElementToJsonElement {
     private int day;
 
     @Getter @Setter
-    private String phaseTimeLimit;
+    private int phaseTimeLimit;
 
     @Getter @Setter
     private String phaseStartTime;
@@ -85,7 +85,7 @@ public class BsonBase extends BsonElementToJsonElement {
                     String token,
                     String phase,
                     int day,
-                    String phaseTimeLimit,
+                    int phaseTimeLimit,
                     String phaseStartTime,
                     String serverTimestamp,
                     String clientTimestamp,
