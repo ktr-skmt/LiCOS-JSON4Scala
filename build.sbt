@@ -100,7 +100,7 @@ lazy val json = (project in file(".")).
       Seq(
         "com.typesafe.play" %% "play-json" % "2.7.4",
         "org.mongodb.morphia" % "morphia" % "1.3.2",
-        "org.projectlombok" % "lombok" % "1.16.20",
+        "org.projectlombok" % "lombok" % "1.18.10",
         "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
         "org.slf4j" % "slf4j-api" % "1.7.28" % "compile",// withSources() withJavadoc()
         "ch.qos.logback" % "logback-classic" % "1.2.3",
