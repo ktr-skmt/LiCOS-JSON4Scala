@@ -6,7 +6,7 @@ name := jsonLibraryName
 
 //maintainer in Linux := "Kotaro Sakamoto <sakamoto-kotaro-pn@ynu.jp>"
 
-sources in (Compile, doc) := Seq.empty
+//sources in (Compile, doc) := Seq.empty
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
@@ -15,7 +15,7 @@ coverageEnabled := true
 lazy val javaVersion: String = "1.8"
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.10",
+  scalaVersion := "2.12.8",
   organization := "online.licos",
   fork in run := true
 ) ++ {
@@ -85,16 +85,16 @@ lazy val json = (project in file(".")).
     ),
     autoAPIMappings := true
   ).settings(
-  isSnapshot := true,
-  version := "0.0.2",
-  name := jsonLibraryName,
-  publishMavenStyle := true,
-  publishArtifact in Test := false,
-  pomIncludeRepository := { _ => false},
-  publishTo := getPublishTo(isSnapshot.value, name.value),
-  licenses := licensesTemplate,
-  homepage := homepageTemplate,
-  pomExtra := pomExtraTemplate
+    isSnapshot := true,
+    version := "0.0.2",
+    name := jsonLibraryName,
+    publishMavenStyle := true,
+    publishArtifact in Test := false,
+    pomIncludeRepository := { _ => false},
+    publishTo := getPublishTo(isSnapshot.value, name.value),
+    licenses := licensesTemplate,
+    homepage := homepageTemplate,
+    pomExtra := pomExtraTemplate
   ).settings(
     libraryDependencies ++= {
       Seq(
