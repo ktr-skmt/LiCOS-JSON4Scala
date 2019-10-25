@@ -3,11 +3,14 @@ package parser
 import licos.json.element.village.{JsonAvatar, JsonBase, JsonBoardPolarity, JsonChatSettings, JsonChatText, JsonName, JsonStarInfo, JsonSubAnonymousAudienceChat, JsonSubBoard, JsonSubChatFromClient, JsonSubChatFromServer, JsonSubError, JsonSubFlavorText, JsonSubGameResult, JsonSubOnymousAudienceBoard, JsonSubOnymousAudienceChat, JsonSubOnymousAudienceScroll, JsonSubPhase, JsonSubScroll, JsonSubStar, JsonSubVote, JsonUpdate, JsonVillage, JsonVotingResultDetail, JsonVotingResultSummary}
 import licos.json.element.village.character.{JsonCharacter, JsonResultCharacter, JsonRoleCharacter, JsonSimpleCharacter, JsonStatusCharacter}
 import licos.json.element.village.role.{JsonResultRole, JsonRole, JsonSimpleRole}
+import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
 
 import scala.util.{Failure, Success, Try}
 
 trait VillageUnitTestParser {
+
+  private final val logger: Logger = LoggerFactory.getLogger(classOf[VillageUnitTestParser])
 
   def parseCharacter(jsValue: JsValue): Option[JsonCharacter] = {
     Try(jsValue.validate[JsonCharacter]) match {
@@ -15,11 +18,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -30,11 +33,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -45,11 +48,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -60,11 +63,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -75,11 +78,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -90,11 +93,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -105,11 +108,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -120,11 +123,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -135,11 +138,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -150,11 +153,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -165,11 +168,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -180,11 +183,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -195,11 +198,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -210,11 +213,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -225,11 +228,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -240,11 +243,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -255,11 +258,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -270,11 +273,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -285,11 +288,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -300,11 +303,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -315,11 +318,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -330,11 +333,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -345,11 +348,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -360,11 +363,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -375,11 +378,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -390,11 +393,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -405,11 +408,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -420,11 +423,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -435,11 +438,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -450,11 +453,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -465,11 +468,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -480,11 +483,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -495,11 +498,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -510,11 +513,11 @@ trait VillageUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }

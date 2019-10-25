@@ -1,11 +1,14 @@
 package parser
 
 import licos.json.element.lobby.{JsonHostPlayer, JsonHuman, JsonPingResult, JsonPlayerInWaitingPage, JsonPlayerSetting, JsonPlayerTokenInKickOutPlayer, JsonRobot, JsonRoleSetting}
+import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
 
 import scala.util.{Failure, Success, Try}
 
 trait LobbyUnitTestParser {
+
+  private final val logger: Logger = LoggerFactory.getLogger(classOf[LobbyUnitTestParser])
 
   def parseHostPlayer(jsValue: JsValue): Option[JsonHostPlayer] = {
     Try(jsValue.validate[JsonHostPlayer]) match {
@@ -13,11 +16,11 @@ trait LobbyUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -28,7 +31,7 @@ trait LobbyUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
@@ -43,7 +46,7 @@ trait LobbyUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
@@ -58,7 +61,7 @@ trait LobbyUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
@@ -73,7 +76,7 @@ trait LobbyUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
@@ -89,7 +92,7 @@ trait LobbyUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
@@ -104,7 +107,7 @@ trait LobbyUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
@@ -119,7 +122,7 @@ trait LobbyUnitTestParser {
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
-            System.err.println(e)
+            logger.debug(e.toString)
             None
         }
       case Failure(err: Throwable) =>
