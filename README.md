@@ -1,7 +1,6 @@
 # LiCOS-JSON4Scala
 
 [![Build Status](https://travis-ci.org/ktr-skmt/LiCOS-JSON4Scala.svg?branch=master)](https://travis-ci.org/ktr-skmt/LiCOS-JSON4Scala)
-[![codecov](https://codecov.io/gh/ktr-skmt/LiCOS-JSON4Scala/branch/master/graph/badge.svg)](https://codecov.io/gh/ktr-skmt/LiCOS-JSON4Scala)
 
 ## API
 
