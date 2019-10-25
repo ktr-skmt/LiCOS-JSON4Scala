@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ktr-skmt/LiCOS-JSON4Scala.svg?branch=master)](https://travis-ci.org/ktr-skmt/LiCOS-JSON4Scala)
 [![codecov](https://codecov.io/gh/ktr-skmt/LiCOS-JSON4Scala/branch/master/graph/badge.svg)](https://codecov.io/gh/ktr-skmt/LiCOS-JSON4Scala)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/LICENSE)
 
 ## API
 
