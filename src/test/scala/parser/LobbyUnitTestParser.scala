@@ -35,7 +35,7 @@ trait LobbyUnitTestParser {
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -50,7 +50,7 @@ trait LobbyUnitTestParser {
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -65,7 +65,7 @@ trait LobbyUnitTestParser {
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -80,7 +80,7 @@ trait LobbyUnitTestParser {
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -96,7 +96,7 @@ trait LobbyUnitTestParser {
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -111,7 +111,7 @@ trait LobbyUnitTestParser {
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
@@ -126,7 +126,7 @@ trait LobbyUnitTestParser {
             None
         }
       case Failure(err: Throwable) =>
-        System.err.println(err.getMessage)
+        logger.error(err.getMessage)
         None
     }
   }
