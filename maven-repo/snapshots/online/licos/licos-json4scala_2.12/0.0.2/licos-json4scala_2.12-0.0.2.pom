@@ -20,11 +20,6 @@
         <url>https://github.com/ktr-skmt/LiCOS-JSON4Scala</url>
     </organization>
     <scm>
-        <url>https://github.com/ktr-skmt/LiCOS-JSON4Scala</url>
-        <connection>scm:git:https://github.com/ktr-skmt/LiCOS-JSON4Scala.git</connection>
-        <developerConnection>scm:git:git@github.com:ktr-skmt/LiCOS-JSON4Scala.git</developerConnection>
-    </scm>
-    <scm>
         <url>git@github.com:ktr-skmt/LiCOS-JSON4Scala.git</url>
         <connection>scm:git@github.com:ktr-skmt/LiCOS-JSON4Scala.git</connection>
     </scm>
@@ -39,7 +34,7 @@
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
-            <version>2.12.10</version>
+            <version>2.12.8</version>
         </dependency>
         <dependency>
             <groupId>org.scoverage</groupId>
@@ -59,7 +54,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.20</version>
+            <version>1.18.10</version>
         </dependency>
         <dependency>
             <groupId>org.scalatestplus.play</groupId>
