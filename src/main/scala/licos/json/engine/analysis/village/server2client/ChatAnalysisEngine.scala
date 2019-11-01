@@ -14,8 +14,8 @@ trait ChatAnalysisEngine extends AnalysisEngine {
   /** Returns a play.api.libs.json.JsValue response from a JSON message.
     *
     * @param box a box.
-    * @param chatFromClient a JSON message.
+    * @param chatFromServer a JSON message.
     * @return a play.api.libs.json.JsValue option.
     */
-  def process(box: BOX, chatFromClient: JsonChatFromServer): Option[JsValue]
+  def process(box: BOX, chatFromServer: JsonChatFromServer): Option[JsValue]
 }
