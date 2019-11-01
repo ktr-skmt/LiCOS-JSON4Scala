@@ -1,7 +1,7 @@
 package licos.json.engine.processing
 
 import com.typesafe.scalalogging.Logger
-import licos.json.element.lobby.{JsonAdvancedSearch, JsonAvatarInfo, JsonBuildVillage, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetAvatarInfo, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLeaveWaitingPage, JsonLobby, JsonPing, JsonPlay, JsonPlayed, JsonPong, JsonReady, JsonSearchResult, JsonSelectVillage, JsonSettings, JsonWaitingPage}
+import licos.json.element.lobby.{JsonAdvancedSearch, JsonAvatarInfo, JsonBuildVillage, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetAvatarInfo, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLeaveWaitingPage, JsonLobby, JsonPing, JsonPlay, JsonPlayed, JsonPlayedWithToken, JsonPong, JsonReady, JsonSearchResult, JsonSelectVillage, JsonSettings, JsonWaitingPage}
 import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.client2server._
 import licos.json.engine.analysis.lobby.server2client._
@@ -25,6 +25,7 @@ import play.api.libs.json.{JsValue, Json}
   * @param idSearchEngine the analysis engine for Id-search JSON.
   * @param playEngine the analysis engine for play JSON.
   * @param playedEngine the analysis engine for Played JSON.
+  * @param playedWithTokenEngine the analysis engine for Played-with-token JSON.
   * @param readyEngine the analysis engine for Ready JSON.
   * @param searchResultEngine the analysis engine for Search-result JSON.
   * @param changeLangEngine the analysis engine for Change-lang JSON.
@@ -50,6 +51,7 @@ class LobbyProcessingEngine(pongEngine: Option[PongAnalysisEngine],
                             idSearchEngine: Option[IdSearchAnalysisEngine],
                             playEngine: Option[PlayAnalysisEngine],
                             playedEngine: Option[PlayedAnalysisEngine],
+                            playedWithTokenEngine: Option[PlayedWithTokenAnalysisEngine],
                             readyEngine: Option[ReadyAnalysisEngine],
                             searchResultEngine: Option[SearchResultAnalysisEngine],
                             changeLangEngine: Option[ChangeLangAnalysisEngine],
@@ -124,6 +126,9 @@ class LobbyProcessingEngine(pongEngine: Option[PongAnalysisEngine],
       case Some(played: JsonPlayed) =>
         log("JsonPlayed")
         playedEngine.flatMap(_.process(box, played))
+      case Some(playedWithToken: JsonPlayedWithToken) =>
+        log("JsonPlayedWithToken")
+        playedWithTokenEngine.flatMap(_.process(box, playedWithToken))
       case Some(ready: JsonReady) =>
         log("JsonReady")
         readyEngine.flatMap(_.process(box, ready))

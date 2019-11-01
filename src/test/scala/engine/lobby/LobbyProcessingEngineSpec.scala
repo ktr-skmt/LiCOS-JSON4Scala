@@ -42,6 +42,7 @@ object LobbyProcessingEngineSpec {
     Settings("settings.json"),
     Lobby("lobbyForHumanPlayer.json"),
     Played("played.json"),
+    PlayedWithToken("playedWithToken.json"),
     SearchResult("searchResult.json"),
     WaitingPage("waitingPageForHumanPlayer.json")
   )
@@ -70,6 +71,7 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit {
     set(new IdSearchAE()).
     set(new PlayAE()).
     set(new PlayedAE()).
+    set(new PlayedWithTokenAE()).
     set(new ReadyAE()).
     set(new SearchResultAE()).
     set(new ChangeLangAE()).
