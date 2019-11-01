@@ -21,3 +21,10 @@ abstract class ServerToClientLobbyExample(filePath: String)
 object ServerToClientLobbyExample {
   def server2client(filePath: String): String = "server2client/".concat(filePath)
 }
+
+abstract class ServerToServerLobbyExample(filePath: String)
+  extends LobbyExample(ServerToServerLobbyExample.server2server(filePath))
+
+object ServerToServerLobbyExample {
+  def server2server(filePath: String): String = "server2server/".concat(filePath)
+}

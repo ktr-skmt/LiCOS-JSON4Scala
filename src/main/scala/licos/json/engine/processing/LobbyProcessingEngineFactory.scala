@@ -2,6 +2,7 @@ package licos.json.engine.processing
 
 import licos.json.engine.analysis.lobby.client2server._
 import licos.json.engine.analysis.lobby.server2client._
+import licos.json.engine.analysis.lobby.server2server.PlayedWithTokenAnalysisEngine
 
 /** Lobby processing engine factory.
   */

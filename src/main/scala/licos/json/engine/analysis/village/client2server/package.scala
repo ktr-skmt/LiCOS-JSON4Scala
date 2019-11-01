@@ -4,6 +4,4 @@ package licos.json.engine.analysis.village
   *
   * @author Kotaro Sakamoto
   */
-package object client2server {
-
-}
+package object client2server {}

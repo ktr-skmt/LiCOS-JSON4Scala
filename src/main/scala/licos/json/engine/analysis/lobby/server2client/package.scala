@@ -4,6 +4,4 @@ package licos.json.engine.analysis.lobby
   *
   * @author Kotaro Sakamoto
   */
-package object server2client {
-
-}
+package object server2client {}

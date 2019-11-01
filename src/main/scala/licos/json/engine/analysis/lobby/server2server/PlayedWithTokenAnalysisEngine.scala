@@ -1,4 +1,4 @@
-package licos.json.engine.analysis.lobby.server2client
+package licos.json.engine.analysis.lobby.server2server
 
 import licos.json.element.lobby.JsonPlayedWithToken
 import licos.json.engine.BOX
