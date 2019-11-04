@@ -77,7 +77,7 @@ class LobbyProcessingEngine(pongEngine: Option[PongAnalysisEngine],
     val jsValue: JsValue = Json.parse(msg)
 
     def log(label: String): Unit = {
-      val format: String = "process %s%n"
+      val format: String = "process %s"
       logger.info(format.format(label))
     }
 
