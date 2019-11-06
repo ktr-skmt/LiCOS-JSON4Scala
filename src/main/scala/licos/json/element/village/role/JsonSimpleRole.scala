@@ -14,33 +14,20 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonSimpleRole(`@context`: String,
-                          `@id`: String,
-                          name: JsonName,
-                          image: String)
-  extends JsonAbstractRole(
-    `@context`: String,
-    `@id`: String,
-    name: JsonName,
-    image: String) {
+case class JsonSimpleRole(`@context`: String, `@id`: String, name: JsonName, image: String)
+    extends JsonAbstractRole(`@context`: String, `@id`: String, name: JsonName, image: String) {
 
-  def this(`@id`: String,
-           name: JsonName,
-           image: String) = {
-    this(
-      RoleContext.iri: String,
-      `@id`: String,
-      name: JsonName,
-      image: String)
+  def this(`@id`: String, name: JsonName, image: String) = {
+    this(RoleContext.iri: String, `@id`: String, name: JsonName, image: String)
   }
 
   def toBson: BsonSimpleRole = {
     new BsonSimpleRole(
       new ObjectId(),
-      `@context`: String,
-      `@id`: String,
+      `@context`:  String,
+      `@id`:       String,
       name.toBson: BsonName,
-      image: String
+      image:       String
     )
   }
 }
@@ -48,12 +35,10 @@ case class JsonSimpleRole(`@context`: String,
 object JsonSimpleRole {
   implicit val jsonFormat: OFormat[JsonSimpleRole] = Json.format[JsonSimpleRole]
 
-  def apply(`@id`: String,
-            name: JsonName,
-            image: String): JsonSimpleRole = {
+  def apply(`@id`: String, name: JsonName, image: String): JsonSimpleRole = {
     new JsonSimpleRole(
       `@id`: String,
-      name: JsonName,
+      name:  JsonName,
       image: String
     )
   }

@@ -21,7 +21,7 @@ case class JsonFlavorText private (base: JsonBase, sub: JsonSubFlavorText) exten
   override def toBson: BsonFlavorText = {
     new BsonFlavorText(
       new ObjectId(),
-      base.toBson: BsonBase,
+      base.toBson:                         BsonBase,
       sub.flavorText.map(_.toBson).asJava: JList[BsonChatFromServer]
     )
   }

@@ -1,7 +1,6 @@
 package licos.json.element.lobby
 
-import play.api.libs.json.{Json, OFormat}
-;
+import play.api.libs.json.{Json, OFormat};
 
 /**
   * <pre>
@@ -10,9 +9,7 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonSelectVillage(`type`: String,
-                             token: String,
-                             villageId: Long) extends TypeSystem(`type`) {
+case class JsonSelectVillage(`type`: String, token: String, villageId: Long) extends TypeSystem(`type`) {
   override protected def validType: String = JsonSelectVillage.`type`
 }
 

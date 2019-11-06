@@ -1,7 +1,6 @@
 package licos.json.element.lobby
 
-import play.api.libs.json.{OFormat, Json}
-
+import play.api.libs.json.{Json, OFormat}
 
 /**
   * <pre>
@@ -10,9 +9,7 @@ import play.api.libs.json.{OFormat, Json}
   *
   * @author K.Sakamoto
   */
-case class JsonPing(`type`: String,
-                    id: String,
-                    results: Seq[JsonPingResult]) extends TypeSystem(`type`) {
+case class JsonPing(`type`: String, id: String, results: Seq[JsonPingResult]) extends TypeSystem(`type`) {
   override protected def validType: String = JsonPing.`type`
 }
 
@@ -22,9 +19,7 @@ object JsonPing {
   val `type`: String = "ping"
 }
 
-case class JsonPingResult(token: String,
-                          ping: String,
-                          status: String)
+case class JsonPingResult(token: String, ping: String, status: String)
 
 object JsonPingResult {
   implicit val jsonFormat: OFormat[JsonPingResult] = Json.format[JsonPingResult]

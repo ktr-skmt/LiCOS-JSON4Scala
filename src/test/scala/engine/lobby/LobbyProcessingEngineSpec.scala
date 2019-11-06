@@ -7,7 +7,12 @@ import engine.LobbyExample
 import engine.lobby.analysis._
 import engine.lobby.example._
 import element.JsonTest
-import licos.json.engine.processing.{LobbyPE, LobbyProcessingEngine, LobbyProcessingEngineFactory, SpecificProcessingEngineFactory}
+import licos.json.engine.processing.{
+  LobbyPE,
+  LobbyProcessingEngine,
+  LobbyProcessingEngineFactory,
+  SpecificProcessingEngineFactory
+}
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit
@@ -53,41 +58,41 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit {
 
   private final val logger: Logger = Logger[LobbyProcessingEngine]
 
-  private val processingEngineFactory: LobbyProcessingEngineFactory = SpecificProcessingEngineFactory.
-    create(LobbyPE).
-    asInstanceOf[LobbyProcessingEngineFactory].
-    set(new PongAE()).
-    set(new PingAE()).
-    set(new WaitingPageAE()).
-    set(new LobbyAE()).
-    set(new EnterLobbyAE()).
-    set(new GetAvatarInfoAE()).
-    set(new AvatarInfoAE()).
-    set(new SelectVillageAE()).
-    set(new LeaveWaitingPageAE()).
-    set(new KickOutPlayerAE()).
-    set(new BuildVillageAE()).
-    set(new AdvancedSearchAE()).
-    set(new IdSearchAE()).
-    set(new PlayAE()).
-    set(new PlayedAE()).
-    set(new PlayedWithTokenAE()).
-    set(new ReadyAE()).
-    set(new SearchResultAE()).
-    set(new ChangeLangAE()).
-    set(new ChangeUserEmailAE()).
-    set(new ChangeUserNameAE()).
-    set(new ChangeUserPasswordAE()).
-    set(new GetSettingsAE()).
-    set(new SettingsAE())
+  private val processingEngineFactory: LobbyProcessingEngineFactory = SpecificProcessingEngineFactory
+    .create(LobbyPE)
+    .asInstanceOf[LobbyProcessingEngineFactory]
+    .set(new PongAE())
+    .set(new PingAE())
+    .set(new WaitingPageAE())
+    .set(new LobbyAE())
+    .set(new EnterLobbyAE())
+    .set(new GetAvatarInfoAE())
+    .set(new AvatarInfoAE())
+    .set(new SelectVillageAE())
+    .set(new LeaveWaitingPageAE())
+    .set(new KickOutPlayerAE())
+    .set(new BuildVillageAE())
+    .set(new AdvancedSearchAE())
+    .set(new IdSearchAE())
+    .set(new PlayAE())
+    .set(new PlayedAE())
+    .set(new PlayedWithTokenAE())
+    .set(new ReadyAE())
+    .set(new SearchResultAE())
+    .set(new ChangeLangAE())
+    .set(new ChangeUserEmailAE())
+    .set(new ChangeUserNameAE())
+    .set(new ChangeUserPasswordAE())
+    .set(new GetSettingsAE())
+    .set(new SettingsAE())
 
   private val processingEngine: LobbyProcessingEngine = processingEngineFactory.create
 
   @Theory
   def process(jsonExample: LobbyExample): Unit = {
-    val jsonType: String = jsonExample.`type`
-    val url: String = jsonExample.path
-    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
+    val jsonType:       String = jsonExample.`type`
+    val url:            String = jsonExample.path
+    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
     logger.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
@@ -98,28 +103,33 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit {
         parseJsonTest(jsValue) match {
           case Some(json: JsonTest) =>
             assert(json.text == jsonType)
-          case None => fail(Seq[String](
-            "Something is wrong right after parsing.",
-            msg
-          ).mkString("\n"))
+          case None =>
+            fail(
+              Seq[String](
+                "Something is wrong right after parsing.",
+                msg
+              ).mkString("\n"))
         }
 
-      case None => fail(Seq[String](
-        "No response is generated.",
-        msg
-      ).mkString("\n"))
+      case None =>
+        fail(
+          Seq[String](
+            "No response is generated.",
+            msg
+          ).mkString("\n"))
     }
   }
 
   private def parseJsonTest(jsValue: JsValue): Option[JsonTest] = {
     Try(jsValue.validate[JsonTest]) match {
       case Success(json: JsResult[JsonTest]) => json.asOpt
-      case Failure(err: Throwable) =>
-        fail(Seq[String](
-          "Parsing failed.",
-          err.getMessage,
-          jsValue.toString
-        ).mkString("\n"))
+      case Failure(err:  Throwable) =>
+        fail(
+          Seq[String](
+            "Parsing failed.",
+            err.getMessage,
+            jsValue.toString
+          ).mkString("\n"))
         None
     }
   }

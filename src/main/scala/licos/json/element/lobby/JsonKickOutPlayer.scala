@@ -9,9 +9,8 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonKickOutPlayer(`type`: String,
-                             token: String,
-                             players: Seq[JsonPlayerTokenInKickOutPlayer]) extends TypeSystem(`type`) {
+case class JsonKickOutPlayer(`type`: String, token: String, players: Seq[JsonPlayerTokenInKickOutPlayer])
+    extends TypeSystem(`type`) {
   override protected def validType: String = JsonKickOutPlayer.`type`
 }
 

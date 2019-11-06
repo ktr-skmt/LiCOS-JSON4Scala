@@ -4,7 +4,16 @@ import java.nio.charset.StandardCharsets
 
 import com.typesafe.scalalogging.Logger
 import engine.LobbyUnitTestExample
-import engine.lobby.unitTestExample.{HostPlayer, Human, PingResult, PlayerInWaitingPage, PlayerSetting, PlayerTokenInKickOutPlayer, Robot, RoleSetting}
+import engine.lobby.unitTestExample.{
+  HostPlayer,
+  Human,
+  PingResult,
+  PlayerInWaitingPage,
+  PlayerSetting,
+  PlayerTokenInKickOutPlayer,
+  Robot,
+  RoleSetting
+}
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit
@@ -35,9 +44,9 @@ class LobbyUnitTestSpec extends AssertionsForJUnit with LobbyUnitTestParser {
 
   @Theory
   def process(jsonExample: LobbyUnitTestExample): Unit = {
-    val jsonType: String = jsonExample.`type`
-    val url: String = jsonExample.path
-    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
+    val jsonType:       String = jsonExample.`type`
+    val url:            String = jsonExample.path
+    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
     logger.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")

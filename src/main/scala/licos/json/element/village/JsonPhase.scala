@@ -13,69 +13,78 @@ import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
 import scala.collection.JavaConverters._
 
-case class JsonPhase private (base: JsonBase,
-                              sub: JsonSubPhase) extends JsonElement {
-  def this(base: JsonBase,
-           character: Seq[JsonCharacter],
-           role: Seq[JsonRole]) = {
+case class JsonPhase private (base: JsonBase, sub: JsonSubPhase) extends JsonElement {
+  def this(base: JsonBase, character: Seq[JsonCharacter], role: Seq[JsonRole]) = {
     this(
       base: JsonBase,
       JsonSubPhase(
-        character.sortWith { (a1: JsonCharacter, a2: JsonCharacter) => a1.name.en < a2.name.en }.sortBy(!_.isMine): Seq[JsonCharacter],
-        role.sortWith { (r1: JsonRole, r2: JsonRole) => r1.name.en < r2.name.en }: Seq[JsonRole]
+        character.sortWith { (a1: JsonCharacter, a2: JsonCharacter) =>
+          a1.name.en < a2.name.en
+        }.sortBy(!_.isMine): Seq[JsonCharacter],
+        role.sortWith { (r1: JsonRole, r2: JsonRole) =>
+          r1.name.en < r2.name.en
+        }: Seq[JsonRole]
       )
     )
   }
 
-  def this(base: JsonBase,
-           character: JList[JsonCharacter],
-           role: JList[JsonRole]) = {
+  def this(base: JsonBase, character: JList[JsonCharacter], role: JList[JsonRole]) = {
     this(
       base: JsonBase,
-      character.asScala.sortWith { (a1: JsonCharacter, a2: JsonCharacter) => a1.name.en < a2.name.en }.sortBy(!_.isMine): Seq[JsonCharacter],
-      role.asScala.sortWith { (r1: JsonRole, r2: JsonRole) => r1.name.en < r2.name.en }: Seq[JsonRole]
+      character.asScala.sortWith { (a1: JsonCharacter, a2: JsonCharacter) =>
+        a1.name.en < a2.name.en
+      }.sortBy(!_.isMine): Seq[JsonCharacter],
+      role.asScala.sortWith { (r1: JsonRole, r2: JsonRole) =>
+        r1.name.en < r2.name.en
+      }: Seq[JsonRole]
     )
   }
 
-  def character: Seq[JsonCharacter] = sub.character.sortWith { (a1: JsonCharacter, a2: JsonCharacter) => a1.name.en < a2.name.en }.sortBy(!_.isMine)
-  def role: Seq[JsonRole] = sub.role.sortWith { (r1: JsonRole, r2: JsonRole) => r1.name.en < r2.name.en }
+  def character: Seq[JsonCharacter] =
+    sub.character.sortWith { (a1: JsonCharacter, a2: JsonCharacter) =>
+      a1.name.en < a2.name.en
+    }.sortBy(!_.isMine)
+  def role: Seq[JsonRole] = sub.role.sortWith { (r1: JsonRole, r2: JsonRole) =>
+    r1.name.en < r2.name.en
+  }
 
   override def toBson: BsonPhase = {
     new BsonPhase(
       new ObjectId(),
-      base.toBson: BsonBase,
+      base.toBson:                    BsonBase,
       character.map(_.toBson).asJava: JList[BsonCharacter],
-      role.map(_.toBson).asJava: JList[BsonRole]
+      role.map(_.toBson).asJava:      JList[BsonRole]
     )
   }
 
   def exceptExtensionalDisclosureRange: JsonPhase = {
     JsonPhase(
       base.exceptExtensionalDisclosureRange: JsonBase,
-      sub: JsonSubPhase
+      sub:                                   JsonSubPhase
     )
   }
 }
 
 object JsonPhase {
-  def apply(base: JsonBase,
-            character: Seq[JsonCharacter],
-            role: Seq[JsonRole]): JsonPhase = {
+  def apply(base: JsonBase, character: Seq[JsonCharacter], role: Seq[JsonRole]): JsonPhase = {
     new JsonPhase(
       base: JsonBase,
-      character.sortWith { (a1: JsonCharacter, a2: JsonCharacter) => a1.name.en < a2.name.en }.sortBy(!_.isMine): Seq[JsonCharacter],
-      role.sortWith { (r1: JsonRole, r2: JsonRole) => r1.name.en < r2.name.en }: Seq[JsonRole]
+      character.sortWith { (a1: JsonCharacter, a2: JsonCharacter) =>
+        a1.name.en < a2.name.en
+      }.sortBy(!_.isMine): Seq[JsonCharacter],
+      role.sortWith { (r1: JsonRole, r2: JsonRole) =>
+        r1.name.en < r2.name.en
+      }: Seq[JsonRole]
     )
   }
 
   implicit val jsonFormat: Format[JsonPhase] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubPhase]
-    )(JsonPhase.apply, unlift(JsonPhase.unapply))
+  )(JsonPhase.apply, unlift(JsonPhase.unapply))
 }
 
-case class JsonSubPhase(character: Seq[JsonCharacter],
-                        role: Seq[JsonRole])
+case class JsonSubPhase(character: Seq[JsonCharacter], role: Seq[JsonRole])
 
 object JsonSubPhase {
   implicit val jsonFormat: OFormat[JsonSubPhase] = Json.format[JsonSubPhase]

@@ -7,20 +7,21 @@ import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
 
 case class JsonBoardPolarity(`@context`: String,
-                             `@id`: String,
-                             character: JsonSimpleCharacter,
-                             polarity: String,
-                             phase: String,
-                             day: Int) extends JsonElement {
+                             `@id`:      String,
+                             character:  JsonSimpleCharacter,
+                             polarity:   String,
+                             phase:      String,
+                             day:        Int)
+    extends JsonElement {
   override def toBson: BsonBoardPolarity = {
     new BsonBoardPolarity(
       new ObjectId(),
-      `@context`: String,
-      `@id`: String,
+      `@context`:       String,
+      `@id`:            String,
       character.toBson: BsonSimpleCharacter,
-      polarity: String,
-      phase: String,
-      day: Int
+      polarity:         String,
+      phase:            String,
+      day:              Int
     )
   }
 }

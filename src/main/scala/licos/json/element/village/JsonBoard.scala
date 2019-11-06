@@ -9,66 +9,65 @@ import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
-case class JsonBoard private (base: JsonBase,
-                              sub: JsonSubBoard) extends JsonElement {
-  def this(base: JsonBase,
+case class JsonBoard private (base: JsonBase, sub: JsonSubBoard) extends JsonElement {
+  def this(base:        JsonBase,
            myCharacter: JsonRoleCharacter,
-           character: JsonSimpleCharacter,
-           role: JsonSimpleRole,
-           prediction: String) = {
+           character:   JsonSimpleCharacter,
+           role:        JsonSimpleRole,
+           prediction:  String) = {
     this(
       base,
       JsonSubBoard(
         myCharacter: JsonRoleCharacter,
-        character: JsonSimpleCharacter,
-        role: JsonSimpleRole,
-        prediction: String
+        character:   JsonSimpleCharacter,
+        role:        JsonSimpleRole,
+        prediction:  String
       )
     )
   }
 
-  def myCharacter: JsonRoleCharacter = sub.myCharacter
-  def character: JsonSimpleCharacter = sub.character
-  def role: JsonSimpleRole = sub.role
-  def prediction: String = sub.prediction
+  def myCharacter: JsonRoleCharacter   = sub.myCharacter
+  def character:   JsonSimpleCharacter = sub.character
+  def role:        JsonSimpleRole      = sub.role
+  def prediction:  String              = sub.prediction
 
   override def toBson: BsonBoard = {
     new BsonBoard(
       new ObjectId(),
-      base.toBson: BsonBase,
+      base.toBson:        BsonBase,
       myCharacter.toBson: BsonRoleCharacter,
-      character.toBson: BsonSimpleCharacter,
-      role.toBson: BsonSimpleRole,
-      prediction: String
+      character.toBson:   BsonSimpleCharacter,
+      role.toBson:        BsonSimpleRole,
+      prediction:         String
     )
   }
 }
 
 object JsonBoard {
-  def apply(base: JsonBase,
+  def apply(base:        JsonBase,
             myCharacter: JsonRoleCharacter,
-            character: JsonSimpleCharacter,
-            role: JsonSimpleRole,
-            prediction: String): JsonBoard = {
+            character:   JsonSimpleCharacter,
+            role:        JsonSimpleRole,
+            prediction:  String): JsonBoard = {
     new JsonBoard(
-      base: JsonBase,
+      base:        JsonBase,
       myCharacter: JsonRoleCharacter,
-      character: JsonSimpleCharacter,
-      role: JsonSimpleRole,
-      prediction: String
+      character:   JsonSimpleCharacter,
+      role:        JsonSimpleRole,
+      prediction:  String
     )
   }
 
   implicit val jsonFormat: Format[JsonBoard] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubBoard]
-    )(JsonBoard.apply, unlift(JsonBoard.unapply))
+  )(JsonBoard.apply, unlift(JsonBoard.unapply))
 }
 
 case class JsonSubBoard(myCharacter: JsonRoleCharacter,
-                        character: JsonSimpleCharacter,
-                        role: JsonSimpleRole,
-                        prediction: String)
+                        character:   JsonSimpleCharacter,
+                        role:        JsonSimpleRole,
+                        prediction:  String)
 
 object JsonSubBoard {
   implicit val jsonFormat: OFormat[JsonSubBoard] = Json.format[JsonSubBoard]

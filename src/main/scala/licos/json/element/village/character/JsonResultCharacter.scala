@@ -17,58 +17,58 @@ import licos.json.element.village.{JsonAvatar, JsonName}
   * @author K.Sakamoto
   */
 case class JsonResultCharacter(`@context`: String,
-                               `@id`: String,
-                               id: Long,
-                               name: JsonName,
-                               image: String,
-                               isMine: Boolean,
-                               role: JsonSimpleRole,
-                               status: String,
-                               result: String,
-                               avatar: JsonAvatar)
-  extends JsonAbstractCharacter(
-    `@context`: String,
-    `@id`: String,
-    id: Long,
-    name: JsonName,
-    image: String
-  ) {
+                               `@id`:      String,
+                               id:         Long,
+                               name:       JsonName,
+                               image:      String,
+                               isMine:     Boolean,
+                               role:       JsonSimpleRole,
+                               status:     String,
+                               result:     String,
+                               avatar:     JsonAvatar)
+    extends JsonAbstractCharacter(
+      `@context`: String,
+      `@id`:      String,
+      id:         Long,
+      name:       JsonName,
+      image:      String
+    ) {
 
-  def this(`@id`: String,
-           id: Long,
-           name: JsonName,
-           image: String,
+  def this(`@id`:  String,
+           id:     Long,
+           name:   JsonName,
+           image:  String,
            isMine: Boolean,
-           role: JsonSimpleRole,
+           role:   JsonSimpleRole,
            status: String,
            result: String,
            avatar: JsonAvatar) = {
     this(
       CharacterContext.iri: String,
-      `@id`: String,
-      id: Long,
-      name: JsonName,
-      image: String,
-      isMine: Boolean,
-      role: JsonSimpleRole,
-      status: String,
-      result: String,
-      avatar: JsonAvatar
+      `@id`:                String,
+      id:                   Long,
+      name:                 JsonName,
+      image:                String,
+      isMine:               Boolean,
+      role:                 JsonSimpleRole,
+      status:               String,
+      result:               String,
+      avatar:               JsonAvatar
     )
   }
 
   override def toBson: BsonResultCharacter = {
     new BsonResultCharacter(
       new ObjectId(),
-      `@context`: String,
-      `@id`: String,
-      id: Long,
-      name.toBson: BsonName,
-      image: String,
-      isMine: Boolean,
-      role.toBson: BsonSimpleRole,
-      status: String,
-      result: String,
+      `@context`:    String,
+      `@id`:         String,
+      id:            Long,
+      name.toBson:   BsonName,
+      image:         String,
+      isMine:        Boolean,
+      role.toBson:   BsonSimpleRole,
+      status:        String,
+      result:        String,
       avatar.toBson: BsonAvatar
     )
   }
@@ -77,22 +77,22 @@ case class JsonResultCharacter(`@context`: String,
 object JsonResultCharacter {
   implicit val jsonFormat: OFormat[JsonResultCharacter] = Json.format[JsonResultCharacter]
 
-  def apply(`@id`: String,
-            id: Long,
-            name: JsonName,
-            image: String,
+  def apply(`@id`:  String,
+            id:     Long,
+            name:   JsonName,
+            image:  String,
             isMine: Boolean,
-            role: JsonSimpleRole,
+            role:   JsonSimpleRole,
             status: String,
             result: String,
             avatar: JsonAvatar): JsonResultCharacter = {
     new JsonResultCharacter(
-      `@id`: String,
-      id: Long,
-      name: JsonName,
-      image: String,
+      `@id`:  String,
+      id:     Long,
+      name:   JsonName,
+      image:  String,
       isMine: Boolean,
-      role: JsonSimpleRole,
+      role:   JsonSimpleRole,
       status: String,
       result: String,
       avatar: JsonAvatar

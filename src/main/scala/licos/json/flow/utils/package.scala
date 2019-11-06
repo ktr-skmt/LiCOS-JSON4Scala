@@ -10,7 +10,7 @@ import scala.reflect.ClassTag
   */
 package object utils {
 
-  implicit class FlowControllerUtilsWithTypeSystem[A <: TypeSystem: ClassTag, B](op: Option[A] ) {
+  implicit class FlowControllerUtilsWithTypeSystem[A <: TypeSystem: ClassTag, B](op: Option[A]) {
 
     /** Runs scala.Option.getOrElse after checking a type correctness of A.
       *
@@ -19,7 +19,7 @@ package object utils {
       */
     def >>>(default: B): Any = op match {
       case Some(a) if implicitly[ClassTag[A]].runtimeClass.isInstance(a) && a.isValid => a
-      case _ => default
+      case _                                                                          => default
     }
   }
 

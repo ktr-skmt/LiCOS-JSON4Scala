@@ -2,9 +2,8 @@ package licos.json.element.lobby
 
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonSearchResult(`type`: String,
-                            villages: Seq[JsonVillage],
-                            error: Option[String]) extends TypeSystem(`type`) {
+case class JsonSearchResult(`type`: String, villages: Seq[JsonVillage], error: Option[String])
+    extends TypeSystem(`type`) {
   override protected def validType: String = JsonSearchResult.`type`
 }
 
@@ -13,8 +12,7 @@ object JsonSearchResult {
 
   val `type`: String = "searchResult"
 
-  def generate(villages: Seq[JsonVillage],
-               error: Option[String]): JsonSearchResult = {
+  def generate(villages: Seq[JsonVillage], error: Option[String]): JsonSearchResult = {
     JsonSearchResult(`type`, villages, error)
   }
 }

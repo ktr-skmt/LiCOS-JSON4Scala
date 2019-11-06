@@ -4,12 +4,11 @@ import licos.bson.element.village.BsonChatText
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonChatText(`@value`: String,
-                        `@language`: String) extends JsonElement {
+case class JsonChatText(`@value`: String, `@language`: String) extends JsonElement {
   override def toBson: BsonChatText = {
     new BsonChatText(
       new ObjectId(),
-      `@value`: String,
+      `@value`:    String,
       `@language`: String
     )
   }

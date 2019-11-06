@@ -17,42 +17,38 @@ import play.api.libs.json.{Json, OFormat}
   * @author K.Sakamoto
   */
 case class JsonRoleCharacter(`@context`: String,
-                             `@id`: String,
-                             id: Long,
-                             name: JsonName,
-                             image: String,
-                             role: JsonSimpleRole)
-  extends JsonAbstractCharacter(
-    `@context`: String,
-    `@id`: String,
-    id: Long,
-    name: JsonName,
-    image: String
-  ) {
+                             `@id`:      String,
+                             id:         Long,
+                             name:       JsonName,
+                             image:      String,
+                             role:       JsonSimpleRole)
+    extends JsonAbstractCharacter(
+      `@context`: String,
+      `@id`:      String,
+      id:         Long,
+      name:       JsonName,
+      image:      String
+    ) {
 
-  def this(`@id`: String,
-           id: Long,
-           name: JsonName,
-           image: String,
-           role: JsonSimpleRole) = {
+  def this(`@id`: String, id: Long, name: JsonName, image: String, role: JsonSimpleRole) = {
     this(
       CharacterContext.iri: String,
-      `@id`: String,
-      id: Long,
-      name: JsonName,
-      image: String,
-      role: JsonSimpleRole
+      `@id`:                String,
+      id:                   Long,
+      name:                 JsonName,
+      image:                String,
+      role:                 JsonSimpleRole
     )
   }
 
   override def toBson: BsonRoleCharacter = {
     new BsonRoleCharacter(
       new ObjectId(),
-      `@context`: String,
-      `@id`: String,
-      id: Long,
+      `@context`:  String,
+      `@id`:       String,
+      id:          Long,
       name.toBson: BsonName,
-      image: String,
+      image:       String,
       role.toBson: BsonSimpleRole
     )
   }
@@ -61,17 +57,13 @@ case class JsonRoleCharacter(`@context`: String,
 object JsonRoleCharacter {
   implicit val jsonFormat: OFormat[JsonRoleCharacter] = Json.format[JsonRoleCharacter]
 
-  def apply(`@id`: String,
-            id: Long,
-            name: JsonName,
-            image: String,
-            role: JsonSimpleRole): JsonRoleCharacter = {
+  def apply(`@id`: String, id: Long, name: JsonName, image: String, role: JsonSimpleRole): JsonRoleCharacter = {
     new JsonRoleCharacter(
       `@id`: String,
-      id: Long,
-      name: JsonName,
+      id:    Long,
+      name:  JsonName,
       image: String,
-      role: JsonSimpleRole
+      role:  JsonSimpleRole
     )
   }
 }

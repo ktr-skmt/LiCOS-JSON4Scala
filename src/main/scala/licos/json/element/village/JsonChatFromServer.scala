@@ -7,30 +7,29 @@ import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
-case class JsonChatFromServer private (base: JsonBase,
-                                       sub: JsonSubChatFromServer) extends JsonElement {
-  def this(base: JsonBase,
-           character: JsonSimpleCharacter,
-           isMine: Boolean,
-           id: Int,
-           counter: Int,
-           maxNumberOfChatMessages: Int,
-           interval: String,
-           text: JsonChatText,
+case class JsonChatFromServer private (base: JsonBase, sub: JsonSubChatFromServer) extends JsonElement {
+  def this(base:                         JsonBase,
+           character:                    JsonSimpleCharacter,
+           isMine:                       Boolean,
+           id:                           Int,
+           counter:                      Int,
+           maxNumberOfChatMessages:      Int,
+           interval:                     String,
+           text:                         JsonChatText,
            maxLengthOfUnicodeCodePoints: Int,
-           isOver: Boolean) = {
+           isOver:                       Boolean) = {
     this(
       base,
       JsonSubChatFromServer(
-        character: JsonSimpleCharacter,
-        isMine: Boolean,
-        id: Int,
-        counter: Int,
-        maxNumberOfChatMessages: Int,
-        interval: String,
-        text: JsonChatText,
+        character:                    JsonSimpleCharacter,
+        isMine:                       Boolean,
+        id:                           Int,
+        counter:                      Int,
+        maxNumberOfChatMessages:      Int,
+        interval:                     String,
+        text:                         JsonChatText,
         maxLengthOfUnicodeCodePoints: Int,
-        isOver: Boolean
+        isOver:                       Boolean
       )
     )
   }
@@ -40,39 +39,39 @@ case class JsonChatFromServer private (base: JsonBase,
     JsonChatFromServer(
       base.otherAvatar(guid): JsonBase,
       JsonSubChatFromServer(
-        character: JsonSimpleCharacter,
-        isCharacterMine: Boolean,
-        id: Int,
-        counter: Int,
-        maxNumberOfChatMessages: Int,
-        interval: String,
-        text: JsonChatText,
+        character:                    JsonSimpleCharacter,
+        isCharacterMine:              Boolean,
+        id:                           Int,
+        counter:                      Int,
+        maxNumberOfChatMessages:      Int,
+        interval:                     String,
+        text:                         JsonChatText,
         maxLengthOfUnicodeCodePoints: Int,
-        isOver: Boolean
+        isOver:                       Boolean
       )
     )
   }
 
-  def character: JsonSimpleCharacter = sub.character
-  def isMine: Boolean = sub.isMine
-  def id: Int = sub.id
-  def counter: Int = sub.counter
-  def maxNumberOfChatMessages: Int = sub.maxNumberOfChatMessages
-  def interval: String = sub.interval
-  def text: JsonChatText = sub.text
-  def maxLengthOfUnicodeCodePoints: Int = sub.maxLengthOfUnicodeCodePoints
-  def isOver: Boolean = sub.isOver
+  def character:                    JsonSimpleCharacter = sub.character
+  def isMine:                       Boolean             = sub.isMine
+  def id:                           Int                 = sub.id
+  def counter:                      Int                 = sub.counter
+  def maxNumberOfChatMessages:      Int                 = sub.maxNumberOfChatMessages
+  def interval:                     String              = sub.interval
+  def text:                         JsonChatText        = sub.text
+  def maxLengthOfUnicodeCodePoints: Int                 = sub.maxLengthOfUnicodeCodePoints
+  def isOver:                       Boolean             = sub.isOver
 
   def appendText(t: String): JsonChatFromServer = {
     JsonChatFromServer(
       base: JsonBase,
       JsonSubChatFromServer(
-        character: JsonSimpleCharacter,
-        isMine: Boolean,
-        id: Int,
-        counter: Int,
+        character:               JsonSimpleCharacter,
+        isMine:                  Boolean,
+        id:                      Int,
+        counter:                 Int,
         maxNumberOfChatMessages: Int,
-        interval: String,
+        interval:                String,
         JsonChatText(
           s"""${text.`@value`}
              |
@@ -80,7 +79,7 @@ case class JsonChatFromServer private (base: JsonBase,
           text.`@language`: String
         ),
         maxLengthOfUnicodeCodePoints: Int,
-        isOver: Boolean
+        isOver:                       Boolean
       )
     )
   }
@@ -88,60 +87,60 @@ case class JsonChatFromServer private (base: JsonBase,
   override def toBson: BsonChatFromServer = {
     new BsonChatFromServer(
       new ObjectId(),
-      base.toBson: BsonBase,
-      character.toBson: BsonSimpleCharacter,
-      isMine: Boolean,
-      id: Int,
-      counter: Int,
-      maxNumberOfChatMessages: Int,
-      interval: String,
-      text.toBson: BsonChatText,
+      base.toBson:                  BsonBase,
+      character.toBson:             BsonSimpleCharacter,
+      isMine:                       Boolean,
+      id:                           Int,
+      counter:                      Int,
+      maxNumberOfChatMessages:      Int,
+      interval:                     String,
+      text.toBson:                  BsonChatText,
       maxLengthOfUnicodeCodePoints: Int,
-      isOver: Boolean
+      isOver:                       Boolean
     )
   }
 }
 
 object JsonChatFromServer {
-  def apply(base: JsonBase,
-            character: JsonSimpleCharacter,
-            isMine: Boolean,
-            id: Int,
-            counter: Int,
-            limit: Int,
-            interval: String,
-            text: JsonChatText,
+  def apply(base:                         JsonBase,
+            character:                    JsonSimpleCharacter,
+            isMine:                       Boolean,
+            id:                           Int,
+            counter:                      Int,
+            limit:                        Int,
+            interval:                     String,
+            text:                         JsonChatText,
             maxLengthOfUnicodeCodePoints: Int,
-            isOver: Boolean): JsonChatFromServer = {
+            isOver:                       Boolean): JsonChatFromServer = {
     new JsonChatFromServer(
-      base: JsonBase,
-      character: JsonSimpleCharacter,
-      isMine: Boolean,
-      id: Int,
-      counter: Int,
-      limit: Int,
-      interval: String,
-      text: JsonChatText,
+      base:                         JsonBase,
+      character:                    JsonSimpleCharacter,
+      isMine:                       Boolean,
+      id:                           Int,
+      counter:                      Int,
+      limit:                        Int,
+      interval:                     String,
+      text:                         JsonChatText,
       maxLengthOfUnicodeCodePoints: Int,
-      isOver: Boolean
+      isOver:                       Boolean
     )
   }
 
   implicit val jsonFormat: Format[JsonChatFromServer] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubChatFromServer]
-    )(JsonChatFromServer.apply, unlift(JsonChatFromServer.unapply))
+  )(JsonChatFromServer.apply, unlift(JsonChatFromServer.unapply))
 }
 
-case class JsonSubChatFromServer(character: JsonSimpleCharacter,
-                                 isMine: Boolean,
-                                 id: Int,
-                                 counter: Int,
-                                 maxNumberOfChatMessages: Int,
-                                 interval: String,
-                                 text: JsonChatText,
+case class JsonSubChatFromServer(character:                    JsonSimpleCharacter,
+                                 isMine:                       Boolean,
+                                 id:                           Int,
+                                 counter:                      Int,
+                                 maxNumberOfChatMessages:      Int,
+                                 interval:                     String,
+                                 text:                         JsonChatText,
                                  maxLengthOfUnicodeCodePoints: Int,
-                                 isOver: Boolean)
+                                 isOver:                       Boolean)
 
 object JsonSubChatFromServer {
   implicit val jsonFormat: OFormat[JsonSubChatFromServer] = Json.format[JsonSubChatFromServer]

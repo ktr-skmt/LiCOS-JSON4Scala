@@ -1,7 +1,39 @@
 package parser
 
-import licos.json.element.village.{JsonAvatar, JsonBase, JsonBoardPolarity, JsonChatSettings, JsonChatText, JsonName, JsonStarInfo, JsonSubAnonymousAudienceChat, JsonSubBoard, JsonSubChatFromClient, JsonSubChatFromServer, JsonSubError, JsonSubFlavorText, JsonSubGameResult, JsonSubOnymousAudienceBoard, JsonSubOnymousAudienceChat, JsonSubOnymousAudienceScroll, JsonSubPhase, JsonSubScroll, JsonSubStar, JsonSubVote, JsonUpdate, JsonVillage, JsonVotingResultDetail, JsonVotingResultSummary}
-import licos.json.element.village.character.{JsonCharacter, JsonResultCharacter, JsonRoleCharacter, JsonSimpleCharacter, JsonStatusCharacter}
+import licos.json.element.village.{
+  JsonAvatar,
+  JsonBase,
+  JsonBoardPolarity,
+  JsonChatSettings,
+  JsonChatText,
+  JsonName,
+  JsonStarInfo,
+  JsonSubAnonymousAudienceChat,
+  JsonSubBoard,
+  JsonSubChatFromClient,
+  JsonSubChatFromServer,
+  JsonSubError,
+  JsonSubFlavorText,
+  JsonSubGameResult,
+  JsonSubOnymousAudienceBoard,
+  JsonSubOnymousAudienceChat,
+  JsonSubOnymousAudienceScroll,
+  JsonSubPhase,
+  JsonSubScroll,
+  JsonSubStar,
+  JsonSubVote,
+  JsonUpdate,
+  JsonVillage,
+  JsonVotingResultDetail,
+  JsonVotingResultSummary
+}
+import licos.json.element.village.character.{
+  JsonCharacter,
+  JsonResultCharacter,
+  JsonRoleCharacter,
+  JsonSimpleCharacter,
+  JsonStatusCharacter
+}
 import licos.json.element.village.role.{JsonResultRole, JsonRole, JsonSimpleRole}
 import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}

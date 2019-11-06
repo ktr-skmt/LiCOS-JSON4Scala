@@ -9,7 +9,12 @@ import engine.village.analysis.server2client._
 import engine.village.example.client2server._
 import engine.village.example.server2client._
 import element.JsonTest
-import licos.json.engine.processing.{SpecificProcessingEngineFactory, VillagePE, VillageProcessingEngine, VillageProcessingEngineFactory}
+import licos.json.engine.processing.{
+  SpecificProcessingEngineFactory,
+  VillagePE,
+  VillageProcessingEngine,
+  VillageProcessingEngineFactory
+}
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit
@@ -63,42 +68,42 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit {
 
   private final val logger: Logger = Logger[VillageProcessingEngineSpec]
 
-  private val processingEngineFactory: VillageProcessingEngineFactory = SpecificProcessingEngineFactory.
-    create(VillagePE).
-    asInstanceOf[VillageProcessingEngineFactory].
-    set(new ReadyAE()).
-    set(new ReceivedChatMessageAE()).
-    set(new ReceivedSystemMessageAE()).
-    set(new ReceivedFlavorTextMessageAE()).
-    set(new ChatFromClientAE()).
-    set(new ChatFromServerAE()).
-    set(new OnymousAudienceChatFromClientAE()).
-    set(new AnonymousAudienceChatFromClientAE()).
-    set(new OnymousAudienceChatFromServerAE()).
-    set(new AnonymousAudienceChatFromServerAE()).
-    set(new BoardAE()).
-    set(new OnymousAudienceBoardAE()).
-    set(new VoteAE()).
-    set(new ScrollAE()).
-    set(new OnymousAudienceScrollAE()).
-    set(new StarAE()).
-    set(new PhaseAE()).
-    set(new FlavorTextAE()).
-    set(new GameResultAE()).
-    set(new BuildVillageAE()).
-    set(new LeaveWaitingPageAE()).
-    set(new NextGameInvitationAE()).
-    set(new NextGameInvitationIsClosedAE()).
-    set(new ErrorFromClientAE()).
-    set(new ErrorFromServerAE())
+  private val processingEngineFactory: VillageProcessingEngineFactory = SpecificProcessingEngineFactory
+    .create(VillagePE)
+    .asInstanceOf[VillageProcessingEngineFactory]
+    .set(new ReadyAE())
+    .set(new ReceivedChatMessageAE())
+    .set(new ReceivedSystemMessageAE())
+    .set(new ReceivedFlavorTextMessageAE())
+    .set(new ChatFromClientAE())
+    .set(new ChatFromServerAE())
+    .set(new OnymousAudienceChatFromClientAE())
+    .set(new AnonymousAudienceChatFromClientAE())
+    .set(new OnymousAudienceChatFromServerAE())
+    .set(new AnonymousAudienceChatFromServerAE())
+    .set(new BoardAE())
+    .set(new OnymousAudienceBoardAE())
+    .set(new VoteAE())
+    .set(new ScrollAE())
+    .set(new OnymousAudienceScrollAE())
+    .set(new StarAE())
+    .set(new PhaseAE())
+    .set(new FlavorTextAE())
+    .set(new GameResultAE())
+    .set(new BuildVillageAE())
+    .set(new LeaveWaitingPageAE())
+    .set(new NextGameInvitationAE())
+    .set(new NextGameInvitationIsClosedAE())
+    .set(new ErrorFromClientAE())
+    .set(new ErrorFromServerAE())
 
   private val processingEngine: VillageProcessingEngine = processingEngineFactory.create
 
   @Theory
   def process(jsonExample: VillageExample): Unit = {
-    val jsonType: String = jsonExample.`type`
-    val url: String = jsonExample.path
-    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
+    val jsonType:       String = jsonExample.`type`
+    val url:            String = jsonExample.path
+    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
     logger.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
@@ -109,28 +114,33 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit {
         parseJsonTest(jsValue) match {
           case Some(json: JsonTest) =>
             assert(json.text == jsonType)
-          case None => fail(Seq[String](
-            "Something is wrong right after parsing.",
-            msg
-          ).mkString("\n"))
+          case None =>
+            fail(
+              Seq[String](
+                "Something is wrong right after parsing.",
+                msg
+              ).mkString("\n"))
         }
 
-      case None => fail(Seq[String](
-        "No response is generated.",
-        msg
-      ).mkString("\n"))
+      case None =>
+        fail(
+          Seq[String](
+            "No response is generated.",
+            msg
+          ).mkString("\n"))
     }
   }
 
   private def parseJsonTest(jsValue: JsValue): Option[JsonTest] = {
     Try(jsValue.validate[JsonTest]) match {
       case Success(json: JsResult[JsonTest]) => json.asOpt
-      case Failure(err: Throwable) =>
-        fail(Seq[String](
-          "Parsing failed.",
-          err.getMessage,
-          jsValue.toString
-        ).mkString("\n"))
+      case Failure(err:  Throwable) =>
+        fail(
+          Seq[String](
+            "Parsing failed.",
+            err.getMessage,
+            jsValue.toString
+          ).mkString("\n"))
         None
     }
   }

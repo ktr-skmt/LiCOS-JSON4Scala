@@ -5,21 +5,15 @@ import licos.json.element.village.iri.AvatarContext
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonAvatar(`@context`: String,
-                      `@id`: String,
-                      token: String,
-                      name: String,
-                      image: String) extends JsonElement {
-  def this(`@id`: String,
-           token: String,
-           name: String,
-           image: String) = {
+case class JsonAvatar(`@context`: String, `@id`: String, token: String, name: String, image: String)
+    extends JsonElement {
+  def this(`@id`: String, token: String, name: String, image: String) = {
     this(
       AvatarContext.iri: String,
-      `@id`: String,
-      token: String,
-      name: String,
-      image: String
+      `@id`:             String,
+      token:             String,
+      name:              String,
+      image:             String
     )
   }
 
@@ -27,10 +21,10 @@ case class JsonAvatar(`@context`: String,
     new BsonAvatar(
       new ObjectId(),
       `@context`: String,
-      `@id`: String,
-      token: String,
-      name: String,
-      image: String
+      `@id`:      String,
+      token:      String,
+      name:       String,
+      image:      String
     )
   }
 }
@@ -38,14 +32,11 @@ case class JsonAvatar(`@context`: String,
 object JsonAvatar {
   implicit val jsonFormat: OFormat[JsonAvatar] = Json.format[JsonAvatar]
 
-  def apply(`@id`: String,
-            token: String,
-            name: String,
-            image: String): JsonAvatar = {
+  def apply(`@id`: String, token: String, name: String, image: String): JsonAvatar = {
     new JsonAvatar(
       `@id`: String,
       token: String,
-      name: String,
+      name:  String,
       image: String
     )
   }

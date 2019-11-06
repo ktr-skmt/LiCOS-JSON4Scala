@@ -9,9 +9,7 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonPong(`type`: String,
-                    token: String,
-                    id: String) extends TypeSystem(`type`) {
+case class JsonPong(`type`: String, token: String, id: String) extends TypeSystem(`type`) {
   override protected def validType: String = `type`
 }
 

@@ -15,55 +15,55 @@ import play.api.libs.json.{Json, OFormat}
   * @author K.Sakamoto
   */
 case class JsonCharacter(`@context`: String,
-                         `@id`: String,
-                         id: Long,
-                         name: JsonName,
-                         image: String,
-                         isMine: Boolean,
-                         status: String,
-                         update: JsonUpdate,
-                         isAChoice: Boolean)
-  extends JsonAbstractCharacter(
-    `@context`: String,
-    `@id`: String,
-    id: Long,
-    name: JsonName,
-    image: String
-  ) {
+                         `@id`:      String,
+                         id:         Long,
+                         name:       JsonName,
+                         image:      String,
+                         isMine:     Boolean,
+                         status:     String,
+                         update:     JsonUpdate,
+                         isAChoice:  Boolean)
+    extends JsonAbstractCharacter(
+      `@context`: String,
+      `@id`:      String,
+      id:         Long,
+      name:       JsonName,
+      image:      String
+    ) {
 
-  def this(`@id`: String,
-           id: Long,
-           name: JsonName,
-           image: String,
-           isMine: Boolean,
-           status: String,
-           update: JsonUpdate,
+  def this(`@id`:     String,
+           id:        Long,
+           name:      JsonName,
+           image:     String,
+           isMine:    Boolean,
+           status:    String,
+           update:    JsonUpdate,
            isAChoice: Boolean) = {
     this(
       CharacterContext.iri: String,
-      `@id`: String,
-      id: Long,
-      name: JsonName,
-      image: String,
-      isMine: Boolean,
-      status: String,
-      update: JsonUpdate,
-      isAChoice: Boolean
+      `@id`:                String,
+      id:                   Long,
+      name:                 JsonName,
+      image:                String,
+      isMine:               Boolean,
+      status:               String,
+      update:               JsonUpdate,
+      isAChoice:            Boolean
     )
   }
 
   override def toBson: BsonCharacter = {
     new BsonCharacter(
       new ObjectId(),
-      `@context`: String,
-      `@id`: String,
-      id: Long,
-      name.toBson: BsonName,
-      image: String,
-      isMine: Boolean,
-      status: String,
+      `@context`:    String,
+      `@id`:         String,
+      id:            Long,
+      name.toBson:   BsonName,
+      image:         String,
+      isMine:        Boolean,
+      status:        String,
       update.toBson: BsonUpdate,
-      isAChoice: Boolean
+      isAChoice:     Boolean
     )
   }
 }
@@ -71,22 +71,22 @@ case class JsonCharacter(`@context`: String,
 object JsonCharacter {
   implicit val jsonFormat: OFormat[JsonCharacter] = Json.format[JsonCharacter]
 
-  def apply(`@id`: String,
-            id: Long,
-            name: JsonName,
-            image: String,
-            isMine: Boolean,
-            status: String,
-            update: JsonUpdate,
+  def apply(`@id`:     String,
+            id:        Long,
+            name:      JsonName,
+            image:     String,
+            isMine:    Boolean,
+            status:    String,
+            update:    JsonUpdate,
             isAChoice: Boolean): JsonCharacter = {
     new JsonCharacter(
-      `@id`: String,
-      id: Long,
-      name: JsonName,
-      image: String,
-      isMine: Boolean,
-      status: String,
-      update: JsonUpdate,
+      `@id`:     String,
+      id:        Long,
+      name:      JsonName,
+      image:     String,
+      isMine:    Boolean,
+      status:    String,
+      update:    JsonUpdate,
       isAChoice: Boolean)
   }
 }

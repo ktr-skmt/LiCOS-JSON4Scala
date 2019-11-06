@@ -1,6 +1,15 @@
 package parser
 
-import licos.json.element.lobby.{JsonHostPlayer, JsonHuman, JsonPingResult, JsonPlayerInWaitingPage, JsonPlayerSetting, JsonPlayerTokenInKickOutPlayer, JsonRobot, JsonRoleSetting}
+import licos.json.element.lobby.{
+  JsonHostPlayer,
+  JsonHuman,
+  JsonPingResult,
+  JsonPlayerInWaitingPage,
+  JsonPlayerSetting,
+  JsonPlayerTokenInKickOutPlayer,
+  JsonRobot,
+  JsonRoleSetting
+}
 import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
 
@@ -84,7 +93,6 @@ trait LobbyUnitTestParser {
         None
     }
   }
-
 
   def parsePlayerTokenInKickOutPlayer(jsValue: JsValue): Option[JsonPlayerTokenInKickOutPlayer] = {
     Try(jsValue.validate[JsonPlayerTokenInKickOutPlayer]) match {

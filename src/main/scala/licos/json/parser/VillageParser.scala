@@ -2,7 +2,11 @@ package licos.json.parser
 
 import licos.json.element.village.invite.{JsonNextGameInvitation, JsonNextGameInvitationIsClosed}
 import licos.json.element.village._
-import licos.json.element.village.receipt.{JsonReceivedChatMessage, JsonReceivedFlavorTextMessage, JsonReceivedSystemMessage}
+import licos.json.element.village.receipt.{
+  JsonReceivedChatMessage,
+  JsonReceivedFlavorTextMessage,
+  JsonReceivedSystemMessage
+}
 import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
 

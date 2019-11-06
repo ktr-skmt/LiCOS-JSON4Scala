@@ -14,57 +14,50 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonSimpleCharacter(`@context`: String,
-                               `@id`: String,
-                               id: Long,
-                               name: JsonName,
-                               image: String)
-  extends JsonAbstractCharacter(
-    `@context`: String,
-    `@id`: String,
-    id: Long,
-    name: JsonName,
-    image: String
-  ) {
+case class JsonSimpleCharacter(`@context`: String, `@id`: String, id: Long, name: JsonName, image: String)
+    extends JsonAbstractCharacter(
+      `@context`: String,
+      `@id`:      String,
+      id:         Long,
+      name:       JsonName,
+      image:      String
+    ) {
 
-  def this(`@id`: String,
-           id: Long,
-           name: JsonName,
-           image: String) = {
+  def this(`@id`: String, id: Long, name: JsonName, image: String) = {
     this(
       CharacterContext.iri: String,
-      `@id`: String,
-      id: Long,
-      name: JsonName,
-      image: String
+      `@id`:                String,
+      id:                   Long,
+      name:                 JsonName,
+      image:                String
     )
   }
 
   override def toBson: BsonSimpleCharacter = {
     new BsonSimpleCharacter(
       new ObjectId(),
-      `@context`: String,
-      `@id`: String,
-      id: Long,
+      `@context`:  String,
+      `@id`:       String,
+      id:          Long,
       name.toBson: BsonName,
-      image: String
+      image:       String
     )
   }
 
   def jsonVotingResultDetail(`@id`: String, target: JsonSimpleCharacter): JsonVotingResultDetail = {
     JsonVotingResultDetail(
-      `@id`: String,
-      this: JsonSimpleCharacter,
+      `@id`:  String,
+      this:   JsonSimpleCharacter,
       target: JsonSimpleCharacter
     )
   }
 
   def jsonVotingResultSummary(`@id`: String, numberOfVotes: Int, rankOfVotes: Int): JsonVotingResultSummary = {
     JsonVotingResultSummary(
-      `@id`: String,
-      this: JsonSimpleCharacter,
+      `@id`:         String,
+      this:          JsonSimpleCharacter,
       numberOfVotes: Int,
-      rankOfVotes: Int
+      rankOfVotes:   Int
     )
   }
 }
@@ -72,14 +65,7 @@ case class JsonSimpleCharacter(`@context`: String,
 object JsonSimpleCharacter {
   implicit val jsonFormat: OFormat[JsonSimpleCharacter] = Json.format[JsonSimpleCharacter]
 
-  def apply(`@id`: String,
-            id: Long,
-            name: JsonName,
-            image: String): JsonSimpleCharacter = {
-    new JsonSimpleCharacter(
-      `@id`: String,
-      id: Long,
-      name: JsonName,
-      image: String)
+  def apply(`@id`: String, id: Long, name: JsonName, image: String): JsonSimpleCharacter = {
+    new JsonSimpleCharacter(`@id`: String, id: Long, name: JsonName, image: String)
   }
 }

@@ -10,7 +10,11 @@ import licos.json.flow.{FlowController, VillageFlowController}
 import licos.json.element.lobby.{JsonBuildVillage, JsonLeaveWaitingPage, JsonReady}
 import licos.json.element.village._
 import licos.json.element.village.invite.{JsonNextGameInvitation, JsonNextGameInvitationIsClosed}
-import licos.json.element.village.receipt.{JsonReceivedChatMessage, JsonReceivedFlavorTextMessage, JsonReceivedSystemMessage}
+import licos.json.element.village.receipt.{
+  JsonReceivedChatMessage,
+  JsonReceivedFlavorTextMessage,
+  JsonReceivedSystemMessage
+}
 import play.api.libs.json.{JsValue, Json}
 
 /** This class implements the processing engine that aggregates and runs analysis engines for village.
@@ -40,31 +44,33 @@ import play.api.libs.json.{JsValue, Json}
   * @param errorFromServerEngine the analysis engine for Error-from-server JSON.
   * @author Kotaro Sakamoto
   */
-class VillageProcessingEngine(readyEngine: Option[ReadyAnalysisEngine],
-                              receivedChatMessageEngine: Option[ReceivedChatMessageAnalysisEngine],
-                              receivedSystemMessageEngine: Option[ReceivedSystemMessageAnalysisEngine],
-                              receivedFlavorTextMessageEngine: Option[ReceivedFlavorTextMessageAnalysisEngine],
-                              chatFromClientEngine: Option[village.client2server.ChatAnalysisEngine],
-                              chatFromServerEngine: Option[village.server2client.ChatAnalysisEngine],
-                              onymousAudienceChatFromClientEngine: Option[village.client2server.OnymousAudienceChatAnalysisEngine],
-                              onymousAudienceChatFromServerEngine: Option[village.server2client.OnymousAudienceChatAnalysisEngine],
-                              anonymousAudienceChatFromClientEngine: Option[village.client2server.AnonymousAudienceChatAnalysisEngine],
-                              anonymousAudienceChatFromServerEngine: Option[village.server2client.AnonymousAudienceChatAnalysisEngine],
-                              boardEngine: Option[BoardAnalysisEngine],
-                              onymousAudienceBoardEngine: Option[OnymousAudienceBoardAnalysisEngine],
-                              voteEngine: Option[VoteAnalysisEngine],
-                              scrollEngine: Option[ScrollAnalysisEngine],
-                              onymousAudienceScrollEngine: Option[OnymousAudienceScrollAnalysisEngine],
-                              starEngine: Option[StarAnalysisEngine],
-                              phaseEngine: Option[PhaseAnalysisEngine],
-                              flavorTextEngine: Option[FlavorTextAnalysisEngine],
-                              gameResultEngine: Option[GameResultAnalysisEngine],
-                              buildVillageEngine: Option[BuildVillageAnalysisEngine],
-                              leaveWaitingPageEngine: Option[LeaveWaitingPageAnalysisEngine],
-                              nextGameInvitationEngine: Option[NextGameInvitationAnalysisEngine],
-                              nextGameInvitationIsClosedEngine: Option[NextGameInvitationIsClosedAnalysisEngine],
-                              errorFromClientEngine: Option[village.client2server.ErrorAnalysisEngine],
-                              errorFromServerEngine: Option[village.server2client.ErrorAnalysisEngine]) extends ProcessingEngine {
+class VillageProcessingEngine(
+    readyEngine:                           Option[ReadyAnalysisEngine],
+    receivedChatMessageEngine:             Option[ReceivedChatMessageAnalysisEngine],
+    receivedSystemMessageEngine:           Option[ReceivedSystemMessageAnalysisEngine],
+    receivedFlavorTextMessageEngine:       Option[ReceivedFlavorTextMessageAnalysisEngine],
+    chatFromClientEngine:                  Option[village.client2server.ChatAnalysisEngine],
+    chatFromServerEngine:                  Option[village.server2client.ChatAnalysisEngine],
+    onymousAudienceChatFromClientEngine:   Option[village.client2server.OnymousAudienceChatAnalysisEngine],
+    onymousAudienceChatFromServerEngine:   Option[village.server2client.OnymousAudienceChatAnalysisEngine],
+    anonymousAudienceChatFromClientEngine: Option[village.client2server.AnonymousAudienceChatAnalysisEngine],
+    anonymousAudienceChatFromServerEngine: Option[village.server2client.AnonymousAudienceChatAnalysisEngine],
+    boardEngine:                           Option[BoardAnalysisEngine],
+    onymousAudienceBoardEngine:            Option[OnymousAudienceBoardAnalysisEngine],
+    voteEngine:                            Option[VoteAnalysisEngine],
+    scrollEngine:                          Option[ScrollAnalysisEngine],
+    onymousAudienceScrollEngine:           Option[OnymousAudienceScrollAnalysisEngine],
+    starEngine:                            Option[StarAnalysisEngine],
+    phaseEngine:                           Option[PhaseAnalysisEngine],
+    flavorTextEngine:                      Option[FlavorTextAnalysisEngine],
+    gameResultEngine:                      Option[GameResultAnalysisEngine],
+    buildVillageEngine:                    Option[BuildVillageAnalysisEngine],
+    leaveWaitingPageEngine:                Option[LeaveWaitingPageAnalysisEngine],
+    nextGameInvitationEngine:              Option[NextGameInvitationAnalysisEngine],
+    nextGameInvitationIsClosedEngine:      Option[NextGameInvitationIsClosedAnalysisEngine],
+    errorFromClientEngine:                 Option[village.client2server.ErrorAnalysisEngine],
+    errorFromServerEngine:                 Option[village.server2client.ErrorAnalysisEngine])
+    extends ProcessingEngine {
 
   override protected val flowController: FlowController = new VillageFlowController()
 

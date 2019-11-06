@@ -20,64 +20,64 @@ import scala.collection.JavaConverters._
   *
   * @author K.Sakamoto
   */
-case class JsonResultRole(`@context`: String,
-                          `@id`: String,
-                          isMine: Boolean,
-                          name: JsonName,
-                          image: String,
+case class JsonResultRole(`@context`:         String,
+                          `@id`:              String,
+                          isMine:             Boolean,
+                          name:               JsonName,
+                          image:              String,
                           numberOfCharacters: Int,
-                          character: Seq[JsonSimpleCharacter])
-  extends JsonAbstractRole(
-    `@context`: String,
-    `@id`: String,
-    name: JsonName,
-    image: String
-  ) {
+                          character:          Seq[JsonSimpleCharacter])
+    extends JsonAbstractRole(
+      `@context`: String,
+      `@id`:      String,
+      name:       JsonName,
+      image:      String
+    ) {
 
-  def this(`@id`: String,
-           isMine: Boolean,
-           name: JsonName,
-           image: String,
+  def this(`@id`:              String,
+           isMine:             Boolean,
+           name:               JsonName,
+           image:              String,
            numberOfCharacters: Int,
-           character: Seq[JsonSimpleCharacter]) = {
+           character:          Seq[JsonSimpleCharacter]) = {
     this(
-      RoleContext.iri: String,
-      `@id`: String,
-      isMine: Boolean,
-      name: JsonName,
-      image: String,
+      RoleContext.iri:    String,
+      `@id`:              String,
+      isMine:             Boolean,
+      name:               JsonName,
+      image:              String,
       numberOfCharacters: Int,
-      character: Seq[JsonSimpleCharacter]
+      character:          Seq[JsonSimpleCharacter]
     )
   }
 
-  def this(`@context`: String,
-           `@id`: String,
-           isMine: Boolean,
-           name: JsonName,
-           image: String,
+  def this(`@context`:         String,
+           `@id`:              String,
+           isMine:             Boolean,
+           name:               JsonName,
+           image:              String,
            numberOfCharacters: Int,
-           character: JList[JsonSimpleCharacter]) = {
+           character:          JList[JsonSimpleCharacter]) = {
     this(
-      `@context`: String,
-      `@id`: String,
-      isMine: Boolean,
-      name: JsonName,
-      image: String,
+      `@context`:         String,
+      `@id`:              String,
+      isMine:             Boolean,
+      name:               JsonName,
+      image:              String,
       numberOfCharacters: Int,
-      character.asScala: Seq[JsonSimpleCharacter]
+      character.asScala:  Seq[JsonSimpleCharacter]
     )
   }
 
   def toBson: BsonResultRole = {
     new BsonResultRole(
       new ObjectId(),
-      `@context`: String,
-      `@id`: String,
-      isMine: Boolean,
-      name.toBson: BsonName,
-      image: String,
-      numberOfCharacters: Int,
+      `@context`:                     String,
+      `@id`:                          String,
+      isMine:                         Boolean,
+      name.toBson:                    BsonName,
+      image:                          String,
+      numberOfCharacters:             Int,
       character.map(_.toBson).asJava: JList[BsonSimpleCharacter]
     )
   }
@@ -86,19 +86,19 @@ case class JsonResultRole(`@context`: String,
 object JsonResultRole {
   implicit val jsonFormat: OFormat[JsonResultRole] = Json.format[JsonResultRole]
 
-  def apply(`@id`: String,
-            isMine: Boolean,
-            name: JsonName,
-            image: String,
+  def apply(`@id`:              String,
+            isMine:             Boolean,
+            name:               JsonName,
+            image:              String,
             numberOfCharacters: Int,
-            character: Seq[JsonSimpleCharacter]): JsonResultRole = {
+            character:          Seq[JsonSimpleCharacter]): JsonResultRole = {
     new JsonResultRole(
-      `@id`: String,
-      isMine: Boolean,
-      name: JsonName,
-      image: String,
+      `@id`:              String,
+      isMine:             Boolean,
+      name:               JsonName,
+      image:              String,
       numberOfCharacters: Int,
-      character: Seq[JsonSimpleCharacter]
+      character:          Seq[JsonSimpleCharacter]
     )
   }
 }

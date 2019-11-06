@@ -2,15 +2,16 @@ package licos.json.element.lobby
 
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonAdvancedSearch(`type`: String,
-                              token: String,
-                              lobby: String,
+case class JsonAdvancedSearch(`type`:      String,
+                              token:       String,
+                              lobby:       String,
                               villageName: Option[String],
-                              hostName: Option[String],
-                              minimum: Option[Int],
-                              maximum: Option[Int],
-                              avatar: String,
-                              comment: Option[String]) extends TypeSystem(`type`) {
+                              hostName:    Option[String],
+                              minimum:     Option[Int],
+                              maximum:     Option[Int],
+                              avatar:      String,
+                              comment:     Option[String])
+    extends TypeSystem(`type`) {
   override protected def validType: String = JsonAdvancedSearch.`type`
 }
 

@@ -4,8 +4,41 @@ import java.nio.charset.StandardCharsets
 
 import com.typesafe.scalalogging.Logger
 import engine.VillageUnitTestExample
-import engine.village.unitTestExample.{Avatar, Base, BoardPolarity, ChatSettings, ChatText, Name, StarInfo, SubAnonymousAudienceChat, SubBoard, SubChatFromClient, SubChatFromServer, SubErrorFromClient, SubErrorFromServer, SubFlavorText, SubGameResult, SubOnymousAudienceBoard, SubOnymousAudienceChat, SubOnymousAudienceScroll, SubPhase, SubScroll, SubStar, SubVote, Update, Village, VotingResultDetail, VotingResultSummary}
-import engine.village.unitTestExample.character.{Character, ResultCharacter, RoleCharacter, SimpleCharacter, StatusCharacter}
+import engine.village.unitTestExample.{
+  Avatar,
+  Base,
+  BoardPolarity,
+  ChatSettings,
+  ChatText,
+  Name,
+  StarInfo,
+  SubAnonymousAudienceChat,
+  SubBoard,
+  SubChatFromClient,
+  SubChatFromServer,
+  SubErrorFromClient,
+  SubErrorFromServer,
+  SubFlavorText,
+  SubGameResult,
+  SubOnymousAudienceBoard,
+  SubOnymousAudienceChat,
+  SubOnymousAudienceScroll,
+  SubPhase,
+  SubScroll,
+  SubStar,
+  SubVote,
+  Update,
+  Village,
+  VotingResultDetail,
+  VotingResultSummary
+}
+import engine.village.unitTestExample.character.{
+  Character,
+  ResultCharacter,
+  RoleCharacter,
+  SimpleCharacter,
+  StatusCharacter
+}
 import engine.village.unitTestExample.role.{ResultRole, Role, SimpleRole}
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
@@ -63,9 +96,9 @@ class VillageUnitTestSpec extends AssertionsForJUnit with VillageUnitTestParser 
 
   @Theory
   def process(jsonExample: VillageUnitTestExample): Unit = {
-    val jsonType: String = jsonExample.`type`
-    val url: String = jsonExample.path
-    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
+    val jsonType:       String = jsonExample.`type`
+    val url:            String = jsonExample.path
+    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
     logger.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")

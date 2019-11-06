@@ -8,13 +8,15 @@ abstract class VillageExample(filePath: String) {
   val `type`: String
 }
 
-abstract class ClientToServerVillageExample(filePath: String) extends VillageExample(ClientToServerVillageExample.client2server(filePath))
+abstract class ClientToServerVillageExample(filePath: String)
+    extends VillageExample(ClientToServerVillageExample.client2server(filePath))
 
 object ClientToServerVillageExample {
   def client2server(filePath: String): String = "client2server/".concat(filePath)
 }
 
-abstract class ServerToClientVillageExample(filePath: String) extends VillageExample(ServerToClientVillageExample.server2client(filePath))
+abstract class ServerToClientVillageExample(filePath: String)
+    extends VillageExample(ServerToClientVillageExample.server2client(filePath))
 
 object ServerToClientVillageExample {
   def server2client(filePath: String): String = "server2client/".concat(filePath)

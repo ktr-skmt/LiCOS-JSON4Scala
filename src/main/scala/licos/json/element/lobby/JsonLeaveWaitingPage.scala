@@ -9,10 +9,8 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonLeaveWaitingPage(`type`: String,
-                                token: String,
-                                villageId: Long,
-                                lobby: String) extends TypeSystem(`type`) {
+case class JsonLeaveWaitingPage(`type`: String, token: String, villageId: Long, lobby: String)
+    extends TypeSystem(`type`) {
   override protected def validType: String = JsonLeaveWaitingPage.`type`
 }
 

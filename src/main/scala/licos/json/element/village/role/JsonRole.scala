@@ -18,63 +18,64 @@ import scala.collection.JavaConverters._
   *
   * @author K.Sakamoto
   */
-case class JsonRole(`@context`: String,
-                    `@id`: String,
-                    name: JsonName,
-                    image: String,
-                    isMine: Boolean,
+case class JsonRole(`@context`:         String,
+                    `@id`:              String,
+                    name:               JsonName,
+                    image:              String,
+                    isMine:             Boolean,
                     numberOfCharacters: Int,
-                    board: Seq[JsonBoardPolarity]) extends JsonAbstractRole(
-    `@context`: String,
-    `@id`: String,
-    name: JsonName,
-    image: String
-  ) {
-
-  def this(`@context`: String,
-           `@id`: String,
-           name: JsonName,
-           image: String,
-           isMine: Boolean,
-           numberOfCharacters: Int,
-           board: JList[JsonBoardPolarity]) = {
-    this(
+                    board:              Seq[JsonBoardPolarity])
+    extends JsonAbstractRole(
       `@context`: String,
-      `@id`: String,
-      name: JsonName,
-      image: String,
-      isMine: Boolean,
+      `@id`:      String,
+      name:       JsonName,
+      image:      String
+    ) {
+
+  def this(`@context`:         String,
+           `@id`:              String,
+           name:               JsonName,
+           image:              String,
+           isMine:             Boolean,
+           numberOfCharacters: Int,
+           board:              JList[JsonBoardPolarity]) = {
+    this(
+      `@context`:         String,
+      `@id`:              String,
+      name:               JsonName,
+      image:              String,
+      isMine:             Boolean,
       numberOfCharacters: Int,
-      board.asScala: Seq[JsonBoardPolarity]
+      board.asScala:      Seq[JsonBoardPolarity]
     )
   }
 
-  def this(`@id`: String,
-           name: JsonName,
-           image: String,
-           isMine: Boolean,
+  def this(`@id`:              String,
+           name:               JsonName,
+           image:              String,
+           isMine:             Boolean,
            numberOfCharacters: Int,
-           board: Seq[JsonBoardPolarity]) = {
+           board:              Seq[JsonBoardPolarity]) = {
     this(
-      RoleContext.iri: String,
-      `@id`: String,
-      name: JsonName,
-      image: String,
-      isMine: Boolean,
+      RoleContext.iri:    String,
+      `@id`:              String,
+      name:               JsonName,
+      image:              String,
+      isMine:             Boolean,
       numberOfCharacters: Int,
-      board: Seq[JsonBoardPolarity]
+      board:              Seq[JsonBoardPolarity]
     )
   }
 
   def toBson: BsonRole = {
     new BsonRole(
       new ObjectId(),
-      `@context`: String,
-      `@id`: String,
-      name.toBson: BsonName,
-      image: String,
-      isMine: Boolean,
-      numberOfCharacters: Int,
+      `@context`:                 String,
+      `@id`:                      String,
+      name.toBson:                BsonName,
+      image:                      String,
+      isMine:                     Boolean,
+      numberOfCharacters:         Int,
       board.map(_.toBson).asJava: JList[BsonBoardPolarity]
     )
   }
@@ -83,19 +84,19 @@ case class JsonRole(`@context`: String,
 object JsonRole {
   implicit val jsonFormat: OFormat[JsonRole] = Json.format[JsonRole]
 
-  def apply(`@id`: String,
-            name: JsonName,
-            image: String,
-            isMine: Boolean,
+  def apply(`@id`:              String,
+            name:               JsonName,
+            image:              String,
+            isMine:             Boolean,
             numberOfCharacters: Int,
-            board: Seq[JsonBoardPolarity]): JsonRole = {
+            board:              Seq[JsonBoardPolarity]): JsonRole = {
     new JsonRole(
-      `@id`: String,
-      name: JsonName,
-      image: String,
-      isMine: Boolean,
+      `@id`:              String,
+      name:               JsonName,
+      image:              String,
+      isMine:             Boolean,
       numberOfCharacters: Int,
-      board: Seq[JsonBoardPolarity]
+      board:              Seq[JsonBoardPolarity]
     )
   }
 }

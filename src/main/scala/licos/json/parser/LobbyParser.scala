@@ -1,6 +1,28 @@
 package licos.json.parser
 
-import licos.json.element.lobby.{JsonAdvancedSearch, JsonAvatarInfo, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetAvatarInfo, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLobby, JsonPing, JsonPlay, JsonPlayed, JsonPlayedWithToken, JsonPong, JsonSearchResult, JsonSelectVillage, JsonSettings, JsonWaitingPage}
+import licos.json.element.lobby.{
+  JsonAdvancedSearch,
+  JsonAvatarInfo,
+  JsonChangeLang,
+  JsonChangeUserEmail,
+  JsonChangeUserName,
+  JsonChangeUserPassword,
+  JsonEnterLobby,
+  JsonGetAvatarInfo,
+  JsonGetSettings,
+  JsonIdSearch,
+  JsonKickOutPlayer,
+  JsonLobby,
+  JsonPing,
+  JsonPlay,
+  JsonPlayed,
+  JsonPlayedWithToken,
+  JsonPong,
+  JsonSearchResult,
+  JsonSelectVillage,
+  JsonSettings,
+  JsonWaitingPage
+}
 import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
 

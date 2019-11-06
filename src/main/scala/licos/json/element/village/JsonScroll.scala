@@ -7,57 +7,56 @@ import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
-case class JsonScroll private (base: JsonBase,
-                               sub: JsonSubScroll) extends JsonElement {
-  def this(base: JsonBase,
-           myCharacter: JsonRoleCharacter,
-           nodeId: String,
-           scrollTop: Int,
+case class JsonScroll private (base: JsonBase, sub: JsonSubScroll) extends JsonElement {
+  def this(base:         JsonBase,
+           myCharacter:  JsonRoleCharacter,
+           nodeId:       String,
+           scrollTop:    Int,
            scrollHeight: Int,
            offsetHeight: Int) = {
     this(
       base: JsonBase,
       JsonSubScroll(
-        myCharacter: JsonRoleCharacter,
-        nodeId: String,
-        scrollTop: Int,
+        myCharacter:  JsonRoleCharacter,
+        nodeId:       String,
+        scrollTop:    Int,
         scrollHeight: Int,
         offsetHeight: Int
       )
     )
   }
 
-  def myCharacter: JsonRoleCharacter = sub.myCharacter
-  def nodeId: String = sub.nodeId
-  def scrollTop: Int = sub.scrollTop
-  def scrollHeight: Int = sub.scrollHeight
-  def offsetHeight: Int = sub.offsetHeight
+  def myCharacter:  JsonRoleCharacter = sub.myCharacter
+  def nodeId:       String            = sub.nodeId
+  def scrollTop:    Int               = sub.scrollTop
+  def scrollHeight: Int               = sub.scrollHeight
+  def offsetHeight: Int               = sub.offsetHeight
 
   override def toBson: BsonScroll = {
     new BsonScroll(
       new ObjectId(),
-      base.toBson: BsonBase,
+      base.toBson:        BsonBase,
       myCharacter.toBson: BsonRoleCharacter,
-      nodeId: String,
-      scrollTop: Int,
-      scrollHeight: Int,
-      offsetHeight: Int
+      nodeId:             String,
+      scrollTop:          Int,
+      scrollHeight:       Int,
+      offsetHeight:       Int
     )
   }
 }
 
 object JsonScroll {
-  def apply(base: JsonBase,
-            myCharacter: JsonRoleCharacter,
-            nodeId: String,
-            scrollTop: Int,
+  def apply(base:         JsonBase,
+            myCharacter:  JsonRoleCharacter,
+            nodeId:       String,
+            scrollTop:    Int,
             scrollHeight: Int,
             offsetHeight: Int): JsonScroll = {
     new JsonScroll(
-      base: JsonBase,
-      myCharacter: JsonRoleCharacter,
-      nodeId: String,
-      scrollTop: Int,
+      base:         JsonBase,
+      myCharacter:  JsonRoleCharacter,
+      nodeId:       String,
+      scrollTop:    Int,
       scrollHeight: Int,
       offsetHeight: Int)
   }
@@ -65,12 +64,12 @@ object JsonScroll {
   implicit val jsonFormat: Format[JsonScroll] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubScroll]
-    )(JsonScroll.apply, unlift(JsonScroll.unapply))
+  )(JsonScroll.apply, unlift(JsonScroll.unapply))
 }
 
-case class JsonSubScroll(myCharacter: JsonRoleCharacter,
-                         nodeId: String,
-                         scrollTop: Int,
+case class JsonSubScroll(myCharacter:  JsonRoleCharacter,
+                         nodeId:       String,
+                         scrollTop:    Int,
                          scrollHeight: Int,
                          offsetHeight: Int)
 

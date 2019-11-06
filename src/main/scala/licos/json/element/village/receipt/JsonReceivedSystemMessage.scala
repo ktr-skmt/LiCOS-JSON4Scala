@@ -3,11 +3,8 @@ package licos.json.element.village.receipt
 import licos.json.element.village.JsonPhase
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonReceivedSystemMessage(`type`: String,
-                                     token: String,
-                                     villageId: Long,
-                                     phase: String,
-                                     day: Int) extends JsonReceivedMessage(`type`, token, villageId) {
+case class JsonReceivedSystemMessage(`type`: String, token: String, villageId: Long, phase: String, day: Int)
+    extends JsonReceivedMessage(`type`, token, villageId) {
   override protected def validType: String = JsonReceivedSystemMessage.`type`
 
   def this(phase: JsonPhase) = {
@@ -20,15 +17,6 @@ case class JsonReceivedSystemMessage(`type`: String,
     )
   }
 
-  //override def key: String = JsonReceivedSystemMessage.key(
-  //  villageId: Long,
-  //  token: String,
-  //  phase: String,
-  //  date: Int)
-
-  //def read(config: Configuration, log: LoggingAdapter): Option[JsValue] = {
-  //  JsonReceivedSystemMessage.read(villageId, token, phase, date, config, log)
-  //}
 }
 
 object JsonReceivedSystemMessage {

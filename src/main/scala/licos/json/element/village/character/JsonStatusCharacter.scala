@@ -9,56 +9,52 @@ import licos.json.element.village.JsonName
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonStatusCharacter(`@context`: String,
-                               `@id`: String,
-                               id: Long,
-                               name: JsonName,
-                               image: String,
-                               role: JsonSimpleRole,
-                               status: String,
+case class JsonStatusCharacter(`@context`:    String,
+                               `@id`:         String,
+                               id:            Long,
+                               name:          JsonName,
+                               image:         String,
+                               role:          JsonSimpleRole,
+                               status:        String,
                                isHumanPlayer: Boolean)
-                               //avatar: JsonAvatar)
-  extends JsonAbstractCharacter(
-    `@context`: String,
-    `@id`: String,
-    id: Long,
-    name: JsonName,
-    image: String
-  ) {
+    extends JsonAbstractCharacter(
+      `@context`: String,
+      `@id`:      String,
+      id:         Long,
+      name:       JsonName,
+      image:      String
+    ) {
 
-  def this(`@id`: String,
-           id: Long,
-           name: JsonName,
-           image: String,
-           role: JsonSimpleRole,
-           status: String,
+  def this(`@id`:         String,
+           id:            Long,
+           name:          JsonName,
+           image:         String,
+           role:          JsonSimpleRole,
+           status:        String,
            isHumanPlayer: Boolean) = {
-           //avatar: JsonAvatar) = {
     this(
       CharacterContext.iri: String,
-      `@id`: String,
-      id: Long,
-      name: JsonName,
-      image: String,
-      role: JsonSimpleRole,
-      status: String,
-      isHumanPlayer: Boolean
-      //avatar: JsonAvatar
+      `@id`:                String,
+      id:                   Long,
+      name:                 JsonName,
+      image:                String,
+      role:                 JsonSimpleRole,
+      status:               String,
+      isHumanPlayer:        Boolean
     )
   }
 
   override def toBson: BsonStatusCharacter = {
     new BsonStatusCharacter(
       new ObjectId(),
-      `@context`: String,
-      `@id`: String,
-      id: Long,
-      name.toBson: BsonName,
-      image: String,
-      role.toBson: BsonSimpleRole,
-      status: String,
+      `@context`:    String,
+      `@id`:         String,
+      id:            Long,
+      name.toBson:   BsonName,
+      image:         String,
+      role.toBson:   BsonSimpleRole,
+      status:        String,
       isHumanPlayer: Boolean
-      //avatar.toBson: BsonAvatar
     )
   }
 }
@@ -66,23 +62,21 @@ case class JsonStatusCharacter(`@context`: String,
 object JsonStatusCharacter {
   implicit val jsonFormat: OFormat[JsonStatusCharacter] = Json.format[JsonStatusCharacter]
 
-  def apply(`@id`: String,
-            id: Long,
-            name: JsonName,
-            image: String,
-            role: JsonSimpleRole,
-            status: String,
+  def apply(`@id`:         String,
+            id:            Long,
+            name:          JsonName,
+            image:         String,
+            role:          JsonSimpleRole,
+            status:        String,
             isHumanPlayer: Boolean): JsonStatusCharacter = {
-            //avatar: JsonAvatar): JsonStatusCharacter = {
     new JsonStatusCharacter(
-      `@id`: String,
-      id: Long,
-      name: JsonName,
-      image: String,
-      role: JsonSimpleRole,
-      status: String,
+      `@id`:         String,
+      id:            Long,
+      name:          JsonName,
+      image:         String,
+      role:          JsonSimpleRole,
+      status:        String,
       isHumanPlayer: Boolean
-      //avatar: JsonAvatar
     )
   }
 }

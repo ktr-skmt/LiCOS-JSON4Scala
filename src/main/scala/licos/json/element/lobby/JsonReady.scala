@@ -2,9 +2,7 @@ package licos.json.element.lobby
 
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonReady(`type`: String,
-                     token: String,
-                     villageId: Long) extends TypeSystem(`type`) {
+case class JsonReady(`type`: String, token: String, villageId: Long) extends TypeSystem(`type`) {
   override protected def validType: String = JsonReady.`type`
 }
 

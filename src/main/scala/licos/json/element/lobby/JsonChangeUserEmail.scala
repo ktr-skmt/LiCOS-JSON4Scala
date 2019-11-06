@@ -2,8 +2,7 @@ package licos.json.element.lobby
 
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonChangeUserEmail(`type`: String,
-                               userEmail: String) extends TypeSystem(`type`) {
+case class JsonChangeUserEmail(`type`: String, userEmail: String) extends TypeSystem(`type`) {
   override protected def validType: String = JsonChangeUserEmail.`type`
 }
 

@@ -5,54 +5,53 @@ import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
-case class JsonAnonymousAudienceChat(base: JsonBase,
-                                     sub: JsonSubAnonymousAudienceChat) extends JsonElement {
-  def this(base: JsonBase,
-           isMine: Boolean,
-           text: JsonChatText,
+case class JsonAnonymousAudienceChat(base: JsonBase, sub: JsonSubAnonymousAudienceChat) extends JsonElement {
+  def this(base:                         JsonBase,
+           isMine:                       Boolean,
+           text:                         JsonChatText,
            maxLengthOfUnicodeCodePoints: Int,
-           isFromServer: Boolean) {
+           isFromServer:                 Boolean) {
     this(
       base: JsonBase,
       JsonSubAnonymousAudienceChat(
-        isMine: Boolean,
-        text: JsonChatText,
+        isMine:                       Boolean,
+        text:                         JsonChatText,
         maxLengthOfUnicodeCodePoints: Int,
-        isFromServer: Boolean
+        isFromServer:                 Boolean
       )
     )
   }
 
-  def isMine: Boolean = sub.isMine
-  def text: JsonChatText = sub.text
-  def maxLengthOfUnicodeCodePoints: Int = sub.maxLengthOfUnicodeCodePoints
-  def isFromServer: Boolean = sub.isFromServer
+  def isMine:                       Boolean      = sub.isMine
+  def text:                         JsonChatText = sub.text
+  def maxLengthOfUnicodeCodePoints: Int          = sub.maxLengthOfUnicodeCodePoints
+  def isFromServer:                 Boolean      = sub.isFromServer
 
   override def toBson: BsonAnonymousAudienceChat = {
     new BsonAnonymousAudienceChat(
       new ObjectId(),
-      base.toBson: BsonBase,
-      isMine: Boolean,
-      text.toBson: BsonChatText,
+      base.toBson:                  BsonBase,
+      isMine:                       Boolean,
+      text.toBson:                  BsonChatText,
       maxLengthOfUnicodeCodePoints: Int,
-      isFromServer: Boolean
+      isFromServer:                 Boolean
     )
   }
 }
 
 object JsonAnonymousAudienceChat {
 
-  def apply(base: JsonBase,
-            isMine: Boolean,
-            text: JsonChatText,
+  def apply(base:                         JsonBase,
+            isMine:                       Boolean,
+            text:                         JsonChatText,
             maxLengthOfUnicodeCodePoints: Int,
-            isFromServer: Boolean): JsonAnonymousAudienceChat = {
+            isFromServer:                 Boolean): JsonAnonymousAudienceChat = {
     new JsonAnonymousAudienceChat(
-      base: JsonBase,
-      isMine: Boolean,
-      text: JsonChatText,
+      base:                         JsonBase,
+      isMine:                       Boolean,
+      text:                         JsonChatText,
       maxLengthOfUnicodeCodePoints: Int,
-      isFromServer: Boolean
+      isFromServer:                 Boolean
     )
   }
 
@@ -61,10 +60,10 @@ object JsonAnonymousAudienceChat {
   )(JsonAnonymousAudienceChat.apply, unlift(JsonAnonymousAudienceChat.unapply))
 }
 
-case class JsonSubAnonymousAudienceChat(isMine: Boolean,
-                                        text: JsonChatText,
+case class JsonSubAnonymousAudienceChat(isMine:                       Boolean,
+                                        text:                         JsonChatText,
                                         maxLengthOfUnicodeCodePoints: Int,
-                                        isFromServer: Boolean)
+                                        isFromServer:                 Boolean)
 
 object JsonSubAnonymousAudienceChat {
   implicit val jsonFormat: OFormat[JsonSubAnonymousAudienceChat] = Json.format[JsonSubAnonymousAudienceChat]

@@ -7,15 +7,14 @@ import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
-case class JsonStar(base: JsonBase,
-                    sub: JsonSubStar) extends JsonElement {
+case class JsonStar(base: JsonBase, sub: JsonSubStar) extends JsonElement {
 
   override def toBson: BsonStar = {
     new BsonStar(
       new ObjectId(),
-      base.toBson: BsonBase,
+      base.toBson:            BsonBase,
       sub.myCharacter.toBson: BsonRoleCharacter,
-      sub.star.toBson: BsonStarInfo
+      sub.star.toBson:        BsonStarInfo
     )
   }
 }
@@ -24,32 +23,32 @@ object JsonStar {
   implicit val jsonFormat: Format[JsonStar] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubStar]
-    )(JsonStar.apply, unlift(JsonStar.unapply))
+  )(JsonStar.apply, unlift(JsonStar.unapply))
 }
 
-case class JsonSubStar(myCharacter: JsonRoleCharacter,
-                       star: JsonStarInfo)
+case class JsonSubStar(myCharacter: JsonRoleCharacter, star: JsonStarInfo)
 
 object JsonSubStar {
   implicit val jsonFormat: OFormat[JsonSubStar] = Json.format[JsonSubStar]
 }
 
-case class JsonStarInfo(`@context`: String,
-                        `@id`: String,
-                        token: String,
+case class JsonStarInfo(`@context`:      String,
+                        `@id`:           String,
+                        token:           String,
                         serverTimestamp: String,
                         clientTimestamp: String,
-                        isMarked: Boolean) extends JsonElement {
+                        isMarked:        Boolean)
+    extends JsonElement {
 
   override def toBson: BsonStarInfo = {
     new BsonStarInfo(
       new ObjectId(),
-      `@context`: String,
-      `@id`: String,
-      token: String,
+      `@context`:      String,
+      `@id`:           String,
+      token:           String,
       serverTimestamp: String,
       clientTimestamp: String,
-      isMarked: Boolean
+      isMarked:        Boolean
     )
   }
 }

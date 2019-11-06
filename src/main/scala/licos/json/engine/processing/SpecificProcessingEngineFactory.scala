@@ -11,7 +11,7 @@ object SpecificProcessingEngineFactory {
     */
   def create(specificProcessingEngine: SpecificProcessingEngine): ProcessingEngineFactory = {
     specificProcessingEngine match {
-      case LobbyPE => new LobbyProcessingEngineFactory()
+      case LobbyPE   => new LobbyProcessingEngineFactory()
       case VillagePE => new VillageProcessingEngineFactory()
     }
   }
