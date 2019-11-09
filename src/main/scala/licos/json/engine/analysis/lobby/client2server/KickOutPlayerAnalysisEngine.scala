@@ -15,7 +15,17 @@ trait KickOutPlayerAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param kickOutPlayer a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, kickOutPlayer: JsonKickOutPlayer): Option[JsValue]
+  def process(box: BOX, kickOutPlayer: JsonKickOutPlayer): Either[JsValue, JsValue]
+}
+
+object KickOutPlayerAnalysisEngine {
+
+  /**
+    * Kick-out-player analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.KickOutPlayerAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

@@ -10,10 +10,10 @@ import play.api.libs.json.{JsValue, Json}
 
 class BuildVillageAE extends BuildVillageAnalysisEngine {
 
-  override def process(box: BOX, buildVillage: JsonBuildVillage): Option[JsValue] = {
+  override def process(box: BOX, buildVillage: JsonBuildVillage): Either[JsValue, JsValue] = {
     box match {
-      case _: LobbyBox => Option(Json.toJson(JsonTest(BuildVillage.`type`)))
-      case _ => None
+      case _: LobbyBox => Right(Json.toJson(JsonTest(BuildVillage.`type`)))
+      case _ => Left(Json.toJson(buildVillage))
     }
   }
 

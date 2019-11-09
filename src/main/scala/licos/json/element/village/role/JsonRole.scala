@@ -18,27 +18,30 @@ import scala.collection.JavaConverters._
   *
   * @author K.Sakamoto
   */
-case class JsonRole(`@context`:         String,
-                    `@id`:              String,
-                    name:               JsonName,
-                    image:              String,
-                    isMine:             Boolean,
-                    numberOfCharacters: Int,
-                    board:              Seq[JsonBoardPolarity])
-    extends JsonAbstractRole(
+final case class JsonRole(
+    `@context`:         String,
+    `@id`:              String,
+    name:               JsonName,
+    image:              String,
+    isMine:             Boolean,
+    numberOfCharacters: Int,
+    board:              Seq[JsonBoardPolarity]
+) extends JsonAbstractRole(
       `@context`: String,
       `@id`:      String,
       name:       JsonName,
       image:      String
     ) {
 
-  def this(`@context`:         String,
-           `@id`:              String,
-           name:               JsonName,
-           image:              String,
-           isMine:             Boolean,
-           numberOfCharacters: Int,
-           board:              JList[JsonBoardPolarity]) = {
+  def this(
+      `@context`:         String,
+      `@id`:              String,
+      name:               JsonName,
+      image:              String,
+      isMine:             Boolean,
+      numberOfCharacters: Int,
+      board:              JList[JsonBoardPolarity]
+  ) = {
     this(
       `@context`:         String,
       `@id`:              String,
@@ -50,12 +53,14 @@ case class JsonRole(`@context`:         String,
     )
   }
 
-  def this(`@id`:              String,
-           name:               JsonName,
-           image:              String,
-           isMine:             Boolean,
-           numberOfCharacters: Int,
-           board:              Seq[JsonBoardPolarity]) = {
+  def this(
+      `@id`:              String,
+      name:               JsonName,
+      image:              String,
+      isMine:             Boolean,
+      numberOfCharacters: Int,
+      board:              Seq[JsonBoardPolarity]
+  ) = {
     this(
       RoleContext.iri:    String,
       `@id`:              String,
@@ -84,12 +89,14 @@ case class JsonRole(`@context`:         String,
 object JsonRole {
   implicit val jsonFormat: OFormat[JsonRole] = Json.format[JsonRole]
 
-  def apply(`@id`:              String,
-            name:               JsonName,
-            image:              String,
-            isMine:             Boolean,
-            numberOfCharacters: Int,
-            board:              Seq[JsonBoardPolarity]): JsonRole = {
+  def apply(
+      `@id`:              String,
+      name:               JsonName,
+      image:              String,
+      isMine:             Boolean,
+      numberOfCharacters: Int,
+      board:              Seq[JsonBoardPolarity]
+  ): JsonRole = {
     new JsonRole(
       `@id`:              String,
       name:               JsonName,

@@ -9,7 +9,7 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonKickOutPlayer(`type`: String, token: String, players: Seq[JsonPlayerTokenInKickOutPlayer])
+final case class JsonKickOutPlayer(`type`: String, token: String, players: Seq[JsonPlayerTokenInKickOutPlayer])
     extends TypeSystem(`type`) {
   override protected def validType: String = JsonKickOutPlayer.`type`
 }
@@ -20,7 +20,7 @@ object JsonKickOutPlayer {
   val `type`: String = "kickOutPlayer"
 }
 
-case class JsonPlayerTokenInKickOutPlayer(token: String)
+final case class JsonPlayerTokenInKickOutPlayer(token: String)
 
 object JsonPlayerTokenInKickOutPlayer {
   implicit val jsonFormat: OFormat[JsonPlayerTokenInKickOutPlayer] = Json.format[JsonPlayerTokenInKickOutPlayer]

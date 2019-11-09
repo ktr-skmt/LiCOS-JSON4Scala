@@ -15,7 +15,18 @@ trait OnymousAudienceBoardAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param onymousAudienceBoard a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, onymousAudienceBoard: JsonOnymousAudienceBoard): Option[JsValue]
+  def process(box: BOX, onymousAudienceBoard: JsonOnymousAudienceBoard): Either[JsValue, JsValue]
+
+}
+
+object OnymousAudienceBoardAnalysisEngine {
+
+  /**
+    * Onymous-audience-board analysis engine name.
+    */
+  val name:         String  = "village.client2server.OnymousAudienceBoardAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

@@ -9,10 +9,10 @@ import licos.json.engine.analysis.village.client2server.OnymousAudienceBoardAnal
 import play.api.libs.json.{JsValue, Json}
 
 class OnymousAudienceBoardAE extends OnymousAudienceBoardAnalysisEngine {
-  override def process(box: BOX, onymousAudienceBoard: JsonOnymousAudienceBoard): Option[JsValue] = {
+  override def process(box: BOX, onymousAudienceBoard: JsonOnymousAudienceBoard): Either[JsValue, JsValue] = {
     box match {
-      case _: VillageBox => Option(Json.toJson(JsonTest(OnymousAudienceBoard.`type`)))
-      case _ => None
+      case _: VillageBox => Right(Json.toJson(JsonTest(OnymousAudienceBoard.`type`)))
+      case _ => Left(Json.toJson(onymousAudienceBoard))
     }
   }
 }

@@ -9,10 +9,10 @@ import licos.json.element.village.JsonOnymousAudienceChat
 import play.api.libs.json.{JsValue, Json}
 
 class OnymousAudienceChatFromClientAE extends client2server.OnymousAudienceChatAnalysisEngine {
-  override def process(box: BOX, onymousAudienceChat: JsonOnymousAudienceChat): Option[JsValue] = {
+  override def process(box: BOX, onymousAudienceChat: JsonOnymousAudienceChat): Either[JsValue, JsValue] = {
     box match {
-      case _: VillageBox => Option(Json.toJson(JsonTest(OnymousAudienceChat.`type`)))
-      case _ => None
+      case _: VillageBox => Right(Json.toJson(JsonTest(OnymousAudienceChat.`type`)))
+      case _ => Left(Json.toJson(onymousAudienceChat))
     }
   }
 }

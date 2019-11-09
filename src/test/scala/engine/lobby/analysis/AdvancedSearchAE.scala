@@ -9,10 +9,10 @@ import licos.json.engine.analysis.lobby.client2server.AdvancedSearchAnalysisEngi
 import play.api.libs.json.{JsValue, Json}
 
 class AdvancedSearchAE extends AdvancedSearchAnalysisEngine {
-  override def process(box: BOX, advancedSearch: JsonAdvancedSearch): Option[JsValue] = {
+  override def process(box: BOX, advancedSearch: JsonAdvancedSearch): Either[JsValue, JsValue] = {
     box match {
-      case _: LobbyBox => Option(Json.toJson(JsonTest(AdvancedSearch.`type`)))
-      case _ => None
+      case _: LobbyBox => Right(Json.toJson(JsonTest(AdvancedSearch.`type`)))
+      case _ => Left(Json.toJson(advancedSearch))
     }
   }
 }

@@ -9,15 +9,16 @@ import licos.json.element.village.JsonName
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonStatusCharacter(`@context`:    String,
-                               `@id`:         String,
-                               id:            Long,
-                               name:          JsonName,
-                               image:         String,
-                               role:          JsonSimpleRole,
-                               status:        String,
-                               isHumanPlayer: Boolean)
-    extends JsonAbstractCharacter(
+final case class JsonStatusCharacter(
+    `@context`:    String,
+    `@id`:         String,
+    id:            Long,
+    name:          JsonName,
+    image:         String,
+    role:          JsonSimpleRole,
+    status:        String,
+    isHumanPlayer: Boolean
+) extends JsonAbstractCharacter(
       `@context`: String,
       `@id`:      String,
       id:         Long,
@@ -25,13 +26,15 @@ case class JsonStatusCharacter(`@context`:    String,
       image:      String
     ) {
 
-  def this(`@id`:         String,
-           id:            Long,
-           name:          JsonName,
-           image:         String,
-           role:          JsonSimpleRole,
-           status:        String,
-           isHumanPlayer: Boolean) = {
+  def this(
+      `@id`:         String,
+      id:            Long,
+      name:          JsonName,
+      image:         String,
+      role:          JsonSimpleRole,
+      status:        String,
+      isHumanPlayer: Boolean
+  ) = {
     this(
       CharacterContext.iri: String,
       `@id`:                String,
@@ -62,13 +65,15 @@ case class JsonStatusCharacter(`@context`:    String,
 object JsonStatusCharacter {
   implicit val jsonFormat: OFormat[JsonStatusCharacter] = Json.format[JsonStatusCharacter]
 
-  def apply(`@id`:         String,
-            id:            Long,
-            name:          JsonName,
-            image:         String,
-            role:          JsonSimpleRole,
-            status:        String,
-            isHumanPlayer: Boolean): JsonStatusCharacter = {
+  def apply(
+      `@id`:         String,
+      id:            Long,
+      name:          JsonName,
+      image:         String,
+      role:          JsonSimpleRole,
+      status:        String,
+      isHumanPlayer: Boolean
+  ): JsonStatusCharacter = {
     new JsonStatusCharacter(
       `@id`:         String,
       id:            Long,

@@ -5,7 +5,7 @@ import licos.json.element.village.iri.AvatarContext
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonAvatar(`@context`: String, `@id`: String, token: String, name: String, image: String)
+final case class JsonAvatar(`@context`: String, `@id`: String, token: String, name: String, image: String)
     extends JsonElement {
   def this(`@id`: String, token: String, name: String, image: String) = {
     this(

@@ -5,6 +5,7 @@ import java.util.{List => JList}
 import licos.bson.element.village.{BsonBase, BsonGameResult}
 import licos.bson.element.village.character.BsonResultCharacter
 import licos.bson.element.village.role.BsonResultRole
+import licos.json.element.Element
 import licos.json.element.village.character.JsonResultCharacter
 import licos.json.element.village.role.JsonResultRole
 import org.bson.types.ObjectId
@@ -13,7 +14,8 @@ import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
 import scala.collection.JavaConverters._
 
-case class JsonGameResult private (base: JsonBase, sub: JsonSubGameResult) extends JsonElement {
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+final case class JsonGameResult private (base: JsonBase, sub: JsonSubGameResult) extends JsonElement with Element {
   def this(base: JsonBase, character: Seq[JsonResultCharacter], role: Seq[JsonResultRole]) = {
     this(
       base: JsonBase,
@@ -59,6 +61,7 @@ case class JsonGameResult private (base: JsonBase, sub: JsonSubGameResult) exten
 }
 
 object JsonGameResult {
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def apply(base: JsonBase, character: Seq[JsonResultCharacter], role: Seq[JsonResultRole]): JsonGameResult = {
     new JsonGameResult(
       base: JsonBase,
@@ -77,7 +80,8 @@ object JsonGameResult {
   )(JsonGameResult.apply, unlift(JsonGameResult.unapply))
 }
 
-case class JsonSubGameResult(character: Seq[JsonResultCharacter], role: Seq[JsonResultRole])
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+final case class JsonSubGameResult(character: Seq[JsonResultCharacter], role: Seq[JsonResultRole])
 
 object JsonSubGameResult {
   implicit val jsonFormat: OFormat[JsonSubGameResult] = Json.format[JsonSubGameResult]

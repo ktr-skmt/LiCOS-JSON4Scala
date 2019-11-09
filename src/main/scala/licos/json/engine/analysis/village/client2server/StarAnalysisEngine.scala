@@ -15,7 +15,18 @@ trait StarAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param star a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, star: JsonStar): Option[JsValue]
+  def process(box: BOX, star: JsonStar): Either[JsValue, JsValue]
+
+}
+
+object StarAnalysisEngine {
+
+  /**
+    * Star analysis engine name.
+    */
+  val name:         String  = "village.client2server.StarAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

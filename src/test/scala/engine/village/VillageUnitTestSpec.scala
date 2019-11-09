@@ -92,18 +92,18 @@ object VillageUnitTestSpec {
 @RunWith(classOf[Theories])
 class VillageUnitTestSpec extends AssertionsForJUnit with VillageUnitTestParser {
 
-  private final val logger: Logger = Logger[VillageUnitTestSpec]
+  private final val log: Logger = Logger[VillageUnitTestSpec]
 
   @Theory
   def process(jsonExample: VillageUnitTestExample): Unit = {
     val jsonType:       String = jsonExample.`type`
     val url:            String = jsonExample.path
     implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-    logger.info(url)
+    log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()
-    logger.debug(msg)
+    log.debug(msg)
     val json: JsValue = Json.parse(msg)
 
     jsonType match {

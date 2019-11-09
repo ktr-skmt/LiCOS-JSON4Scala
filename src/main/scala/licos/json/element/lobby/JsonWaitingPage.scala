@@ -2,11 +2,12 @@ package licos.json.element.lobby
 
 import play.api.libs.json._
 
-case class JsonWaitingPage(`type`:  String,
-                           village: JsonVillage,
-                           players: Seq[JsonPlayerInWaitingPage],
-                           error:   Option[String])
-    extends TypeSystem(`type`) {
+final case class JsonWaitingPage(
+    `type`:  String,
+    village: JsonVillage,
+    players: Seq[JsonPlayerInWaitingPage],
+    error:   Option[String]
+) extends TypeSystem(`type`) {
   override protected def validType: String = JsonWaitingPage.`type`
 }
 
@@ -20,12 +21,14 @@ object JsonWaitingPage {
   }
 }
 
-case class JsonPlayerInWaitingPage(token:       String,
-                                   name:        String,
-                                   avatarImage: String,
-                                   isAnonymous: Boolean,
-                                   isHost:      Boolean,
-                                   isMe:        Boolean)
+final case class JsonPlayerInWaitingPage(
+    token:       String,
+    name:        String,
+    avatarImage: String,
+    isAnonymous: Boolean,
+    isHost:      Boolean,
+    isMe:        Boolean
+)
 
 object JsonPlayerInWaitingPage {
   implicit val jsonFormat: OFormat[JsonPlayerInWaitingPage] = Json.format[JsonPlayerInWaitingPage]

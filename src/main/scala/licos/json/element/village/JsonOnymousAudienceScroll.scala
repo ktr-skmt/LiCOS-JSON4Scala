@@ -1,11 +1,15 @@
 package licos.json.element.village
 
 import licos.bson.element.village.{BsonAvatar, BsonBase, BsonOnymousAudienceScroll}
+import licos.json.element.Element
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
-case class JsonOnymousAudienceScroll private (base: JsonBase, sub: JsonSubOnymousAudienceScroll) extends JsonElement {
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+final case class JsonOnymousAudienceScroll private (base: JsonBase, sub: JsonSubOnymousAudienceScroll)
+    extends JsonElement
+    with Element {
   def this(base: JsonBase, avatar: JsonAvatar, nodeId: String, scrollTop: Int, scrollHeight: Int, offsetHeight: Int) = {
     this(
       base: JsonBase,
@@ -39,19 +43,22 @@ case class JsonOnymousAudienceScroll private (base: JsonBase, sub: JsonSubOnymou
 }
 
 object JsonOnymousAudienceScroll {
-  def apply(base:         JsonBase,
-            avatar:       JsonAvatar,
-            nodeId:       String,
-            scrollTop:    Int,
-            scrollHeight: Int,
-            offsetHeight: Int): JsonOnymousAudienceScroll = {
+  def apply(
+      base:         JsonBase,
+      avatar:       JsonAvatar,
+      nodeId:       String,
+      scrollTop:    Int,
+      scrollHeight: Int,
+      offsetHeight: Int
+  ): JsonOnymousAudienceScroll = {
     new JsonOnymousAudienceScroll(
       base:         JsonBase,
       avatar:       JsonAvatar,
       nodeId:       String,
       scrollTop:    Int,
       scrollHeight: Int,
-      offsetHeight: Int)
+      offsetHeight: Int
+    )
   }
 
   implicit val jsonFormat: Format[JsonOnymousAudienceScroll] = (
@@ -60,11 +67,13 @@ object JsonOnymousAudienceScroll {
   )(JsonOnymousAudienceScroll.apply, unlift(JsonOnymousAudienceScroll.unapply))
 }
 
-case class JsonSubOnymousAudienceScroll(avatar:       JsonAvatar,
-                                        nodeId:       String,
-                                        scrollTop:    Int,
-                                        scrollHeight: Int,
-                                        offsetHeight: Int)
+final case class JsonSubOnymousAudienceScroll(
+    avatar:       JsonAvatar,
+    nodeId:       String,
+    scrollTop:    Int,
+    scrollHeight: Int,
+    offsetHeight: Int
+)
 
 object JsonSubOnymousAudienceScroll {
   implicit val jsonFormat: OFormat[JsonSubOnymousAudienceScroll] = Json.format[JsonSubOnymousAudienceScroll]

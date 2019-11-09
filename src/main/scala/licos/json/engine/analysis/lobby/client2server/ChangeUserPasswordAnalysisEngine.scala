@@ -15,7 +15,17 @@ trait ChangeUserPasswordAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param changeUserPassword a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, changeUserPassword: JsonChangeUserPassword): Option[JsValue]
+  def process(box: BOX, changeUserPassword: JsonChangeUserPassword): Either[JsValue, JsValue]
+}
+
+object ChangeUserPasswordAnalysisEngine {
+
+  /**
+    * Change-user-password analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.ChangeUserPasswordAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

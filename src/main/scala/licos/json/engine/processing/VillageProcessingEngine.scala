@@ -15,6 +15,7 @@ import licos.json.element.village.receipt.{
   JsonReceivedFlavorTextMessage,
   JsonReceivedSystemMessage
 }
+import licos.json.engine.analysis.village.{client2server, server2client}
 import play.api.libs.json.{JsValue, Json}
 
 /** This class implements the processing engine that aggregates and runs analysis engines for village.
@@ -69,8 +70,8 @@ class VillageProcessingEngine(
     nextGameInvitationEngine:              Option[NextGameInvitationAnalysisEngine],
     nextGameInvitationIsClosedEngine:      Option[NextGameInvitationIsClosedAnalysisEngine],
     errorFromClientEngine:                 Option[village.client2server.ErrorAnalysisEngine],
-    errorFromServerEngine:                 Option[village.server2client.ErrorAnalysisEngine])
-    extends ProcessingEngine {
+    errorFromServerEngine:                 Option[village.server2client.ErrorAnalysisEngine]
+) extends ProcessingEngine {
 
   override protected val flowController: FlowController = new VillageFlowController()
 
@@ -82,7 +83,7 @@ class VillageProcessingEngine(
     * @param msg a JSON message.
     * @return a play.api.libs.json.JsValue option.
     */
-  override def process(box: BOX, msg: String): Option[JsValue] = {
+  override def process(box: BOX, msg: String): Either[JsValue, JsValue] = {
 
     val jsValue: JsValue = Json.parse(msg)
 
@@ -91,94 +92,293 @@ class VillageProcessingEngine(
       logger.info(format.format(label))
     }
 
+    @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
+    def noAnalysisEngine(name: String, isFromServer: Boolean): Either[JsValue, JsValue] = {
+      Left(
+        Json.toJson(
+          new JsonSubError(
+            new JsonName(
+              en = s"No $name is set. Please set it to the processing engine.",
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None
+            ),
+            "warning",
+            "Nothing",
+            isFromServer
+          )
+        )
+      )
+    }
+
+    @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
+    def otherwise: Either[JsValue, JsValue] = {
+      Right(
+        Json.toJson(
+          new JsonSubError(
+            new JsonName(
+              en = "VillageProcessingEngine returns nothing",
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None
+            ),
+            "warning",
+            jsValue.toString,
+            isFromServer = true
+          )
+        )
+      )
+    }
+
     flowController.flow(jsValue) match {
-      case Some(ready: JsonReady) =>
+      case Right(ready: JsonReady) =>
         log("JsonReady")
-        readyEngine.flatMap(_.process(box, ready))
-      case Some(receivedChatMessage: JsonReceivedChatMessage) =>
+        readyEngine match {
+          case Some(engine) =>
+            engine.process(box, ready)
+          case None =>
+            noAnalysisEngine(ReadyAnalysisEngine.name, ReadyAnalysisEngine.isFromServer)
+        }
+      case Right(receivedChatMessage: JsonReceivedChatMessage) =>
         log("JsonReceivedChatMessage")
-        receivedChatMessageEngine.flatMap(_.process(box, receivedChatMessage))
-      case Some(receivedSystemMessage: JsonReceivedSystemMessage) =>
+        receivedChatMessageEngine match {
+          case Some(engine) =>
+            engine.process(box, receivedChatMessage)
+          case None =>
+            noAnalysisEngine(ReceivedChatMessageAnalysisEngine.name, ReceivedChatMessageAnalysisEngine.isFromServer)
+        }
+      case Right(receivedSystemMessage: JsonReceivedSystemMessage) =>
         log("JsonReceivedSystemMessage")
-        receivedSystemMessageEngine.flatMap(_.process(box, receivedSystemMessage))
-      case Some(receivedFlavorTextMessage: JsonReceivedFlavorTextMessage) =>
+        receivedSystemMessageEngine match {
+          case Some(engine) =>
+            engine.process(box, receivedSystemMessage)
+          case None =>
+            noAnalysisEngine(ReceivedSystemMessageAnalysisEngine.name, ReceivedSystemMessageAnalysisEngine.isFromServer)
+        }
+      case Right(receivedFlavorTextMessage: JsonReceivedFlavorTextMessage) =>
         log("JsonReceivedFlavorTestMessage")
-        receivedFlavorTextMessageEngine.flatMap(_.process(box, receivedFlavorTextMessage))
-      case Some(chatFromClient: JsonChatFromClient) =>
+        receivedFlavorTextMessageEngine match {
+          case Some(engine) =>
+            engine.process(box, receivedFlavorTextMessage)
+          case None =>
+            noAnalysisEngine(
+              ReceivedFlavorTextMessageAnalysisEngine.name,
+              ReceivedFlavorTextMessageAnalysisEngine.isFromServer
+            )
+        }
+      case Right(chatFromClient: JsonChatFromClient) =>
         log("JsonChatFromClient")
-        chatFromClientEngine.flatMap(_.process(box, chatFromClient))
-      case Some(chatFromServer: JsonChatFromServer) =>
+        chatFromClientEngine match {
+          case Some(engine) =>
+            engine.process(box, chatFromClient)
+          case None =>
+            noAnalysisEngine(client2server.ChatAnalysisEngine.name, client2server.ChatAnalysisEngine.isFromServer)
+        }
+      case Right(chatFromServer: JsonChatFromServer) =>
         log("JsonChatFromServer")
-        chatFromServerEngine.flatMap(_.process(box, chatFromServer))
-      case Some(onymousAudienceChat: JsonOnymousAudienceChat) =>
+        chatFromServerEngine match {
+          case Some(engine) =>
+            engine.process(box, chatFromServer)
+          case None =>
+            noAnalysisEngine(server2client.ChatAnalysisEngine.name, server2client.ChatAnalysisEngine.isFromServer)
+        }
+      case Right(onymousAudienceChat: JsonOnymousAudienceChat) =>
         log("JsonOnymousAudienceChat")
         if (onymousAudienceChat.isFromServer) {
           log("JsonOnymousAudienceChatFromServer")
-          onymousAudienceChatFromServerEngine.flatMap(_.process(box, onymousAudienceChat))
+          onymousAudienceChatFromServerEngine match {
+            case Some(engine) =>
+              engine.process(box, onymousAudienceChat)
+            case None =>
+              noAnalysisEngine(
+                server2client.OnymousAudienceChatAnalysisEngine.name,
+                server2client.OnymousAudienceChatAnalysisEngine.isFromServer
+              )
+          }
         } else {
           log("JsonOnymousAudienceChatFromClient")
-          onymousAudienceChatFromClientEngine.flatMap(_.process(box, onymousAudienceChat))
+          onymousAudienceChatFromClientEngine match {
+            case Some(engine) =>
+              engine.process(box, onymousAudienceChat)
+            case None =>
+              noAnalysisEngine(
+                client2server.OnymousAudienceChatAnalysisEngine.name,
+                client2server.OnymousAudienceChatAnalysisEngine.isFromServer
+              )
+          }
         }
-      case Some(anonymousAudienceChat: JsonAnonymousAudienceChat) =>
+      case Right(anonymousAudienceChat: JsonAnonymousAudienceChat) =>
         log("JsonAnonymousAudienceChat")
         if (anonymousAudienceChat.isFromServer) {
           log("JsonAnonymousAudienceChatFromServer")
-          anonymousAudienceChatFromServerEngine.flatMap(_.process(box, anonymousAudienceChat))
+          anonymousAudienceChatFromServerEngine match {
+            case Some(engine) =>
+              engine.process(box, anonymousAudienceChat)
+            case None =>
+              noAnalysisEngine(
+                server2client.AnonymousAudienceChatAnalysisEngine.name,
+                client2server.AnonymousAudienceChatAnalysisEngine.isFromServer
+              )
+          }
         } else {
           log("JsonAnonymousAudienceChatFromClient")
-          anonymousAudienceChatFromClientEngine.flatMap(_.process(box, anonymousAudienceChat))
+          anonymousAudienceChatFromClientEngine match {
+            case Some(engine) =>
+              engine.process(box, anonymousAudienceChat)
+            case None =>
+              noAnalysisEngine(
+                client2server.AnonymousAudienceChatAnalysisEngine.name,
+                client2server.AnonymousAudienceChatAnalysisEngine.isFromServer
+              )
+          }
         }
-      case Some(board: JsonBoard) =>
+      case Right(board: JsonBoard) =>
         log("JsonBoard")
-        boardEngine.flatMap(_.process(box, board))
-      case Some(onymousAudienceBoard: JsonOnymousAudienceBoard) =>
+        boardEngine match {
+          case Some(engine) =>
+            engine.process(box, board)
+          case None =>
+            noAnalysisEngine(BoardAnalysisEngine.name, BoardAnalysisEngine.isFromServer)
+        }
+      case Right(onymousAudienceBoard: JsonOnymousAudienceBoard) =>
         log("JsonOnymousAudienceBoard")
-        onymousAudienceBoardEngine.flatMap(_.process(box, onymousAudienceBoard))
-      case Some(vote: JsonVote) =>
+        onymousAudienceBoardEngine match {
+          case Some(engine) =>
+            engine.process(box, onymousAudienceBoard)
+          case None =>
+            noAnalysisEngine(OnymousAudienceBoardAnalysisEngine.name, OnymousAudienceBoardAnalysisEngine.isFromServer)
+        }
+      case Right(vote: JsonVote) =>
         log("JsonVote")
-        voteEngine.flatMap(_.process(box, vote))
-      case Some(scroll: JsonScroll) =>
+        voteEngine match {
+          case Some(engine) =>
+            engine.process(box, vote)
+          case None =>
+            noAnalysisEngine(VoteAnalysisEngine.name, VoteAnalysisEngine.isFromServer)
+        }
+      case Right(scroll: JsonScroll) =>
         log("JsonScroll")
-        scrollEngine.flatMap(_.process(box, scroll))
-      case Some(onymousAudienceScroll: JsonOnymousAudienceScroll) =>
+        scrollEngine match {
+          case Some(engine) =>
+            engine.process(box, scroll)
+          case None =>
+            noAnalysisEngine(ScrollAnalysisEngine.name, ScrollAnalysisEngine.isFromServer)
+        }
+      case Right(onymousAudienceScroll: JsonOnymousAudienceScroll) =>
         log("JsonOnymousAudienceScroll")
-        onymousAudienceScrollEngine.flatMap(_.process(box, onymousAudienceScroll))
-      case Some(star: JsonStar) =>
+        onymousAudienceScrollEngine match {
+          case Some(engine) =>
+            engine.process(box, onymousAudienceScroll)
+          case None =>
+            noAnalysisEngine(OnymousAudienceScrollAnalysisEngine.name, OnymousAudienceScrollAnalysisEngine.isFromServer)
+        }
+      case Right(star: JsonStar) =>
         log("JsonStar")
-        starEngine.flatMap(_.process(box, star))
-      case Some(phase: JsonPhase) =>
+        starEngine match {
+          case Some(engine) =>
+            engine.process(box, star)
+          case None =>
+            noAnalysisEngine(StarAnalysisEngine.name, StarAnalysisEngine.isFromServer)
+        }
+      case Right(phase: JsonPhase) =>
         log("JsonPhase")
-        phaseEngine.flatMap(_.process(box, phase))
-      case Some(flavorText: JsonFlavorText) =>
+        phaseEngine match {
+          case Some(engine) =>
+            engine.process(box, phase)
+          case None =>
+            noAnalysisEngine(PhaseAnalysisEngine.name, PhaseAnalysisEngine.isFromServer)
+        }
+      case Right(flavorText: JsonFlavorText) =>
         log("JsonFlavorText")
-        flavorTextEngine.flatMap(_.process(box, flavorText))
-      case Some(gameResult: JsonGameResult) =>
+        flavorTextEngine match {
+          case Some(engine) =>
+            engine.process(box, flavorText)
+          case None =>
+            noAnalysisEngine(FlavorTextAnalysisEngine.name, FlavorTextAnalysisEngine.isFromServer)
+        }
+      case Right(gameResult: JsonGameResult) =>
         log("JsonGameResult")
-        gameResultEngine.flatMap(_.process(box, gameResult))
-      case Some(buildVillage: JsonBuildVillage) =>
+        gameResultEngine match {
+          case Some(engine) =>
+            engine.process(box, gameResult)
+          case None =>
+            noAnalysisEngine(GameResultAnalysisEngine.name, GameResultAnalysisEngine.isFromServer)
+        }
+      case Right(buildVillage: JsonBuildVillage) =>
         log("JsonBuildVillage")
-        buildVillageEngine.flatMap(_.process(box, buildVillage))
-      case Some(leaveWaitingPage: JsonLeaveWaitingPage) =>
+        buildVillageEngine match {
+          case Some(engine) =>
+            engine.process(box, buildVillage)
+          case None =>
+            noAnalysisEngine(BuildVillageAnalysisEngine.name, BuildVillageAnalysisEngine.isFromServer)
+        }
+      case Right(leaveWaitingPage: JsonLeaveWaitingPage) =>
         log("JsonLeaveWaitingPage")
-        leaveWaitingPageEngine.flatMap(_.process(box, leaveWaitingPage))
-      case Some(nextGameInvitation: JsonNextGameInvitation) =>
+        leaveWaitingPageEngine match {
+          case Some(engine) =>
+            engine.process(box, leaveWaitingPage)
+          case None =>
+            noAnalysisEngine(LeaveWaitingPageAnalysisEngine.name, LeaveWaitingPageAnalysisEngine.isFromServer)
+        }
+      case Right(nextGameInvitation: JsonNextGameInvitation) =>
         log("JsonNextGameInvitation")
-        nextGameInvitationEngine.flatMap(_.process(box, nextGameInvitation))
-      case Some(nextGameInvitationIsClosed: JsonNextGameInvitationIsClosed) =>
+        nextGameInvitationEngine match {
+          case Some(engine) =>
+            engine.process(box, nextGameInvitation)
+          case None =>
+            noAnalysisEngine(NextGameInvitationAnalysisEngine.name, NextGameInvitationAnalysisEngine.isFromServer)
+        }
+      case Right(nextGameInvitationIsClosed: JsonNextGameInvitationIsClosed) =>
         log("JsonNextGameInvitationIsClosed")
-        nextGameInvitationIsClosedEngine.flatMap(_.process(box, nextGameInvitationIsClosed))
-      case Some(error: JsonError) =>
+        nextGameInvitationIsClosedEngine match {
+          case Some(engine) =>
+            engine.process(box, nextGameInvitationIsClosed)
+          case None =>
+            noAnalysisEngine(
+              NextGameInvitationIsClosedAnalysisEngine.name,
+              NextGameInvitationIsClosedAnalysisEngine.isFromServer
+            )
+        }
+      case Right(error: JsonError) =>
         log("JsonError")
         if (error.isFromServer) {
           log("JsonErrorFromServer")
-          errorFromServerEngine.flatMap(_.process(box, error))
+          errorFromServerEngine match {
+            case Some(engine) =>
+              engine.process(box, error)
+            case None =>
+              noAnalysisEngine(server2client.ErrorAnalysisEngine.name, server2client.ErrorAnalysisEngine.isFromServer)
+          }
         } else {
           log("JsonErrorFromClient")
-          errorFromClientEngine.flatMap(_.process(box, error))
+          errorFromClientEngine match {
+            case Some(engine) =>
+              engine.process(box, error)
+            case None =>
+              noAnalysisEngine(client2server.ErrorAnalysisEngine.name, client2server.ErrorAnalysisEngine.isFromServer)
+          }
         }
       case _ =>
-        log("return None")
-        None
+        log("return nothing")
+        otherwise
     }
   }
 }

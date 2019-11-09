@@ -14,7 +14,7 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonSimpleCharacter(`@context`: String, `@id`: String, id: Long, name: JsonName, image: String)
+final case class JsonSimpleCharacter(`@context`: String, `@id`: String, id: Long, name: JsonName, image: String)
     extends JsonAbstractCharacter(
       `@context`: String,
       `@id`:      String,

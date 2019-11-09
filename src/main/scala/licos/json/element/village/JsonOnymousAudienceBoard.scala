@@ -3,18 +3,24 @@ package licos.json.element.village
 import licos.bson.element.village.character.BsonSimpleCharacter
 import licos.bson.element.village.role.BsonSimpleRole
 import licos.bson.element.village.{BsonAvatar, BsonBase, BsonOnymousAudienceBoard}
+import licos.json.element.Element
 import licos.json.element.village.character.JsonSimpleCharacter
 import licos.json.element.village.role.JsonSimpleRole
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
-case class JsonOnymousAudienceBoard private (base: JsonBase, sub: JsonSubOnymousAudienceBoard) extends JsonElement {
-  def this(base:       JsonBase,
-           avatar:     JsonAvatar,
-           character:  JsonSimpleCharacter,
-           role:       JsonSimpleRole,
-           prediction: String) = {
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+final case class JsonOnymousAudienceBoard private (base: JsonBase, sub: JsonSubOnymousAudienceBoard)
+    extends JsonElement
+    with Element {
+  def this(
+      base:       JsonBase,
+      avatar:     JsonAvatar,
+      character:  JsonSimpleCharacter,
+      role:       JsonSimpleRole,
+      prediction: String
+  ) = {
     this(
       base,
       JsonSubOnymousAudienceBoard(
@@ -44,11 +50,13 @@ case class JsonOnymousAudienceBoard private (base: JsonBase, sub: JsonSubOnymous
 }
 
 object JsonOnymousAudienceBoard {
-  def apply(base:       JsonBase,
-            avatar:     JsonAvatar,
-            character:  JsonSimpleCharacter,
-            role:       JsonSimpleRole,
-            prediction: String): JsonOnymousAudienceBoard = {
+  def apply(
+      base:       JsonBase,
+      avatar:     JsonAvatar,
+      character:  JsonSimpleCharacter,
+      role:       JsonSimpleRole,
+      prediction: String
+  ): JsonOnymousAudienceBoard = {
     new JsonOnymousAudienceBoard(
       base:       JsonBase,
       avatar:     JsonAvatar,
@@ -64,10 +72,12 @@ object JsonOnymousAudienceBoard {
   )(JsonOnymousAudienceBoard.apply, unlift(JsonOnymousAudienceBoard.unapply))
 }
 
-case class JsonSubOnymousAudienceBoard(avatar:     JsonAvatar,
-                                       character:  JsonSimpleCharacter,
-                                       role:       JsonSimpleRole,
-                                       prediction: String)
+final case class JsonSubOnymousAudienceBoard(
+    avatar:     JsonAvatar,
+    character:  JsonSimpleCharacter,
+    role:       JsonSimpleRole,
+    prediction: String
+)
 
 object JsonSubOnymousAudienceBoard {
   implicit val jsonFormat: OFormat[JsonSubOnymousAudienceBoard] = Json.format[JsonSubOnymousAudienceBoard]

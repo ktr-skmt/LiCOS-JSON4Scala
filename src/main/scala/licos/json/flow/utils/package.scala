@@ -1,6 +1,8 @@
 package licos.json.flow
 
+import licos.json.element.Element
 import licos.json.element.lobby.TypeSystem
+import play.api.libs.json.JsValue
 
 import scala.reflect.ClassTag
 
@@ -10,26 +12,30 @@ import scala.reflect.ClassTag
   */
 package object utils {
 
-  implicit class FlowControllerUtilsWithTypeSystem[A <: TypeSystem: ClassTag, B](op: Option[A]) {
+  implicit class FlowControllerUtilsWithTypeSystem[A <: TypeSystem: ClassTag](op: Either[JsValue, A]) {
 
     /** Runs scala.Option.getOrElse after checking a type correctness of A.
       *
       * @param default the default expression.
       * @return Returns the option's value if the option is nonempty and the value's type is correct, otherwise return the result of evaluating default.
       */
-    def >>>(default: B): Any = op match {
-      case Some(a) if implicitly[ClassTag[A]].runtimeClass.isInstance(a) && a.isValid => a
-      case _                                                                          => default
+    def >>>[B <: Either[JsValue, Element]](default: B): Either[JsValue, Element] = op match {
+      case Right(a) if implicitly[ClassTag[A]].runtimeClass.isInstance(a) && a.isValid => Right(a)
+      case _                                                                           => default
     }
   }
 
-  implicit class FlowControllerUtils[A: ClassTag, B](op: Option[A]) {
+  implicit class FlowControllerUtils[A <: Element: ClassTag](op: Either[JsValue, Element]) {
 
     /** Runs scala.Option.getOrElse.
       *
       * @param default the default expression.
       * @return Returns the option's value if the option is nonempty, otherwise return the result of evaluating default.
       */
-    def >->(default: B): Any = op.getOrElse(default)
+    def >->[B <: Either[JsValue, Element]](default: B): Either[JsValue, Element] =
+      op match {
+        case Right(a) => Right(a)
+        case _        => default
+      }
   }
 }

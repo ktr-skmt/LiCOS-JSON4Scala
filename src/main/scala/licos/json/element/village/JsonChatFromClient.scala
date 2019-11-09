@@ -2,19 +2,25 @@ package licos.json.element.village
 
 import licos.bson.element.village.{BsonBase, BsonChatFromClient, BsonChatText}
 import licos.bson.element.village.character.{BsonRoleCharacter, BsonSimpleCharacter}
+import licos.json.element.Element
 import licos.json.element.village.character.{JsonRoleCharacter, JsonSimpleCharacter}
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
-case class JsonChatFromClient private (base: JsonBase, sub: JsonSubChatFromClient) extends JsonElement {
-  def this(base:                         JsonBase,
-           myCharacter:                  JsonRoleCharacter,
-           character:                    JsonSimpleCharacter,
-           isMine:                       Boolean,
-           text:                         JsonChatText,
-           maxLengthOfUnicodeCodePoints: Int,
-           isOver:                       Boolean) = {
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+final case class JsonChatFromClient private (base: JsonBase, sub: JsonSubChatFromClient)
+    extends JsonElement
+    with Element {
+  def this(
+      base:                         JsonBase,
+      myCharacter:                  JsonRoleCharacter,
+      character:                    JsonSimpleCharacter,
+      isMine:                       Boolean,
+      text:                         JsonChatText,
+      maxLengthOfUnicodeCodePoints: Int,
+      isOver:                       Boolean
+  ) = {
     this(
       base: JsonBase,
       JsonSubChatFromClient(
@@ -50,13 +56,17 @@ case class JsonChatFromClient private (base: JsonBase, sub: JsonSubChatFromClien
 }
 
 object JsonChatFromClient {
-  def apply(base:                         JsonBase,
-            myCharacter:                  JsonRoleCharacter,
-            character:                    JsonSimpleCharacter,
-            isMine:                       Boolean,
-            text:                         JsonChatText,
-            maxLengthOfUnicodeCodePoints: Int,
-            isOver:                       Boolean): JsonChatFromClient = {
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def apply(
+      base:                         JsonBase,
+      myCharacter:                  JsonRoleCharacter,
+      character:                    JsonSimpleCharacter,
+      isMine:                       Boolean,
+      text:                         JsonChatText,
+      maxLengthOfUnicodeCodePoints: Int,
+      isOver:                       Boolean
+  ): JsonChatFromClient = {
     new JsonChatFromClient(
       base:                         JsonBase,
       myCharacter:                  JsonRoleCharacter,
@@ -74,12 +84,14 @@ object JsonChatFromClient {
   )(JsonChatFromClient.apply, unlift(JsonChatFromClient.unapply))
 }
 
-case class JsonSubChatFromClient(myCharacter:                  JsonRoleCharacter,
-                                 character:                    JsonSimpleCharacter,
-                                 isMine:                       Boolean,
-                                 text:                         JsonChatText,
-                                 maxLengthOfUnicodeCodePoints: Int,
-                                 isOver:                       Boolean)
+final case class JsonSubChatFromClient(
+    myCharacter:                  JsonRoleCharacter,
+    character:                    JsonSimpleCharacter,
+    isMine:                       Boolean,
+    text:                         JsonChatText,
+    maxLengthOfUnicodeCodePoints: Int,
+    isOver:                       Boolean
+)
 
 object JsonSubChatFromClient {
   implicit val jsonFormat: OFormat[JsonSubChatFromClient] = Json.format[JsonSubChatFromClient]

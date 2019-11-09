@@ -9,10 +9,10 @@ import licos.json.element.village.receipt.JsonReceivedChatMessage
 import play.api.libs.json.{JsValue, Json}
 
 class ReceivedChatMessageAE extends ReceivedChatMessageAnalysisEngine {
-  override def process(box: BOX, receivedPlayerMessage: JsonReceivedChatMessage): Option[JsValue] = {
+  override def process(box: BOX, receivedChatMessage: JsonReceivedChatMessage): Either[JsValue, JsValue] = {
     box match {
-      case _: VillageBox => Option(Json.toJson(JsonTest(ReceivedChatMessage.`type`)))
-      case _ => None
+      case _: VillageBox => Right(Json.toJson(JsonTest(ReceivedChatMessage.`type`)))
+      case _ => Left(Json.toJson(receivedChatMessage))
     }
   }
 }

@@ -10,11 +10,13 @@ import play.api.libs.json.{JsValue, Json}
 
 class NextGameInvitationIsClosedAE extends NextGameInvitationIsClosedAnalysisEngine {
 
-  override def process(box: BOX,
-                       nextGameInvitationIsClosed: JsonNextGameInvitationIsClosed): Option[JsValue] = {
+  override def process(
+      box:                        BOX,
+      nextGameInvitationIsClosed: JsonNextGameInvitationIsClosed
+  ): Either[JsValue, JsValue] = {
     box match {
-      case _: VillageBox => Option(Json.toJson(JsonTest(NextGameInvitationIsClosed.`type`)))
-      case _ => None
+      case _: VillageBox => Right(Json.toJson(JsonTest(NextGameInvitationIsClosed.`type`)))
+      case _ => Left(Json.toJson(nextGameInvitationIsClosed))
     }
   }
 }

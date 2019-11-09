@@ -9,7 +9,7 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonEnterLobby(`type`: String, token: String, lobby: String, page: Int) extends TypeSystem(`type`) {
+final case class JsonEnterLobby(`type`: String, token: String, lobby: String, page: Int) extends TypeSystem(`type`) {
   override protected def validType: String = JsonEnterLobby.`type`
 }
 

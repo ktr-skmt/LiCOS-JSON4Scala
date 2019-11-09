@@ -15,7 +15,17 @@ trait LeaveWaitingPageAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param leaveWaitingPage a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, leaveWaitingPage: JsonLeaveWaitingPage): Option[JsValue]
+  def process(box: BOX, leaveWaitingPage: JsonLeaveWaitingPage): Either[JsValue, JsValue]
+}
+
+object LeaveWaitingPageAnalysisEngine {
+
+  /**
+    * Leave-waiting-page analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.LeaveWaitingPageAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

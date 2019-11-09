@@ -15,7 +15,7 @@ trait MetaAnonymousAudienceChatAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param audienceChat a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, audienceChat: JsonAnonymousAudienceChat): Option[JsValue]
+  def process(box: BOX, audienceChat: JsonAnonymousAudienceChat): Either[JsValue, JsValue]
 }

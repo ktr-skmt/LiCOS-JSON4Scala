@@ -5,6 +5,7 @@ import java.util.{List => JList}
 import licos.bson.element.village.{BsonBase, BsonPhase}
 import licos.bson.element.village.character.BsonCharacter
 import licos.bson.element.village.role.BsonRole
+import licos.json.element.Element
 import licos.json.element.village.character.JsonCharacter
 import licos.json.element.village.role.JsonRole
 import org.bson.types.ObjectId
@@ -13,7 +14,8 @@ import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
 import scala.collection.JavaConverters._
 
-case class JsonPhase private (base: JsonBase, sub: JsonSubPhase) extends JsonElement {
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+final case class JsonPhase private (base: JsonBase, sub: JsonSubPhase) extends JsonElement with Element {
   def this(base: JsonBase, character: Seq[JsonCharacter], role: Seq[JsonRole]) = {
     this(
       base: JsonBase,
@@ -84,7 +86,7 @@ object JsonPhase {
   )(JsonPhase.apply, unlift(JsonPhase.unapply))
 }
 
-case class JsonSubPhase(character: Seq[JsonCharacter], role: Seq[JsonRole])
+final case class JsonSubPhase(character: Seq[JsonCharacter], role: Seq[JsonRole])
 
 object JsonSubPhase {
   implicit val jsonFormat: OFormat[JsonSubPhase] = Json.format[JsonSubPhase]

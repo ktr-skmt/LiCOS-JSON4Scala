@@ -117,3 +117,7 @@ skmt
 ghpages
 Scaladoc
 scoverage
+scalameta
+scalafmt
+wartremover
+Ypartial

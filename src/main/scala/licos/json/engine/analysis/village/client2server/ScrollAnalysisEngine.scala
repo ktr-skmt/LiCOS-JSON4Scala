@@ -15,7 +15,18 @@ trait ScrollAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param scroll a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, scroll: JsonScroll): Option[JsValue]
+  def process(box: BOX, scroll: JsonScroll): Either[JsValue, JsValue]
+
+}
+
+object ScrollAnalysisEngine {
+
+  /**
+    * Scroll analysis engine name.
+    */
+  val name:         String  = "village.client2server.ScrollAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

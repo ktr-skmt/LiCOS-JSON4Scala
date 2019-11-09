@@ -10,38 +10,41 @@ import play.api.libs.json.{Json, OFormat}
 
 import scala.collection.JavaConverters._
 
-case class JsonBase(`@context`:                 Seq[String],
-                    `@id`:                      String,
-                    village:                    JsonVillage,
-                    token:                      String,
-                    phase:                      String,
-                    day:                        Int,
-                    phaseTimeLimit:             Int,
-                    phaseStartTime:             String,
-                    serverTimestamp:            String,
-                    clientTimestamp:            String,
-                    directionality:             String,
-                    intensionalDisclosureRange: String,
-                    extensionalDisclosureRange: Seq[JsonStatusCharacter],
-                    votingResultsSummary:       Option[Seq[JsonVotingResultSummary]],
-                    votingResultsDetails:       Option[Seq[JsonVotingResultDetail]])
-    extends JsonElement {
+final case class JsonBase(
+    `@context`:                 Seq[String],
+    `@id`:                      String,
+    village:                    JsonVillage,
+    token:                      String,
+    phase:                      String,
+    day:                        Int,
+    phaseTimeLimit:             Int,
+    phaseStartTime:             String,
+    serverTimestamp:            String,
+    clientTimestamp:            String,
+    directionality:             String,
+    intensionalDisclosureRange: String,
+    extensionalDisclosureRange: Seq[JsonStatusCharacter],
+    votingResultsSummary:       Option[Seq[JsonVotingResultSummary]],
+    votingResultsDetails:       Option[Seq[JsonVotingResultDetail]]
+) extends JsonElement {
 
-  def this(`@context`:                 JList[String],
-           `@id`:                      String,
-           village:                    JsonVillage,
-           token:                      String,
-           phase:                      String,
-           day:                        Int,
-           phaseTimeLimit:             Int,
-           phaseStartTime:             String,
-           serverTimestamp:            String,
-           clientTimestamp:            String,
-           directionality:             String,
-           intensionalDisclosureRange: String,
-           extensionalDisclosureRange: JList[JsonStatusCharacter],
-           votingResultsSummary:       JList[JsonVotingResultSummary],
-           votingResultsDetails:       JList[JsonVotingResultDetail]) = {
+  def this(
+      `@context`:                 JList[String],
+      `@id`:                      String,
+      village:                    JsonVillage,
+      token:                      String,
+      phase:                      String,
+      day:                        Int,
+      phaseTimeLimit:             Int,
+      phaseStartTime:             String,
+      serverTimestamp:            String,
+      clientTimestamp:            String,
+      directionality:             String,
+      intensionalDisclosureRange: String,
+      extensionalDisclosureRange: JList[JsonStatusCharacter],
+      votingResultsSummary:       JList[JsonVotingResultSummary],
+      votingResultsDetails:       JList[JsonVotingResultDetail]
+  ) = {
 
     this(
       `@context`.asScala:                   Seq[String],
@@ -63,7 +66,8 @@ case class JsonBase(`@context`:                 Seq[String],
   }
 
   def otherAvatar(otherAvatarToken: String): JsonBase = {
-    if (token == otherAvatarToken) {
+    import cats.implicits._
+    if (token === otherAvatarToken) {
       this
     } else {
       JsonBase(

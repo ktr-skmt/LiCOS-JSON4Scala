@@ -15,7 +15,17 @@ trait GetSettingsAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param getSettings a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, getSettings: JsonGetSettings): Option[JsValue]
+  def process(box: BOX, getSettings: JsonGetSettings): Either[JsValue, JsValue]
+}
+
+object GetSettingsAnalysisEngine {
+
+  /**
+    * Get-settings analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.GetSettingsAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

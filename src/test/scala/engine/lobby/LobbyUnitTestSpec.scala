@@ -40,18 +40,18 @@ object LobbyUnitTestSpec {
 @RunWith(classOf[Theories])
 class LobbyUnitTestSpec extends AssertionsForJUnit with LobbyUnitTestParser {
 
-  private final val logger: Logger = Logger[LobbyUnitTestSpec]
+  private final val log: Logger = Logger[LobbyUnitTestSpec]
 
   @Theory
   def process(jsonExample: LobbyUnitTestExample): Unit = {
     val jsonType:       String = jsonExample.`type`
     val url:            String = jsonExample.path
     implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-    logger.info(url)
+    log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()
-    logger.debug(msg)
+    log.debug(msg)
     val json: JsValue = Json.parse(msg)
 
     jsonType match {

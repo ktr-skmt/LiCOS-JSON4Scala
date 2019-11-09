@@ -4,7 +4,7 @@ import licos.bson.element.village.BsonUpdate
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonUpdate(`@id`: String, phase: String, day: Int) extends JsonElement {
+final case class JsonUpdate(`@id`: String, phase: String, day: Int) extends JsonElement {
   override def toBson: BsonUpdate = {
     new BsonUpdate(
       new ObjectId(),

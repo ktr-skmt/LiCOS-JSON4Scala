@@ -9,10 +9,10 @@ import licos.json.element.village.JsonChatFromClient
 import play.api.libs.json.{JsValue, Json}
 
 class ChatFromClientAE extends ChatAnalysisEngine {
-  override def process(box: BOX, chatFromClient: JsonChatFromClient): Option[JsValue] = {
+  override def process(box: BOX, chatFromClient: JsonChatFromClient): Either[JsValue, JsValue] = {
     box match {
-      case _: VillageBox => Option(Json.toJson(JsonTest(Chat.`type`)))
-      case _ => None
+      case _: VillageBox => Right(Json.toJson(JsonTest(Chat.`type`)))
+      case _ => Left(Json.toJson(chatFromClient))
     }
   }
 }

@@ -15,7 +15,17 @@ trait PongAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param pong a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, pong: JsonPong): Option[JsValue]
+  def process(box: BOX, pong: JsonPong): Either[JsValue, JsValue]
+}
+
+object PongAnalysisEngine {
+
+  /**
+    * Pong analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.PongAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

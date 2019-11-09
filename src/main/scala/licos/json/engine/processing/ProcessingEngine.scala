@@ -18,5 +18,5 @@ trait ProcessingEngine {
     * @param msg a JSON message.
     * @return a play.api.libs.json.JsValue option.
     */
-  def process(box: BOX, msg: String): Option[JsValue]
+  def process(box: BOX, msg: String): Either[JsValue, JsValue]
 }

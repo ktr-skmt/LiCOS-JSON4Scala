@@ -56,7 +56,7 @@ object LobbyProcessingEngineSpec {
 @RunWith(classOf[Theories])
 class LobbyProcessingEngineSpec extends AssertionsForJUnit {
 
-  private final val logger: Logger = Logger[LobbyProcessingEngine]
+  private final val log: Logger = Logger[LobbyProcessingEngine]
 
   private val processingEngineFactory: LobbyProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(LobbyPE)
@@ -93,13 +93,13 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit {
     val jsonType:       String = jsonExample.`type`
     val url:            String = jsonExample.path
     implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-    logger.info(url)
+    log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()
-    logger.debug(msg)
+    log.debug(msg)
     processingEngine.process(new LobbyBox(jsonType), msg) match {
-      case Some(jsValue: JsValue) =>
+      case Right(jsValue: JsValue) =>
         parseJsonTest(jsValue) match {
           case Some(json: JsonTest) =>
             assert(json.text == jsonType)
@@ -108,15 +108,18 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit {
               Seq[String](
                 "Something is wrong right after parsing.",
                 msg
-              ).mkString("\n"))
+              ).mkString("\n")
+            )
         }
 
-      case None =>
+      case Left(jsValue: JsValue) =>
         fail(
           Seq[String](
             "No response is generated.",
-            msg
-          ).mkString("\n"))
+            msg,
+            jsValue.toString
+          ).mkString("\n")
+        )
     }
   }
 
@@ -129,7 +132,8 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit {
             "Parsing failed.",
             err.getMessage,
             jsValue.toString
-          ).mkString("\n"))
+          ).mkString("\n")
+        )
         None
     }
   }

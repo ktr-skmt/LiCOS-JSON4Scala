@@ -15,7 +15,18 @@ trait ReceivedFlavorTextMessageAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param receivedFlavorTextMessage a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, receivedFlavorTextMessage: JsonReceivedFlavorTextMessage): Option[JsValue]
+  def process(box: BOX, receivedFlavorTextMessage: JsonReceivedFlavorTextMessage): Either[JsValue, JsValue]
+
+}
+
+object ReceivedFlavorTextMessageAnalysisEngine {
+
+  /**
+    * Received-flavor-text-message analysis engine name.
+    */
+  val name:         String  = "village.client2server.ReceivedFlavorTextMessageAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

@@ -15,7 +15,7 @@ trait MetaErrorAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param error a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, error: JsonError): Option[JsValue]
+  def process(box: BOX, error: JsonError): Either[JsValue, JsValue]
 }

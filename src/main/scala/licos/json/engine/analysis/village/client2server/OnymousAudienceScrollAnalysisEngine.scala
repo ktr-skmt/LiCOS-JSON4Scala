@@ -15,7 +15,18 @@ trait OnymousAudienceScrollAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param scroll a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, scroll: JsonOnymousAudienceScroll): Option[JsValue]
+  def process(box: BOX, scroll: JsonOnymousAudienceScroll): Either[JsValue, JsValue]
+
+}
+
+object OnymousAudienceScrollAnalysisEngine {
+
+  /**
+    * Onymous-audience-scroll analysis engine name.
+    */
+  val name:         String  = "village.client2server.OnymousAudienceScrollAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

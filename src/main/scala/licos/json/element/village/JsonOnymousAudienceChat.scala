@@ -1,17 +1,23 @@
 package licos.json.element.village
 
 import licos.bson.element.village.{BsonAvatar, BsonBase, BsonChatText, BsonOnymousAudienceChat}
+import licos.json.element.Element
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
-case class JsonOnymousAudienceChat(base: JsonBase, sub: JsonSubOnymousAudienceChat) extends JsonElement {
-  def this(base:                         JsonBase,
-           avatar:                       JsonAvatar,
-           isMine:                       Boolean,
-           text:                         JsonChatText,
-           maxLengthOfUnicodeCodePoints: Int,
-           isFromServer:                 Boolean) {
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+final case class JsonOnymousAudienceChat(base: JsonBase, sub: JsonSubOnymousAudienceChat)
+    extends JsonElement
+    with Element {
+  def this(
+      base:                         JsonBase,
+      avatar:                       JsonAvatar,
+      isMine:                       Boolean,
+      text:                         JsonChatText,
+      maxLengthOfUnicodeCodePoints: Int,
+      isFromServer:                 Boolean
+  ) {
     this(
       base: JsonBase,
       JsonSubOnymousAudienceChat(
@@ -45,12 +51,14 @@ case class JsonOnymousAudienceChat(base: JsonBase, sub: JsonSubOnymousAudienceCh
 
 object JsonOnymousAudienceChat {
 
-  def apply(base:                         JsonBase,
-            avatar:                       JsonAvatar,
-            isMine:                       Boolean,
-            text:                         JsonChatText,
-            maxLengthOfUnicodeCodePoints: Int,
-            isFromServer:                 Boolean): JsonOnymousAudienceChat = {
+  def apply(
+      base:                         JsonBase,
+      avatar:                       JsonAvatar,
+      isMine:                       Boolean,
+      text:                         JsonChatText,
+      maxLengthOfUnicodeCodePoints: Int,
+      isFromServer:                 Boolean
+  ): JsonOnymousAudienceChat = {
     new JsonOnymousAudienceChat(
       base:                         JsonBase,
       avatar:                       JsonAvatar,
@@ -66,11 +74,13 @@ object JsonOnymousAudienceChat {
   )(JsonOnymousAudienceChat.apply, unlift(JsonOnymousAudienceChat.unapply))
 }
 
-case class JsonSubOnymousAudienceChat(avatar:                       JsonAvatar,
-                                      isMine:                       Boolean,
-                                      text:                         JsonChatText,
-                                      maxLengthOfUnicodeCodePoints: Int,
-                                      isFromServer:                 Boolean)
+final case class JsonSubOnymousAudienceChat(
+    avatar:                       JsonAvatar,
+    isMine:                       Boolean,
+    text:                         JsonChatText,
+    maxLengthOfUnicodeCodePoints: Int,
+    isFromServer:                 Boolean
+)
 
 object JsonSubOnymousAudienceChat {
   implicit val jsonFormat: OFormat[JsonSubOnymousAudienceChat] = Json.format[JsonSubOnymousAudienceChat]

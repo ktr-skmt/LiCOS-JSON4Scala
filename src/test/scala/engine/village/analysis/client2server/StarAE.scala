@@ -10,10 +10,10 @@ import play.api.libs.json.{JsValue, Json}
 
 class StarAE extends StarAnalysisEngine {
 
-  override def process(box: BOX, star: JsonStar): Option[JsValue] = {
+  override def process(box: BOX, star: JsonStar): Either[JsValue, JsValue] = {
     box match {
-      case _: VillageBox => Option(Json.toJson(JsonTest(Star.`type`)))
-      case _ => None
+      case _: VillageBox => Right(Json.toJson(JsonTest(Star.`type`)))
+      case _ => Left(Json.toJson(star))
     }
   }
 

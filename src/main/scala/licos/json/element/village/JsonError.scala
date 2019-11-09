@@ -1,11 +1,13 @@
 package licos.json.element.village
 
 import licos.bson.element.village.{BsonBase, BsonError, BsonName}
+import licos.json.element.Element
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
-case class JsonError private (base: JsonBase, sub: JsonSubError) extends JsonElement {
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+final case class JsonError private (base: JsonBase, sub: JsonSubError) extends JsonElement with Element {
   def this(base: JsonBase, content: JsonName, severity: String, source: String, isFromServer: Boolean) = {
     this(
       base: JsonBase,
@@ -36,6 +38,8 @@ case class JsonError private (base: JsonBase, sub: JsonSubError) extends JsonEle
 }
 
 object JsonError {
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def apply(base: JsonBase, content: JsonName, severity: String, source: String, isFromServer: Boolean): JsonError = {
     new JsonError(
       base:         JsonBase,
@@ -52,7 +56,7 @@ object JsonError {
   )(JsonError.apply, unlift(JsonError.unapply))
 }
 
-case class JsonSubError(content: JsonName, severity: String, source: String, isFromServer: Boolean)
+final case class JsonSubError(content: JsonName, severity: String, source: String, isFromServer: Boolean)
 
 object JsonSubError {
   implicit val jsonFormat: OFormat[JsonSubError] = Json.format[JsonSubError]

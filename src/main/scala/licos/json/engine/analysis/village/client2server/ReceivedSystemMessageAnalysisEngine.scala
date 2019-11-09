@@ -15,7 +15,18 @@ trait ReceivedSystemMessageAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param receivedSystemMessage a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, receivedSystemMessage: JsonReceivedSystemMessage): Option[JsValue]
+  def process(box: BOX, receivedSystemMessage: JsonReceivedSystemMessage): Either[JsValue, JsValue]
+
+}
+
+object ReceivedSystemMessageAnalysisEngine {
+
+  /**
+    * Received-system-message analysis engine name.
+    */
+  val name:         String  = "village.client2server.ReceivedSystemMessageAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

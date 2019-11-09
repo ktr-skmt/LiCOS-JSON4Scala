@@ -7,6 +7,7 @@ import licos.json.engine.analysis.village.server2client._
 
 /** A village processing engine factory.
   */
+@SuppressWarnings(Array[String]("org.wartremover.warts.Var"))
 class VillageProcessingEngineFactory extends ProcessingEngineFactory {
 
   private var readyEngine:                     Option[ReadyAnalysisEngine]                      = None
@@ -103,26 +104,30 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(onymousAudienceChatFromClientEngine: village.client2server.OnymousAudienceChatAnalysisEngine)
-    : VillageProcessingEngineFactory = {
+  def set(
+      onymousAudienceChatFromClientEngine: village.client2server.OnymousAudienceChatAnalysisEngine
+  ): VillageProcessingEngineFactory = {
     this.onymousAudienceChatFromClientEngine = Option(onymousAudienceChatFromClientEngine)
     this
   }
 
-  def set(onymousAudienceChatFromServerEngine: village.server2client.OnymousAudienceChatAnalysisEngine)
-    : VillageProcessingEngineFactory = {
+  def set(
+      onymousAudienceChatFromServerEngine: village.server2client.OnymousAudienceChatAnalysisEngine
+  ): VillageProcessingEngineFactory = {
     this.onymousAudienceChatFromServerEngine = Option(onymousAudienceChatFromServerEngine)
     this
   }
 
-  def set(anonymousAudienceChatFromClientEngine: village.client2server.AnonymousAudienceChatAnalysisEngine)
-    : VillageProcessingEngineFactory = {
+  def set(
+      anonymousAudienceChatFromClientEngine: village.client2server.AnonymousAudienceChatAnalysisEngine
+  ): VillageProcessingEngineFactory = {
     this.anonymousAudienceChatFromClientEngine = Option(anonymousAudienceChatFromClientEngine)
     this
   }
 
-  def set(anonymousAudienceChatFromServerEngine: village.server2client.AnonymousAudienceChatAnalysisEngine)
-    : VillageProcessingEngineFactory = {
+  def set(
+      anonymousAudienceChatFromServerEngine: village.server2client.AnonymousAudienceChatAnalysisEngine
+  ): VillageProcessingEngineFactory = {
     this.anonymousAudienceChatFromServerEngine = Option(anonymousAudienceChatFromServerEngine)
     this
   }
@@ -188,7 +193,8 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
   }
 
   def set(
-      nextGameInvitationIsClosedEngine: NextGameInvitationIsClosedAnalysisEngine): VillageProcessingEngineFactory = {
+      nextGameInvitationIsClosedEngine: NextGameInvitationIsClosedAnalysisEngine
+  ): VillageProcessingEngineFactory = {
     this.nextGameInvitationIsClosedEngine = Option(nextGameInvitationIsClosedEngine)
     this
   }

@@ -6,11 +6,12 @@ import licos.json.element.village.character.JsonSimpleCharacter
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat};
 
-case class JsonVotingResultSummary(`@id`:            String,
-                                   characterToLynch: JsonSimpleCharacter,
-                                   numberOfVotes:    Int,
-                                   rankOfVotes:      Int)
-    extends JsonElement {
+final case class JsonVotingResultSummary(
+    `@id`:            String,
+    characterToLynch: JsonSimpleCharacter,
+    numberOfVotes:    Int,
+    rankOfVotes:      Int
+) extends JsonElement {
   override def toBson: BsonVotingResultSummary = {
     new BsonVotingResultSummary(
       new ObjectId(),

@@ -14,16 +14,17 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonCharacter(`@context`: String,
-                         `@id`:      String,
-                         id:         Long,
-                         name:       JsonName,
-                         image:      String,
-                         isMine:     Boolean,
-                         status:     String,
-                         update:     JsonUpdate,
-                         isAChoice:  Boolean)
-    extends JsonAbstractCharacter(
+final case class JsonCharacter(
+    `@context`: String,
+    `@id`:      String,
+    id:         Long,
+    name:       JsonName,
+    image:      String,
+    isMine:     Boolean,
+    status:     String,
+    update:     JsonUpdate,
+    isAChoice:  Boolean
+) extends JsonAbstractCharacter(
       `@context`: String,
       `@id`:      String,
       id:         Long,
@@ -31,14 +32,16 @@ case class JsonCharacter(`@context`: String,
       image:      String
     ) {
 
-  def this(`@id`:     String,
-           id:        Long,
-           name:      JsonName,
-           image:     String,
-           isMine:    Boolean,
-           status:    String,
-           update:    JsonUpdate,
-           isAChoice: Boolean) = {
+  def this(
+      `@id`:     String,
+      id:        Long,
+      name:      JsonName,
+      image:     String,
+      isMine:    Boolean,
+      status:    String,
+      update:    JsonUpdate,
+      isAChoice: Boolean
+  ) = {
     this(
       CharacterContext.iri: String,
       `@id`:                String,
@@ -71,14 +74,16 @@ case class JsonCharacter(`@context`: String,
 object JsonCharacter {
   implicit val jsonFormat: OFormat[JsonCharacter] = Json.format[JsonCharacter]
 
-  def apply(`@id`:     String,
-            id:        Long,
-            name:      JsonName,
-            image:     String,
-            isMine:    Boolean,
-            status:    String,
-            update:    JsonUpdate,
-            isAChoice: Boolean): JsonCharacter = {
+  def apply(
+      `@id`:     String,
+      id:        Long,
+      name:      JsonName,
+      image:     String,
+      isMine:    Boolean,
+      status:    String,
+      update:    JsonUpdate,
+      isAChoice: Boolean
+  ): JsonCharacter = {
     new JsonCharacter(
       `@id`:     String,
       id:        Long,
@@ -87,6 +92,7 @@ object JsonCharacter {
       isMine:    Boolean,
       status:    String,
       update:    JsonUpdate,
-      isAChoice: Boolean)
+      isAChoice: Boolean
+    )
   }
 }

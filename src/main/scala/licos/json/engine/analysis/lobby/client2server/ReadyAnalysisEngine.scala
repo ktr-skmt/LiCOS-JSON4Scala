@@ -15,7 +15,17 @@ trait ReadyAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param ready a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, ready: JsonReady): Option[JsValue]
+  def process(box: BOX, ready: JsonReady): Either[JsValue, JsValue]
+}
+
+object ReadyAnalysisEngine {
+
+  /**
+    * Ready analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.ReadyAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

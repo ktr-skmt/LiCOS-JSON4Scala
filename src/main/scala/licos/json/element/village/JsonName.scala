@@ -4,33 +4,36 @@ import licos.bson.element.village.BsonName
 import org.bson.types.ObjectId
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonName(en:   String,
-                    ar:   Option[String],
-                    de:   Option[String],
-                    es:   Option[String],
-                    fr:   Option[String],
-                    it:   Option[String],
-                    ja:   Option[String],
-                    pt:   Option[String],
-                    ru:   Option[String],
-                    uk:   Option[String],
-                    vi:   Option[String],
-                    zhCN: Option[String],
-                    zhTW: Option[String])
-    extends JsonElement {
-  def this(en:   String,
-           ar:   String,
-           de:   String,
-           es:   String,
-           it:   String,
-           fr:   String,
-           ja:   String,
-           pt:   String,
-           ru:   String,
-           uk:   String,
-           vi:   String,
-           zhCN: String,
-           zhTW: String) = {
+final case class JsonName(
+    en:   String,
+    ar:   Option[String],
+    de:   Option[String],
+    es:   Option[String],
+    fr:   Option[String],
+    it:   Option[String],
+    ja:   Option[String],
+    pt:   Option[String],
+    ru:   Option[String],
+    uk:   Option[String],
+    vi:   Option[String],
+    zhCN: Option[String],
+    zhTW: Option[String]
+) extends JsonElement {
+  def this(
+      en:   String,
+      ar:   String,
+      de:   String,
+      es:   String,
+      it:   String,
+      fr:   String,
+      ja:   String,
+      pt:   String,
+      ru:   String,
+      uk:   String,
+      vi:   String,
+      zhCN: String,
+      zhTW: String
+  ) = {
     this(
       en:           String,
       Option(ar):   Option[String],

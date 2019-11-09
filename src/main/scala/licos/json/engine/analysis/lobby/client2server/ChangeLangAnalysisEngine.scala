@@ -14,7 +14,17 @@ trait ChangeLangAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param changeLang a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, changeLang: JsonChangeLang): Option[JsValue]
+  def process(box: BOX, changeLang: JsonChangeLang): Either[JsValue, JsValue]
+}
+
+object ChangeLangAnalysisEngine {
+
+  /**
+    *  Change-lang analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.ChangeLangAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

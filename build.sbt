@@ -14,6 +14,15 @@ coverageEnabled := true
 
 lazy val javaVersion: String = "1.8"
 
+lazy val wartremoverSettings = Seq(
+  wartremoverWarnings in (Compile, compile) ++= Warts.allBut(Wart.Throw)
+)
+
+lazy val scalafmtSettings = Seq(
+  scalafmtOnCompile := true,
+  version := "2.2.1"
+)
+
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.8",
   organization := "online.licos",
@@ -26,6 +35,7 @@ lazy val commonSettings = Seq(
     "-language:implicitConversions",
     "-unchecked",
     "-Xlint",
+    "-Ypartial-unification",
     s"-target:jvm-$javaVersion"
   )
 } ++ {
@@ -77,6 +87,8 @@ lazy val json = (project in file(".")).
   //enablePlugins(GhpagesPlugin).
   //enablePlugins(SiteScaladocPlugin).
   settings(commonSettings: _*).
+  settings(wartremoverSettings: _*).
+  settings(scalafmtSettings: _*).
   settings(
     scalacOptions in (Compile, doc) ++= Seq(
       "-groups",
@@ -104,9 +116,11 @@ lazy val json = (project in file(".")).
         "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
         "org.slf4j" % "slf4j-api" % "1.7.28" % "compile",// withSources() withJavadoc()
         "ch.qos.logback" % "logback-classic" % "1.2.3",
-        "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
+        "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
+        "org.typelevel" %% "cats-core" % "2.0.0"
       )
     }
-  )//.settings(
+  )
+//.settings(
     //git.remoteRepo := "git@github.com:ktr-skmt/LiCOS-JSON4Scala.git"
   //)

@@ -9,10 +9,10 @@ import licos.json.element.village.JsonVote
 import play.api.libs.json.{JsValue, Json}
 
 class VoteAE extends VoteAnalysisEngine {
-  override def process(box: BOX, vote: JsonVote): Option[JsValue] = {
+  override def process(box: BOX, vote: JsonVote): Either[JsValue, JsValue] = {
     box match {
-      case _: VillageBox => Option(Json.toJson(JsonTest(Vote.`type`)))
-      case _ => None
+      case _: VillageBox => Right(Json.toJson(JsonTest(Vote.`type`)))
+      case _ => Left(Json.toJson(vote))
     }
   }
 }

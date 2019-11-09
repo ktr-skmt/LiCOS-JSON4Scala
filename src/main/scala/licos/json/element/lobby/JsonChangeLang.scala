@@ -2,7 +2,7 @@ package licos.json.element.lobby
 
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonChangeLang(`type`: String, lang: String) extends TypeSystem(`type`) {
+final case class JsonChangeLang(`type`: String, lang: String) extends TypeSystem(`type`) {
   override protected def validType: String = JsonChangeLang.`type`
 }
 

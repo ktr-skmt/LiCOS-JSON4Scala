@@ -2,7 +2,7 @@ package licos.json.element.lobby
 
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonAvatarInfo(`type`: String, token: String, name: String, image: String, lang: String)
+final case class JsonAvatarInfo(`type`: String, token: String, name: String, image: String, lang: String)
     extends TypeSystem(`type`) {
   override protected def validType: String = JsonAvatarInfo.`type`
 }
@@ -17,7 +17,7 @@ object JsonAvatarInfo {
   }
 }
 
-case class JsonGetAvatarInfo(`type`: String, token: String) extends TypeSystem(`type`) {
+final case class JsonGetAvatarInfo(`type`: String, token: String) extends TypeSystem(`type`) {
   override protected def validType: String = JsonGetAvatarInfo.`type`
 }
 

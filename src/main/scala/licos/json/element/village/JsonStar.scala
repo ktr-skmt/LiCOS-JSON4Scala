@@ -2,12 +2,13 @@ package licos.json.element.village
 
 import licos.bson.element.village.{BsonBase, BsonStar, BsonStarInfo}
 import licos.bson.element.village.character.BsonRoleCharacter
+import licos.json.element.Element
 import licos.json.element.village.character.JsonRoleCharacter
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
-case class JsonStar(base: JsonBase, sub: JsonSubStar) extends JsonElement {
+final case class JsonStar(base: JsonBase, sub: JsonSubStar) extends JsonElement with Element {
 
   override def toBson: BsonStar = {
     new BsonStar(
@@ -26,19 +27,20 @@ object JsonStar {
   )(JsonStar.apply, unlift(JsonStar.unapply))
 }
 
-case class JsonSubStar(myCharacter: JsonRoleCharacter, star: JsonStarInfo)
+final case class JsonSubStar(myCharacter: JsonRoleCharacter, star: JsonStarInfo)
 
 object JsonSubStar {
   implicit val jsonFormat: OFormat[JsonSubStar] = Json.format[JsonSubStar]
 }
 
-case class JsonStarInfo(`@context`:      String,
-                        `@id`:           String,
-                        token:           String,
-                        serverTimestamp: String,
-                        clientTimestamp: String,
-                        isMarked:        Boolean)
-    extends JsonElement {
+final case class JsonStarInfo(
+    `@context`:      String,
+    `@id`:           String,
+    token:           String,
+    serverTimestamp: String,
+    clientTimestamp: String,
+    isMarked:        Boolean
+) extends JsonElement {
 
   override def toBson: BsonStarInfo = {
     new BsonStarInfo(

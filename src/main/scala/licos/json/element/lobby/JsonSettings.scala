@@ -2,7 +2,8 @@ package licos.json.element.lobby
 
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonSettings(`type`: String, userName: String, userEmail: String, lang: String) extends TypeSystem(`type`) {
+final case class JsonSettings(`type`: String, userName: String, userEmail: String, lang: String)
+    extends TypeSystem(`type`) {
   override protected def validType: String = JsonSettings.`type`
 }
 

@@ -9,10 +9,10 @@ import licos.json.element.village.JsonGameResult
 import play.api.libs.json.{JsValue, Json}
 
 class GameResultAE extends GameResultAnalysisEngine {
-  override def process(box: BOX, gameResult: JsonGameResult): Option[JsValue] = {
+  override def process(box: BOX, gameResult: JsonGameResult): Either[JsValue, JsValue] = {
     box match {
-      case _: VillageBox => Option(Json.toJson(JsonTest(GameResult.`type`)))
-      case _ => None
+      case _: VillageBox => Right(Json.toJson(JsonTest(GameResult.`type`)))
+      case _ => Left(Json.toJson(gameResult))
     }
   }
 }

@@ -14,7 +14,7 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonSimpleRole(`@context`: String, `@id`: String, name: JsonName, image: String)
+final case class JsonSimpleRole(`@context`: String, `@id`: String, name: JsonName, image: String)
     extends JsonAbstractRole(`@context`: String, `@id`: String, name: JsonName, image: String) {
 
   def this(`@id`: String, name: JsonName, image: String) = {

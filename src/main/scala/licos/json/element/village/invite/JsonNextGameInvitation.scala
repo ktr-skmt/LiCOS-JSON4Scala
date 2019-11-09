@@ -1,9 +1,11 @@
 package licos.json.element.village.invite
 
+import licos.json.element.Element
 import licos.json.element.lobby.TypeSystem
 import play.api.libs.json.{Json, OFormat}
 
-case class JsonNextGameInvitation(`type`: String, villageId: Long) extends TypeSystem(`type`) {
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+final case class JsonNextGameInvitation(`type`: String, villageId: Long) extends TypeSystem(`type`) with Element {
 
   override protected def validType: String = JsonNextGameInvitation.`type`
 

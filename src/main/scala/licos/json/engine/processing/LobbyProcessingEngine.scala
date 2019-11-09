@@ -27,6 +27,7 @@ import licos.json.element.lobby.{
   JsonSettings,
   JsonWaitingPage
 }
+import licos.json.element.village.{JsonName, JsonSubError}
 import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.client2server._
 import licos.json.engine.analysis.lobby.server2client._
@@ -62,31 +63,32 @@ import play.api.libs.json.{JsValue, Json}
   * @param settingsEngine the analysis engine for Settings JSON.
   * @author Kotaro Sakamoto
   */
-class LobbyProcessingEngine(pongEngine:               Option[PongAnalysisEngine],
-                            pingEngine:               Option[PingAnalysisEngine],
-                            waitingPageEngine:        Option[WaitingPageAnalysisEngine],
-                            lobbyEngine:              Option[LobbyAnalysisEngine],
-                            enterLobbyEngine:         Option[EnterLobbyAnalysisEngine],
-                            getAvatarInfoEngine:      Option[GetAvatarInfoAnalysisEngine],
-                            avatarInfoEngine:         Option[AvatarInfoAnalysisEngine],
-                            selectVillageEngine:      Option[SelectVillageAnalysisEngine],
-                            leaveWaitingPageEngine:   Option[LeaveWaitingPageAnalysisEngine],
-                            kickOutPlayerEngine:      Option[KickOutPlayerAnalysisEngine],
-                            buildVillageEngine:       Option[BuildVillageAnalysisEngine],
-                            advancedSearchEngine:     Option[AdvancedSearchAnalysisEngine],
-                            idSearchEngine:           Option[IdSearchAnalysisEngine],
-                            playEngine:               Option[PlayAnalysisEngine],
-                            playedEngine:             Option[PlayedAnalysisEngine],
-                            playedWithTokenEngine:    Option[PlayedWithTokenAnalysisEngine],
-                            readyEngine:              Option[ReadyAnalysisEngine],
-                            searchResultEngine:       Option[SearchResultAnalysisEngine],
-                            changeLangEngine:         Option[ChangeLangAnalysisEngine],
-                            changeUserEmailEngine:    Option[ChangeUserEmailAnalysisEngine],
-                            changeUserNameEngine:     Option[ChangeUserNameAnalysisEngine],
-                            changeUserPasswordEngine: Option[ChangeUserPasswordAnalysisEngine],
-                            getSettingsEngine:        Option[GetSettingsAnalysisEngine],
-                            settingsEngine:           Option[SettingsAnalysisEngine])
-    extends ProcessingEngine {
+class LobbyProcessingEngine(
+    pongEngine:               Option[PongAnalysisEngine],
+    pingEngine:               Option[PingAnalysisEngine],
+    waitingPageEngine:        Option[WaitingPageAnalysisEngine],
+    lobbyEngine:              Option[LobbyAnalysisEngine],
+    enterLobbyEngine:         Option[EnterLobbyAnalysisEngine],
+    getAvatarInfoEngine:      Option[GetAvatarInfoAnalysisEngine],
+    avatarInfoEngine:         Option[AvatarInfoAnalysisEngine],
+    selectVillageEngine:      Option[SelectVillageAnalysisEngine],
+    leaveWaitingPageEngine:   Option[LeaveWaitingPageAnalysisEngine],
+    kickOutPlayerEngine:      Option[KickOutPlayerAnalysisEngine],
+    buildVillageEngine:       Option[BuildVillageAnalysisEngine],
+    advancedSearchEngine:     Option[AdvancedSearchAnalysisEngine],
+    idSearchEngine:           Option[IdSearchAnalysisEngine],
+    playEngine:               Option[PlayAnalysisEngine],
+    playedEngine:             Option[PlayedAnalysisEngine],
+    playedWithTokenEngine:    Option[PlayedWithTokenAnalysisEngine],
+    readyEngine:              Option[ReadyAnalysisEngine],
+    searchResultEngine:       Option[SearchResultAnalysisEngine],
+    changeLangEngine:         Option[ChangeLangAnalysisEngine],
+    changeUserEmailEngine:    Option[ChangeUserEmailAnalysisEngine],
+    changeUserNameEngine:     Option[ChangeUserNameAnalysisEngine],
+    changeUserPasswordEngine: Option[ChangeUserPasswordAnalysisEngine],
+    getSettingsEngine:        Option[GetSettingsAnalysisEngine],
+    settingsEngine:           Option[SettingsAnalysisEngine]
+) extends ProcessingEngine {
 
   override protected val flowController = new LobbyFlowController()
 
@@ -98,7 +100,7 @@ class LobbyProcessingEngine(pongEngine:               Option[PongAnalysisEngine]
     * @param msg a JSON message.
     * @return a play.api.libs.json.JsValue option.
     */
-  override def process(box: BOX, msg: String): Option[JsValue] = {
+  override def process(box: BOX, msg: String): Either[JsValue, JsValue] = {
 
     val jsValue: JsValue = Json.parse(msg)
 
@@ -107,81 +109,258 @@ class LobbyProcessingEngine(pongEngine:               Option[PongAnalysisEngine]
       logger.info(format.format(label))
     }
 
+    @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
+    def noAnalysisEngine(name: String, isFromServer: Boolean): Either[JsValue, JsValue] = {
+      Left(
+        Json.toJson(
+          new JsonSubError(
+            new JsonName(
+              en = s"No $name is set. Please set it to the processing engine.",
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None
+            ),
+            "warning",
+            "Nothing",
+            isFromServer
+          )
+        )
+      )
+    }
+
+    @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
+    def otherwise: Either[JsValue, JsValue] = {
+      Right(
+        Json.toJson(
+          new JsonSubError(
+            new JsonName(
+              en = "LobbyProcessingEngine returns nothing",
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None,
+              None
+            ),
+            "warning",
+            jsValue.toString,
+            isFromServer = true
+          )
+        )
+      )
+    }
+
     flowController.flow(jsValue) match {
-      case Some(pong: JsonPong) =>
+      case Right(pong: JsonPong) =>
         log("JsonPong")
-        pongEngine.flatMap(_.process(box, pong))
-      case Some(ping: JsonPing) =>
+        pongEngine match {
+          case Some(engine) =>
+            engine.process(box, pong)
+          case None =>
+            noAnalysisEngine(PongAnalysisEngine.name, PongAnalysisEngine.isFromServer)
+        }
+      case Right(ping: JsonPing) =>
         log("JsonPing")
-        pingEngine.flatMap(_.process(box, ping))
-      case Some(waitingPage: JsonWaitingPage) =>
+        pingEngine match {
+          case Some(engine) =>
+            engine.process(box, ping)
+          case None =>
+            noAnalysisEngine(PingAnalysisEngine.name, PingAnalysisEngine.isFromServer)
+        }
+      case Right(waitingPage: JsonWaitingPage) =>
         log("JsonWaitingPage")
-        waitingPageEngine.flatMap(_.process(box, waitingPage))
-      case Some(lobby: JsonLobby) =>
+        waitingPageEngine match {
+          case Some(engine) =>
+            engine.process(box, waitingPage)
+          case None =>
+            noAnalysisEngine(WaitingPageAnalysisEngine.name, WaitingPageAnalysisEngine.isFromServer)
+        }
+      case Right(lobby: JsonLobby) =>
         log("JsonLobby")
-        lobbyEngine.flatMap(_.process(box, lobby))
-      case Some(enterLobby: JsonEnterLobby) =>
+        lobbyEngine match {
+          case Some(engine) =>
+            engine.process(box, lobby)
+          case None =>
+            noAnalysisEngine(LobbyAnalysisEngine.name, LobbyAnalysisEngine.isFromServer)
+        }
+      case Right(enterLobby: JsonEnterLobby) =>
         log("JsonEnterLobby")
-        enterLobbyEngine.flatMap(_.process(box, enterLobby))
-      case Some(getAvatarInfo: JsonGetAvatarInfo) =>
+        enterLobbyEngine match {
+          case Some(engine) =>
+            engine.process(box, enterLobby)
+          case None =>
+            noAnalysisEngine(EnterLobbyAnalysisEngine.name, EnterLobbyAnalysisEngine.isFromServer)
+        }
+      case Right(getAvatarInfo: JsonGetAvatarInfo) =>
         log("JsonGetAvatarInfo")
-        getAvatarInfoEngine.flatMap(_.process(box, getAvatarInfo))
-      case Some(avatarInfo: JsonAvatarInfo) =>
+        getAvatarInfoEngine match {
+          case Some(engine) =>
+            engine.process(box, getAvatarInfo)
+          case None =>
+            noAnalysisEngine(GetAvatarInfoAnalysisEngine.name, GetAvatarInfoAnalysisEngine.isFromServer)
+        }
+      case Right(avatarInfo: JsonAvatarInfo) =>
         log("JsonAvatarInfo")
-        avatarInfoEngine.flatMap(_.process(box, avatarInfo))
-      case Some(selectVillage: JsonSelectVillage) =>
+        avatarInfoEngine match {
+          case Some(engine) =>
+            engine.process(box, avatarInfo)
+          case None =>
+            noAnalysisEngine(AvatarInfoAnalysisEngine.name, AvatarInfoAnalysisEngine.isFromServer)
+        }
+      case Right(selectVillage: JsonSelectVillage) =>
         log("JsonSelectVillage")
-        selectVillageEngine.flatMap(_.process(box, selectVillage))
-      case Some(leaveWaitingPage: JsonLeaveWaitingPage) =>
+        selectVillageEngine match {
+          case Some(engine) =>
+            engine.process(box, selectVillage)
+          case None =>
+            noAnalysisEngine(SelectVillageAnalysisEngine.name, SelectVillageAnalysisEngine.isFromServer)
+        }
+      case Right(leaveWaitingPage: JsonLeaveWaitingPage) =>
         log("JsonLeaveWaitingPage")
-        leaveWaitingPageEngine.flatMap(_.process(box, leaveWaitingPage))
-      case Some(kickOutPlayer: JsonKickOutPlayer) =>
+        leaveWaitingPageEngine match {
+          case Some(engine) =>
+            engine.process(box, leaveWaitingPage)
+          case None =>
+            noAnalysisEngine(LeaveWaitingPageAnalysisEngine.name, LeaveWaitingPageAnalysisEngine.isFromServer)
+        }
+      case Right(kickOutPlayer: JsonKickOutPlayer) =>
         log("JsonKickOutPlayer")
-        kickOutPlayerEngine.flatMap(_.process(box, kickOutPlayer))
-      case Some(buildVillage: JsonBuildVillage) =>
+        kickOutPlayerEngine match {
+          case Some(engine) =>
+            engine.process(box, kickOutPlayer)
+          case None =>
+            noAnalysisEngine(KickOutPlayerAnalysisEngine.name, KickOutPlayerAnalysisEngine.isFromServer)
+        }
+      case Right(buildVillage: JsonBuildVillage) =>
         log("JsonBuildVillage")
-        buildVillageEngine.flatMap(_.process(box, buildVillage))
-      case Some(advancedSearch: JsonAdvancedSearch) =>
+        buildVillageEngine match {
+          case Some(engine) =>
+            engine.process(box, buildVillage)
+          case None =>
+            noAnalysisEngine(BuildVillageAnalysisEngine.name, BuildVillageAnalysisEngine.isFromServer)
+        }
+      case Right(advancedSearch: JsonAdvancedSearch) =>
         log("JsonAdvancedSearch")
-        advancedSearchEngine.flatMap(_.process(box, advancedSearch))
-      case Some(idSearch: JsonIdSearch) =>
+        advancedSearchEngine match {
+          case Some(engine) =>
+            engine.process(box, advancedSearch)
+          case None =>
+            noAnalysisEngine(AdvancedSearchAnalysisEngine.name, AdvancedSearchAnalysisEngine.isFromServer)
+        }
+      case Right(idSearch: JsonIdSearch) =>
         log("JsonIdSearch")
-        idSearchEngine.flatMap(_.process(box, idSearch))
-      case Some(play: JsonPlay) =>
+        idSearchEngine match {
+          case Some(engine) =>
+            engine.process(box, idSearch)
+          case None =>
+            noAnalysisEngine(IdSearchAnalysisEngine.name, IdSearchAnalysisEngine.isFromServer)
+        }
+      case Right(play: JsonPlay) =>
         log("JsonPlay")
-        playEngine.flatMap(_.process(box, play))
-      case Some(played: JsonPlayed) =>
+        playEngine match {
+          case Some(engine) =>
+            engine.process(box, play)
+          case None =>
+            noAnalysisEngine(PlayAnalysisEngine.name, PlayAnalysisEngine.isFromServer)
+        }
+      case Right(played: JsonPlayed) =>
         log("JsonPlayed")
-        playedEngine.flatMap(_.process(box, played))
-      case Some(playedWithToken: JsonPlayedWithToken) =>
+        playedEngine match {
+          case Some(engine) =>
+            engine.process(box, played)
+          case None =>
+            noAnalysisEngine(PlayedAnalysisEngine.name, PlayedAnalysisEngine.isFromServer)
+        }
+      case Right(playedWithToken: JsonPlayedWithToken) =>
         log("JsonPlayedWithToken")
-        playedWithTokenEngine.flatMap(_.process(box, playedWithToken))
-      case Some(ready: JsonReady) =>
+        playedWithTokenEngine match {
+          case Some(engine) =>
+            engine.process(box, playedWithToken)
+          case None =>
+            noAnalysisEngine(PlayedWithTokenAnalysisEngine.name, PlayedWithTokenAnalysisEngine.isFromServer)
+        }
+      case Right(ready: JsonReady) =>
         log("JsonReady")
-        readyEngine.flatMap(_.process(box, ready))
-      case Some(searchResult: JsonSearchResult) =>
+        readyEngine match {
+          case Some(engine) =>
+            engine.process(box, ready)
+          case None =>
+            noAnalysisEngine(ReadyAnalysisEngine.name, ReadyAnalysisEngine.isFromServer)
+        }
+      case Right(searchResult: JsonSearchResult) =>
         log("JsonSearchResult")
-        searchResultEngine.flatMap(_.process(box, searchResult))
-      case Some(changeLang: JsonChangeLang) =>
+        searchResultEngine match {
+          case Some(engine) =>
+            engine.process(box, searchResult)
+          case None =>
+            noAnalysisEngine(SearchResultAnalysisEngine.name, SearchResultAnalysisEngine.isFromServer)
+        }
+      case Right(changeLang: JsonChangeLang) =>
         log("JsonChangeLang")
-        changeLangEngine.flatMap(_.process(box, changeLang))
-      case Some(changeUserEmail: JsonChangeUserEmail) =>
+        changeLangEngine match {
+          case Some(engine) =>
+            engine.process(box, changeLang)
+          case None =>
+            noAnalysisEngine(ChangeLangAnalysisEngine.name, ChangeLangAnalysisEngine.isFromServer)
+        }
+      case Right(changeUserEmail: JsonChangeUserEmail) =>
         log("JsonChangeUserEmail")
-        changeUserEmailEngine.flatMap(_.process(box, changeUserEmail))
-      case Some(changeUserName: JsonChangeUserName) =>
+        changeUserEmailEngine match {
+          case Some(engine) =>
+            engine.process(box, changeUserEmail)
+          case None =>
+            noAnalysisEngine(ChangeUserEmailAnalysisEngine.name, ChangeUserEmailAnalysisEngine.isFromServer)
+        }
+      case Right(changeUserName: JsonChangeUserName) =>
         log("JsonChangeUserName")
-        changeUserNameEngine.flatMap(_.process(box, changeUserName))
-      case Some(changeUserPassword: JsonChangeUserPassword) =>
+        changeUserNameEngine match {
+          case Some(engine) =>
+            engine.process(box, changeUserName)
+          case None =>
+            noAnalysisEngine(ChangeUserNameAnalysisEngine.name, ChangeUserNameAnalysisEngine.isFromServer)
+        }
+      case Right(changeUserPassword: JsonChangeUserPassword) =>
         log("JsonChangeUserPassword")
-        changeUserPasswordEngine.flatMap(_.process(box, changeUserPassword))
-      case Some(getSettings: JsonGetSettings) =>
+        changeUserPasswordEngine match {
+          case Some(engine) =>
+            engine.process(box, changeUserPassword)
+          case None =>
+            noAnalysisEngine(ChangeUserPasswordAnalysisEngine.name, ChangeUserPasswordAnalysisEngine.isFromServer)
+        }
+      case Right(getSettings: JsonGetSettings) =>
         log("JsonGetSettings")
-        getSettingsEngine.flatMap(_.process(box, getSettings))
-      case Some(settings: JsonSettings) =>
+        getSettingsEngine match {
+          case Some(engine) =>
+            engine.process(box, getSettings)
+          case None =>
+            noAnalysisEngine(GetSettingsAnalysisEngine.name, GetSettingsAnalysisEngine.isFromServer)
+        }
+      case Right(settings: JsonSettings) =>
         log("JsonSettings")
-        settingsEngine.flatMap(_.process(box, settings))
+        settingsEngine match {
+          case Some(engine) =>
+            engine.process(box, settings)
+          case None =>
+            noAnalysisEngine(SettingsAnalysisEngine.name, GetSettingsAnalysisEngine.isFromServer)
+        }
       case _ =>
-        None
+        log("return nothing")
+        otherwise
     }
   }
 }

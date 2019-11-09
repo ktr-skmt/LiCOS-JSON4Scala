@@ -15,7 +15,18 @@ trait PhaseAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param phase a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, phase: JsonPhase): Option[JsValue]
+  def process(box: BOX, phase: JsonPhase): Either[JsValue, JsValue]
+
+}
+
+object PhaseAnalysisEngine {
+
+  /**
+    * Phase analysis engine name.
+    */
+  val name:         String  = "village.server2client.PhaseAnalysisEngine"
+  val isFromServer: Boolean = true
+
 }

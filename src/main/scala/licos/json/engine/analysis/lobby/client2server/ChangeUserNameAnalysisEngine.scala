@@ -15,7 +15,17 @@ trait ChangeUserNameAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param changeUserName a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, changeUserName: JsonChangeUserName): Option[JsValue]
+  def process(box: BOX, changeUserName: JsonChangeUserName): Either[JsValue, JsValue]
+}
+
+object ChangeUserNameAnalysisEngine {
+
+  /**
+    * Change-user-name analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.ChangeUserNameAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

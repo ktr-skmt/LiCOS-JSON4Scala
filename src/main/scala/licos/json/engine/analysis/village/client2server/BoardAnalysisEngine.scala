@@ -15,7 +15,18 @@ trait BoardAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param board a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, board: JsonBoard): Option[JsValue]
+  def process(box: BOX, board: JsonBoard): Either[JsValue, JsValue]
+
+}
+
+object BoardAnalysisEngine {
+
+  /**
+    * Board analysis engine name.
+    */
+  val name:         String  = "village.client2server.BoardAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

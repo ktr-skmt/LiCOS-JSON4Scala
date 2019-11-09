@@ -16,17 +16,18 @@ import licos.json.element.village.{JsonAvatar, JsonName}
   *
   * @author K.Sakamoto
   */
-case class JsonResultCharacter(`@context`: String,
-                               `@id`:      String,
-                               id:         Long,
-                               name:       JsonName,
-                               image:      String,
-                               isMine:     Boolean,
-                               role:       JsonSimpleRole,
-                               status:     String,
-                               result:     String,
-                               avatar:     JsonAvatar)
-    extends JsonAbstractCharacter(
+final case class JsonResultCharacter(
+    `@context`: String,
+    `@id`:      String,
+    id:         Long,
+    name:       JsonName,
+    image:      String,
+    isMine:     Boolean,
+    role:       JsonSimpleRole,
+    status:     String,
+    result:     String,
+    avatar:     JsonAvatar
+) extends JsonAbstractCharacter(
       `@context`: String,
       `@id`:      String,
       id:         Long,
@@ -34,15 +35,17 @@ case class JsonResultCharacter(`@context`: String,
       image:      String
     ) {
 
-  def this(`@id`:  String,
-           id:     Long,
-           name:   JsonName,
-           image:  String,
-           isMine: Boolean,
-           role:   JsonSimpleRole,
-           status: String,
-           result: String,
-           avatar: JsonAvatar) = {
+  def this(
+      `@id`:  String,
+      id:     Long,
+      name:   JsonName,
+      image:  String,
+      isMine: Boolean,
+      role:   JsonSimpleRole,
+      status: String,
+      result: String,
+      avatar: JsonAvatar
+  ) = {
     this(
       CharacterContext.iri: String,
       `@id`:                String,
@@ -77,15 +80,17 @@ case class JsonResultCharacter(`@context`: String,
 object JsonResultCharacter {
   implicit val jsonFormat: OFormat[JsonResultCharacter] = Json.format[JsonResultCharacter]
 
-  def apply(`@id`:  String,
-            id:     Long,
-            name:   JsonName,
-            image:  String,
-            isMine: Boolean,
-            role:   JsonSimpleRole,
-            status: String,
-            result: String,
-            avatar: JsonAvatar): JsonResultCharacter = {
+  def apply(
+      `@id`:  String,
+      id:     Long,
+      name:   JsonName,
+      image:  String,
+      isMine: Boolean,
+      role:   JsonSimpleRole,
+      status: String,
+      result: String,
+      avatar: JsonAvatar
+  ): JsonResultCharacter = {
     new JsonResultCharacter(
       `@id`:  String,
       id:     Long,

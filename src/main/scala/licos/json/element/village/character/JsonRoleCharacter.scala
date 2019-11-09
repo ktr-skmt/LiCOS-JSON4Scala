@@ -16,13 +16,14 @@ import play.api.libs.json.{Json, OFormat}
   *
   * @author K.Sakamoto
   */
-case class JsonRoleCharacter(`@context`: String,
-                             `@id`:      String,
-                             id:         Long,
-                             name:       JsonName,
-                             image:      String,
-                             role:       JsonSimpleRole)
-    extends JsonAbstractCharacter(
+final case class JsonRoleCharacter(
+    `@context`: String,
+    `@id`:      String,
+    id:         Long,
+    name:       JsonName,
+    image:      String,
+    role:       JsonSimpleRole
+) extends JsonAbstractCharacter(
       `@context`: String,
       `@id`:      String,
       id:         Long,
