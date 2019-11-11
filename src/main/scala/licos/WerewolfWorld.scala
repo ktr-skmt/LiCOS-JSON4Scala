@@ -6,8 +6,7 @@ package licos
   */
 object WerewolfWorld {
   private val baseUrl: String = "https://werewolf.world"
-  private val version: String = "0.3"
-  //private val imageVersion: String = "0.3"
+  val version:         String = "0.3"
 
   /** Returns a URI of a JSON-LD context.
     *
@@ -18,20 +17,12 @@ object WerewolfWorld {
     s"$baseUrl/context/$version/$jsonldFileName.jsonld"
   }
 
-  /** Returns a base part of a URI of a JSON-LD's id.
-    *
-    * @return a base part of a URI of a JSON-LD's id.
-    */
-  val stateVillage: String = {
-    s"https://licos.online/state/$version/village"
+  def characterImage(character: String): String = {
+    s"$baseUrl/image/$version/character_icons/50x50/${character}_50x50.png"
   }
 
-  /** Returns a URI of a JSON-LD's id.
-    *
-    * @param path a remaining part of a URI of a JSON-LD's id.
-    * @return a URI of a JSON-LD's id.
-    */
-  def state(path: String): String = {
-    stateVillage.concat(path)
+  def roleImage(role: String): String = {
+    s"$baseUrl/image/$version/role_icons/50x50withTI/${role}_50x50.png"
   }
+
 }

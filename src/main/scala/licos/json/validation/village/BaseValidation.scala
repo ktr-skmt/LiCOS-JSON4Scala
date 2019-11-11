@@ -1,0 +1,29 @@
+package licos.json.validation.village
+
+import licos.{LiCOSOnline, WerewolfWorld}
+import play.api.libs.json.Reads
+import play.api.libs.json.Reads.{min, pattern}
+
+object BaseValidation {
+  object `@context` {
+    val item: Reads[String] = pattern(
+      WerewolfWorld.context("""(?:base|error|character|role|board|chat|vote|votingResult|scroll|star|flavorText)""").r
+    )
+  }
+  val `@id`: Reads[String] = pattern(
+    LiCOSOnline
+      .state("""(?:board|error|(?:flavorText#[0-9]+/)?chat|scroll|star|system|vote|flavorText)Message""")
+      .r
+  )
+  val phaseTimeLimit: Reads[Int] = min(-1)
+  private val timestamp: Reads[String] = pattern(
+    """[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}(\\+[0-9]{2}:[0-9]{2}|Z)""".r
+  )
+  val phaseStartTime:  Reads[String] = timestamp
+  val serverTimestamp: Reads[String] = timestamp
+  val clientTimestamp: Reads[String] = timestamp
+  val directionality:  Reads[String] = pattern("""(?:client to server|server to client)""".r)
+  val intensionalDisclosureRange: Reads[String] = pattern(
+    """(?:public|private|werewolf|seer|hunter|master|grave|onymousAudience|anonymousAudience)""".r
+  )
+}

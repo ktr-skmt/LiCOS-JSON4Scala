@@ -1,7 +1,7 @@
 package licos.bson.element.village;
 
 import licos.bson.element.village.character.BsonSimpleCharacter;
-import licos.json.element.village.JsonBoardPolarity;
+import licos.json.element.village.JsonBoardResult;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -16,8 +16,8 @@ import org.mongodb.morphia.annotations.Reference;
  *
  * @author K.Sakamoto
  */
-@Entity("boardPolarities")
-public class BsonBoardPolarity extends BsonElement {
+@Entity("boardResults")
+public class BsonBoardResult extends BsonElement {
     @Id @SuppressWarnings("unused")
     private ObjectId _id;
 
@@ -40,17 +40,17 @@ public class BsonBoardPolarity extends BsonElement {
     private int day;
 
     @SuppressWarnings("unused")
-    private BsonBoardPolarity() {
+    private BsonBoardResult() {
         // Do nothing
     }
 
-    public BsonBoardPolarity(ObjectId _id,
-                             String $context,
-                             String $id,
-                             BsonSimpleCharacter character,
-                             String polarity,
-                             String phase,
-                             int day) {
+    public BsonBoardResult(ObjectId _id,
+                           String $context,
+                           String $id,
+                           BsonSimpleCharacter character,
+                           String polarity,
+                           String phase,
+                           int day) {
         this.$context = $context;
         this.$id = $id;
         this._id = _id;
@@ -61,8 +61,8 @@ public class BsonBoardPolarity extends BsonElement {
     }
 
     @Override
-    public JsonBoardPolarity toJson() {
-        return new JsonBoardPolarity(
+    public JsonBoardResult toJson() {
+        return new JsonBoardResult(
                 $context,
                 $id,
                 character.toJson(),

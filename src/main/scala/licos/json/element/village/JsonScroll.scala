@@ -6,10 +6,11 @@ import licos.json.element.Element
 import licos.json.element.village.character.JsonRoleCharacter
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
-import play.api.libs.json.{Format, JsPath, Json, OFormat}
+import play.api.libs.json.{Format, JsPath}
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonScroll private (base: JsonBase, sub: JsonSubScroll) extends JsonElement with Element {
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(
       base:         JsonBase,
       myCharacter:  JsonRoleCharacter,
@@ -50,23 +51,6 @@ final case class JsonScroll private (base: JsonBase, sub: JsonSubScroll) extends
 }
 
 object JsonScroll {
-  def apply(
-      base:         JsonBase,
-      myCharacter:  JsonRoleCharacter,
-      nodeId:       String,
-      scrollTop:    Int,
-      scrollHeight: Int,
-      offsetHeight: Int
-  ): JsonScroll = {
-    new JsonScroll(
-      base:         JsonBase,
-      myCharacter:  JsonRoleCharacter,
-      nodeId:       String,
-      scrollTop:    Int,
-      scrollHeight: Int,
-      offsetHeight: Int
-    )
-  }
 
   implicit val jsonFormat: Format[JsonScroll] = (
     JsPath.format[JsonBase] and
@@ -83,5 +67,18 @@ final case class JsonSubScroll(
 )
 
 object JsonSubScroll {
-  implicit val jsonFormat: OFormat[JsonSubScroll] = Json.format[JsonSubScroll]
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonSubScroll] = (
+    (JsPath \ "myCharacter").read[JsonRoleCharacter] and
+      (JsPath \ "nodeId").read[String] and
+      (JsPath \ "scrollTop").read[Int] and
+      (JsPath \ "scrollHeight").read[Int] and
+      (JsPath \ "offsetHeight").read[Int]
+  )(JsonSubScroll.apply _)
+
+  implicit val jsonWrites: OWrites[JsonSubScroll] = Json.writes[JsonSubScroll]
 }

@@ -19,7 +19,7 @@ public abstract class BsonAbstractCharacter extends BsonElement {
     protected String $id;
 
     @Getter @Setter
-    protected long id;
+    protected int id;
 
     @Getter @Setter @Reference
     protected BsonName name;

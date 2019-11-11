@@ -1,6 +1,6 @@
 package licos.json.element.village.iri
 
-import licos.WerewolfWorld
+import licos.LiCOSOnline
 
 /**
   * <pre>
@@ -10,7 +10,7 @@ import licos.WerewolfWorld
   * @author K.Sakamoto
   */
 sealed abstract class Message(label: String) {
-  def iri(villageId: Long): String = WerewolfWorld.state(s"#$villageId/${label}Message")
+  def iri(villageId: Long): String = LiCOSOnline.state(s"#$villageId/${label}Message")
 }
 
 case object BoardMessage extends Message("board")

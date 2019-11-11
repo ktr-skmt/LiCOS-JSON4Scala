@@ -4,14 +4,16 @@ import licos.bson.element.village.{BsonBase, BsonChatFromClient, BsonChatText}
 import licos.bson.element.village.character.{BsonRoleCharacter, BsonSimpleCharacter}
 import licos.json.element.Element
 import licos.json.element.village.character.{JsonRoleCharacter, JsonSimpleCharacter}
+import licos.json.validation.village.ChatValidation
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
-import play.api.libs.json.{Format, JsPath, Json, OFormat}
+import play.api.libs.json.{Format, JsPath}
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonChatFromClient private (base: JsonBase, sub: JsonSubChatFromClient)
     extends JsonElement
     with Element {
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(
       base:                         JsonBase,
       myCharacter:                  JsonRoleCharacter,
@@ -57,27 +59,6 @@ final case class JsonChatFromClient private (base: JsonBase, sub: JsonSubChatFro
 
 object JsonChatFromClient {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
-  def apply(
-      base:                         JsonBase,
-      myCharacter:                  JsonRoleCharacter,
-      character:                    JsonSimpleCharacter,
-      isMine:                       Boolean,
-      text:                         JsonChatText,
-      maxLengthOfUnicodeCodePoints: Int,
-      isOver:                       Boolean
-  ): JsonChatFromClient = {
-    new JsonChatFromClient(
-      base:                         JsonBase,
-      myCharacter:                  JsonRoleCharacter,
-      character:                    JsonSimpleCharacter,
-      isMine:                       Boolean,
-      text:                         JsonChatText,
-      maxLengthOfUnicodeCodePoints: Int,
-      isOver:                       Boolean
-    )
-  }
-
   implicit val jsonFormat: Format[JsonChatFromClient] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubChatFromClient]
@@ -94,5 +75,19 @@ final case class JsonSubChatFromClient(
 )
 
 object JsonSubChatFromClient {
-  implicit val jsonFormat: OFormat[JsonSubChatFromClient] = Json.format[JsonSubChatFromClient]
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonSubChatFromClient] = (
+    (JsPath \ "myCharacter").read[JsonRoleCharacter] and
+      (JsPath \ "character").read[JsonSimpleCharacter] and
+      (JsPath \ "isMine").read[Boolean] and
+      (JsPath \ "text").read[JsonChatText] and
+      (JsPath \ "maxLengthOfUnicodeCodePoints").read[Int](ChatValidation.maxLengthOfUnicodeCodePoints) and
+      (JsPath \ "isOver").read[Boolean]
+  )(JsonSubChatFromClient.apply _)
+
+  implicit val jsonWrites: OWrites[JsonSubChatFromClient] = Json.writes[JsonSubChatFromClient]
 }

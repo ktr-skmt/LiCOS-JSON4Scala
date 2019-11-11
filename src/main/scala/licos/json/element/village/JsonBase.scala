@@ -5,8 +5,8 @@ import java.util.{List => JList}
 import licos.bson.element.village.character.BsonStatusCharacter
 import licos.bson.element.village.{BsonBase, BsonVillage, BsonVotingResultDetail, BsonVotingResultSummary}
 import licos.json.element.village.character.JsonStatusCharacter
+import licos.json.validation.village.{AvatarValidation, BaseValidation, TimeValidation}
 import org.bson.types.ObjectId
-import play.api.libs.json.{Json, OFormat}
 
 import scala.collection.JavaConverters._
 
@@ -28,6 +28,7 @@ final case class JsonBase(
     votingResultsDetails:       Option[Seq[JsonVotingResultDetail]]
 ) extends JsonElement {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(
       `@context`:                 JList[String],
       `@id`:                      String,
@@ -149,5 +150,28 @@ final case class JsonBase(
 }
 
 object JsonBase {
-  implicit val jsonFormat: OFormat[JsonBase] = Json.format[JsonBase]
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonBase] = (
+    (JsPath \ "@context").read[Seq[String]](Reads.seq[String](BaseValidation.`@context`.item)) and
+      (JsPath \ "@id").read[String](BaseValidation.`@id`) and
+      (JsPath \ "village").read[JsonVillage] and
+      (JsPath \ "token").read[String](AvatarValidation.token) and
+      (JsPath \ "phase").read[String](TimeValidation.phase) and
+      (JsPath \ "day").read[Int](TimeValidation.day) and
+      (JsPath \ "phaseTimeLimit").read[Int](BaseValidation.phaseTimeLimit) and
+      (JsPath \ "phaseStartTime").read[String](BaseValidation.phaseStartTime) and
+      (JsPath \ "serverTimestamp").read[String](BaseValidation.serverTimestamp) and
+      (JsPath \ "clientTimestamp").read[String](BaseValidation.clientTimestamp) and
+      (JsPath \ "directionality").read[String](BaseValidation.directionality) and
+      (JsPath \ "intensionalDisclosureRange").read[String](BaseValidation.intensionalDisclosureRange) and
+      (JsPath \ "extensionalDisclosureRange").read[Seq[JsonStatusCharacter]] and
+      (JsPath \ "votingResultsSummary").readNullable[Seq[JsonVotingResultSummary]] and
+      (JsPath \ "votingResultsDetails").readNullable[Seq[JsonVotingResultDetail]]
+  )(JsonBase.apply _)
+
+  implicit val jsonWrites: OWrites[JsonBase] = Json.writes[JsonBase]
 }

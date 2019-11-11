@@ -6,12 +6,13 @@ import licos.bson.element.village.{BsonBase, BsonChatFromServer, BsonFlavorText}
 import licos.json.element.Element
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
-import play.api.libs.json.{Format, JsPath, Json, OFormat}
+import play.api.libs.json.{Format, JsPath}
 
 import scala.collection.JavaConverters._
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonFlavorText private (base: JsonBase, sub: JsonSubFlavorText) extends JsonElement with Element {
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(base: JsonBase, flavorText: JList[JsonChatFromServer]) = {
     this(
       base: JsonBase,
@@ -36,8 +37,9 @@ object JsonFlavorText {
   )(JsonFlavorText.apply, unlift(JsonFlavorText.unapply))
 }
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonSubFlavorText(flavorText: Seq[JsonChatFromServer]) {
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(flavorText: JList[JsonChatFromServer]) = {
     this(
       flavorText.asScala: Seq[JsonChatFromServer]
@@ -46,5 +48,12 @@ final case class JsonSubFlavorText(flavorText: Seq[JsonChatFromServer]) {
 }
 
 object JsonSubFlavorText {
-  implicit val jsonFormat: OFormat[JsonSubFlavorText] = Json.format[JsonSubFlavorText]
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+
+  implicit val jsonReads: Reads[JsonSubFlavorText] =
+    (JsPath \ "flavorText").read[Seq[JsonChatFromServer]].map(JsonSubFlavorText.apply)
+
+  implicit val jsonWrites: OWrites[JsonSubFlavorText] = Json.writes[JsonSubFlavorText]
 }

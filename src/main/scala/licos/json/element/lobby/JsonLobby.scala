@@ -1,18 +1,31 @@
 package licos.json.element.lobby
 
-import play.api.libs.json.{Json, OFormat}
+import licos.json.element.village.JsonSubError
+import licos.json.validation.lobby.LobbyValidation
 
-final case class JsonLobby(`type`: String, lobby: String, villages: Seq[JsonVillage], error: Option[String])
+final case class JsonLobby(`type`: String, lobby: String, villages: Seq[JsonVillage], error: Option[JsonSubError])
     extends TypeSystem(`type`) {
   override protected def validType: String = JsonLobby.`type`
 }
 
 object JsonLobby {
-  implicit val jsonFormat: OFormat[JsonLobby] = Json.format[JsonLobby]
 
   val `type`: String = "lobby"
 
-  def generate(lobby: String, village: Seq[JsonVillage], error: Option[String]): JsonLobby = {
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonLobby] = (
+    (JsPath \ "type").read[String](pattern(`type`.r)) and
+      (JsPath \ "lobby").read[String](LobbyValidation.lobby) and
+      (JsPath \ "villages").read[Seq[JsonVillage]] and
+      (JsPath \ "error").readNullable[JsonSubError]
+  )(JsonLobby.apply _)
+
+  implicit val jsonWrites: OWrites[JsonLobby] = Json.writes[JsonLobby]
+
+  def generate(lobby: String, village: Seq[JsonVillage], error: Option[JsonSubError]): JsonLobby = {
     new JsonLobby(`type`, lobby, village, error)
   }
 }

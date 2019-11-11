@@ -4,12 +4,13 @@ import licos.bson.element.village.{BsonAvatar, BsonBase, BsonOnymousAudienceScro
 import licos.json.element.Element
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
-import play.api.libs.json.{Format, JsPath, Json, OFormat}
+import play.api.libs.json.{Format, JsPath}
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonOnymousAudienceScroll private (base: JsonBase, sub: JsonSubOnymousAudienceScroll)
     extends JsonElement
     with Element {
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(base: JsonBase, avatar: JsonAvatar, nodeId: String, scrollTop: Int, scrollHeight: Int, offsetHeight: Int) = {
     this(
       base: JsonBase,
@@ -43,23 +44,6 @@ final case class JsonOnymousAudienceScroll private (base: JsonBase, sub: JsonSub
 }
 
 object JsonOnymousAudienceScroll {
-  def apply(
-      base:         JsonBase,
-      avatar:       JsonAvatar,
-      nodeId:       String,
-      scrollTop:    Int,
-      scrollHeight: Int,
-      offsetHeight: Int
-  ): JsonOnymousAudienceScroll = {
-    new JsonOnymousAudienceScroll(
-      base:         JsonBase,
-      avatar:       JsonAvatar,
-      nodeId:       String,
-      scrollTop:    Int,
-      scrollHeight: Int,
-      offsetHeight: Int
-    )
-  }
 
   implicit val jsonFormat: Format[JsonOnymousAudienceScroll] = (
     JsPath.format[JsonBase] and
@@ -76,5 +60,18 @@ final case class JsonSubOnymousAudienceScroll(
 )
 
 object JsonSubOnymousAudienceScroll {
-  implicit val jsonFormat: OFormat[JsonSubOnymousAudienceScroll] = Json.format[JsonSubOnymousAudienceScroll]
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonSubOnymousAudienceScroll] = (
+    (JsPath \ "avatar").read[JsonAvatar] and
+      (JsPath \ "nodeId").read[String] and
+      (JsPath \ "scrollTop").read[Int] and
+      (JsPath \ "scrollHeight").read[Int] and
+      (JsPath \ "offsetHeight").read[Int]
+  )(JsonSubOnymousAudienceScroll.apply _)
+
+  implicit val jsonWrites: OWrites[JsonSubOnymousAudienceScroll] = Json.writes[JsonSubOnymousAudienceScroll]
 }

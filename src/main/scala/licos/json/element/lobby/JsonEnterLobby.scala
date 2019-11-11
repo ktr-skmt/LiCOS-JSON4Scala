@@ -1,6 +1,7 @@
 package licos.json.element.lobby
 
-import play.api.libs.json.{Json, OFormat}
+import licos.json.validation.lobby.LobbyValidation
+import licos.json.validation.village.AvatarValidation
 
 /**
   * <pre>
@@ -14,7 +15,20 @@ final case class JsonEnterLobby(`type`: String, token: String, lobby: String, pa
 }
 
 object JsonEnterLobby {
-  implicit val jsonFormat: OFormat[JsonEnterLobby] = Json.format[JsonEnterLobby]
 
   val `type`: String = "enterLobby"
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonEnterLobby] = (
+    (JsPath \ "type").read[String](pattern(`type`.r)) and
+      (JsPath \ "token").read[String](AvatarValidation.token) and
+      (JsPath \ "lobby").read[String](LobbyValidation.lobby) and
+      (JsPath \ "page").read[Int](LobbyValidation.page)
+  )(JsonEnterLobby.apply _)
+
+  implicit val jsonWrites: OWrites[JsonEnterLobby] = Json.writes[JsonEnterLobby]
+
 }

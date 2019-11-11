@@ -1,9 +1,9 @@
 package licos.json.element.village
 
-import licos.WerewolfWorld
+import licos.{LiCOSOnline, WerewolfWorld}
 import licos.bson.element.village.BsonChatSettings
+import licos.json.validation.village.{ChatSettingsValidation, ChatValidation}
 import org.bson.types.ObjectId
-import play.api.libs.json.{JsPath, Json, OWrites, Reads}
 
 final case class JsonChatSettings(
     `@context`:                   String,
@@ -11,12 +11,14 @@ final case class JsonChatSettings(
     maxNumberOfChatMessages:      Int,
     maxLengthOfUnicodeCodePoints: Int
 ) extends JsonElement {
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(villageId: Long, maxNumberOfChatMessages: Int, maxLengthOfUnicodeCodePoints: Int) = {
     this(
-      WerewolfWorld.context("chatSettings"):            String,
-      WerewolfWorld.state(s"#$villageId/chatSettings"): String,
-      maxNumberOfChatMessages:                          Int,
-      maxLengthOfUnicodeCodePoints:                     Int
+      WerewolfWorld.context("chatSettings"):          String,
+      LiCOSOnline.state(s"#$villageId/chatSettings"): String,
+      maxNumberOfChatMessages:                        Int,
+      maxLengthOfUnicodeCodePoints:                   Int
     )
   }
 
@@ -32,15 +34,16 @@ final case class JsonChatSettings(
 }
 
 object JsonChatSettings {
+
   import play.api.libs.json._
   import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonChatSettings] = (
-    (JsPath \ "@context").read[String](pattern("""https://werewolf.world/village/context/0.3/chatSettings.jsonld""".r)) and
-      (JsPath \ "@id").read[String](pattern("""https://licos.online/state/0.3/village#[0-9]+/chatSettings""".r)) and
-      (JsPath \ "maxNumberOfChatMessages").read[Int](min(1)) and
-      (JsPath \ "maxLengthOfUnicodeCodePoints").read[Int](min(1))
+    (JsPath \ "@context").read[String](ChatSettingsValidation.`@context`) and
+      (JsPath \ "@id").read[String](ChatSettingsValidation.`@id`) and
+      (JsPath \ "maxNumberOfChatMessages").read[Int](ChatValidation.maxNumberOfChatMessages) and
+      (JsPath \ "maxLengthOfUnicodeCodePoints").read[Int](ChatValidation.maxLengthOfUnicodeCodePoints)
   )(JsonChatSettings.apply _)
 
   implicit val jsonWrites: OWrites[JsonChatSettings] = Json.writes[JsonChatSettings]

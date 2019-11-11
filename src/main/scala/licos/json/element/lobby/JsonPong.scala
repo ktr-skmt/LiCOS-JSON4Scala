@@ -1,6 +1,6 @@
 package licos.json.element.lobby
 
-import play.api.libs.json.{Json, OFormat}
+import licos.json.validation.village.AvatarValidation
 
 /**
   * <pre>
@@ -14,7 +14,18 @@ final case class JsonPong(`type`: String, token: String, id: String) extends Typ
 }
 
 object JsonPong {
-  implicit val jsonFormat: OFormat[JsonPong] = Json.format[JsonPong]
 
   val `type`: String = "pong"
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonPong] = (
+    (JsPath \ "type").read[String](pattern(`type`.r)) and
+      (JsPath \ "token").read[String](AvatarValidation.token) and
+      (JsPath \ "id").read[String](AvatarValidation.token)
+  )(JsonPong.apply _)
+
+  implicit val jsonWrites: OWrites[JsonPong] = Json.writes[JsonPong]
 }

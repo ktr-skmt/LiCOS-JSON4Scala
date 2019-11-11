@@ -7,7 +7,7 @@ import licos.json.engine.analysis.village.server2client._
 
 /** A village processing engine factory.
   */
-@SuppressWarnings(Array[String]("org.wartremover.warts.Var"))
+@SuppressWarnings(Array[String]("org.wartremover.warts.Var", "org.wartremover.warts.Overloading"))
 class VillageProcessingEngineFactory extends ProcessingEngineFactory {
 
   private var readyEngine:                     Option[ReadyAnalysisEngine]                      = None

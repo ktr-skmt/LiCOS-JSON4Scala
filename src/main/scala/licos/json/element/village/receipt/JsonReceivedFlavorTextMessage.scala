@@ -2,7 +2,7 @@ package licos.json.element.village.receipt
 
 import licos.json.element.Element
 import licos.json.element.village.JsonFlavorText
-import play.api.libs.json.{Json, OFormat}
+import licos.json.validation.village.{AvatarValidation, TimeValidation, VillageValidation}
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonReceivedFlavorTextMessage(`type`: String, token: String, villageId: Long, phase: String, day: Int)
@@ -22,7 +22,20 @@ final case class JsonReceivedFlavorTextMessage(`type`: String, token: String, vi
 }
 
 object JsonReceivedFlavorTextMessage {
-  implicit val jsonFormat: OFormat[JsonReceivedFlavorTextMessage] = Json.format[JsonReceivedFlavorTextMessage]
-
   val `type`: String = "receivedFlavorTextMessage"
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonReceivedFlavorTextMessage] = (
+    (JsPath \ "type").read[String](pattern(`type`.r)) and
+      (JsPath \ "token").read[String](AvatarValidation.token) and
+      (JsPath \ "villageId").read[Long](VillageValidation.id) and
+      (JsPath \ "phase").read[String](TimeValidation.phase) and
+      (JsPath \ "day").read[Int](TimeValidation.day)
+  )(JsonReceivedFlavorTextMessage.apply _)
+
+  implicit val jsonWrites: OWrites[JsonReceivedFlavorTextMessage] = Json.writes[JsonReceivedFlavorTextMessage]
+
 }

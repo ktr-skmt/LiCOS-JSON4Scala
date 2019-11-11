@@ -2,14 +2,16 @@ package licos.json.element.village
 
 import licos.bson.element.village.{BsonAvatar, BsonBase, BsonChatText, BsonOnymousAudienceChat}
 import licos.json.element.Element
+import licos.json.validation.village.ChatValidation
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
-import play.api.libs.json.{Format, JsPath, Json, OFormat}
+import play.api.libs.json.{Format, JsPath}
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonOnymousAudienceChat(base: JsonBase, sub: JsonSubOnymousAudienceChat)
     extends JsonElement
     with Element {
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(
       base:                         JsonBase,
       avatar:                       JsonAvatar,
@@ -51,24 +53,6 @@ final case class JsonOnymousAudienceChat(base: JsonBase, sub: JsonSubOnymousAudi
 
 object JsonOnymousAudienceChat {
 
-  def apply(
-      base:                         JsonBase,
-      avatar:                       JsonAvatar,
-      isMine:                       Boolean,
-      text:                         JsonChatText,
-      maxLengthOfUnicodeCodePoints: Int,
-      isFromServer:                 Boolean
-  ): JsonOnymousAudienceChat = {
-    new JsonOnymousAudienceChat(
-      base:                         JsonBase,
-      avatar:                       JsonAvatar,
-      isMine:                       Boolean,
-      text:                         JsonChatText,
-      maxLengthOfUnicodeCodePoints: Int,
-      isFromServer:                 Boolean
-    )
-  }
-
   implicit val jsonFormat: Format[JsonOnymousAudienceChat] = (
     JsPath.format[JsonBase] and JsPath.format[JsonSubOnymousAudienceChat]
   )(JsonOnymousAudienceChat.apply, unlift(JsonOnymousAudienceChat.unapply))
@@ -83,5 +67,18 @@ final case class JsonSubOnymousAudienceChat(
 )
 
 object JsonSubOnymousAudienceChat {
-  implicit val jsonFormat: OFormat[JsonSubOnymousAudienceChat] = Json.format[JsonSubOnymousAudienceChat]
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonSubOnymousAudienceChat] = (
+    (JsPath \ "avatar").read[JsonAvatar] and
+      (JsPath \ "isMine").read[Boolean] and
+      (JsPath \ "text").read[JsonChatText] and
+      (JsPath \ "maxLengthOfUnicodeCodePoints").read[Int](ChatValidation.maxLengthOfUnicodeCodePoints) and
+      (JsPath \ "isFromServer").read[Boolean]
+  )(JsonSubOnymousAudienceChat.apply _)
+
+  implicit val jsonWrites: OWrites[JsonSubOnymousAudienceChat] = Json.writes[JsonSubOnymousAudienceChat]
 }

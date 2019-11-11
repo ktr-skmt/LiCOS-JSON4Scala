@@ -17,8 +17,9 @@ package object utils {
     /** Runs scala.Option.getOrElse after checking a type correctness of A.
       *
       * @param default the default expression.
-      * @return Returns the option's value if the option is nonempty and the value's type is correct, otherwise return the result of evaluating default.
+      * @return Returns the option's value if the option is non-empty and the value's type is correct, otherwise return the result of evaluating default.
       */
+    @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
     def >>>[B <: Either[JsValue, Element]](default: B): Either[JsValue, Element] = op match {
       case Right(a) if implicitly[ClassTag[A]].runtimeClass.isInstance(a) && a.isValid => Right(a)
       case _                                                                           => default
@@ -30,8 +31,9 @@ package object utils {
     /** Runs scala.Option.getOrElse.
       *
       * @param default the default expression.
-      * @return Returns the option's value if the option is nonempty, otherwise return the result of evaluating default.
+      * @return Returns the option's value if the option is non-empty, otherwise return the result of evaluating default.
       */
+    @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
     def >->[B <: Either[JsValue, Element]](default: B): Either[JsValue, Element] =
       op match {
         case Right(a) => Right(a)

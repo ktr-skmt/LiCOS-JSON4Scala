@@ -2,7 +2,6 @@ package licos.json.element.village
 
 import licos.bson.element.village.BsonName
 import org.bson.types.ObjectId
-import play.api.libs.json.{Json, OFormat}
 
 final case class JsonName(
     en:   String,
@@ -19,6 +18,8 @@ final case class JsonName(
     zhCN: Option[String],
     zhTW: Option[String]
 ) extends JsonElement {
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(
       en:   String,
       ar:   String,
@@ -72,5 +73,26 @@ final case class JsonName(
 }
 
 object JsonName {
-  implicit val jsonFormat: OFormat[JsonName] = Json.format[JsonName]
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonName] = (
+    (JsPath \ "en").read[String] and
+      (JsPath \ "ar").readNullable[String] and
+      (JsPath \ "de").readNullable[String] and
+      (JsPath \ "es").readNullable[String] and
+      (JsPath \ "it").readNullable[String] and
+      (JsPath \ "fr").readNullable[String] and
+      (JsPath \ "ja").readNullable[String] and
+      (JsPath \ "pt").readNullable[String] and
+      (JsPath \ "ru").readNullable[String] and
+      (JsPath \ "uk").readNullable[String] and
+      (JsPath \ "vi").readNullable[String] and
+      (JsPath \ "zhCN").readNullable[String] and
+      (JsPath \ "zhTW").readNullable[String]
+  )(JsonName.apply _)
+
+  implicit val jsonWrites: OWrites[JsonName] = Json.writes[JsonName]
 }

@@ -2,6 +2,7 @@ package licos.json.element.village.receipt
 
 import licos.json.element.Element
 import licos.json.element.village.JsonChatFromServer
+import licos.json.validation.village.{AvatarValidation, BaseValidation, VillageValidation}
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonReceivedChatMessage(
@@ -26,19 +27,19 @@ final case class JsonReceivedChatMessage(
 }
 
 object JsonReceivedChatMessage {
+  val `type`: String = "receivedChatMessage"
+
   import play.api.libs.json._
   import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonReceivedChatMessage] = (
-    (JsPath \ "type").read[String](pattern("""receivedChatMessage""".r)) and
-      (JsPath \ "token").read[String](pattern("""[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}""".r)) and
-      (JsPath \ "villageId").read[Long](min(0L)) and
-      (JsPath \ "serverTimestamp").read[String](pattern("""[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}(\\+[0-9]{2}:[0-9]{2}|Z)""".r)) and
-      (JsPath \ "clientTimestamp").read[String](pattern("""[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}(\\+[0-9]{2}:[0-9]{2}|Z)""".r))
-    )(JsonReceivedChatMessage.apply _)
+    (JsPath \ "type").read[String](pattern(`type`.r)) and
+      (JsPath \ "token").read[String](AvatarValidation.token) and
+      (JsPath \ "villageId").read[Long](VillageValidation.id) and
+      (JsPath \ "serverTimestamp").read[String](BaseValidation.serverTimestamp) and
+      (JsPath \ "clientTimestamp").read[String](BaseValidation.clientTimestamp)
+  )(JsonReceivedChatMessage.apply _)
 
   implicit val jsonWrites: OWrites[JsonReceivedChatMessage] = Json.writes[JsonReceivedChatMessage]
-
-  val `type`: String = "receivedChatMessage"
 }

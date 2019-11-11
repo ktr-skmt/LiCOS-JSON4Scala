@@ -2,7 +2,7 @@ package licos.json.element.village.invite
 
 import licos.json.element.Element
 import licos.json.element.lobby.TypeSystem
-import play.api.libs.json.{Json, OFormat}
+import licos.json.validation.village.VillageValidation
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonNextGameInvitation(`type`: String, villageId: Long) extends TypeSystem(`type`) with Element {
@@ -15,10 +15,17 @@ final case class JsonNextGameInvitation(`type`: String, villageId: Long) extends
 }
 
 object JsonNextGameInvitation {
-
-  implicit val jsonFormat: OFormat[JsonNextGameInvitation] = Json.format[JsonNextGameInvitation]
-
   val `type`: String = "nextGameInvitation"
 
-  def apply(villageId: Long): JsonNextGameInvitation = new JsonNextGameInvitation(villageId: Long)
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonNextGameInvitation] = (
+    (JsPath \ "type").read[String](pattern(`type`.r)) and
+      (JsPath \ "villageId").read[Long](VillageValidation.id)
+  )(JsonNextGameInvitation.apply _)
+
+  implicit val jsonWrites: OWrites[JsonNextGameInvitation] = Json.writes[JsonNextGameInvitation]
+
 }

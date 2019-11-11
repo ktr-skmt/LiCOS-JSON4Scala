@@ -29,7 +29,7 @@ public class BsonStatusCharacter extends BsonAbstractCharacter {
     public BsonStatusCharacter(ObjectId _id,
                                String $context,
                                String $id,
-                               long id,
+                               int id,
                                BsonName name,
                                String image,
                                BsonSimpleRole role,

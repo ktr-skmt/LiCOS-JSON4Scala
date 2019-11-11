@@ -7,7 +7,7 @@ import engine.VillageUnitTestExample
 import engine.village.unitTestExample.{
   Avatar,
   Base,
-  BoardPolarity,
+  BoardResult,
   ChatSettings,
   ChatText,
   Name,
@@ -61,7 +61,7 @@ object VillageUnitTestSpec {
     Role("role/role.json"),
     SimpleRole("role/simpleRole.json"),
     Avatar("avatar.json"),
-    BoardPolarity("boardPolarity.json"),
+    BoardResult("boardResult.json"),
     ChatSettings("chatSettings.json"),
     ChatText("chatText.json"),
     Name("name.json"),
@@ -127,8 +127,8 @@ class VillageUnitTestSpec extends AssertionsForJUnit with VillageUnitTestParser 
         assert(parseAvatar(json).nonEmpty)
       case "unitTest/Base" =>
         assert(parseBase(json).nonEmpty)
-      case "unitTest/BoardPolarity" =>
-        assert(parseBoardPolarity(json).nonEmpty)
+      case "unitTest/BoardResult" =>
+        assert(parseBoardResult(json).nonEmpty)
       case "unitTest/ChatSettings" =>
         assert(parseChatSettings(json).nonEmpty)
       case "unitTest/ChatText" =>

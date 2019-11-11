@@ -38,7 +38,7 @@ public class BsonCharacter extends BsonAbstractCharacter {
     public BsonCharacter(ObjectId _id,
                          String $context,
                          String $id,
-                         long id,
+                         int id,
                          BsonName name,
                          String image,
                          boolean isMine,

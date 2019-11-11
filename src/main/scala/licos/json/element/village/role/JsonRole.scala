@@ -2,12 +2,12 @@ package licos.json.element.village.role
 
 import java.util.{List => JList}
 
-import licos.bson.element.village.{BsonBoardPolarity, BsonName}
+import licos.bson.element.village.{BsonBoardResult, BsonName}
 import licos.bson.element.village.role.BsonRole
 import licos.json.element.village.iri.RoleContext
-import licos.json.element.village.{JsonBoardPolarity, JsonName}
+import licos.json.element.village.{JsonBoardResult, JsonName}
+import licos.json.validation.village.RoleValidation
 import org.bson.types.ObjectId
-import play.api.libs.json.{Json, OFormat}
 
 import scala.collection.JavaConverters._
 
@@ -25,7 +25,7 @@ final case class JsonRole(
     image:              String,
     isMine:             Boolean,
     numberOfCharacters: Int,
-    board:              Seq[JsonBoardPolarity]
+    board:              Seq[JsonBoardResult]
 ) extends JsonAbstractRole(
       `@context`: String,
       `@id`:      String,
@@ -33,6 +33,7 @@ final case class JsonRole(
       image:      String
     ) {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(
       `@context`:         String,
       `@id`:              String,
@@ -40,7 +41,7 @@ final case class JsonRole(
       image:              String,
       isMine:             Boolean,
       numberOfCharacters: Int,
-      board:              JList[JsonBoardPolarity]
+      board:              JList[JsonBoardResult]
   ) = {
     this(
       `@context`:         String,
@@ -49,17 +50,18 @@ final case class JsonRole(
       image:              String,
       isMine:             Boolean,
       numberOfCharacters: Int,
-      board.asScala:      Seq[JsonBoardPolarity]
+      board.asScala:      Seq[JsonBoardResult]
     )
   }
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(
       `@id`:              String,
       name:               JsonName,
       image:              String,
       isMine:             Boolean,
       numberOfCharacters: Int,
-      board:              Seq[JsonBoardPolarity]
+      board:              Seq[JsonBoardResult]
   ) = {
     this(
       RoleContext.iri:    String,
@@ -68,7 +70,7 @@ final case class JsonRole(
       image:              String,
       isMine:             Boolean,
       numberOfCharacters: Int,
-      board:              Seq[JsonBoardPolarity]
+      board:              Seq[JsonBoardResult]
     )
   }
 
@@ -81,29 +83,26 @@ final case class JsonRole(
       image:                      String,
       isMine:                     Boolean,
       numberOfCharacters:         Int,
-      board.map(_.toBson).asJava: JList[BsonBoardPolarity]
+      board.map(_.toBson).asJava: JList[BsonBoardResult]
     )
   }
 }
 
 object JsonRole {
-  implicit val jsonFormat: OFormat[JsonRole] = Json.format[JsonRole]
 
-  def apply(
-      `@id`:              String,
-      name:               JsonName,
-      image:              String,
-      isMine:             Boolean,
-      numberOfCharacters: Int,
-      board:              Seq[JsonBoardPolarity]
-  ): JsonRole = {
-    new JsonRole(
-      `@id`:              String,
-      name:               JsonName,
-      image:              String,
-      isMine:             Boolean,
-      numberOfCharacters: Int,
-      board:              Seq[JsonBoardPolarity]
-    )
-  }
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonRole] = (
+    (JsPath \ "@context").read[String](RoleValidation.`@context`) and
+      (JsPath \ "@id").read[String](RoleValidation.`@id`) and
+      (JsPath \ "name").read[JsonName] and
+      (JsPath \ "image").read[String](RoleValidation.image) and
+      (JsPath \ "isMine").read[Boolean] and
+      (JsPath \ "numberOfCharacters").read[Int](RoleValidation.numberOfCharacters) and
+      (JsPath \ "board").read[Seq[JsonBoardResult]]
+  )(JsonRole.apply _)
+
+  implicit val jsonWrites: OWrites[JsonRole] = Json.writes[JsonRole]
 }

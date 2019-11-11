@@ -3,7 +3,7 @@ package parser
 import licos.json.element.village.{
   JsonAvatar,
   JsonBase,
-  JsonBoardPolarity,
+  JsonBoardResult,
   JsonChatSettings,
   JsonChatText,
   JsonName,
@@ -194,9 +194,9 @@ trait VillageUnitTestParser {
     }
   }
 
-  def parseBoardPolarity(jsValue: JsValue): Option[JsonBoardPolarity] = {
-    Try(jsValue.validate[JsonBoardPolarity]) match {
-      case Success(json: JsResult[JsonBoardPolarity]) =>
+  def parseBoardResult(jsValue: JsValue): Option[JsonBoardResult] = {
+    Try(jsValue.validate[JsonBoardResult]) match {
+      case Success(json: JsResult[JsonBoardResult]) =>
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>

@@ -14,8 +14,9 @@ import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
 import scala.collection.JavaConverters._
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonPhase private (base: JsonBase, sub: JsonSubPhase) extends JsonElement with Element {
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(base: JsonBase, character: Seq[JsonCharacter], role: Seq[JsonRole]) = {
     this(
       base: JsonBase,
@@ -30,6 +31,7 @@ final case class JsonPhase private (base: JsonBase, sub: JsonSubPhase) extends J
     )
   }
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(base: JsonBase, character: JList[JsonCharacter], role: JList[JsonRole]) = {
     this(
       base: JsonBase,
@@ -68,17 +70,6 @@ final case class JsonPhase private (base: JsonBase, sub: JsonSubPhase) extends J
 }
 
 object JsonPhase {
-  def apply(base: JsonBase, character: Seq[JsonCharacter], role: Seq[JsonRole]): JsonPhase = {
-    new JsonPhase(
-      base: JsonBase,
-      character.sortWith { (a1: JsonCharacter, a2: JsonCharacter) =>
-        a1.name.en < a2.name.en
-      }.sortBy(!_.isMine): Seq[JsonCharacter],
-      role.sortWith { (r1: JsonRole, r2: JsonRole) =>
-        r1.name.en < r2.name.en
-      }: Seq[JsonRole]
-    )
-  }
 
   implicit val jsonFormat: Format[JsonPhase] = (
     JsPath.format[JsonBase] and

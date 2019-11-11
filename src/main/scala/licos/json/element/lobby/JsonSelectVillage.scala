@@ -1,6 +1,6 @@
 package licos.json.element.lobby
 
-import play.api.libs.json.{Json, OFormat};
+import licos.json.validation.village.{AvatarValidation, VillageValidation}
 
 /**
   * <pre>
@@ -14,7 +14,19 @@ final case class JsonSelectVillage(`type`: String, token: String, villageId: Lon
 }
 
 object JsonSelectVillage {
-  implicit val jsonFormat: OFormat[JsonSelectVillage] = Json.format[JsonSelectVillage]
 
   val `type`: String = "selectVillage"
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonSelectVillage] = (
+    (JsPath \ "type").read[String](pattern(`type`.r)) and
+      (JsPath \ "token").read[String](AvatarValidation.token) and
+      (JsPath \ "villageId").read[Long](VillageValidation.id)
+  )(JsonSelectVillage.apply _)
+
+  implicit val jsonWrites: OWrites[JsonSelectVillage] = Json.writes[JsonSelectVillage]
+
 }
