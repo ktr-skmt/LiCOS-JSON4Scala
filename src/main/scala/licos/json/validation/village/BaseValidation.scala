@@ -4,6 +4,8 @@ import licos.{LiCOSOnline, WerewolfWorld}
 import play.api.libs.json.Reads
 import play.api.libs.json.Reads.{min, pattern}
 
+import scala.util.matching.Regex
+
 object BaseValidation {
   object `@context` {
     val item: Reads[String] = pattern(
@@ -16,13 +18,13 @@ object BaseValidation {
       .r
   )
   val phaseTimeLimit: Reads[Int] = min(-1)
-  private val timestamp: Reads[String] = pattern(
-    """[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}(\\+[0-9]{2}:[0-9]{2}|Z)""".r
-  )
-  val phaseStartTime:  Reads[String] = timestamp
-  val serverTimestamp: Reads[String] = timestamp
-  val clientTimestamp: Reads[String] = timestamp
-  val directionality:  Reads[String] = pattern("""(?:client to server|server to client)""".r)
+  val timestampRegex: Regex =
+    """2[0-9]{3}-(?:0[0-9]|1[0-2])-(?:[0-2][0-9]|3[0-1])T(?:[0-1][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9]{3}(?:[+\-](?:0[0-9]|1[0-3]):[0-5][0-9]|Z)""".r
+  private val timestamp: Reads[String] = pattern(timestampRegex)
+  val phaseStartTime:    Reads[String] = timestamp
+  val serverTimestamp:   Reads[String] = timestamp
+  val clientTimestamp:   Reads[String] = timestamp
+  val directionality:    Reads[String] = pattern("""(?:client to server|server to client)""".r)
   val intensionalDisclosureRange: Reads[String] = pattern(
     """(?:public|private|werewolf|seer|hunter|master|grave|onymousAudience|anonymousAudience)""".r
   )

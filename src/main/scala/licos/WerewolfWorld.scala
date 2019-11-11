@@ -14,7 +14,7 @@ object WerewolfWorld {
     * @return a URI of a JSON-LD context.
     */
   def context(jsonldFileName: String): String = {
-    s"$baseUrl/context/$version/$jsonldFileName.jsonld"
+    s"$baseUrl/village/context/$version/$jsonldFileName.jsonld"
   }
 
   def characterImage(character: String): String = {
