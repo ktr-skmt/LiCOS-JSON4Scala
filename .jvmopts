@@ -2,3 +2,4 @@
 -Xmx2G
 -Xss2M
 -XX:ReservedCodeCacheSize=256m
+-Dlog4j.configurationFile=src/main/resources/log4j2.xml
