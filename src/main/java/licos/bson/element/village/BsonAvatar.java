@@ -1,15 +1,17 @@
 package licos.bson.element.village;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
 import licos.json.element.village.JsonAvatar;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
 
 @Entity("avatars")
 public class BsonAvatar extends BsonElement {
-    @Id @SuppressWarnings("unused")
+
+    @Id
+    @SuppressWarnings("unused")
     private ObjectId _id;
 
     @Getter @Setter

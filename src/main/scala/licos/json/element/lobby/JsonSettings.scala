@@ -3,9 +3,15 @@ package licos.json.element.lobby
 import licos.json.validation.lobby.UserValidation
 import licos.json.validation.village.VillageValidation
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonSettings(`type`: String, userName: String, userEmail: String, lang: String)
     extends TypeSystem(`type`) {
   override protected def validType: String = JsonSettings.`type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(userName: String, userEmail: String, lang: String) = {
+    this(JsonSettings.`type`, userName, userEmail, lang)
+  }
 }
 
 object JsonSettings {
@@ -13,7 +19,7 @@ object JsonSettings {
   val `type`: String = "settings"
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
+  import play.api.libs.json.Reads.{email, pattern}
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonSettings] = (
@@ -25,7 +31,4 @@ object JsonSettings {
 
   implicit val jsonWrites: OWrites[JsonSettings] = Json.writes[JsonSettings]
 
-  def generate(userName: String, userEmail: String, lang: String): JsonSettings = {
-    JsonSettings(`type`, userName, userEmail, lang)
-  }
 }

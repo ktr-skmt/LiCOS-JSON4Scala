@@ -1,5 +1,7 @@
 package licos.bson.element.village.role;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Reference;
 import licos.bson.element.village.BsonBoardResult;
 import licos.bson.element.village.BsonName;
 import licos.json.element.village.JsonBoardResult;
@@ -7,8 +9,6 @@ import licos.json.element.village.role.JsonRole;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Reference;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -23,6 +23,7 @@ import java.util.List;
  */
 @Entity("roles")
 public class BsonRole extends BsonAbstractRole {
+
     @Getter @Setter
     private boolean isMine;
 

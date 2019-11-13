@@ -13,7 +13,7 @@ object JsonIdSearch {
   val `type`: String = "idSearch"
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
+  import play.api.libs.json.Reads.pattern
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonIdSearch] = (

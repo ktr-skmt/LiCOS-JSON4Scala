@@ -22,7 +22,6 @@ final case class JsonVillage(
 object JsonVillage {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonVillage] = (
@@ -31,7 +30,7 @@ object JsonVillage {
       (JsPath \ "idForSearching").read[Int](IdSearchValidation.idForSearching) and
       (JsPath \ "hostPlayer").read[JsonHostPlayer] and
       (JsPath \ "playerSetting").read[JsonPlayerSetting] and
-      (JsPath \ "roleSettings").read[JsonRoleSetting] and
+      (JsPath \ "roleSetting").read[JsonRoleSetting] and
       (JsPath \ "avatar").read[String](BuildVillageValidation.avatar) and
       (JsPath \ "comment").readNullable[String](BuildVillageValidation.comment)
   )(JsonVillage.apply _)
@@ -44,7 +43,6 @@ final case class JsonHostPlayer(name: String, isAnonymous: Boolean, isHuman: Boo
 object JsonHostPlayer {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonHostPlayer] = (
@@ -61,7 +59,6 @@ final case class JsonPlayerSetting(number: Int, current: Int, robot: JsonRobot, 
 object JsonPlayerSetting {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonPlayerSetting] = (
@@ -79,7 +76,6 @@ final case class JsonRobot(min: Int, current: Int)
 object JsonRobot {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonRobot] = (
@@ -95,7 +91,6 @@ final case class JsonHuman(max: Int, current: Int)
 object JsonHuman {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonHuman] = (
@@ -120,7 +115,6 @@ final case class JsonRoleSetting(
 object JsonRoleSetting {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonRoleSetting: Reads[JsonRoleSetting] = (

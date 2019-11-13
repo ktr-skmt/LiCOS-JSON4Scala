@@ -17,7 +17,6 @@ final case class JsonChatText(`@value`: String, `@language`: String) extends Jso
 object JsonChatText {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonChatText] = (

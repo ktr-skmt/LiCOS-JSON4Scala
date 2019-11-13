@@ -52,13 +52,12 @@ final case class JsonSubError(content: JsonName, severity: String, source: Strin
 object JsonSubError {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonSubError] = (
     (JsPath \ "content").read[JsonName] and
       (JsPath \ "severity").read[String](ErrorValidation.severity) and
-      (JsPath \ "source").read[String] and
+      (JsPath \ "source").read[String](ErrorValidation.source) and
       (JsPath \ "isFromServer").read[Boolean]
   )(JsonSubError.apply _)
 

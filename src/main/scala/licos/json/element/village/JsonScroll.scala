@@ -4,6 +4,7 @@ import licos.bson.element.village.character.BsonRoleCharacter
 import licos.bson.element.village.{BsonBase, BsonScroll}
 import licos.json.element.Element
 import licos.json.element.village.character.JsonRoleCharacter
+import licos.json.validation.village.ScrollValidation
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath}
@@ -69,15 +70,14 @@ final case class JsonSubScroll(
 object JsonSubScroll {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonSubScroll] = (
     (JsPath \ "myCharacter").read[JsonRoleCharacter] and
-      (JsPath \ "nodeId").read[String] and
-      (JsPath \ "scrollTop").read[Int] and
-      (JsPath \ "scrollHeight").read[Int] and
-      (JsPath \ "offsetHeight").read[Int]
+      (JsPath \ "nodeId").read[String](ScrollValidation.nodeId) and
+      (JsPath \ "scrollTop").read[Int](ScrollValidation.scrollTop) and
+      (JsPath \ "scrollHeight").read[Int](ScrollValidation.scrollHeight) and
+      (JsPath \ "offsetHeight").read[Int](ScrollValidation.offsetHeight)
   )(JsonSubScroll.apply _)
 
   implicit val jsonWrites: OWrites[JsonSubScroll] = Json.writes[JsonSubScroll]

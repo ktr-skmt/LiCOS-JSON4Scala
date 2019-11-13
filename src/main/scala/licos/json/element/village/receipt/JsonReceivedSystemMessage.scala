@@ -10,6 +10,7 @@ final case class JsonReceivedSystemMessage(`type`: String, token: String, villag
     with Element {
   override protected def validType: String = JsonReceivedSystemMessage.`type`
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(phase: JsonPhase) = {
     this(
       JsonReceivedSystemMessage.`type`,
@@ -27,7 +28,7 @@ object JsonReceivedSystemMessage {
   val `type`: String = "receivedSystemMessage"
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
+  import play.api.libs.json.Reads.pattern
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonReceivedSystemMessage] = (

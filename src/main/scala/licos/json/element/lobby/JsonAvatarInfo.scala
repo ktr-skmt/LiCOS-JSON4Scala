@@ -2,16 +2,22 @@ package licos.json.element.lobby
 
 import licos.json.validation.village.{AvatarValidation, VillageValidation}
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonAvatarInfo(`type`: String, token: String, name: String, image: String, lang: String)
     extends TypeSystem(`type`) {
   override protected def validType: String = JsonAvatarInfo.`type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(token: String, name: String, image: String, lang: String) = {
+    this(JsonAvatarInfo.`type`, token, name, image, lang)
+  }
 }
 
 object JsonAvatarInfo {
   val `type`: String = "avatar"
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
+  import play.api.libs.json.Reads.pattern
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonAvatarInfo] = (
@@ -24,9 +30,6 @@ object JsonAvatarInfo {
 
   implicit val jsonWrites: OWrites[JsonAvatarInfo] = Json.writes[JsonAvatarInfo]
 
-  def generate(token: String, name: String, image: String, lang: String): JsonAvatarInfo = {
-    JsonAvatarInfo(`type`, token, name, image, lang)
-  }
 }
 
 final case class JsonGetAvatarInfo(`type`: String, token: String) extends TypeSystem(`type`) {
@@ -37,7 +40,7 @@ object JsonGetAvatarInfo {
   val `type`: String = "getAvatar"
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
+  import play.api.libs.json.Reads.pattern
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonGetAvatarInfo] = (

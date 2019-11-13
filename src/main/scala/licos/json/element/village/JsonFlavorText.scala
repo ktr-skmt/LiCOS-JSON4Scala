@@ -50,7 +50,6 @@ final case class JsonSubFlavorText(flavorText: Seq[JsonChatFromServer]) {
 object JsonSubFlavorText {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
 
   implicit val jsonReads: Reads[JsonSubFlavorText] =
     (JsPath \ "flavorText").read[Seq[JsonChatFromServer]].map(JsonSubFlavorText.apply)

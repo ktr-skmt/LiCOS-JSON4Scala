@@ -66,7 +66,6 @@ final case class JsonSimpleCharacter(`@context`: String, `@id`: String, id: Int,
 object JsonSimpleCharacter {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonSimpleCharacter] = (
@@ -78,4 +77,5 @@ object JsonSimpleCharacter {
   )(JsonSimpleCharacter.apply _)
 
   implicit val jsonWrites: OWrites[JsonSimpleCharacter] = Json.writes[JsonSimpleCharacter]
+
 }

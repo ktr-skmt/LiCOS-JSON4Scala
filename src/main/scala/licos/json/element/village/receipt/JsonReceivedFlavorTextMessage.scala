@@ -10,6 +10,7 @@ final case class JsonReceivedFlavorTextMessage(`type`: String, token: String, vi
     with Element {
   override protected def validType: String = JsonReceivedFlavorTextMessage.`type`
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(flavorText: JsonFlavorText) = {
     this(
       JsonReceivedFlavorTextMessage.`type`,
@@ -25,7 +26,7 @@ object JsonReceivedFlavorTextMessage {
   val `type`: String = "receivedFlavorTextMessage"
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
+  import play.api.libs.json.Reads.pattern
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonReceivedFlavorTextMessage] = (

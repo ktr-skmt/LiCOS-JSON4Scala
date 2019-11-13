@@ -9,7 +9,7 @@ object JsonChangeUserEmail {
   val `type`: String = "changeUserEmail"
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
+  import play.api.libs.json.Reads.{email, pattern}
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonChangeUserEmail] = (

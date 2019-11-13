@@ -152,7 +152,6 @@ final case class JsonBase(
 object JsonBase {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonBase] = (

@@ -19,7 +19,7 @@ object JsonPing {
   val `type`: String = "ping"
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
+  import play.api.libs.json.Reads.pattern
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonPing] = (
@@ -36,7 +36,6 @@ final case class JsonPingResult(token: String, ping: String, status: String)
 object JsonPingResult {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonPingResult] = (

@@ -34,7 +34,6 @@ final case class JsonAvatar(`@context`: String, `@id`: String, token: String, na
 object JsonAvatar {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonAvatar] = (

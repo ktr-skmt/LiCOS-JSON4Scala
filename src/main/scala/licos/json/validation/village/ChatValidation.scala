@@ -5,9 +5,9 @@ import play.api.libs.json.Reads.{max, maxLength, min, minLength, pattern}
 import play.api.libs.functional.syntax._
 
 object ChatValidation {
-  val id:                      Reads[Int]    = min(1)
-  val counter:                 Reads[Int]    = min(0)
-  val maxNumberOfChatMessages: Reads[Int]    = min(1)
+  val id:                      Reads[Int]    = min(1) keepAnd max(Int.MaxValue)
+  val counter:                 Reads[Int]    = min(0) keepAnd max(Int.MaxValue)
+  val maxNumberOfChatMessages: Reads[Int]    = min(1) keepAnd max(Int.MaxValue)
   val interval:                Reads[String] = pattern("""[0-9]+s""".r)
   object text {
     val `@value`:    Reads[String] = minLength[String](1) keepAnd maxLength[String](140)

@@ -15,6 +15,7 @@ final case class JsonReceivedChatMessage(
     with Element {
   override protected def validType: String = JsonReceivedChatMessage.`type`
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(chat: JsonChatFromServer) = {
     this(
       JsonReceivedChatMessage.`type`,
@@ -30,7 +31,7 @@ object JsonReceivedChatMessage {
   val `type`: String = "receivedChatMessage"
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
+  import play.api.libs.json.Reads.pattern
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonReceivedChatMessage] = (
@@ -42,4 +43,5 @@ object JsonReceivedChatMessage {
   )(JsonReceivedChatMessage.apply _)
 
   implicit val jsonWrites: OWrites[JsonReceivedChatMessage] = Json.writes[JsonReceivedChatMessage]
+
 }

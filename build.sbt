@@ -84,8 +84,6 @@ val pomExtraTemplate = {
 }
 
 lazy val json = (project in file(".")).
-  //enablePlugins(GhpagesPlugin).
-  //enablePlugins(SiteScaladocPlugin).
   settings(commonSettings: _*).
   settings(wartremoverSettings: _*).
   settings(scalafmtSettings: _*).
@@ -98,7 +96,7 @@ lazy val json = (project in file(".")).
     autoAPIMappings := true
   ).settings(
     isSnapshot := true,
-    version := "0.0.2",
+    version := "0.0.3",
     name := jsonLibraryName,
     publishMavenStyle := true,
     publishArtifact in Test := false,
@@ -111,7 +109,7 @@ lazy val json = (project in file(".")).
     libraryDependencies ++= {
       Seq(
         "com.typesafe.play" %% "play-json" % "2.7.4",
-        "org.mongodb.morphia" % "morphia" % "1.3.2",
+        "dev.morphia.morphia" % "core" % "1.5.8-SNAPSHOT",
         "org.projectlombok" % "lombok" % "1.18.10",
         "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
         "org.slf4j" % "slf4j-api" % "1.7.28" % "compile",// withSources() withJavadoc()
@@ -120,7 +118,11 @@ lazy val json = (project in file(".")).
         "org.typelevel" %% "cats-core" % "2.0.0"
       )
     }
+  ).settings(
+    dependencyOverrides ++= {
+      Seq(
+        "com.fasterxml.jackson.core" % "jackson-annotations" % "2.9.8",
+        "org.slf4j" % "slf4j-api" % "1.7.28"
+      )
+    }
   )
-//.settings(
-    //git.remoteRepo := "git@github.com:ktr-skmt/LiCOS-JSON4Scala.git"
-  //)

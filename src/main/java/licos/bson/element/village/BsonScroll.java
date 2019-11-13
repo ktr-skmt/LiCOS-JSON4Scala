@@ -1,13 +1,13 @@
 package licos.bson.element.village;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
+import dev.morphia.annotations.Reference;
 import licos.bson.element.village.character.BsonRoleCharacter;
 import licos.json.element.village.JsonScroll;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Reference;
 
 /**
  * <pre>
@@ -18,7 +18,9 @@ import org.mongodb.morphia.annotations.Reference;
  */
 @Entity("scrolls")
 public class BsonScroll extends BsonElement {
-    @Id @SuppressWarnings("unused")
+
+    @Id
+    @SuppressWarnings("unused")
     private ObjectId _id;
 
     @Getter @Setter @Reference

@@ -36,7 +36,6 @@ final case class JsonSimpleRole(`@context`: String, `@id`: String, name: JsonNam
 object JsonSimpleRole {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonSimpleRole] = (

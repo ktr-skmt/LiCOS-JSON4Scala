@@ -48,6 +48,7 @@ final case class JsonPhase private (base: JsonBase, sub: JsonSubPhase) extends J
     sub.character.sortWith { (a1: JsonCharacter, a2: JsonCharacter) =>
       a1.name.en < a2.name.en
     }.sortBy(!_.isMine)
+
   def role: Seq[JsonRole] = sub.role.sortWith { (r1: JsonRole, r2: JsonRole) =>
     r1.name.en < r2.name.en
   }
@@ -75,6 +76,7 @@ object JsonPhase {
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubPhase]
   )(JsonPhase.apply, unlift(JsonPhase.unapply))
+
 }
 
 final case class JsonSubPhase(character: Seq[JsonCharacter], role: Seq[JsonRole])

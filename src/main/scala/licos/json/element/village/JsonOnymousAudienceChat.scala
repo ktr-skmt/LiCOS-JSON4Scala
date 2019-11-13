@@ -69,7 +69,6 @@ final case class JsonSubOnymousAudienceChat(
 object JsonSubOnymousAudienceChat {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonSubOnymousAudienceChat] = (

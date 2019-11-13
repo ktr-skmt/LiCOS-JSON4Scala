@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
  * @author K.Sakamoto
  */
 public class BsonSimpleCharacter extends BsonAbstractCharacter {
+
     @SuppressWarnings("unused")
     private BsonSimpleCharacter() {
         // Do nothing

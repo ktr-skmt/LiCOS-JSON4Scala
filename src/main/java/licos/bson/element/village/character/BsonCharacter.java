@@ -1,13 +1,13 @@
 package licos.bson.element.village.character;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Reference;
 import licos.bson.element.village.BsonUpdate;
 import licos.bson.element.village.BsonName;
 import licos.json.element.village.character.JsonCharacter;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Reference;
 
 /**
  * <pre>
@@ -18,6 +18,7 @@ import org.mongodb.morphia.annotations.Reference;
  */
 @Entity("characters")
 public class BsonCharacter extends BsonAbstractCharacter {
+
     @Getter @Setter
     private boolean isMine;
 

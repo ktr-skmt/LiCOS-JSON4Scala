@@ -18,7 +18,6 @@ final case class JsonUpdate(`@id`: String, phase: String, day: Int) extends Json
 object JsonUpdate {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonUpdate] = (

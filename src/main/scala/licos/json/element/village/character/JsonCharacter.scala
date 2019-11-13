@@ -75,7 +75,6 @@ final case class JsonCharacter(
 object JsonCharacter {
 
   import play.api.libs.json._
-  import play.api.libs.json.Reads._
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonCharacter] = (
@@ -91,4 +90,5 @@ object JsonCharacter {
   )(JsonCharacter.apply _)
 
   implicit val jsonWrites: OWrites[JsonCharacter] = Json.writes[JsonCharacter]
+
 }
