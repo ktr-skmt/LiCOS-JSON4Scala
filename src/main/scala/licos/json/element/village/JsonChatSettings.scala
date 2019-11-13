@@ -15,10 +15,10 @@ final case class JsonChatSettings(
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(villageId: Long, maxNumberOfChatMessages: Int, maxLengthOfUnicodeCodePoints: Int) = {
     this(
-      WerewolfWorld.context("chatSettings"):          String,
-      LiCOSOnline.state(s"#$villageId/chatSettings"): String,
-      maxNumberOfChatMessages:                        Int,
-      maxLengthOfUnicodeCodePoints:                   Int
+      WerewolfWorld.context("chatSettings"):        String,
+      LiCOSOnline.state(villageId, "chatSettings"): String,
+      maxNumberOfChatMessages:                      Int,
+      maxLengthOfUnicodeCodePoints:                 Int
     )
   }
 

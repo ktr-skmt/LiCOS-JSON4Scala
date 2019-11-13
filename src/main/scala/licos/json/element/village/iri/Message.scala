@@ -2,15 +2,8 @@ package licos.json.element.village.iri
 
 import licos.LiCOSOnline
 
-/**
-  * <pre>
-  * Created on 2017/12/15.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
 sealed abstract class Message(label: String) {
-  def iri(villageId: Long): String = LiCOSOnline.state(s"#$villageId/${label}Message")
+  def iri(villageId: Long): String = LiCOSOnline.state(villageId, s"${label}Message")
 }
 
 case object BoardMessage extends Message("board")

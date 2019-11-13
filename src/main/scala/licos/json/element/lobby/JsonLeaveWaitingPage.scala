@@ -3,13 +3,6 @@ package licos.json.element.lobby
 import licos.json.validation.lobby.LobbyValidation
 import licos.json.validation.village.{AvatarValidation, VillageValidation}
 
-/**
-  * <pre>
-  * Created on 2018/01/04.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
 final case class JsonLeaveWaitingPage(`type`: String, token: String, villageId: Long, lobby: String)
     extends TypeSystem(`type`) {
   override protected def validType: String = JsonLeaveWaitingPage.`type`

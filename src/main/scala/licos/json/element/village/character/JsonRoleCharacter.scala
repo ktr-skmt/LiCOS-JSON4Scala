@@ -9,13 +9,6 @@ import licos.json.element.village.role.JsonSimpleRole
 import licos.json.validation.village.CharacterValidation
 import org.bson.types.ObjectId
 
-/**
-  * <pre>
-  * Created on 2018/01/10.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
 final case class JsonRoleCharacter(
     `@context`: String,
     `@id`:      String,

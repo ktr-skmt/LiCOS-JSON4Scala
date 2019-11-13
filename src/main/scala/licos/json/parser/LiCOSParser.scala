@@ -86,7 +86,7 @@ trait LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Ready JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Ready JSON option.
+    * @return either Ready JSON.
     */
   protected def parseReady(jsValue: JsValue): Either[JsValue, JsonReady] = {
     Try(jsValue.validate[JsonReady]) match {
@@ -106,7 +106,7 @@ trait LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Build-village JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Build-village JSON option.
+    * @return either Build-village JSON.
     */
   protected def parseBuildVillage(jsValue: JsValue): Either[JsValue, JsonBuildVillage] = {
     Try(jsValue.validate[JsonBuildVillage]) match {
@@ -126,7 +126,7 @@ trait LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Leave-waiting-page JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Leave-waiting-page JSON option.
+    * @return either Leave-waiting-page JSON.
     */
   protected def parseLeaveWaitingPage(jsValue: JsValue): Either[JsValue, JsonLeaveWaitingPage] = {
     Try(jsValue.validate[JsonLeaveWaitingPage]) match {

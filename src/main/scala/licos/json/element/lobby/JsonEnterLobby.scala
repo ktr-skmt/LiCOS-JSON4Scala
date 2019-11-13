@@ -3,13 +3,6 @@ package licos.json.element.lobby
 import licos.json.validation.lobby.LobbyValidation
 import licos.json.validation.village.AvatarValidation
 
-/**
-  * <pre>
-  * Created on 2018/01/04.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
 final case class JsonEnterLobby(`type`: String, token: String, lobby: String, page: Int) extends TypeSystem(`type`) {
   override protected def validType: String = JsonEnterLobby.`type`
 }

@@ -9,7 +9,7 @@ object BoardResultValidation {
   val `@context`:    Reads[String] = pattern(WerewolfWorld.context(label).r)
   val `@id`: Reads[String] = pattern(
     LiCOSOnline
-      .state(s"""role#${RoleValidation.roleNamesInLowerCase}/board#${CharacterValidation.idStringPattern}""")
+      .stateRegex(s"""role#${RoleValidation.roleNamesInLowerCase}/board#${CharacterValidation.idStringPattern}""")
       .r
   )
   val polarity: Reads[String] = pattern("""(?:positive|negative|[?ΔOX])""".r)

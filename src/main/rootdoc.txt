@@ -25,63 +25,81 @@ Notable packages includes:
 //TODO: Define the contractor as you like.
 class VillageBox(intParameter: Int, stringParameter: String) extends BOX
 
-class ChatAE extends ChatAnalysisEngine {
-    override def process(box: BOX, chatFromServer: JsonChatFromServer): Option[JsValue] = {
-        box match {
-            case x: VillageBox =>
-                //TODO: Write here.
-            case _ => None
-        }
+class ChatFromServerAE extends ChatAnalysisEngine {
+  override def process(box: BOX, chatFromServer: JsonChatFromServer): Either[JsValue, JsValue] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
     }
+  }
 }
 
-class ErrorAE extends licos.json.engine.analysis.village.server2client.ErrorAnalysisEngine {
-    override def process(box: BOX, error: JsonError): Option[JsValue] = {
-        box match {
-            case x: VillageBox =>
-                //TODO: Write here.
-            case _ => None
-        }
+class ErrorFromServerAE extends licos.json.engine.analysis.village.server2client.ErrorAnalysisEngine {
+  override def process(box: BOX, error: JsonError): Either[JsValue, JsValue] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
     }
+  }
 }
 
 class FlavorTextAE extends FlavorTextAnalysisEngine {
-    override def process(box: BOX, flavorText: JsonFlavorText): Option[JsValue] = {
-        box match {
-            case x: VillageBox =>
-                //TODO: Write here.
-            case _ => None
-        }
+  override def process(box: BOX, flavorText: JsonFlavorText): Either[JsValue, JsValue] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
     }
+  }
 }
 
 class GameResultAE extends GameResultAnalysisEngine {
-    override def process(box: BOX, gameResult: JsonGameResult): Option[JsValue] = {
-        box match {
-            case x: VillageBox =>
-                //TODO: Write here.
-            case _ => None
-        }
+  override def process(box: BOX, gameResult: JsonGameResult): Either[JsValue, JsValue] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
     }
+  }
 }
 
 class PhaseAE extends PhaseAnalysisEngine {
-    override def process(box: BOX, phase: JsonPhase): Option[JsValue] = {
-        box match {
-            case x: VillageBox =>
-                //TODO: Write here.
-            case _ => None
-        }
+  override def process(box: BOX, phase: JsonPhase): Either[JsValue, JsValue] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
     }
+  }
 }
 
 class NextGameInvitationAE extends NextGameInvitationAnalysisEngine {
   override def process(box: BOX,
-                       nextGameInvitation: JsonNextGameInvitation): Option[JsValue] = {
+                       nextGameInvitation: JsonNextGameInvitation): Either[JsValue, JsValue] = {
     box match {
       case _: VillageBox =>
-                //TODO: Write here.
-      case _ => None
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
     }
   }
 }
@@ -89,11 +107,14 @@ class NextGameInvitationAE extends NextGameInvitationAnalysisEngine {
 class NextGameInvitationIsClosedAE extends NextGameInvitationIsClosedAnalysisEngine {
 
   override def process(box: BOX,
-                       nextGameInvitationIsClosed: JsonNextGameInvitationIsClosed): Option[JsValue] = {
+                       nextGameInvitationIsClosed: JsonNextGameInvitationIsClosed): Either[JsValue, JsValue] = {
     box match {
       case _: VillageBox =>
-                //TODO: Write here.
-      case _ => None
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
     }
   }
 }
@@ -102,98 +123,33 @@ object Runner extends App {
   private val processingEngineFactory: VillageProcessingEngineFactory = SpecificProcessingEngineFactory.
     create(VillagePE).
     asInstanceOf[VillageProcessingEngineFactory].
-    set(new ChatAE()).
+    set(new ChatFromServerAE()).
     set(new PhaseAE()).
     set(new FlavorTextAE()).
     set(new GameResultAE()).
     set(new NextGameInvitationAE()).
     set(new NextGameInvitationIsClosedAE()).
-    set(new ErrorAE())
+    set(new ErrorFromServerAE())
 
   private val processingEngine: VillageProcessingEngine = processingEngineFactory.create
 
-    private val aJSONExampleOfTheLiCOSProtocol: String = {
-        s"""{
-           |	"@context": [
-           |		"https://werewolf.world/village/context/0.3/base.jsonld",
-           |		"https://werewolf.world/village/context/0.3/chat.jsonld"
-           |	],
-           |	"@id": "https://licos.online/state/0.3/village#3/playerMessage",
-           |
-           |	"village": {
-           |		"@context": "https://werewolf.world/village/context/0.3/village.jsonld",
-           |		"@id": "https://licos.online/state/0.3/village",
-           |		"id": 3,
-           |		"name": "横国の森の奥にある時代に取り残された小さな村",
-           |		"totalNumberOfAgents": 15,
-           |		"lang": "ja",
-           |		"chatSettings": {
-           |			"@context": "https://werewolf.world/village/context/0.3/chatSettings.jsonld",
-           |			"@id": "https://licos.online/state/0.3/village#3/chatSettings",
-           |			"limit": 10,
-           |			"characterLimit": 140
-           |		}
-           |	},
-           |	"token": "eFVr3O93oLhmnE8OqTMl5VSVGIV",
-           |	"phase": "morning",
-           |	"date": 1,
-           |	"phaseTimeLimit": 600,
-           |	"phaseStartTime": "2006-10-07T12:06:56.568+09:00",
-           |	"serverTimestamp": "2006-10-07T12:06:56.568+09:00",
-           |	"clientTimestamp": "2006-10-07T12:06:56.568+09:00",
-           |	"directionality": "client to server",
-           |	"intensionalDisclosureRange": "public",
-           |	"extensionalDisclosureRange": [],
-           |	"myAgent": {
-           |		"@context": "https://werewolf.world/village/context/0.3/agent.jsonld",
-           |		"@id": "https://licos.online/state/0.3/village#3/myAgent",
-           |		"id": 1,
-           |		"name": {
-           |			"en": "Walter",
-           |			"ja": "ヴァルター"
-           |		},
-           |		"image": "https://werewolf.world/image/0.3/Walter.jpg",
-           |		"role": {
-           |			"@context": "https://werewolf.world/village/context/0.3/role.jsonld",
-           |			"@id": "https://licos.online/state/0.3/village#3/agent#1/role",
-           |			"name": {
-           |				"en": "Werewolf",
-           |				"ja": "人狼"
-           | 			},
-           |			"image": "https://werewolf.world/image/0.3/werewolf.jpg"
-           |		}
-           |	},
-           |
-           |	"agent": {
-           |		"@context": "https://werewolf.world/village/context/0.3/agent.jsonld",
-           |		"@id": "https://licos.online/state/0.3/village#3/agent",
-           |		"id": 1,
-           |		"name": {
-           |			"en": "Walter",
-           |			"ja": "ヴァルター"
-           |		},
-           |		"image": "https://werewolf.world/image/0.3/Walter.jpg"
-           |	},
-           |	"isMine": true,
-           |	"text": {
-           |		"@value": ">>11\nそれで、あなたは人狼が誰だと思うの？\n\n私はパメラが人狼だと思う。",
-           |		"@language": "ja"
-           |	},
-           |	"characterLimit": 140,
-           |	"isOver": false
-           |}
-           |""".stripMargin
-    }
+  private val aJSONExampleOfTheLiCOSProtocol: String = {
+    val source: BufferedSource = Source.fromURL("https://raw.githubusercontent.com/ktr-skmt/werewolfworld/gh-pages/village/example/0.3/server2client/firstMorning.jsonld")
+    val json: String = source.getLines().mkString("\n")
+    source.close()
+    json
+  }
 
-    private val anExampleOfBOX: BOX = new VillageBox(3, "test")
+  private val anExampleOfBOX: BOX = new VillageBox(3, "test")
 
-    processingEngine.process(anExampleOfBOX, aJSONExampleOfTheLiCOSProtocol) match {
-        case Some(jsValue: JsValue) =>
-            println("Send a response:")
-            println(Json.prettyPrint(jsValue))
-        case None =>
-            println("Send no response")
-    }
+  processingEngine.process(anExampleOfBOX, aJSONExampleOfTheLiCOSProtocol) match {
+    case Right(jsValue: JsValue) =>
+      println("Send a response:")
+      println(Json.prettyPrint(jsValue))
+    case Left(jsValue: JsValue) =>
+      println("Send no response")
+      println(Json.prettyPrint(jsValue))
+  }
 
 }
 }}}

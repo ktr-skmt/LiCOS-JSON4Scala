@@ -3,13 +3,6 @@ package licos.json.element.lobby
 import licos.json.validation.lobby.PingValidation
 import licos.json.validation.village.AvatarValidation
 
-/**
-  * <pre>
-  * Created on 2018/01/12.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
 final case class JsonPing(`type`: String, id: String, results: Seq[JsonPingResult]) extends TypeSystem(`type`) {
   override protected def validType: String = JsonPing.`type`
 }

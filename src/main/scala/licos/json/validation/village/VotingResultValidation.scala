@@ -11,7 +11,7 @@ object VotingResultValidation {
   object votingResultsSummary {
     object item {
       val `@idRegex`: Regex = LiCOSOnline
-        .state(
+        .stateRegex(
           s"""votingResultsSummary#${CharacterValidation.idStringPattern}"""
         )
         .r
@@ -24,7 +24,7 @@ object VotingResultValidation {
   object votingResultsDetails {
     object item {
       val `@idRegex`: Regex = LiCOSOnline
-        .state(
+        .stateRegex(
           s"""votingResultsDetails#${CharacterValidation.idStringPattern}-${CharacterValidation.idStringPattern}"""
         )
         .r

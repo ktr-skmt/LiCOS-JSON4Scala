@@ -2,13 +2,6 @@ package licos.json.element.lobby
 
 import licos.json.validation.village.AvatarValidation
 
-/**
-  * <pre>
-  * Created on 2018/01/12.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
 final case class JsonPong(`type`: String, token: String, id: String) extends TypeSystem(`type`) {
   override protected def validType: String = `type`
 }

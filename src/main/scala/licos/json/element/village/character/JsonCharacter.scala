@@ -7,13 +7,6 @@ import licos.json.element.village.{JsonName, JsonUpdate}
 import licos.json.validation.village.CharacterValidation
 import org.bson.types.ObjectId
 
-/**
-  * <pre>
-  * Created on 2018/01/09.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
 final case class JsonCharacter(
     `@context`: String,
     `@id`:      String,

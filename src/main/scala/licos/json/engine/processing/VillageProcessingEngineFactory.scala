@@ -40,7 +40,7 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
   private var errorFromClientEngine:            Option[village.client2server.ErrorAnalysisEngine] = None
   private var errorFromServerEngine:            Option[village.server2client.ErrorAnalysisEngine] = None
 
-  /** Create a village processing engine.
+  /** Creates a village processing engine.
     *
     * @return a processing engine.
     */

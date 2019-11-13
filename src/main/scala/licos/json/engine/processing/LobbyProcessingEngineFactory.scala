@@ -34,7 +34,7 @@ class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var getSettingsEngine:        Option[GetSettingsAnalysisEngine]        = None
   private var settingsEngine:           Option[SettingsAnalysisEngine]           = None
 
-  /** Create a lobby processing engine.
+  /** Creates a lobby processing engine.
     *
     * @return a processing engine.
     */

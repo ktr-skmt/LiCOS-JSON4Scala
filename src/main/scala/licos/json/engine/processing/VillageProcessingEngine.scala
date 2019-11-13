@@ -81,7 +81,7 @@ class VillageProcessingEngine(
     *
     * @param box a box.
     * @param msg a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return a play.api.libs.json.JsValue Either. Right(json: JsValue) if succeeded, Left(error: JsValue) if failed.
     */
   override def process(box: BOX, msg: String): Either[JsValue, JsValue] = {
 

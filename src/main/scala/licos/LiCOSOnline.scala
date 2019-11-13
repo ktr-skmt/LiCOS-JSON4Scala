@@ -12,12 +12,22 @@ object LiCOSOnline {
     s"https://licos.online/state/$version/village"
   }
 
+  /** Returns a URI regex of a JSON-LD's id.
+    *
+    * @param path a remaining part of a URI of a JSON-LD's id.
+    * @return a URI regex of a JSON-LD's id.
+    */
+  def stateRegex(path: String): String = {
+    s"$stateVillage#[1-9][0-9]*/$path"
+  }
+
   /** Returns a URI of a JSON-LD's id.
     *
+    * @param villageId a village id.
     * @param path a remaining part of a URI of a JSON-LD's id.
     * @return a URI of a JSON-LD's id.
     */
-  def state(path: String): String = {
-    s"$stateVillage#[1-9][0-9]*/$path"
+  def state(villageId: Long, path: String): String = {
+    s"$stateVillage#$villageId/$path"
   }
 }

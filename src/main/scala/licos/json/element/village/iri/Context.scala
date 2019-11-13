@@ -2,13 +2,6 @@ package licos.json.element.village.iri
 
 import licos.WerewolfWorld
 
-/**
-  * <pre>
-  * Created on 2017/12/15.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
 sealed abstract class Context(label: String) {
   def iri: String = WerewolfWorld.context(label)
 }

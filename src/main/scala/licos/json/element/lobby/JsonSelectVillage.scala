@@ -2,13 +2,6 @@ package licos.json.element.lobby
 
 import licos.json.validation.village.{AvatarValidation, VillageValidation}
 
-/**
-  * <pre>
-  * Created on 2018/01/04.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
 final case class JsonSelectVillage(`type`: String, token: String, villageId: Long) extends TypeSystem(`type`) {
   override protected def validType: String = JsonSelectVillage.`type`
 }

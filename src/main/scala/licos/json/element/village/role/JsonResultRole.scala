@@ -13,13 +13,6 @@ import org.bson.types.ObjectId
 
 import scala.collection.JavaConverters._
 
-/**
-  * <pre>
-  * Created on 2018/01/09.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
 final case class JsonResultRole(
     `@context`:         String,
     `@id`:              String,

@@ -7,13 +7,6 @@ import licos.json.element.village.iri.RoleContext
 import licos.json.validation.village.RoleValidation
 import org.bson.types.ObjectId
 
-/**
-  * <pre>
-  * Created on 2018/01/09.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
 final case class JsonSimpleRole(`@context`: String, `@id`: String, name: JsonName, image: String)
     extends JsonAbstractRole(`@context`: String, `@id`: String, name: JsonName, image: String) {
 

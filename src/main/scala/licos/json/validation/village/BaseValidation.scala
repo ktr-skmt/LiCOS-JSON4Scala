@@ -15,7 +15,7 @@ object BaseValidation {
   }
   val `@id`: Reads[String] = pattern(
     LiCOSOnline
-      .state("""(?:board|error|(?:flavorText#[0-9]+/)?chat|scroll|star|system|vote|flavorText)Message""")
+      .stateRegex("""(?:board|error|(?:flavorText#[0-9]+/)?chat|scroll|star|system|vote|flavorText)Message""")
       .r
   )
   val phaseTimeLimit: Reads[Int] = min(-1) keepAnd max(Int.MaxValue)

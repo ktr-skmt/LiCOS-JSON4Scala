@@ -6,7 +6,7 @@ import play.api.libs.json.JsValue
 
 import scala.reflect.ClassTag
 
-/** This package is for extending scala.Option implicitly. This is used for flow controllers.
+/** This package is used for flow controllers.
   *
   * @author Kotaro Sakamoto
   */
@@ -14,10 +14,10 @@ package object utils {
 
   implicit class FlowControllerUtilsWithTypeSystem[A <: TypeSystem: ClassTag](op: Either[JsValue, A]) {
 
-    /** Runs scala.Option.getOrElse after checking a type correctness of A.
+    /** getOrElse after checking a type correctness of A.
       *
       * @param default the default expression.
-      * @return Returns the option's value if the option is non-empty and the value's type is correct, otherwise return the result of evaluating default.
+      * @return Returns the Either if the Either is the Right and its type is correct, otherwise return the result of evaluating default.
       */
     @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
     def >>>[B <: Either[JsValue, Element]](default: B): Either[JsValue, Element] = op match {
@@ -28,10 +28,10 @@ package object utils {
 
   implicit class FlowControllerUtils[A <: Element: ClassTag](op: Either[JsValue, Element]) {
 
-    /** Runs scala.Option.getOrElse.
+    /** getOrElse.
       *
       * @param default the default expression.
-      * @return Returns the option's value if the option is non-empty, otherwise return the result of evaluating default.
+      * @return Returns the Either if the Either is the Right, otherwise return the result of evaluating default.
       */
     @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
     def >->[B <: Either[JsValue, Element]](default: B): Either[JsValue, Element] =

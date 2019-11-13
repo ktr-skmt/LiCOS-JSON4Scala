@@ -14,13 +14,13 @@ object CharacterValidation {
   val `@context`: Reads[String] = pattern(WerewolfWorld.context(label).r)
 
   val `@idRegex`: Regex = LiCOSOnline
-    .state(
+    .stateRegex(
       s"""(?:myCharacter|character|(?:(?:role#${RoleValidation.roleNamesInLowerCase}(?:/board#$idStringPattern)?|extensionalDisclosureRange|votingResultsSummary#${CharacterValidation.idStringPattern}|votingResultsDetails#${CharacterValidation.idStringPattern}-${CharacterValidation.idStringPattern})/)?character#$idStringPattern)"""
     )
     .r
   val `@id`:  Reads[String] = pattern(`@idRegex`)
   val gender: Reads[String] = pattern("""(?:fe)?male""".r)
-  val image:  Reads[String] = pattern(WerewolfWorld.characterImage("""(?:[a-z]|anonymous)""").r)
+  val image:  Reads[String] = pattern(WerewolfWorld.characterIcon("""(?:[a-z]|anonymous)""").r)
   val id:     Reads[Int]    = min(1) keepAnd max(15)
   val status: Reads[String] = pattern("""(?:alive|dead|death by (?:execution|attack|fear)|unnatural death)""".r)
   val result: Reads[String] = pattern("""(?:win|lose)""".r)

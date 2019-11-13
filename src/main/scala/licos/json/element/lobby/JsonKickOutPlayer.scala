@@ -2,13 +2,6 @@ package licos.json.element.lobby
 
 import licos.json.validation.village.AvatarValidation
 
-/**
-  * <pre>
-  * Created on 2018/01/04.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
 final case class JsonKickOutPlayer(`type`: String, token: String, players: Seq[JsonPlayerTokenInKickOutPlayer])
     extends TypeSystem(`type`) {
   override protected def validType: String = JsonKickOutPlayer.`type`

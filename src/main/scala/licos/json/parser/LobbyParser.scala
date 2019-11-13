@@ -65,7 +65,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Ping JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Ping JSON option.
+    * @return either Ping JSON.
     */
   protected def parsePing(jsValue: JsValue): Either[JsValue, JsonPing] = {
     Try(jsValue.validate[JsonPing]) match {
@@ -85,7 +85,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Pong JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Pong JSON option.
+    * @return either Pong JSON.
     */
   protected def parsePong(jsValue: JsValue): Either[JsValue, JsonPong] = {
     Try(jsValue.validate[JsonPong]) match {
@@ -105,7 +105,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Waiting-page JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Waiting-page JSON option.
+    * @return either Waiting-page JSON.
     */
   def parseWaitingPage(jsValue: JsValue): Either[JsValue, JsonWaitingPage] = {
     Try(jsValue.validate[JsonWaitingPage]) match {
@@ -125,7 +125,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Lobby JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Lobby JSON option.
+    * @return either Lobby JSON.
     */
   protected def parseLobby(jsValue: JsValue): Either[JsValue, JsonLobby] = {
     Try(jsValue.validate[JsonLobby]) match {
@@ -145,7 +145,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Enter-lobby JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Enter-lobby JSON option.
+    * @return either Enter-lobby JSON.
     */
   protected def parseEnterLobby(jsValue: JsValue): Either[JsValue, JsonEnterLobby] = {
     Try(jsValue.validate[JsonEnterLobby]) match {
@@ -165,7 +165,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Get-avatar-info JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Get-avatar-info JSON option.
+    * @return either Get-avatar-info JSON.
     */
   protected def parseGetAvatarInfo(jsValue: JsValue): Either[JsValue, JsonGetAvatarInfo] = {
     Try(jsValue.validate[JsonGetAvatarInfo]) match {
@@ -185,7 +185,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Avatar-info JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse
-    * @return an Avatar-info JSON option.
+    * @return an Avatar-info JSON.
     */
   protected def parseAvatarInfo(jsValue: JsValue): Either[JsValue, JsonAvatarInfo] = {
     Try(jsValue.validate[JsonAvatarInfo]) match {
@@ -205,7 +205,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Select-village JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Select-village JSON option.
+    * @return either Select-village JSON.
     */
   protected def parseSelectVillage(jsValue: JsValue): Either[JsValue, JsonSelectVillage] = {
     Try(jsValue.validate[JsonSelectVillage]) match {
@@ -225,7 +225,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Kick-out-player JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Kick-out-player JSON option.
+    * @return either Kick-out-player JSON.
     */
   protected def parseKickOutPlayer(jsValue: JsValue): Either[JsValue, JsonKickOutPlayer] = {
     Try(jsValue.validate[JsonKickOutPlayer]) match {
@@ -245,7 +245,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Advanced-search JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Advanced-search JSON option.
+    * @return either Advanced-search JSON.
     */
   protected def parseAdvancedSearch(jsValue: JsValue): Either[JsValue, JsonAdvancedSearch] = {
     Try(jsValue.validate[JsonAdvancedSearch]) match {
@@ -265,7 +265,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Id-search JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Id-search JSON option.
+    * @return either Id-search JSON.
     */
   protected def parseIdSearch(jsValue: JsValue): Either[JsValue, JsonIdSearch] = {
     Try(jsValue.validate[JsonIdSearch]) match {
@@ -285,7 +285,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Play JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Play JSON option.
+    * @return either Play JSON.
     */
   protected def parsePlay(jsValue: JsValue): Either[JsValue, JsonPlay] = {
     Try(jsValue.validate[JsonPlay]) match {
@@ -305,7 +305,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Played JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Played JSON option.
+    * @return either Played JSON.
     */
   protected def parsePlayed(jsValue: JsValue): Either[JsValue, JsonPlayed] = {
     Try(jsValue.validate[JsonPlayed]) match {
@@ -325,7 +325,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Played-with-token JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Played-with-token JSON option.
+    * @return either Played-with-token JSON.
     */
   protected def parsePlayedWithToken(jsValue: JsValue): Either[JsValue, JsonPlayedWithToken] = {
     Try(jsValue.validate[JsonPlayedWithToken]) match {
@@ -345,7 +345,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Search-result JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Search-result JSON option.
+    * @return either Search-result JSON.
     */
   protected def parseSearchResult(jsValue: JsValue): Either[JsValue, JsonSearchResult] = {
     Try(jsValue.validate[JsonSearchResult]) match {
@@ -365,7 +365,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Change-lang JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Change-lang JSON option.
+    * @return either Change-lang JSON.
     */
   protected def parseChangeLang(jsValue: JsValue): Either[JsValue, JsonChangeLang] = {
     Try(jsValue.validate[JsonChangeLang]) match {
@@ -385,7 +385,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Change-user-email JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Change-user-email JSON option.
+    * @return either Change-user-email JSON.
     */
   protected def parseChangeUserEmail(jsValue: JsValue): Either[JsValue, JsonChangeUserEmail] = {
     Try(jsValue.validate[JsonChangeUserEmail]) match {
@@ -405,7 +405,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Change-user-name JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Change-user-name JSON option.
+    * @return either Change-user-name JSON.
     */
   protected def parseChangeUserName(jsValue: JsValue): Either[JsValue, JsonChangeUserName] = {
     Try(jsValue.validate[JsonChangeUserName]) match {
@@ -425,7 +425,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Change-user-password JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Change-user-password JSON option.
+    * @return either Change-user-password JSON.
     */
   protected def parseChangeUserPassword(jsValue: JsValue): Either[JsValue, JsonChangeUserPassword] = {
     Try(jsValue.validate[JsonChangeUserPassword]) match {
@@ -445,7 +445,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Get-settings JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return a Get-settings JSON option.
+    * @return either Get-settings JSON.
     */
   protected def parseGetSettings(jsValue: JsValue): Either[JsValue, JsonGetSettings] = {
     Try(jsValue.validate[JsonGetSettings]) match {
@@ -465,7 +465,7 @@ trait LobbyParser extends LiCOSParser {
   /** Tries to parse play.api.libs.json.JsValue as Settings JSON
     *
     * @param jsValue a play.api.libs.json.JsValue to parse
-    * @return a Settings JSON option.
+    * @return either Settings JSON.
     */
   protected def parseSettings(jsValue: JsValue): Either[JsValue, JsonSettings] = {
     Try(jsValue.validate[JsonSettings]) match {
