@@ -40,28 +40,28 @@ jobs:
           command: cat /dev/null | sbt coverage
       - run:
           name: test AvatarValidationSpec
-          command: cat /dev/null | sbt testOnly validation.village.AvatarValidationSpec
+          command: cat /dev/null | sbt "testOnly validation.village.AvatarValidationSpec"
       - run:
           name: test BaseValidationSpec
-          command: cat /dev/null | sbt testOnly validation.village.BaseValidationSpec
+          command: cat /dev/null | sbt "testOnly validation.village.BaseValidationSpec"
       - run:
           name: test CharacterValidationSpec
-          command: cat /dev/null | sbt testOnly validation.village.CharacterValidationSpec
+          command: cat /dev/null | sbt "testOnly validation.village.CharacterValidationSpec"
       - run:
           name: test RoleValidationSpec
-          command: cat /dev/null | sbt testOnly validation.village.RoleValidationSpec
+          command: cat /dev/null | sbt "testOnly validation.village.RoleValidationSpec"
       - run:
           name: test LobbyUnitTestSpec
-          command: cat /dev/null | sbt testOnly engine.lobby.LobbyUnitTestSpec
+          command: cat /dev/null | sbt "testOnly engine.lobby.LobbyUnitTestSpec"
       - run:
           name: test LobbyProcessingEngineSpec
-          command: cat /dev/null | sbt testOnly engine.lobby.LobbyProcessingEngineSpec
+          command: cat /dev/null | sbt "testOnly engine.lobby.LobbyProcessingEngineSpec"
       - run:
           name: test VillageUnitTestSpec
-          command: cat /dev/null | sbt testOnly engine.village.VillageUnitTestSpec
+          command: cat /dev/null | sbt "testOnly engine.village.VillageUnitTestSpec"
       - run:
           name: test VillageProcessingEngineSpec
-          command: cat /dev/null | sbt testOnly engine.village.VillageProcessingEngineSpec
+          command: cat /dev/null | sbt "testOnly engine.village.VillageProcessingEngineSpec"
       - run:
           name: coverage report
           command: cat /dev/null | sbt coverageReport
