@@ -1,5 +1,6 @@
 package sample
 
+import engine.village.VillageBox
 import engine.village.analysis.server2client.{
   ChatFromServerAE,
   ErrorFromServerAE,
@@ -19,8 +20,6 @@ import licos.json.engine.processing.{
 import play.api.libs.json.{JsValue, Json}
 
 import scala.io.{BufferedSource, Source}
-
-class VillageBox(intParameter: Int, stringParameter: String) extends BOX
 
 object Runner extends App {
   private val processingEngineFactory: VillageProcessingEngineFactory = SpecificProcessingEngineFactory
@@ -45,7 +44,7 @@ object Runner extends App {
     json
   }
 
-  private val anExampleOfBOX: BOX = new VillageBox(3, "test")
+  private val anExampleOfBOX: BOX = new VillageBox("test")
 
   processingEngine.process(anExampleOfBOX, aJSONExampleOfTheLiCOSProtocol) match {
     case Right(jsValue: JsValue) =>
