@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
  * @author K.Sakamoto
  */
 public class BsonSimpleRole extends BsonAbstractRole {
+
     @SuppressWarnings("unused")
     private BsonSimpleRole() {
         // Do nothing

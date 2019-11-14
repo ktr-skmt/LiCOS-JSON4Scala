@@ -1,14 +1,14 @@
 package licos.bson.element.village.role;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Reference;
+import licos.bson.element.village.BsonBoardResult;
 import licos.bson.element.village.BsonName;
-import licos.bson.element.village.BsonBoardPolarity;
-import licos.json.element.village.JsonBoardPolarity;
+import licos.json.element.village.JsonBoardResult;
 import licos.json.element.village.role.JsonRole;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Reference;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -23,6 +23,7 @@ import java.util.List;
  */
 @Entity("roles")
 public class BsonRole extends BsonAbstractRole {
+
     @Getter @Setter
     private boolean isMine;
 
@@ -30,7 +31,7 @@ public class BsonRole extends BsonAbstractRole {
     private int numberOfCharacters;
 
     @Getter @ Setter @Reference
-    private List<BsonBoardPolarity> board;
+    private List<BsonBoardResult> board;
 
     @SuppressWarnings("unused")
     private BsonRole() {
@@ -44,7 +45,7 @@ public class BsonRole extends BsonAbstractRole {
                     String image,
                     boolean isMine,
                     int numberOfCharacters,
-                    List<BsonBoardPolarity> board) {
+                    List<BsonBoardResult> board) {
         this._id = _id;
         this.$context = $context;
         this.$id = $id;
@@ -56,8 +57,8 @@ public class BsonRole extends BsonAbstractRole {
     }
 
     public JsonRole toJson() {
-        Iterator<BsonBoardPolarity> boardIterator = board.iterator();
-        List<JsonBoardPolarity> boardList = new LinkedList<>();
+        Iterator<BsonBoardResult> boardIterator = board.iterator();
+        List<JsonBoardResult> boardList = new LinkedList<>();
         while (boardIterator.hasNext()) {
             boardList.add(boardIterator.next().toJson());
         }

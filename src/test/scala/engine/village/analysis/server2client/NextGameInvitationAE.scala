@@ -10,11 +10,10 @@ import play.api.libs.json.{JsValue, Json}
 
 class NextGameInvitationAE extends NextGameInvitationAnalysisEngine {
 
-  override def process(box: BOX,
-                       nextGameInvitation: JsonNextGameInvitation): Option[JsValue] = {
+  override def process(box: BOX, nextGameInvitation: JsonNextGameInvitation): Either[JsValue, JsValue] = {
     box match {
-      case _: VillageBox => Option(Json.toJson(JsonTest(NextGameInvitation.`type`)))
-      case _ => None
+      case _: VillageBox => Right(Json.toJson(JsonTest(NextGameInvitation.`type`)))
+      case _ => Left(Json.toJson(nextGameInvitation))
     }
   }
 }

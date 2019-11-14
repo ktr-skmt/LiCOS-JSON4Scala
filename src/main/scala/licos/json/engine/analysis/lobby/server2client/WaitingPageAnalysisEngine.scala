@@ -15,7 +15,18 @@ trait WaitingPageAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param waitingPage a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, waitingPage: JsonWaitingPage): Option[JsValue]
+  def process(box: BOX, waitingPage: JsonWaitingPage): Either[JsValue, JsValue]
+
+}
+
+object WaitingPageAnalysisEngine {
+
+  /**
+    * Waiting-page analysis engine name.
+    */
+  val name:         String  = "lobby.server2client.WaitingPageAnalysisEngine"
+  val isFromServer: Boolean = true
+
 }

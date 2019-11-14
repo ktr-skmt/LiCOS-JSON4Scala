@@ -15,7 +15,18 @@ trait SearchResultAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param searchResult a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, searchResult: JsonSearchResult): Option[JsValue]
+  def process(box: BOX, searchResult: JsonSearchResult): Either[JsValue, JsValue]
+
+}
+
+object SearchResultAnalysisEngine {
+
+  /**
+    * Search-result analysis engine name.
+    */
+  val name:         String  = "lobby.server2client.SearchResultAnalysisEngine"
+  val isFromServer: Boolean = true
+
 }

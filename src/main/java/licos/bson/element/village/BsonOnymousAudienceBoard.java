@@ -1,17 +1,18 @@
 package licos.bson.element.village;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
+import dev.morphia.annotations.Reference;
 import licos.bson.element.village.character.BsonSimpleCharacter;
 import licos.bson.element.village.role.BsonSimpleRole;
 import licos.json.element.village.JsonOnymousAudienceBoard;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Reference;
 
 @Entity("onymousAudienceBoards")
 public class BsonOnymousAudienceBoard extends BsonElement {
+
     @Id
     @SuppressWarnings("unused")
     private ObjectId _id;

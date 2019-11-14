@@ -9,10 +9,10 @@ import licos.json.engine.analysis.lobby.client2server.GetSettingsAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
 class GetSettingsAE extends GetSettingsAnalysisEngine {
-  override def process(box: BOX, getSettings: JsonGetSettings): Option[JsValue] = {
+  override def process(box: BOX, getSettings: JsonGetSettings): Either[JsValue, JsValue] = {
     box match {
-      case _: LobbyBox => Option(Json.toJson(JsonTest(GetSettings.`type`)))
-      case _ => None
+      case _: LobbyBox => Right(Json.toJson(JsonTest(GetSettings.`type`)))
+      case _ => Left(Json.toJson(getSettings))
     }
   }
 }

@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     working_directory: ~/json
@@ -7,7 +7,7 @@ jobs:
     environment:
       SBT_VERSION: 1.3.3
       TZ: Asia/Tokyo
-      JVM_OPTS: -Xmx3200m
+      JVM_OPTS: -Xms2G -Xmx2G -Xss2M -XX:ReservedCodeCacheSize=256m
     steps:
       - run:
           name: Get sbt binary
@@ -24,6 +24,9 @@ jobs:
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: sbt-cache
       - run:
+          name: clean
+          command: cat /dev/null | sbt clean
+      - run:
           name: compile
           command: cat /dev/null | sbt test:compile
       - save_cache:
@@ -33,5 +36,32 @@ jobs:
             - "~/.sbt"
             - "~/.m2"
       - run:
-          name: test
-          command: cat /dev/null | sbt coverage test:test coverageReport
+          name: coverage
+          command: cat /dev/null | sbt coverage
+      - run:
+          name: test AvatarValidationSpec
+          command: cat /dev/null | sbt "testOnly validation.village.AvatarValidationSpec"
+      - run:
+          name: test BaseValidationSpec
+          command: cat /dev/null | sbt "testOnly validation.village.BaseValidationSpec"
+      - run:
+          name: test CharacterValidationSpec
+          command: cat /dev/null | sbt "testOnly validation.village.CharacterValidationSpec"
+      - run:
+          name: test RoleValidationSpec
+          command: cat /dev/null | sbt "testOnly validation.village.RoleValidationSpec"
+      - run:
+          name: test LobbyUnitTestSpec
+          command: cat /dev/null | sbt "testOnly engine.lobby.LobbyUnitTestSpec"
+      - run:
+          name: test LobbyProcessingEngineSpec
+          command: cat /dev/null | sbt "testOnly engine.lobby.LobbyProcessingEngineSpec"
+      - run:
+          name: test VillageUnitTestSpec
+          command: cat /dev/null | sbt "testOnly engine.village.VillageUnitTestSpec"
+      - run:
+          name: test VillageProcessingEngineSpec
+          command: cat /dev/null | sbt "testOnly engine.village.VillageProcessingEngineSpec"
+      - run:
+          name: coverage report
+          command: cat /dev/null | sbt coverageReport

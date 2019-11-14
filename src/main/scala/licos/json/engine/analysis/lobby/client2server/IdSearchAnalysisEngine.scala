@@ -15,7 +15,18 @@ trait IdSearchAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param idSearch a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, idSearch: JsonIdSearch): Option[JsValue]
+  def process(box: BOX, idSearch: JsonIdSearch): Either[JsValue, JsValue]
+
+}
+
+object IdSearchAnalysisEngine {
+
+  /**
+    * Id-search analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.IdSearchAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

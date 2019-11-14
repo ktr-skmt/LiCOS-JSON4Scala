@@ -1,16 +1,17 @@
 package licos.bson.element.village;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
+import dev.morphia.annotations.Reference;
 import licos.json.element.village.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Reference;
 
 @Entity("anonymousAudienceChats")
 public class BsonAnonymousAudienceChat extends BsonElement {
-    @Id @SuppressWarnings("unused")
+    @Id
+    @SuppressWarnings("unused")
     private ObjectId _id;
 
     @Getter @Setter @Reference

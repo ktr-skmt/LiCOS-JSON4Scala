@@ -15,7 +15,18 @@ trait ChatAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param chatFromClient a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, chatFromClient: JsonChatFromClient): Option[JsValue]
+  def process(box: BOX, chatFromClient: JsonChatFromClient): Either[JsValue, JsValue]
+
+}
+
+object ChatAnalysisEngine {
+
+  /**
+    * Chat analysis engine name.
+    */
+  val name:         String  = "village.client2server.ChatAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

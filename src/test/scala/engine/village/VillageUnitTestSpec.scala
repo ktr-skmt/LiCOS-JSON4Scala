@@ -7,7 +7,7 @@ import engine.VillageUnitTestExample
 import engine.village.unitTestExample.{
   Avatar,
   Base,
-  BoardPolarity,
+  BoardResult,
   ChatSettings,
   ChatText,
   Name,
@@ -61,7 +61,7 @@ object VillageUnitTestSpec {
     Role("role/role.json"),
     SimpleRole("role/simpleRole.json"),
     Avatar("avatar.json"),
-    BoardPolarity("boardPolarity.json"),
+    BoardResult("boardResult.json"),
     ChatSettings("chatSettings.json"),
     ChatText("chatText.json"),
     Name("name.json"),
@@ -92,18 +92,18 @@ object VillageUnitTestSpec {
 @RunWith(classOf[Theories])
 class VillageUnitTestSpec extends AssertionsForJUnit with VillageUnitTestParser {
 
-  private final val logger: Logger = Logger[VillageUnitTestSpec]
+  private final val log: Logger = Logger[VillageUnitTestSpec]
 
   @Theory
   def process(jsonExample: VillageUnitTestExample): Unit = {
     val jsonType:       String = jsonExample.`type`
     val url:            String = jsonExample.path
     implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-    logger.info(url)
+    log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()
-    logger.debug(msg)
+    log.debug(msg)
     val json: JsValue = Json.parse(msg)
 
     jsonType match {
@@ -127,8 +127,8 @@ class VillageUnitTestSpec extends AssertionsForJUnit with VillageUnitTestParser 
         assert(parseAvatar(json).nonEmpty)
       case "unitTest/Base" =>
         assert(parseBase(json).nonEmpty)
-      case "unitTest/BoardPolarity" =>
-        assert(parseBoardPolarity(json).nonEmpty)
+      case "unitTest/BoardResult" =>
+        assert(parseBoardResult(json).nonEmpty)
       case "unitTest/ChatSettings" =>
         assert(parseChatSettings(json).nonEmpty)
       case "unitTest/ChatText" =>

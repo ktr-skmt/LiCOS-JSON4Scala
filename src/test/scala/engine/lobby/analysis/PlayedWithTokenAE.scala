@@ -9,10 +9,10 @@ import licos.json.engine.analysis.lobby.server2server.PlayedWithTokenAnalysisEng
 import play.api.libs.json.{JsValue, Json}
 
 class PlayedWithTokenAE extends PlayedWithTokenAnalysisEngine {
-  override def process(box: BOX, playedWithToken: JsonPlayedWithToken): Option[JsValue] = {
+  override def process(box: BOX, playedWithToken: JsonPlayedWithToken): Either[JsValue, JsValue] = {
     box match {
-      case _: LobbyBox => Option(Json.toJson(JsonTest(PlayedWithToken.`type`)))
-      case _ => None
+      case _: LobbyBox => Right(Json.toJson(JsonTest(PlayedWithToken.`type`)))
+      case _ => Left(Json.toJson(playedWithToken))
     }
   }
 }

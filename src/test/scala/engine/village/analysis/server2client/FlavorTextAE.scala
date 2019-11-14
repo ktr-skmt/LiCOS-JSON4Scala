@@ -9,10 +9,10 @@ import licos.json.element.village.JsonFlavorText
 import play.api.libs.json.{JsValue, Json}
 
 class FlavorTextAE extends FlavorTextAnalysisEngine {
-  override def process(box: BOX, flavorText: JsonFlavorText): Option[JsValue] = {
+  override def process(box: BOX, flavorText: JsonFlavorText): Either[JsValue, JsValue] = {
     box match {
-      case _: VillageBox => Option(Json.toJson(JsonTest(FlavorText.`type`)))
-      case _ => None
+      case _: VillageBox => Right(Json.toJson(JsonTest(FlavorText.`type`)))
+      case _ => Left(Json.toJson(flavorText))
     }
   }
 }

@@ -1,13 +1,15 @@
 package licos.bson.element.village;
 
+import dev.morphia.annotations.Id;
 import licos.json.element.village.JsonChatSettings;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Id;
 
 public class BsonChatSettings extends BsonElement {
-    @Id @SuppressWarnings("unused")
+
+    @Id
+    @SuppressWarnings("unused")
     private ObjectId _id;
 
     @Getter @Setter

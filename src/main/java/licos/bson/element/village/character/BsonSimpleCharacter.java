@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
  * @author K.Sakamoto
  */
 public class BsonSimpleCharacter extends BsonAbstractCharacter {
+
     @SuppressWarnings("unused")
     private BsonSimpleCharacter() {
         // Do nothing
@@ -20,7 +21,7 @@ public class BsonSimpleCharacter extends BsonAbstractCharacter {
     public BsonSimpleCharacter(ObjectId _id,
                                String $context,
                                String $id,
-                               long id,
+                               int id,
                                BsonName name,
                                String image) {
         this._id = _id;

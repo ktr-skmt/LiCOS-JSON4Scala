@@ -15,7 +15,17 @@ trait PlayAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param play a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, play: JsonPlay): Option[JsValue]
+  def process(box: BOX, play: JsonPlay): Either[JsValue, JsValue]
+}
+
+object PlayAnalysisEngine {
+
+  /**
+    * Play analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.PlayAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

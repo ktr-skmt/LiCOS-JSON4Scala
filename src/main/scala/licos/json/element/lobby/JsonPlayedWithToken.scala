@@ -1,9 +1,19 @@
 package licos.json.element.lobby
 
-import play.api.libs.json.{Json, OFormat}
+import licos.json.element.Element
+import licos.json.validation.village.AvatarValidation
 
-case class JsonPlayedWithToken(to: String, json: JsonPlayed)
+final case class JsonPlayedWithToken(to: String, json: JsonPlayed) extends Element
 
 object JsonPlayedWithToken {
-  implicit val jsonFormat: OFormat[JsonPlayedWithToken] = Json.format[JsonPlayedWithToken]
+
+  import play.api.libs.json._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonPlayedWithToken] = (
+    (JsPath \ "to").read[String](AvatarValidation.token) and
+      (JsPath \ "json").read[JsonPlayed]
+  )(JsonPlayedWithToken.apply _)
+
+  implicit val jsonWrites: OWrites[JsonPlayedWithToken] = Json.writes[JsonPlayedWithToken]
 }

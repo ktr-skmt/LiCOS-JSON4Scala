@@ -10,10 +10,10 @@ import play.api.libs.json.{JsValue, Json}
 
 class OnymousAudienceScrollAE extends OnymousAudienceScrollAnalysisEngine {
 
-  override def process(box: BOX, scroll: JsonOnymousAudienceScroll): Option[JsValue] = {
+  override def process(box: BOX, scroll: JsonOnymousAudienceScroll): Either[JsValue, JsValue] = {
     box match {
-      case _: VillageBox => Option(Json.toJson(JsonTest(Scroll.`type`)))
-      case _ => None
+      case _: VillageBox => Right(Json.toJson(JsonTest(Scroll.`type`)))
+      case _ => Left(Json.toJson(scroll))
     }
   }
 

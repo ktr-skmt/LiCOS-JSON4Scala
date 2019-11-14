@@ -1,22 +1,32 @@
 package licos.json.element.village.invite
 
+import licos.json.element.Element
 import licos.json.element.lobby.TypeSystem
-import play.api.libs.json.{Json, OFormat}
+import licos.json.validation.village.VillageValidation
 
-case class JsonNextGameInvitation(`type`: String, villageId: Long) extends TypeSystem(`type`) {
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+final case class JsonNextGameInvitation(`type`: String, villageId: Long) extends TypeSystem(`type`) with Element {
 
   override protected def validType: String = JsonNextGameInvitation.`type`
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(villageId: Long) = {
     this(JsonNextGameInvitation.`type`, villageId)
   }
 }
 
 object JsonNextGameInvitation {
-
-  implicit val jsonFormat: OFormat[JsonNextGameInvitation] = Json.format[JsonNextGameInvitation]
-
   val `type`: String = "nextGameInvitation"
 
-  def apply(villageId: Long): JsonNextGameInvitation = new JsonNextGameInvitation(villageId: Long)
+  import play.api.libs.json._
+  import play.api.libs.json.Reads.pattern
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonNextGameInvitation] = (
+    (JsPath \ "type").read[String](pattern(`type`.r)) and
+      (JsPath \ "villageId").read[Long](VillageValidation.id)
+  )(JsonNextGameInvitation.apply _)
+
+  implicit val jsonWrites: OWrites[JsonNextGameInvitation] = Json.writes[JsonNextGameInvitation]
+
 }

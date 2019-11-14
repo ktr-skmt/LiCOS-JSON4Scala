@@ -10,10 +10,10 @@ import play.api.libs.json.{JsValue, Json}
 
 class AvatarInfoAE extends AvatarInfoAnalysisEngine {
 
-  override def process(box: BOX, avatar: JsonAvatarInfo): Option[JsValue] = {
+  override def process(box: BOX, avatar: JsonAvatarInfo): Either[JsValue, JsValue] = {
     box match {
-      case _: LobbyBox => Option(Json.toJson(JsonTest(AvatarInfo.`type`)))
-      case _ => None
+      case _: LobbyBox => Right(Json.toJson(JsonTest(AvatarInfo.`type`)))
+      case _ => Left(Json.toJson(avatar))
     }
   }
 

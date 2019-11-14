@@ -15,7 +15,18 @@ trait SelectVillageAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param selectVillage a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, selectVillage: JsonSelectVillage): Option[JsValue]
+  def process(box: BOX, selectVillage: JsonSelectVillage): Either[JsValue, JsValue]
+
+}
+
+object SelectVillageAnalysisEngine {
+
+  /**
+    * Select-village analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.SelectVillageAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

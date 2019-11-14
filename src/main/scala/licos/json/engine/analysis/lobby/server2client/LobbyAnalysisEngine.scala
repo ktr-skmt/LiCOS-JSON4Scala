@@ -15,7 +15,18 @@ trait LobbyAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param lobby a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, lobby: JsonLobby): Option[JsValue]
+  def process(box: BOX, lobby: JsonLobby): Either[JsValue, JsValue]
+
+}
+
+object LobbyAnalysisEngine {
+
+  /**
+    * Lobby analysis engine name.
+    */
+  val name:         String  = "lobby.server2client.LobbyAnalysisEngine"
+  val isFromServer: Boolean = true
+
 }

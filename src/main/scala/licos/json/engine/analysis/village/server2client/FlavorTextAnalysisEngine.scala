@@ -15,7 +15,18 @@ trait FlavorTextAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param flavorText a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, flavorText: JsonFlavorText): Option[JsValue]
+  def process(box: BOX, flavorText: JsonFlavorText): Either[JsValue, JsValue]
+
+}
+
+object FlavorTextAnalysisEngine {
+
+  /**
+    * Flavor-text analysis engine name.
+    */
+  val name:         String  = "village.server2client.FlavorTextAnalysisEngine"
+  val isFromServer: Boolean = true
+
 }

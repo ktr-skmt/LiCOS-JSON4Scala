@@ -1,26 +1,41 @@
 package licos.json.element.lobby
 
-import play.api.libs.json.{Json, OFormat}
+import licos.json.validation.lobby.PingValidation
+import licos.json.validation.village.AvatarValidation
 
-/**
-  * <pre>
-  * Created on 2018/01/12.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
-case class JsonPing(`type`: String, id: String, results: Seq[JsonPingResult]) extends TypeSystem(`type`) {
+final case class JsonPing(`type`: String, id: String, results: Seq[JsonPingResult]) extends TypeSystem(`type`) {
   override protected def validType: String = JsonPing.`type`
 }
 
 object JsonPing {
-  implicit val jsonFormat: OFormat[JsonPing] = Json.format[JsonPing]
 
   val `type`: String = "ping"
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads.pattern
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonPing] = (
+    (JsPath \ "type").read[String](pattern(`type`.r)) and
+      (JsPath \ "id").read[String](AvatarValidation.token) and
+      (JsPath \ "results").read[Seq[JsonPingResult]]
+  )(JsonPing.apply _)
+
+  implicit val jsonWrites: OWrites[JsonPing] = Json.writes[JsonPing]
 }
 
-case class JsonPingResult(token: String, ping: String, status: String)
+final case class JsonPingResult(token: String, ping: String, status: String)
 
 object JsonPingResult {
-  implicit val jsonFormat: OFormat[JsonPingResult] = Json.format[JsonPingResult]
+
+  import play.api.libs.json._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonPingResult] = (
+    (JsPath \ "token").read[String](AvatarValidation.token) and
+      (JsPath \ "ping").read[String](PingValidation.results.ping) and
+      (JsPath \ "status").read[String](PingValidation.results.status)
+  )(JsonPingResult.apply _)
+
+  implicit val jsonWrites: OWrites[JsonPingResult] = Json.writes[JsonPingResult]
 }

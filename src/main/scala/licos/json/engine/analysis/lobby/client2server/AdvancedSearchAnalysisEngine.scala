@@ -15,7 +15,16 @@ trait AdvancedSearchAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param advancedSearch a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, advancedSearch: JsonAdvancedSearch): Option[JsValue]
+  def process(box: BOX, advancedSearch: JsonAdvancedSearch): Either[JsValue, JsValue]
+}
+
+object AdvancedSearchAnalysisEngine {
+
+  /**
+    * Advanced-search analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.AdvancedSearchAnalysisEngine"
+  val isFromServer: Boolean = false
 }

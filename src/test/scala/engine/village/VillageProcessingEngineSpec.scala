@@ -66,7 +66,7 @@ object VillageProcessingEngineSpec {
 @RunWith(classOf[Theories])
 class VillageProcessingEngineSpec extends AssertionsForJUnit {
 
-  private final val logger: Logger = Logger[VillageProcessingEngineSpec]
+  private final val log: Logger = Logger[VillageProcessingEngineSpec]
 
   private val processingEngineFactory: VillageProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(VillagePE)
@@ -104,13 +104,13 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit {
     val jsonType:       String = jsonExample.`type`
     val url:            String = jsonExample.path
     implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-    logger.info(url)
+    log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()
-    logger.debug(msg)
+    log.debug(msg)
     processingEngine.process(new VillageBox(jsonType), msg) match {
-      case Some(jsValue: JsValue) =>
+      case Right(jsValue: JsValue) =>
         parseJsonTest(jsValue) match {
           case Some(json: JsonTest) =>
             assert(json.text == jsonType)
@@ -119,15 +119,18 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit {
               Seq[String](
                 "Something is wrong right after parsing.",
                 msg
-              ).mkString("\n"))
+              ).mkString("\n")
+            )
         }
 
-      case None =>
+      case Left(jsValue: JsValue) =>
         fail(
           Seq[String](
             "No response is generated.",
-            msg
-          ).mkString("\n"))
+            msg,
+            jsValue.toString
+          ).mkString("\n")
+        )
     }
   }
 
@@ -140,7 +143,8 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit {
             "Parsing failed.",
             err.getMessage,
             jsValue.toString
-          ).mkString("\n"))
+          ).mkString("\n")
+        )
         None
     }
   }

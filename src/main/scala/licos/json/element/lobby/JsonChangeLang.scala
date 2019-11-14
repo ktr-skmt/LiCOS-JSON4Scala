@@ -1,13 +1,22 @@
 package licos.json.element.lobby
 
-import play.api.libs.json.{Json, OFormat}
+import licos.json.validation.village.VillageValidation
 
-case class JsonChangeLang(`type`: String, lang: String) extends TypeSystem(`type`) {
+final case class JsonChangeLang(`type`: String, lang: String) extends TypeSystem(`type`) {
   override protected def validType: String = JsonChangeLang.`type`
 }
 
 object JsonChangeLang {
-  implicit val jsonFormat: OFormat[JsonChangeLang] = Json.format[JsonChangeLang]
-
   val `type`: String = "changeLang"
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads.pattern
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonChangeLang] = (
+    (JsPath \ "type").read[String](pattern(`type`.r)) and
+      (JsPath \ "lang").read[String](VillageValidation.lang)
+  )(JsonChangeLang.apply _)
+
+  implicit val jsonWrites: OWrites[JsonChangeLang] = Json.writes[JsonChangeLang]
 }

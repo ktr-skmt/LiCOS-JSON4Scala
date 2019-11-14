@@ -2,12 +2,14 @@ package licos.json.element.village
 
 import licos.bson.element.village.{BsonBase, BsonStar, BsonStarInfo}
 import licos.bson.element.village.character.BsonRoleCharacter
+import licos.json.element.Element
 import licos.json.element.village.character.JsonRoleCharacter
+import licos.json.validation.village.{AvatarValidation, BaseValidation, StarValidation}
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
-case class JsonStar(base: JsonBase, sub: JsonSubStar) extends JsonElement {
+final case class JsonStar(base: JsonBase, sub: JsonSubStar) extends JsonElement with Element {
 
   override def toBson: BsonStar = {
     new BsonStar(
@@ -20,25 +22,27 @@ case class JsonStar(base: JsonBase, sub: JsonSubStar) extends JsonElement {
 }
 
 object JsonStar {
+
   implicit val jsonFormat: Format[JsonStar] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubStar]
   )(JsonStar.apply, unlift(JsonStar.unapply))
 }
 
-case class JsonSubStar(myCharacter: JsonRoleCharacter, star: JsonStarInfo)
+final case class JsonSubStar(myCharacter: JsonRoleCharacter, star: JsonStarInfo)
 
 object JsonSubStar {
   implicit val jsonFormat: OFormat[JsonSubStar] = Json.format[JsonSubStar]
 }
 
-case class JsonStarInfo(`@context`:      String,
-                        `@id`:           String,
-                        token:           String,
-                        serverTimestamp: String,
-                        clientTimestamp: String,
-                        isMarked:        Boolean)
-    extends JsonElement {
+final case class JsonStarInfo(
+    `@context`:      String,
+    `@id`:           String,
+    token:           String,
+    serverTimestamp: String,
+    clientTimestamp: String,
+    isMarked:        Boolean
+) extends JsonElement {
 
   override def toBson: BsonStarInfo = {
     new BsonStarInfo(
@@ -54,5 +58,18 @@ case class JsonStarInfo(`@context`:      String,
 }
 
 object JsonStarInfo {
+
+  import play.api.libs.json._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonStarInfo] = (
+    (JsPath \ "@context").read[String](StarValidation.`@context`) and
+      (JsPath \ "@id").read[String](StarValidation.`@id`) and
+      (JsPath \ "token").read[String](AvatarValidation.token) and
+      (JsPath \ "serverTimestamp").read[String](BaseValidation.serverTimestamp) and
+      (JsPath \ "clientTimestamp").read[String](BaseValidation.clientTimestamp) and
+      (JsPath \ "isMarked").read[Boolean]
+  )(JsonStarInfo.apply _)
+
   implicit val jsonFormat: OFormat[JsonStarInfo] = Json.format[JsonStarInfo]
 }

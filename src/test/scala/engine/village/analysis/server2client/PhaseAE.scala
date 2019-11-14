@@ -9,10 +9,10 @@ import licos.json.element.village.JsonPhase
 import play.api.libs.json.{JsValue, Json}
 
 class PhaseAE extends PhaseAnalysisEngine {
-  override def process(box: BOX, phase: JsonPhase): Option[JsValue] = {
+  override def process(box: BOX, phase: JsonPhase): Either[JsValue, JsValue] = {
     box match {
-      case _: VillageBox => Option(Json.toJson(JsonTest(Phase.`type`)))
-      case _ => None
+      case _: VillageBox => Right(Json.toJson(JsonTest(Phase.`type`)))
+      case _ => Left(Json.toJson(phase))
     }
   }
 }

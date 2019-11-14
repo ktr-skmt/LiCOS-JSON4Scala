@@ -1,9 +1,12 @@
 package licos.json.element.lobby
 
-abstract class TypeSystem(`type`: String) {
+import licos.json.element.Element
+
+abstract class TypeSystem(`type`: String) extends Element {
   protected def validType: String
 
   def isValid: Boolean = {
-    `type` == validType
+    import cats.implicits._
+    `type` === validType
   }
 }

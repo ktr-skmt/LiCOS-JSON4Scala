@@ -9,10 +9,10 @@ import licos.json.element.village.JsonError
 import play.api.libs.json.{JsValue, Json}
 
 class ErrorFromClientAE extends client2server.ErrorAnalysisEngine {
-  override def process(box: BOX, error: JsonError): Option[JsValue] = {
+  override def process(box: BOX, error: JsonError): Either[JsValue, JsValue] = {
     box match {
-      case _: VillageBox => Option(Json.toJson(JsonTest(Error.`type`)))
-      case _ => None
+      case _: VillageBox => Right(Json.toJson(JsonTest(Error.`type`)))
+      case _ => Left(Json.toJson(error))
     }
   }
 }

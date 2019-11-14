@@ -9,10 +9,10 @@ import licos.json.engine.analysis.lobby.client2server.LeaveWaitingPageAnalysisEn
 import play.api.libs.json.{JsValue, Json}
 
 class LeaveWaitingPageAE extends LeaveWaitingPageAnalysisEngine {
-  override def process(box: BOX, leaveWaitingPage: JsonLeaveWaitingPage): Option[JsValue] = {
+  override def process(box: BOX, leaveWaitingPage: JsonLeaveWaitingPage): Either[JsValue, JsValue] = {
     box match {
-      case _: LobbyBox => Option(Json.toJson(JsonTest(LeaveWaitingPage.`type`)))
-      case _ => None
+      case _: LobbyBox => Right(Json.toJson(JsonTest(LeaveWaitingPage.`type`)))
+      case _ => Left(Json.toJson(leaveWaitingPage))
     }
   }
 }

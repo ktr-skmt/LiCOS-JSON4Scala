@@ -15,7 +15,17 @@ trait GetAvatarInfoAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param getAvatarInfo a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, getAvatarInfo: JsonGetAvatarInfo): Option[JsValue]
+  def process(box: BOX, getAvatarInfo: JsonGetAvatarInfo): Either[JsValue, JsValue]
+}
+
+object GetAvatarInfoAnalysisEngine {
+
+  /**
+    * Get-avatar-info analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.GetAvatarInfoAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

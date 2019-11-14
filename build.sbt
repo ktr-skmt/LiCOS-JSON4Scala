@@ -14,6 +14,15 @@ coverageEnabled := true
 
 lazy val javaVersion: String = "1.8"
 
+lazy val wartremoverSettings = Seq(
+  wartremoverWarnings in (Compile, compile) ++= Warts.allBut(Wart.Throw)
+)
+
+lazy val scalafmtSettings = Seq(
+  scalafmtOnCompile := true,
+  version := "2.2.1"
+)
+
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.8",
   organization := "online.licos",
@@ -26,6 +35,7 @@ lazy val commonSettings = Seq(
     "-language:implicitConversions",
     "-unchecked",
     "-Xlint",
+    "-Ypartial-unification",
     s"-target:jvm-$javaVersion"
   )
 } ++ {
@@ -74,9 +84,9 @@ val pomExtraTemplate = {
 }
 
 lazy val json = (project in file(".")).
-  //enablePlugins(GhpagesPlugin).
-  //enablePlugins(SiteScaladocPlugin).
   settings(commonSettings: _*).
+  settings(wartremoverSettings: _*).
+  settings(scalafmtSettings: _*).
   settings(
     scalacOptions in (Compile, doc) ++= Seq(
       "-groups",
@@ -86,7 +96,7 @@ lazy val json = (project in file(".")).
     autoAPIMappings := true
   ).settings(
     isSnapshot := true,
-    version := "0.0.2",
+    version := "0.0.3",
     name := jsonLibraryName,
     publishMavenStyle := true,
     publishArtifact in Test := false,
@@ -99,14 +109,20 @@ lazy val json = (project in file(".")).
     libraryDependencies ++= {
       Seq(
         "com.typesafe.play" %% "play-json" % "2.7.4",
-        "org.mongodb.morphia" % "morphia" % "1.3.2",
+        "dev.morphia.morphia" % "core" % "1.5.8-SNAPSHOT",
         "org.projectlombok" % "lombok" % "1.18.10",
         "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
         "org.slf4j" % "slf4j-api" % "1.7.28" % "compile",// withSources() withJavadoc()
         "ch.qos.logback" % "logback-classic" % "1.2.3",
-        "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
+        "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
+        "org.typelevel" %% "cats-core" % "2.0.0"
       )
     }
-  )//.settings(
-    //git.remoteRepo := "git@github.com:ktr-skmt/LiCOS-JSON4Scala.git"
-  //)
+  ).settings(
+    dependencyOverrides ++= {
+      Seq(
+        "com.fasterxml.jackson.core" % "jackson-annotations" % "2.9.8",
+        "org.slf4j" % "slf4j-api" % "1.7.28"
+      )
+    }
+  )

@@ -1,5 +1,8 @@
 package licos.bson.element.village;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
+import dev.morphia.annotations.Reference;
 import licos.bson.element.village.character.BsonResultCharacter;
 import licos.bson.element.village.role.BsonResultRole;
 import licos.json.element.village.JsonGameResult;
@@ -8,9 +11,6 @@ import licos.json.element.village.role.JsonResultRole;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Reference;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +25,9 @@ import java.util.stream.Collectors;
  */
 @Entity("gameResults")
 public class BsonGameResult extends BsonElementToJsonElement {
-    @Id @SuppressWarnings("unused")
+
+    @Id
+    @SuppressWarnings("unused")
     private ObjectId _id;
 
     @Getter @Setter @Reference

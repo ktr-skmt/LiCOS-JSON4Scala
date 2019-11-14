@@ -15,7 +15,18 @@ trait GameResultAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param gameResult a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, gameResult: JsonGameResult): Option[JsValue]
+  def process(box: BOX, gameResult: JsonGameResult): Either[JsValue, JsValue]
+
+}
+
+object GameResultAnalysisEngine {
+
+  /**
+    * Game result analysis engine name.
+    */
+  val name:         String  = "village.server2client.GameResultAnalysisEngine"
+  val isFromServer: Boolean = true
+
 }

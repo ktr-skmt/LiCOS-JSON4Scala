@@ -15,7 +15,18 @@ trait NextGameInvitationAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param nextGameInvitation a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, nextGameInvitation: JsonNextGameInvitation): Option[JsValue]
+  def process(box: BOX, nextGameInvitation: JsonNextGameInvitation): Either[JsValue, JsValue]
+
+}
+
+object NextGameInvitationAnalysisEngine {
+
+  /**
+    * Next-game-invitation analysis engine name.
+    */
+  val name:         String  = "village.server2client.NextGameInvitationAnalysisEngine"
+  val isFromServer: Boolean = true
+
 }

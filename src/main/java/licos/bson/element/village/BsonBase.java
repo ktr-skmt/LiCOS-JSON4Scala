@@ -1,5 +1,8 @@
 package licos.bson.element.village;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
+import dev.morphia.annotations.Reference;
 import licos.bson.element.village.character.BsonStatusCharacter;
 import licos.json.element.village.JsonBase;
 import licos.json.element.village.JsonVotingResultDetail;
@@ -8,9 +11,6 @@ import licos.json.element.village.character.JsonStatusCharacter;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Reference;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +25,9 @@ import java.util.stream.Collectors;
  */
 @Entity("bases")
 public class BsonBase extends BsonElementToJsonElement {
-    @Id @SuppressWarnings("unused")
+
+    @Id
+    @SuppressWarnings("unused")
     private ObjectId _id;
 
     @Getter @Setter

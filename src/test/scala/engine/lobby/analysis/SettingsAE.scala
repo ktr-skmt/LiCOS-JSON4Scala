@@ -10,10 +10,10 @@ import play.api.libs.json.{JsValue, Json}
 
 class SettingsAE extends SettingsAnalysisEngine {
 
-  override def process(box: BOX, settings: JsonSettings): Option[JsValue] = {
+  override def process(box: BOX, settings: JsonSettings): Either[JsValue, JsValue] = {
     box match {
-      case _: LobbyBox => Option(Json.toJson(JsonTest(Settings.`type`)))
-      case _ => None
+      case _: LobbyBox => Right(Json.toJson(JsonTest(Settings.`type`)))
+      case _ => Left(Json.toJson(settings))
     }
   }
 

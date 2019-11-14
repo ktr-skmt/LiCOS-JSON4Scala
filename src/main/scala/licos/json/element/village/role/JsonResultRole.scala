@@ -8,38 +8,35 @@ import licos.bson.element.village.role.BsonResultRole
 import licos.json.element.village.JsonName
 import licos.json.element.village.character.JsonSimpleCharacter
 import licos.json.element.village.iri.RoleContext
+import licos.json.validation.village.RoleValidation
 import org.bson.types.ObjectId
-import play.api.libs.json.{Json, OFormat}
 
 import scala.collection.JavaConverters._
 
-/**
-  * <pre>
-  * Created on 2018/01/09.
-  * </pre>
-  *
-  * @author K.Sakamoto
-  */
-case class JsonResultRole(`@context`:         String,
-                          `@id`:              String,
-                          isMine:             Boolean,
-                          name:               JsonName,
-                          image:              String,
-                          numberOfCharacters: Int,
-                          character:          Seq[JsonSimpleCharacter])
-    extends JsonAbstractRole(
+final case class JsonResultRole(
+    `@context`:         String,
+    `@id`:              String,
+    isMine:             Boolean,
+    name:               JsonName,
+    image:              String,
+    numberOfCharacters: Int,
+    character:          Seq[JsonSimpleCharacter]
+) extends JsonAbstractRole(
       `@context`: String,
       `@id`:      String,
       name:       JsonName,
       image:      String
     ) {
 
-  def this(`@id`:              String,
-           isMine:             Boolean,
-           name:               JsonName,
-           image:              String,
-           numberOfCharacters: Int,
-           character:          Seq[JsonSimpleCharacter]) = {
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(
+      `@id`:              String,
+      isMine:             Boolean,
+      name:               JsonName,
+      image:              String,
+      numberOfCharacters: Int,
+      character:          Seq[JsonSimpleCharacter]
+  ) = {
     this(
       RoleContext.iri:    String,
       `@id`:              String,
@@ -51,13 +48,16 @@ case class JsonResultRole(`@context`:         String,
     )
   }
 
-  def this(`@context`:         String,
-           `@id`:              String,
-           isMine:             Boolean,
-           name:               JsonName,
-           image:              String,
-           numberOfCharacters: Int,
-           character:          JList[JsonSimpleCharacter]) = {
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(
+      `@context`:         String,
+      `@id`:              String,
+      isMine:             Boolean,
+      name:               JsonName,
+      image:              String,
+      numberOfCharacters: Int,
+      character:          JList[JsonSimpleCharacter]
+  ) = {
     this(
       `@context`:         String,
       `@id`:              String,
@@ -84,21 +84,19 @@ case class JsonResultRole(`@context`:         String,
 }
 
 object JsonResultRole {
-  implicit val jsonFormat: OFormat[JsonResultRole] = Json.format[JsonResultRole]
 
-  def apply(`@id`:              String,
-            isMine:             Boolean,
-            name:               JsonName,
-            image:              String,
-            numberOfCharacters: Int,
-            character:          Seq[JsonSimpleCharacter]): JsonResultRole = {
-    new JsonResultRole(
-      `@id`:              String,
-      isMine:             Boolean,
-      name:               JsonName,
-      image:              String,
-      numberOfCharacters: Int,
-      character:          Seq[JsonSimpleCharacter]
-    )
-  }
+  import play.api.libs.json._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonResultRole] = (
+    (JsPath \ "@context").read[String](RoleValidation.`@context`) and
+      (JsPath \ "@id").read[String](RoleValidation.`@id`) and
+      (JsPath \ "isMine").read[Boolean] and
+      (JsPath \ "name").read[JsonName] and
+      (JsPath \ "image").read[String](RoleValidation.image) and
+      (JsPath \ "numberOfCharacters").read[Int](RoleValidation.numberOfCharacters) and
+      (JsPath \ "character").read[Seq[JsonSimpleCharacter]]
+  )(JsonResultRole.apply _)
+
+  implicit val jsonWrites: OWrites[JsonResultRole] = Json.writes[JsonResultRole]
 }

@@ -15,7 +15,18 @@ trait PingAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param ping a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, ping: JsonPing): Option[JsValue]
+  def process(box: BOX, ping: JsonPing): Either[JsValue, JsValue]
+
+}
+
+object PingAnalysisEngine {
+
+  /**
+    * Ping analysis engine name.
+    */
+  val name:         String  = "lobby.server2client.PingAnalysisEngine"
+  val isFromServer: Boolean = true
+
 }

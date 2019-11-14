@@ -1,13 +1,13 @@
 package licos.bson.element.village.character;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Reference;
 import licos.bson.element.village.BsonName;
 import licos.bson.element.village.role.BsonSimpleRole;
 import licos.json.element.village.character.JsonRoleCharacter;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Reference;
 
 /**
  * <pre>
@@ -18,6 +18,7 @@ import org.mongodb.morphia.annotations.Reference;
  */
 @Entity("roleCharacters")
 public class BsonRoleCharacter extends BsonAbstractCharacter {
+
     @Getter @Setter @Reference
     private BsonSimpleRole role;
 
@@ -29,7 +30,7 @@ public class BsonRoleCharacter extends BsonAbstractCharacter {
     public BsonRoleCharacter(ObjectId _id,
                              String $context,
                              String $id,
-                             long id,
+                             int id,
                              BsonName name,
                              String image,
                              BsonSimpleRole role) {

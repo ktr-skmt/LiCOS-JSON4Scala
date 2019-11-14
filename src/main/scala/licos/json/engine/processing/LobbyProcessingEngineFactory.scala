@@ -6,6 +6,7 @@ import licos.json.engine.analysis.lobby.server2server.PlayedWithTokenAnalysisEng
 
 /** Lobby processing engine factory.
   */
+@SuppressWarnings(Array[String]("org.wartremover.warts.Var", "org.wartremover.warts.Overloading"))
 class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
 
   private var pongEngine:               Option[PongAnalysisEngine]               = None
@@ -33,7 +34,7 @@ class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var getSettingsEngine:        Option[GetSettingsAnalysisEngine]        = None
   private var settingsEngine:           Option[SettingsAnalysisEngine]           = None
 
-  /** Create a lobby processing engine.
+  /** Creates a lobby processing engine.
     *
     * @return a processing engine.
     */

@@ -3,18 +3,24 @@ package licos.json.element.village
 import licos.bson.element.village.role.BsonSimpleRole
 import licos.bson.element.village.{BsonBase, BsonBoard}
 import licos.bson.element.village.character.{BsonRoleCharacter, BsonSimpleCharacter}
+import licos.json.element.Element
 import licos.json.element.village.character.{JsonRoleCharacter, JsonSimpleCharacter}
 import licos.json.element.village.role.JsonSimpleRole
+import licos.json.validation.village.BoardValidation
 import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
-import play.api.libs.json.{Format, JsPath, Json, OFormat}
+import play.api.libs.json.{Format, JsPath}
 
-case class JsonBoard private (base: JsonBase, sub: JsonSubBoard) extends JsonElement {
-  def this(base:        JsonBase,
-           myCharacter: JsonRoleCharacter,
-           character:   JsonSimpleCharacter,
-           role:        JsonSimpleRole,
-           prediction:  String) = {
+final case class JsonBoard private (base: JsonBase, sub: JsonSubBoard) extends JsonElement with Element {
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(
+      base:        JsonBase,
+      myCharacter: JsonRoleCharacter,
+      character:   JsonSimpleCharacter,
+      role:        JsonSimpleRole,
+      prediction:  String
+  ) = {
     this(
       base,
       JsonSubBoard(
@@ -44,31 +50,32 @@ case class JsonBoard private (base: JsonBase, sub: JsonSubBoard) extends JsonEle
 }
 
 object JsonBoard {
-  def apply(base:        JsonBase,
-            myCharacter: JsonRoleCharacter,
-            character:   JsonSimpleCharacter,
-            role:        JsonSimpleRole,
-            prediction:  String): JsonBoard = {
-    new JsonBoard(
-      base:        JsonBase,
-      myCharacter: JsonRoleCharacter,
-      character:   JsonSimpleCharacter,
-      role:        JsonSimpleRole,
-      prediction:  String
-    )
-  }
 
   implicit val jsonFormat: Format[JsonBoard] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubBoard]
   )(JsonBoard.apply, unlift(JsonBoard.unapply))
+
 }
 
-case class JsonSubBoard(myCharacter: JsonRoleCharacter,
-                        character:   JsonSimpleCharacter,
-                        role:        JsonSimpleRole,
-                        prediction:  String)
+final case class JsonSubBoard(
+    myCharacter: JsonRoleCharacter,
+    character:   JsonSimpleCharacter,
+    role:        JsonSimpleRole,
+    prediction:  String
+)
 
 object JsonSubBoard {
-  implicit val jsonFormat: OFormat[JsonSubBoard] = Json.format[JsonSubBoard]
+
+  import play.api.libs.json._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonSubBoard] = (
+    (JsPath \ "myCharacter").read[JsonRoleCharacter] and
+      (JsPath \ "character").read[JsonSimpleCharacter] and
+      (JsPath \ "role").read[JsonSimpleRole] and
+      (JsPath \ "prediction").read[String](BoardValidation.prediction)
+  )(JsonSubBoard.apply _)
+
+  implicit val jsonWrites: OWrites[JsonSubBoard] = Json.writes[JsonSubBoard]
 }

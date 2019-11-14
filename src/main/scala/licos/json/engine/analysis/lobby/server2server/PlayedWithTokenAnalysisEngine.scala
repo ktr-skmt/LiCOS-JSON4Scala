@@ -15,7 +15,18 @@ trait PlayedWithTokenAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param playedWithToken a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, playedWithToken: JsonPlayedWithToken): Option[JsValue]
+  def process(box: BOX, playedWithToken: JsonPlayedWithToken): Either[JsValue, JsValue]
+
+}
+
+object PlayedWithTokenAnalysisEngine {
+
+  /**
+    * Played-with-token analysis engine name.
+    */
+  val name:         String  = "lobby.server2server.PlayedWithTokenAnalysisEngine"
+  val isFromServer: Boolean = true
+
 }

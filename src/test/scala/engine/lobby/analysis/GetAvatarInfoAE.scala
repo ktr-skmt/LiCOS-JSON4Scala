@@ -9,10 +9,10 @@ import licos.json.engine.analysis.lobby.client2server.GetAvatarInfoAnalysisEngin
 import play.api.libs.json.{JsValue, Json}
 
 class GetAvatarInfoAE extends GetAvatarInfoAnalysisEngine {
-  override def process(box: BOX, getAvatarInfo: JsonGetAvatarInfo): Option[JsValue] = {
+  override def process(box: BOX, getAvatarInfo: JsonGetAvatarInfo): Either[JsValue, JsValue] = {
     box match {
-      case _: LobbyBox => Option(Json.toJson(JsonTest(GetAvatarInfo.`type`)))
-      case _ => None
+      case _: LobbyBox => Right(Json.toJson(JsonTest(GetAvatarInfo.`type`)))
+      case _ => Left(Json.toJson(getAvatarInfo))
     }
   }
 }

@@ -15,7 +15,17 @@ trait BuildVillageAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param buildVillage a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, buildVillage: JsonBuildVillage): Option[JsValue]
+  def process(box: BOX, buildVillage: JsonBuildVillage): Either[JsValue, JsValue]
+}
+
+object BuildVillageAnalysisEngine {
+
+  /**
+    * Build-village analysis engine name.
+    */
+  val name:         String  = "lobby.client2server.BuildVillageAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

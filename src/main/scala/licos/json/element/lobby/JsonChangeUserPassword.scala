@@ -1,13 +1,24 @@
 package licos.json.element.lobby
 
-import play.api.libs.json.{Json, OFormat}
+import licos.json.validation.lobby.UserValidation
 
-case class JsonChangeUserPassword(`type`: String, userPassword: String) extends TypeSystem(`type`) {
+final case class JsonChangeUserPassword(`type`: String, userPassword: String) extends TypeSystem(`type`) {
   override protected def validType: String = JsonChangeUserPassword.`type`
 }
 
 object JsonChangeUserPassword {
-  implicit val jsonFormat: OFormat[JsonChangeUserPassword] = Json.format[JsonChangeUserPassword]
 
   val `type`: String = "changeUserPassword"
+
+  import play.api.libs.json._
+  import play.api.libs.json.Reads.pattern
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonChangeUserPassword] = (
+    (JsPath \ "type").read[String](pattern(`type`.r)) and
+      (JsPath \ "userPassword").read[String](UserValidation.password)
+  )(JsonChangeUserPassword.apply _)
+
+  implicit val jsonWrites: OWrites[JsonChangeUserPassword] = Json.writes[JsonChangeUserPassword]
+
 }

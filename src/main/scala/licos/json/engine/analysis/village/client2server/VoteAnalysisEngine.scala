@@ -15,7 +15,18 @@ trait VoteAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param vote a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, vote: JsonVote): Option[JsValue]
+  def process(box: BOX, vote: JsonVote): Either[JsValue, JsValue]
+
+}
+
+object VoteAnalysisEngine {
+
+  /**
+    * Vote analysis engine name.
+    */
+  val name:         String  = "village.client2server.VoteAnalysisEngine"
+  val isFromServer: Boolean = false
+
 }

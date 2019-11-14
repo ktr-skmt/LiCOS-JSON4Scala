@@ -16,7 +16,7 @@ trait ProcessingEngine {
     *
     * @param box a box.
     * @param msg a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return a play.api.libs.json.JsValue Either. Right(json: JsValue) if succeeded, Left(error: JsValue) if failed.
     */
-  def process(box: BOX, msg: String): Option[JsValue]
+  def process(box: BOX, msg: String): Either[JsValue, JsValue]
 }

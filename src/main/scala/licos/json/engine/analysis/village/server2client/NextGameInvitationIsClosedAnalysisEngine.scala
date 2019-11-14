@@ -15,7 +15,18 @@ trait NextGameInvitationIsClosedAnalysisEngine extends AnalysisEngine {
     *
     * @param box a box.
     * @param nextGameInvitationIsClosed a JSON message.
-    * @return a play.api.libs.json.JsValue option.
+    * @return either play.api.libs.json.JsValue.
     */
-  def process(box: BOX, nextGameInvitationIsClosed: JsonNextGameInvitationIsClosed): Option[JsValue]
+  def process(box: BOX, nextGameInvitationIsClosed: JsonNextGameInvitationIsClosed): Either[JsValue, JsValue]
+
+}
+
+object NextGameInvitationIsClosedAnalysisEngine {
+
+  /**
+    * Next-game-invitation-is-closed analysis engine name.
+    */
+  val name:         String  = "village.server2client.NextGameInvitationIsClosedAnalysisEngine"
+  val isFromServer: Boolean = true
+
 }

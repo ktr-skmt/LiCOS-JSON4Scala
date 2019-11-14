@@ -1,5 +1,6 @@
 package licos.json.flow
 
+import licos.json.element.Element
 import licos.json.flow.utils._
 import licos.json.parser.LobbyParser
 import play.api.libs.json.JsValue
@@ -15,33 +16,32 @@ class LobbyFlowController() extends FlowController with LobbyParser {
     * @param jsValue a play.api.libs.json.JsValue for lobby to parse.
     * @return a parsing result.
     */
-  override def flow(jsValue: JsValue): Option[Any] = {
-    Option(
-      parsePong(jsValue) >>> {
-        parsePing(jsValue) >>> {
-          parseWaitingPage(jsValue) >>> {
-            parseLobby(jsValue) >>> {
-              parseEnterLobby(jsValue) >>> {
-                parseGetAvatarInfo(jsValue) >>> {
-                  parseAvatarInfo(jsValue) >>> {
-                    parseSelectVillage(jsValue) >>> {
-                      parseLeaveWaitingPage(jsValue) >>> {
-                        parseKickOutPlayer(jsValue) >>> {
-                          parseBuildVillage(jsValue) >>> {
-                            parseAdvancedSearch(jsValue) >>> {
-                              parseIdSearch(jsValue) >>> {
-                                parsePlay(jsValue) >>> {
-                                  parsePlayed(jsValue) >>> {
-                                    parseReady(jsValue) >>> {
-                                      parseSearchResult(jsValue) >>> {
-                                        parseChangeLang(jsValue) >>> {
-                                          parseChangeUserEmail(jsValue) >>> {
-                                            parseChangeUserName(jsValue) >>> {
-                                              parseChangeUserPassword(jsValue) >>> {
-                                                parseGetSettings(jsValue) >>> {
-                                                  parseSettings(jsValue) >>> {
-                                                    parsePlayedWithToken(jsValue).orNull
-                                                  }
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
+  override def flow(jsValue: JsValue): Either[JsValue, Element] = {
+    parsePong(jsValue) >>> {
+      parsePing(jsValue) >>> {
+        parseWaitingPage(jsValue) >>> {
+          parseLobby(jsValue) >>> {
+            parseEnterLobby(jsValue) >>> {
+              parseGetAvatarInfo(jsValue) >>> {
+                parseAvatarInfo(jsValue) >>> {
+                  parseSelectVillage(jsValue) >>> {
+                    parseLeaveWaitingPage(jsValue) >>> {
+                      parseKickOutPlayer(jsValue) >>> {
+                        parseBuildVillage(jsValue) >>> {
+                          parseAdvancedSearch(jsValue) >>> {
+                            parseIdSearch(jsValue) >>> {
+                              parsePlay(jsValue) >>> {
+                                parsePlayed(jsValue) >>> {
+                                  parseReady(jsValue) >>> {
+                                    parseSearchResult(jsValue) >>> {
+                                      parseChangeLang(jsValue) >>> {
+                                        parseChangeUserEmail(jsValue) >>> {
+                                          parseChangeUserName(jsValue) >>> {
+                                            parseChangeUserPassword(jsValue) >>> {
+                                              parseGetSettings(jsValue) >>> {
+                                                parseSettings(jsValue) >>> {
+                                                  parsePlayedWithToken(jsValue)
                                                 }
                                               }
                                             }
@@ -64,6 +64,6 @@ class LobbyFlowController() extends FlowController with LobbyParser {
           }
         }
       }
-    )
+    }
   }
 }

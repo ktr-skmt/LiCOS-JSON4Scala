@@ -1,28 +1,31 @@
 package licos.json.element.village
 
-import licos.WerewolfWorld
+import licos.LiCOSOnline
 import licos.bson.element.village.BsonVillage
 import licos.json.element.village.iri.VillageContext
+import licos.json.validation.village.VillageValidation
 import org.bson.types.ObjectId
-import play.api.libs.json.{Json, OFormat}
 
-case class JsonVillage(`@context`:              String,
-                       `@id`:                   String,
-                       id:                      Long,
-                       name:                    String,
-                       totalNumberOfCharacters: Int,
-                       lang:                    String,
-                       chatSettings:            JsonChatSettings)
-    extends JsonElement {
+final case class JsonVillage(
+    `@context`:              String,
+    `@id`:                   String,
+    id:                      Long,
+    name:                    String,
+    totalNumberOfCharacters: Int,
+    lang:                    String,
+    chatSettings:            JsonChatSettings
+) extends JsonElement {
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(id: Long, name: String, totalNumberOfCharacters: Int, lang: String, chatSettings: JsonChatSettings) = {
     this(
-      VillageContext.iri:         String,
-      WerewolfWorld.stateVillage: String,
-      id:                         Long,
-      name:                       String,
-      totalNumberOfCharacters:    Int,
-      lang:                       String,
-      chatSettings:               JsonChatSettings
+      VillageContext.iri:       String,
+      LiCOSOnline.stateVillage: String,
+      id:                       Long,
+      name:                     String,
+      totalNumberOfCharacters:  Int,
+      lang:                     String,
+      chatSettings:             JsonChatSettings
     )
   }
 
@@ -41,5 +44,19 @@ case class JsonVillage(`@context`:              String,
 }
 
 object JsonVillage {
-  implicit val jsonFormat: OFormat[JsonVillage] = Json.format[JsonVillage]
+
+  import play.api.libs.json._
+  import play.api.libs.functional.syntax._
+
+  implicit val jsonReads: Reads[JsonVillage] = (
+    (JsPath \ "@context").read[String](VillageValidation.`@context`) and
+      (JsPath \ "@id").read[String](VillageValidation.`@id`) and
+      (JsPath \ "id").read[Long](VillageValidation.id) and
+      (JsPath \ "name").read[String](VillageValidation.name) and
+      (JsPath \ "totalNumberOfCharacters").read[Int](VillageValidation.totalNumberOfCharacters) and
+      (JsPath \ "lang").read[String](VillageValidation.lang) and
+      (JsPath \ "chatSettings").read[JsonChatSettings]
+  )(JsonVillage.apply _)
+
+  implicit val jsonWrites: OWrites[JsonVillage] = Json.writes[JsonVillage]
 }

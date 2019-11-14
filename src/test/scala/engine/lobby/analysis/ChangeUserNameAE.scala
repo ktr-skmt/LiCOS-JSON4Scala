@@ -9,10 +9,10 @@ import licos.json.engine.analysis.lobby.client2server.ChangeUserNameAnalysisEngi
 import play.api.libs.json.{JsValue, Json}
 
 class ChangeUserNameAE extends ChangeUserNameAnalysisEngine {
-  override def process(box: BOX, changeUserName: JsonChangeUserName): Option[JsValue] = {
+  override def process(box: BOX, changeUserName: JsonChangeUserName): Either[JsValue, JsValue] = {
     box match {
-      case _: LobbyBox => Option(Json.toJson(JsonTest(ChangeUserName.`type`)))
-      case _ => None
+      case _: LobbyBox => Right(Json.toJson(JsonTest(ChangeUserName.`type`)))
+      case _ => Left(Json.toJson(changeUserName))
     }
   }
 }
