@@ -24,6 +24,9 @@ jobs:
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: sbt-cache
       - run:
+          name: clean
+          command: cat /dev/null | sbt clean
+      - run:
           name: compile
           command: cat /dev/null | sbt test:compile
       - save_cache:
@@ -33,8 +36,11 @@ jobs:
             - "~/.sbt"
             - "~/.m2"
       - run:
+          name: coverage
+          command: cat /dev/null | sbt coverage
+      - run:
           name: test
-          command: cat /dev/null | sbt coverage test:test
+          command: cat /dev/null | sbt test:test
       - run:
           name: coverage report
           command: cat /dev/null | sbt coverageReport
