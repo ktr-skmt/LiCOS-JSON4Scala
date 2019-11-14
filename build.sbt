@@ -24,7 +24,7 @@ lazy val scalafmtSettings = Seq(
 )
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.8",
+  scalaVersion := "2.12.10",
   organization := "online.licos",
   fork in run := true
 ) ++ {
