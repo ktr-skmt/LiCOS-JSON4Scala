@@ -3,7 +3,13 @@ package licos.json.element.lobby
 import licos.json.validation.lobby.UserValidation
 
 final case class JsonChangeUserName(`type`: String, userName: String) extends TypeSystem(`type`) {
+
   override protected def validType: String = JsonChangeUserName.`type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(userName: String) = {
+    this(JsonChangeUserName.`type`, userName)
+  }
 }
 
 object JsonChangeUserName {

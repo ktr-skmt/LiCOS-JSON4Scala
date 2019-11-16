@@ -13,6 +13,16 @@ import scala.collection.JavaConverters._
 final case class JsonFlavorText private (base: JsonBase, sub: JsonSubFlavorText) extends JsonElement with Element {
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(base: JsonBase, flavorText: Seq[JsonChatFromServer]) = {
+    this(
+      base: JsonBase,
+      JsonSubFlavorText(
+        flavorText: Seq[JsonChatFromServer]
+      )
+    )
+  }
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(base: JsonBase, flavorText: JList[JsonChatFromServer]) = {
     this(
       base: JsonBase,
@@ -21,6 +31,7 @@ final case class JsonFlavorText private (base: JsonBase, sub: JsonSubFlavorText)
       )
     )
   }
+
   override def toBson: BsonFlavorText = {
     new BsonFlavorText(
       new ObjectId(),

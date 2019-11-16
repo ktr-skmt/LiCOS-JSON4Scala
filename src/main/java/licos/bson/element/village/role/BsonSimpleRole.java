@@ -4,13 +4,6 @@ import licos.bson.element.village.BsonName;
 import licos.json.element.village.role.JsonSimpleRole;
 import org.bson.types.ObjectId;
 
-/**
- * <pre>
- * Created on 2018/01/11.
- * </pre>
- *
- * @author K.Sakamoto
- */
 public class BsonSimpleRole extends BsonAbstractRole {
 
     @SuppressWarnings("unused")

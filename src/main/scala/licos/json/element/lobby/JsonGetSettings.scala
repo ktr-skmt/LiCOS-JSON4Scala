@@ -1,7 +1,13 @@
 package licos.json.element.lobby
 
 final case class JsonGetSettings(`type`: String) extends TypeSystem(`type`) {
+
   override protected def validType: String = JsonGetSettings.`type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this() = {
+    this(JsonGetSettings.`type`)
+  }
 }
 
 object JsonGetSettings {

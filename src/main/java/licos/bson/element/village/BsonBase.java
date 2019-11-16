@@ -11,18 +11,12 @@ import licos.json.element.village.character.JsonStatusCharacter;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
+import scala.Option;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * <pre>
- * Created on 2018/01/11.
- * </pre>
- *
- * @author K.Sakamoto
- */
 @Entity("bases")
 public class BsonBase extends BsonElementToJsonElement {
 
@@ -144,7 +138,7 @@ public class BsonBase extends BsonElementToJsonElement {
                 phaseTimeLimit,
                 phaseStartTime,
                 serverTimestamp,
-                clientTimestamp,
+                Option.apply(clientTimestamp),
                 directionality,
                 intensionalDisclosureRange,
                 extensionalDisclosureRangeToJson(),

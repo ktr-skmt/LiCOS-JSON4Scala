@@ -11,6 +11,11 @@ import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
 final case class JsonStar(base: JsonBase, sub: JsonSubStar) extends JsonElement with Element {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(base: JsonBase, myCharacter: JsonRoleCharacter, star: JsonStarInfo) = {
+    this(base, JsonSubStar(myCharacter, star))
+  }
+
   override def toBson: BsonStar = {
     new BsonStar(
       new ObjectId(),

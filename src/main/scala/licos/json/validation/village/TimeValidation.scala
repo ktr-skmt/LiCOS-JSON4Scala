@@ -1,6 +1,6 @@
 package licos.json.validation.village
 
-import licos.LiCOSOnline
+import licos.util.LiCOSOnline
 import play.api.libs.json.Reads
 import play.api.libs.json.Reads.{max, min, pattern}
 import play.api.libs.functional.syntax._

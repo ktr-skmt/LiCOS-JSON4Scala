@@ -1,7 +1,13 @@
 package licos.json.element.lobby
 
 final case class JsonChangeUserEmail(`type`: String, userEmail: String) extends TypeSystem(`type`) {
+
   override protected def validType: String = JsonChangeUserEmail.`type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(userEmail: String) = {
+    this(JsonChangeUserEmail.`type`, userEmail)
+  }
 }
 
 object JsonChangeUserEmail {

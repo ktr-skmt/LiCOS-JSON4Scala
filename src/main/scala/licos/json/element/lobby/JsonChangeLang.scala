@@ -3,7 +3,13 @@ package licos.json.element.lobby
 import licos.json.validation.village.VillageValidation
 
 final case class JsonChangeLang(`type`: String, lang: String) extends TypeSystem(`type`) {
+
   override protected def validType: String = JsonChangeLang.`type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(lang: String) = {
+    this(JsonChangeLang.`type`, lang)
+  }
 }
 
 object JsonChangeLang {

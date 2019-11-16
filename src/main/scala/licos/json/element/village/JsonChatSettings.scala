@@ -1,8 +1,9 @@
 package licos.json.element.village
 
-import licos.{LiCOSOnline, WerewolfWorld}
+import licos.WerewolfWorld
 import licos.bson.element.village.BsonChatSettings
 import licos.json.validation.village.{ChatSettingsValidation, ChatValidation}
+import licos.util.{LiCOSOnline, WerewolfWorld}
 import org.bson.types.ObjectId
 
 final case class JsonChatSettings(

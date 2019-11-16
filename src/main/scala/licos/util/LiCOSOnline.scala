@@ -1,6 +1,6 @@
-package licos
+package licos.util
 
-import licos.WerewolfWorld.version
+import licos.util.WerewolfWorld.version
 
 object LiCOSOnline {
 
@@ -24,10 +24,19 @@ object LiCOSOnline {
   /** Returns a URI of a JSON-LD's id.
     *
     * @param villageId a village id.
+    * @return a URI of a JSON-LD's id.
+    */
+  def stateVillage(villageId: Long): String = {
+    s"$stateVillage#$villageId"
+  }
+
+  /** Returns a URI of a JSON-LD's id.
+    *
+    * @param villageId a village id.
     * @param path a remaining part of a URI of a JSON-LD's id.
     * @return a URI of a JSON-LD's id.
     */
   def state(villageId: Long, path: String): String = {
-    s"$stateVillage#$villageId/$path"
+    s"${stateVillage(villageId)}/$path"
   }
 }

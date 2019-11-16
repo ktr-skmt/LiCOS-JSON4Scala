@@ -16,13 +16,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * <pre>
- * Created on 2018/01/11.
- * </pre>
- *
- * @author K.Sakamoto
- */
 @Entity("gameResults")
 public class BsonGameResult extends BsonElementToJsonElement {
 

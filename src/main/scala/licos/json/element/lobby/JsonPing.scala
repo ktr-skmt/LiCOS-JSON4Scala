@@ -4,7 +4,13 @@ import licos.json.validation.lobby.PingValidation
 import licos.json.validation.village.AvatarValidation
 
 final case class JsonPing(`type`: String, id: String, results: Seq[JsonPingResult]) extends TypeSystem(`type`) {
+
   override protected def validType: String = JsonPing.`type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(id: String, results: Seq[JsonPingResult]) = {
+    this(JsonPing.`type`, id, results)
+  }
 }
 
 object JsonPing {

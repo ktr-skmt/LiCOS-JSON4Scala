@@ -3,7 +3,13 @@ package licos.json.element.lobby
 import licos.json.validation.village.AvatarValidation
 
 final case class JsonPong(`type`: String, token: String, id: String) extends TypeSystem(`type`) {
+
   override protected def validType: String = `type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(token: String, id: String) = {
+    this(JsonPong.`type`, token, id)
+  }
 }
 
 object JsonPong {

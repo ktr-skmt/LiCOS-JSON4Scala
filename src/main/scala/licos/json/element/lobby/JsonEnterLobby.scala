@@ -4,7 +4,13 @@ import licos.json.validation.lobby.LobbyValidation
 import licos.json.validation.village.AvatarValidation
 
 final case class JsonEnterLobby(`type`: String, token: String, lobby: String, page: Int) extends TypeSystem(`type`) {
+
   override protected def validType: String = JsonEnterLobby.`type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(token: String, lobby: String, page: Int) = {
+    this(JsonEnterLobby.`type`, token, lobby, page)
+  }
 }
 
 object JsonEnterLobby {

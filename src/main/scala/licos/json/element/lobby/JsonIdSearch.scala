@@ -5,7 +5,13 @@ import licos.json.validation.village.AvatarValidation
 
 final case class JsonIdSearch(`type`: String, token: String, lobby: String, idForSearching: Int)
     extends TypeSystem(`type`) {
+
   override protected def validType: String = JsonIdSearch.`type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(token: String, lobby: String, idForSearching: Int) = {
+    this(JsonIdSearch.`type`, token, lobby, idForSearching)
+  }
 }
 
 object JsonIdSearch {

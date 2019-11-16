@@ -5,6 +5,7 @@ import licos.json.validation.village.{AvatarValidation, VillageValidation}
 @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonAvatarInfo(`type`: String, token: String, name: String, image: String, lang: String)
     extends TypeSystem(`type`) {
+
   override protected def validType: String = JsonAvatarInfo.`type`
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
@@ -33,7 +34,13 @@ object JsonAvatarInfo {
 }
 
 final case class JsonGetAvatarInfo(`type`: String, token: String) extends TypeSystem(`type`) {
+
   override protected def validType: String = JsonGetAvatarInfo.`type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(token: String) = {
+    this(JsonGetAvatarInfo.`type`, token)
+  }
 }
 
 object JsonGetAvatarInfo {

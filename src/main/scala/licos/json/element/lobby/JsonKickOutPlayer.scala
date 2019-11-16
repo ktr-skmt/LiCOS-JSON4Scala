@@ -4,7 +4,13 @@ import licos.json.validation.village.AvatarValidation
 
 final case class JsonKickOutPlayer(`type`: String, token: String, players: Seq[JsonPlayerTokenInKickOutPlayer])
     extends TypeSystem(`type`) {
+
   override protected def validType: String = JsonKickOutPlayer.`type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(token: String, players: Seq[JsonPlayerTokenInKickOutPlayer]) = {
+    this(JsonKickOutPlayer.`type`, token, players)
+  }
 }
 
 object JsonKickOutPlayer {

@@ -19,13 +19,13 @@ final case class JsonBase(
     day:                        Int,
     phaseTimeLimit:             Int,
     phaseStartTime:             String,
-    serverTimestamp:            String,
-    clientTimestamp:            String,
+    serverTimestamp:            Option[String],
+    clientTimestamp:            Option[String],
     directionality:             String,
     intensionalDisclosureRange: String,
     extensionalDisclosureRange: Seq[JsonStatusCharacter],
-    votingResultsSummary:       Option[Seq[JsonVotingResultSummary]],
-    votingResultsDetails:       Option[Seq[JsonVotingResultDetail]]
+    votingResultsSummary:       Seq[JsonVotingResultSummary],
+    votingResultsDetails:       Seq[JsonVotingResultDetail]
 ) extends JsonElement {
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
@@ -38,8 +38,8 @@ final case class JsonBase(
       day:                        Int,
       phaseTimeLimit:             Int,
       phaseStartTime:             String,
-      serverTimestamp:            String,
-      clientTimestamp:            String,
+      serverTimestamp:            Option[String],
+      clientTimestamp:            Option[String],
       directionality:             String,
       intensionalDisclosureRange: String,
       extensionalDisclosureRange: JList[JsonStatusCharacter],
@@ -48,21 +48,21 @@ final case class JsonBase(
   ) = {
 
     this(
-      `@context`.asScala:                   Seq[String],
-      `@id`:                                String,
-      village:                              JsonVillage,
-      token:                                String,
-      phase:                                String,
-      day:                                  Int,
-      phaseTimeLimit:                       Int,
-      phaseStartTime:                       String,
-      serverTimestamp:                      String,
-      clientTimestamp:                      String,
-      directionality:                       String,
-      intensionalDisclosureRange:           String,
-      extensionalDisclosureRange.asScala:   Seq[JsonStatusCharacter],
-      Option(votingResultsSummary.asScala): Option[Seq[JsonVotingResultSummary]],
-      Option(votingResultsDetails.asScala): Option[Seq[JsonVotingResultDetail]]
+      `@context`.asScala:                 Seq[String],
+      `@id`:                              String,
+      village:                            JsonVillage,
+      token:                              String,
+      phase:                              String,
+      day:                                Int,
+      phaseTimeLimit:                     Int,
+      phaseStartTime:                     String,
+      serverTimestamp:                    Option[String],
+      clientTimestamp:                    Option[String],
+      directionality:                     String,
+      intensionalDisclosureRange:         String,
+      extensionalDisclosureRange.asScala: Seq[JsonStatusCharacter],
+      votingResultsSummary.asScala:       Seq[JsonVotingResultSummary],
+      votingResultsDetails.asScala:       Seq[JsonVotingResultDetail]
     )
   }
 
@@ -80,32 +80,30 @@ final case class JsonBase(
         day:                        Int,
         phaseTimeLimit:             Int,
         phaseStartTime:             String,
-        serverTimestamp:            String,
-        clientTimestamp:            String,
+        serverTimestamp:            Option[String],
+        clientTimestamp:            Option[String],
         directionality:             String,
         intensionalDisclosureRange: String,
         extensionalDisclosureRange: Seq[JsonStatusCharacter],
-        votingResultsSummary:       Option[Seq[JsonVotingResultSummary]],
-        votingResultsDetails:       Option[Seq[JsonVotingResultDetail]]
+        votingResultsSummary:       Seq[JsonVotingResultSummary],
+        votingResultsDetails:       Seq[JsonVotingResultDetail]
       )
     }
   }
 
   override def toBson: BsonBase = {
     val bsonVotingResultSummary: JList[BsonVotingResultSummary] = {
-      votingResultsSummary match {
-        case Some(summaries: Seq[JsonVotingResultSummary]) =>
-          summaries.map(_.toBson).asJava
-        case None =>
-          new java.util.LinkedList[BsonVotingResultSummary]()
+      if (votingResultsSummary.isEmpty) {
+        new java.util.LinkedList[BsonVotingResultSummary]()
+      } else {
+        votingResultsSummary.map(_.toBson).asJava
       }
     }
     val bsonVotingResultDetail: JList[BsonVotingResultDetail] = {
-      votingResultsDetails match {
-        case Some(details: Seq[JsonVotingResultDetail]) =>
-          details.map(_.toBson).asJava
-        case None =>
-          new java.util.LinkedList[BsonVotingResultDetail]()
+      if (votingResultsDetails.isEmpty) {
+        new java.util.LinkedList[BsonVotingResultDetail]()
+      } else {
+        votingResultsDetails.map(_.toBson).asJava
       }
     }
     new BsonBase(
@@ -118,8 +116,8 @@ final case class JsonBase(
       day:                                             Int,
       phaseTimeLimit:                                  Int,
       phaseStartTime:                                  String,
-      serverTimestamp:                                 String,
-      clientTimestamp:                                 String,
+      serverTimestamp.orNull:                          String,
+      clientTimestamp.orNull:                          String,
       directionality:                                  String,
       intensionalDisclosureRange:                      String,
       extensionalDisclosureRange.map(_.toBson).asJava: JList[BsonStatusCharacter],
@@ -138,13 +136,13 @@ final case class JsonBase(
       day:                        Int,
       phaseTimeLimit:             Int,
       phaseStartTime:             String,
-      serverTimestamp:            String,
-      clientTimestamp:            String,
+      serverTimestamp:            Option[String],
+      clientTimestamp:            Option[String],
       directionality:             String,
       intensionalDisclosureRange: String,
       Nil:                        Seq[JsonStatusCharacter],
-      votingResultsSummary:       Option[Seq[JsonVotingResultSummary]],
-      votingResultsDetails:       Option[Seq[JsonVotingResultDetail]]
+      votingResultsSummary:       Seq[JsonVotingResultSummary],
+      votingResultsDetails:       Seq[JsonVotingResultDetail]
     )
   }
 }
@@ -163,13 +161,13 @@ object JsonBase {
       (JsPath \ "day").read[Int](TimeValidation.day) and
       (JsPath \ "phaseTimeLimit").read[Int](BaseValidation.phaseTimeLimit) and
       (JsPath \ "phaseStartTime").read[String](BaseValidation.phaseStartTime) and
-      (JsPath \ "serverTimestamp").read[String](BaseValidation.serverTimestamp) and
-      (JsPath \ "clientTimestamp").read[String](BaseValidation.clientTimestamp) and
+      (JsPath \ "serverTimestamp").readNullable[String](BaseValidation.serverTimestamp) and
+      (JsPath \ "clientTimestamp").readNullable[String](BaseValidation.clientTimestamp) and
       (JsPath \ "directionality").read[String](BaseValidation.directionality) and
       (JsPath \ "intensionalDisclosureRange").read[String](BaseValidation.intensionalDisclosureRange) and
       (JsPath \ "extensionalDisclosureRange").read[Seq[JsonStatusCharacter]] and
-      (JsPath \ "votingResultsSummary").readNullable[Seq[JsonVotingResultSummary]] and
-      (JsPath \ "votingResultsDetails").readNullable[Seq[JsonVotingResultDetail]]
+      (JsPath \ "votingResultsSummary").read[Seq[JsonVotingResultSummary]] and
+      (JsPath \ "votingResultsDetails").read[Seq[JsonVotingResultDetail]]
   )(JsonBase.apply _)
 
   implicit val jsonWrites: OWrites[JsonBase] = Json.writes[JsonBase]

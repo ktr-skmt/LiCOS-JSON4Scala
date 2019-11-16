@@ -15,7 +15,7 @@ final case class JsonBuildVillage(
     playerSetting:  JsonPlayerSetting,
     roleSetting:    JsonRoleSetting,
     avatar:         String,
-    comment:        String
+    comment:        Option[String]
 ) extends TypeSystem(`type`)
     with Element {
   override protected def validType: String = JsonBuildVillage.`type`
@@ -30,7 +30,7 @@ final case class JsonBuildVillage(
       playerSetting:  JsonPlayerSetting,
       roleSetting:    JsonRoleSetting,
       avatar:         String,
-      comment:        String
+      comment:        Option[String]
   ) = {
     this(
       JsonBuildVillage.`type`,
@@ -65,7 +65,7 @@ object JsonBuildVillage {
       (JsPath \ "playerSetting").read[JsonPlayerSetting] and
       (JsPath \ "roleSetting").read[JsonRoleSetting] and
       (JsPath \ "avatar").read[String](BuildVillageValidation.avatar) and
-      (JsPath \ "comment").read[String](BuildVillageValidation.comment)
+      (JsPath \ "comment").readNullable[String](BuildVillageValidation.comment)
   )(JsonBuildVillage.apply _)
 
   implicit val jsonWrites: OWrites[JsonBuildVillage] = Json.writes[JsonBuildVillage]

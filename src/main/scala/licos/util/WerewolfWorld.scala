@@ -1,4 +1,4 @@
-package licos
+package licos.util
 
 /** This object has methods for https://werewolf.world .
   *

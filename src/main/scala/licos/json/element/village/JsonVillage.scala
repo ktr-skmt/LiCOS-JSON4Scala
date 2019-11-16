@@ -1,9 +1,9 @@
 package licos.json.element.village
 
-import licos.LiCOSOnline
 import licos.bson.element.village.BsonVillage
 import licos.json.element.village.iri.VillageContext
 import licos.json.validation.village.VillageValidation
+import licos.util.LiCOSOnline
 import org.bson.types.ObjectId
 
 final case class JsonVillage(

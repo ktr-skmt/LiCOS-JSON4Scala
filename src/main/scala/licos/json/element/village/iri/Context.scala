@@ -1,6 +1,6 @@
 package licos.json.element.village.iri
 
-import licos.WerewolfWorld
+import licos.util.WerewolfWorld
 
 sealed abstract class Context(label: String) {
   def iri: String = WerewolfWorld.context(label)
@@ -18,3 +18,6 @@ case object VoteContext extends Context("vote")
 case object VotingResultContext extends Context("votingResult")
 case object ScrollContext extends Context("scroll")
 case object FlavorTextContext extends Context("flavorText")
+case object ChatSettingsContext extends Context("chatSettings")
+case object BoardResultContext extends Context("boardResult")
+case object StarContext extends Context("star")

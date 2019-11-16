@@ -11,15 +11,15 @@ import play.api.libs.json.{Format, JsPath, Json, OFormat}
 final case class JsonVote private (base: JsonBase, sub: JsonSubVote) extends JsonElement with Element {
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
-  def this(base: JsonBase, character: JsonSimpleCharacter, myCharacter: JsonRoleCharacter) = this(
+  def this(base: JsonBase, myCharacter: JsonRoleCharacter, character: JsonSimpleCharacter) = this(
     base: JsonBase,
     JsonSubVote(
-      character:   JsonSimpleCharacter,
-      myCharacter: JsonRoleCharacter
+      myCharacter: JsonRoleCharacter,
+      character:   JsonSimpleCharacter
     )
   )
-  def character:   JsonSimpleCharacter = sub.character
   def myCharacter: JsonRoleCharacter   = sub.myCharacter
+  def character:   JsonSimpleCharacter = sub.character
   override def toBson: BsonVote = {
     new BsonVote(
       new ObjectId(),
@@ -38,7 +38,7 @@ object JsonVote {
   )(JsonVote.apply, unlift(JsonVote.unapply))
 }
 
-final case class JsonSubVote(character: JsonSimpleCharacter, myCharacter: JsonRoleCharacter)
+final case class JsonSubVote(myCharacter: JsonRoleCharacter, character: JsonSimpleCharacter)
 
 object JsonSubVote {
   implicit val jsonFormat: OFormat[JsonSubVote] = Json.format[JsonSubVote]

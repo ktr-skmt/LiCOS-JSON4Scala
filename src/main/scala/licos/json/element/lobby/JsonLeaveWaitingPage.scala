@@ -5,7 +5,14 @@ import licos.json.validation.village.{AvatarValidation, VillageValidation}
 
 final case class JsonLeaveWaitingPage(`type`: String, token: String, villageId: Long, lobby: String)
     extends TypeSystem(`type`) {
+
   override protected def validType: String = JsonLeaveWaitingPage.`type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(token: String, villageId: Long, lobby: String) = {
+    this(JsonLeaveWaitingPage.`type`, token, villageId, lobby)
+  }
+
 }
 
 object JsonLeaveWaitingPage {

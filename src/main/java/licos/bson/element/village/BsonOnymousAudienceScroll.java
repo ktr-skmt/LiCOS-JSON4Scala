@@ -8,13 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 
-/**
- * <pre>
- * Created on 2018/01/11.
- * </pre>
- *
- * @author K.Sakamoto
- */
 @Entity("onymousAudienceScrolls")
 public class BsonOnymousAudienceScroll extends BsonElement {
 
