@@ -9,16 +9,18 @@ import licos.protocol.village.part.AvatarProtocol
 import licos.protocol.village.part.role.SimpleRoleProtocol
 import licos.util.LiCOSOnline
 
-final case class ResultCharacterProtocol(character:   Character,
-                                         villageId:   Long,
-                                         lang:        Locale,
-                                         isMine:      Boolean,
-                                         role:        Role,
-                                         status:      Status,
-                                         result:      Outcome,
-                                         token:       UUID,
-                                         avatarName:  String,
-                                         avatarImage: String) {
+final case class ResultCharacterProtocol(
+    character:   Character,
+    villageId:   Long,
+    lang:        Locale,
+    isMine:      Boolean,
+    role:        Role,
+    status:      Status,
+    result:      Outcome,
+    token:       UUID,
+    avatarName:  String,
+    avatarImage: String
+) {
 
   val json: JsonResultCharacter = {
     val `@id`: String = LiCOSOnline.state(villageId, "")

@@ -2,43 +2,45 @@ package licos.protocol.village.client2server.server2logger
 
 import java.time.OffsetDateTime
 
+import licos.entity.Village
 import licos.json.element.village.JsonStar
 import licos.json.element.village.iri.{BaseContext, Context, StarContext, StarMessage}
-import licos.knowledge.{Character, ClientToServer, PrivateChannel, Role}
+import licos.knowledge.{ClientToServer, PrivateChannel}
 import licos.protocol.village.part.character.{RoleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.village.part.{BaseProtocol, ChatSettingsProtocol, StarInfoProtocol, VillageProtocol}
-import licos.state.VillageState
 import licos.util.TimestampGenerator
 
-final case class StarProtocol(state:                      VillageState,
-                              serverTimestamp:            OffsetDateTime,
-                              clientTimestamp:            OffsetDateTime,
-                              isMarked:                   Boolean,
-                              extensionalDisclosureRange: Seq[StatusCharacterProtocol]) {
+final case class StarProtocol(
+    village:                    Village,
+    serverTimestamp:            OffsetDateTime,
+    clientTimestamp:            OffsetDateTime,
+    isMarked:                   Boolean,
+    extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+) {
 
   val json: Option[JsonStar] = {
-    if (state.isAvailable) {
+    if (village.isAvailable) {
       Option(
         new JsonStar(
           BaseProtocol(
             Seq[Context](BaseContext, StarContext),
             StarMessage,
             VillageProtocol(
-              state.villageId,
-              state.villageName,
-              state.totalNumberOfCharacters,
-              state.lang,
+              village.id,
+              village.name,
+              village.cast.totalNumberOfPlayers,
+              village.language,
               ChatSettingsProtocol(
-                state.villageId,
-                state.maxNumberOfChatMessages,
-                state.maxLengthOfUnicodeCodePoints
+                village.id,
+                village.maxNumberOfChatMessages,
+                village.maxLengthOfUnicodeCodePoints
               )
             ),
-            state.token,
-            state.phase.get,
-            state.day.get,
-            state.phaseTimeLimit.get,
-            state.phaseStartTime.get,
+            village.tokenOpt.get,
+            village.currentPhase,
+            village.currentDay,
+            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
+            village.phaseStartTimeOpt.get,
             None,
             Option(TimestampGenerator.now),
             ClientToServer,
@@ -48,19 +50,20 @@ final case class StarProtocol(state:                      VillageState,
             Nil
           ).json,
           RoleCharacterProtocol(
-            state.myCharacter,
-            state.villageId,
-            state.lang,
-            state.myRole
+            village.myCharacterOpt.get,
+            village.id,
+            village.language,
+            village.myRoleOpt.get
           ).json,
           StarInfoProtocol(
-            state.villageId,
-            state.token,
+            village.id,
+            village.tokenOpt.get,
             serverTimestamp,
             clientTimestamp,
             isMarked
           ).json
-        ))
+        )
+      )
     } else {
       None
     }

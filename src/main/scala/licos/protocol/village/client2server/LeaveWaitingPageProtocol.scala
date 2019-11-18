@@ -1,15 +1,20 @@
 package licos.protocol.village.client2server
 
+import licos.entity.Village
 import licos.json.element.lobby.JsonLeaveWaitingPage
-import licos.state.VillageState
+import licos.knowledge.Lobby
 
-final case class LeaveWaitingPageProtocol(state: VillageState) {
+final case class LeaveWaitingPageProtocol(village: Village) {
 
-  val json: Option[JsonLeaveWaitingPage] = {
-    if (state.isAvailable) {
-      Option(new JsonLeaveWaitingPage(
-
-      ))
+  def json(lobby: Lobby): Option[JsonLeaveWaitingPage] = {
+    if (village.isAvailable) {
+      Option(
+        new JsonLeaveWaitingPage(
+          village.tokenOpt.get.toString,
+          village.id,
+          lobby.label
+        )
+      )
     } else {
       None
     }

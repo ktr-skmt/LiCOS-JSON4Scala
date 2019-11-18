@@ -7,13 +7,15 @@ import licos.json.element.village.iri.BoardResultContext
 import licos.knowledge.{Character, Phase, PolarityMark, Role}
 import licos.protocol.village.part.character.SimpleCharacterProtocol
 
-final case class BoardResultProtocol(character: Character,
-                                     polarity:  PolarityMark,
-                                     phase:     Phase,
-                                     day:       Int,
-                                     villageId: Long,
-                                     locale:    Locale,
-                                     role:      Role) {
+final case class BoardResultProtocol(
+    character: Character,
+    polarity:  PolarityMark,
+    phase:     Phase,
+    day:       Int,
+    villageId: Long,
+    locale:    Locale,
+    role:      Role
+) {
 
   def json(`@id`: String): JsonBoardResult = {
     JsonBoardResult(

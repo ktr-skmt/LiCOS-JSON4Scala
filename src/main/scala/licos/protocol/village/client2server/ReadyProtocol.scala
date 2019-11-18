@@ -1,15 +1,18 @@
 package licos.protocol.village.client2server
 
+import licos.entity.Village
 import licos.json.element.lobby.JsonReady
-import licos.state.VillageState
 
-final case class ReadyProtocol(state: VillageState) {
+final case class ReadyProtocol(village: Village) {
 
   val json: Option[JsonReady] = {
-    if (state.isAvailable) {
-      Option(new JsonReady(
-
-      ))
+    if (village.isAvailable) {
+      Option(
+        new JsonReady(
+          village.tokenOpt.get.toString,
+          village.id
+        )
+      )
     } else {
       None
     }

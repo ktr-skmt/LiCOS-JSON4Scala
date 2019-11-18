@@ -1,43 +1,45 @@
 package licos.protocol.village.client2server.server2logger
 
+import licos.entity.Village
 import licos.json.element.village.JsonScroll
 import licos.json.element.village.iri.{BaseContext, Context, ScrollContext, ScrollMessage}
 import licos.knowledge.{ClientToServer, PrivateChannel}
 import licos.protocol.village.part.character.{RoleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
-import licos.state.VillageState
 import licos.util.TimestampGenerator
 
-final case class ScrollProtocol(state:                      VillageState,
-                                nodeId:                     String,
-                                scrollTop:                  Int,
-                                scrollHeight:               Int,
-                                offsetHeight:               Int,
-                                extensionalDisclosureRange: Seq[StatusCharacterProtocol]) {
+final case class ScrollProtocol(
+    village:                    Village,
+    nodeId:                     String,
+    scrollTop:                  Int,
+    scrollHeight:               Int,
+    offsetHeight:               Int,
+    extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+) {
 
   val json: Option[JsonScroll] = {
-    if (state.isAvailable) {
+    if (village.isAvailable) {
       Option(
         new JsonScroll(
           BaseProtocol(
             Seq[Context](BaseContext, ScrollContext),
             ScrollMessage,
             VillageProtocol(
-              state.villageId,
-              state.villageName,
-              state.totalNumberOfCharacters,
-              state.lang,
+              village.id,
+              village.name,
+              village.cast.totalNumberOfPlayers,
+              village.language,
               ChatSettingsProtocol(
-                state.villageId,
-                state.maxNumberOfChatMessages,
-                state.maxLengthOfUnicodeCodePoints
+                village.id,
+                village.maxNumberOfChatMessages,
+                village.maxLengthOfUnicodeCodePoints
               )
             ),
-            state.token,
-            state.phase.get,
-            state.day.get,
-            state.phaseTimeLimit.get,
-            state.phaseStartTime.get,
+            village.tokenOpt.get,
+            village.currentPhase,
+            village.currentDay,
+            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
+            village.phaseStartTimeOpt.get,
             None,
             Option(TimestampGenerator.now),
             ClientToServer,
@@ -47,16 +49,17 @@ final case class ScrollProtocol(state:                      VillageState,
             Nil
           ).json,
           RoleCharacterProtocol(
-            state.myCharacter,
-            state.villageId,
-            state.lang,
-            state.myRole
+            village.myCharacterOpt.get,
+            village.id,
+            village.language,
+            village.myRoleOpt.get
           ).json,
           nodeId,
           scrollTop,
           scrollHeight,
           offsetHeight
-        ))
+        )
+      )
     } else {
       None
     }

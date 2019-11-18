@@ -4,9 +4,11 @@ import licos.json.element.village.JsonVotingResultDetail
 import licos.protocol.village.part.character.SimpleCharacterProtocol
 import licos.util.LiCOSOnline
 
-final case class VotingResultDetailProtocol(sourceCharacter: SimpleCharacterProtocol,
-                                            targetCharacter: SimpleCharacterProtocol,
-                                            villageId:       Long) {
+final case class VotingResultDetailProtocol(
+    sourceCharacter: SimpleCharacterProtocol,
+    targetCharacter: SimpleCharacterProtocol,
+    villageId:       Long
+) {
 
   val json: JsonVotingResultDetail = {
     val `@id`: String = LiCOSOnline

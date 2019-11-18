@@ -18,14 +18,16 @@ final case class JsonAdvancedSearch(
   override protected def validType: String = JsonAdvancedSearch.`type`
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
-  def this(token:       String,
-           lobby:       String,
-           villageName: Option[String],
-           hostName:    Option[String],
-           minimum:     Option[Int],
-           maximum:     Option[Int],
-           avatar:      String,
-           comment:     Option[String]) = {
+  def this(
+      token:       String,
+      lobby:       String,
+      villageName: Option[String],
+      hostName:    Option[String],
+      minimum:     Option[Int],
+      maximum:     Option[Int],
+      avatar:      String,
+      comment:     Option[String]
+  ) = {
     this(JsonAdvancedSearch.`type`, token, lobby, villageName, hostName, minimum, maximum, avatar, comment)
   }
 }

@@ -1,23 +1,25 @@
 package licos.protocol.village.client2server
 
+import licos.entity.Village
 import licos.json.element.lobby.JsonBuildVillage
-import licos.state.VillageState
 
-final case class BuildVillageProtocol(state: VillageState) {
+final case class BuildVillageProtocol(village: Village) {
 
   val json: Option[JsonBuildVillage] = {
-    if (state.isAvailable) {
-      Option(new JsonBuildVillage(
-        state.token.toString,
-        state.villageName,
-        state.villageId,
-        state.idForSearching,
-        state.hostPlayer,
-        state.playerSetting,
-        state.roleSetting,
-        state.avatarName,
-        state.comment
-      ))
+    if (village.isAvailable) {
+      Option(
+        new JsonBuildVillage(
+          village.tokenOpt.get.toString,
+          village.name,
+          village.id,
+          village.idForSearching,
+          village.hostPlayer,
+          village.playerSetting,
+          village.roleSetting,
+          village.avatarNameOpt.get,
+          village.comment
+        )
+      )
     } else {
       None
     }

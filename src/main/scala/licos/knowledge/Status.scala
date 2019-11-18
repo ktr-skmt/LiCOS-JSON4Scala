@@ -40,31 +40,31 @@ sealed abstract class Status(val label: String, val updateDay: Int, val updatePh
 }
 
 final case class Alive(override val updateDay: Int, override val updatePhase: Phase)
-  extends Status("alive", updateDay, updatePhase) {
+    extends Status("alive", updateDay, updatePhase) {
   override def toIntermediateStatus: Status = this
 }
 
 final case class Dead(override val updateDay: Int, override val updatePhase: Phase)
-  extends Status("dead", updateDay, updatePhase) {
+    extends Status("dead", updateDay, updatePhase) {
   override def toIntermediateStatus: Status = this
 }
 
 final case class DeathByExecution(override val updateDay: Int, override val updatePhase: Phase)
-  extends Status("death by execution", updateDay, updatePhase) {
+    extends Status("death by execution", updateDay, updatePhase) {
   override def toIntermediateStatus: Status = DeathByExecution(updateDay, updatePhase)
 }
 
 final case class DeathByAttack(override val updateDay: Int, override val updatePhase: Phase)
-  extends Status("death by attack", updateDay, updatePhase) {
+    extends Status("death by attack", updateDay, updatePhase) {
   override def toIntermediateStatus: Status = Dead(updateDay, updatePhase)
 }
 
 final case class DeathByFear(override val updateDay: Int, override val updatePhase: Phase)
-  extends Status("death by fear", updateDay, updatePhase) {
+    extends Status("death by fear", updateDay, updatePhase) {
   override def toIntermediateStatus: Status = Dead(updateDay, updatePhase)
 }
 
 final case class UnnaturalDeath(override val updateDay: Int, override val updatePhase: Phase)
-  extends Status("unnatural death", updateDay, updatePhase) {
+    extends Status("unnatural death", updateDay, updatePhase) {
   override def toIntermediateStatus: Status = UnnaturalDeath(updateDay, updatePhase)
 }

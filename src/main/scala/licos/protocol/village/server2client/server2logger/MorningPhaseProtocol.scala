@@ -1,5 +1,6 @@
 package licos.protocol.village.server2client.server2logger
 
+import licos.entity.Village
 import licos.json.element.village.JsonPhase
 import licos.json.element.village.iri.{BaseContext, Context, SystemMessage, VotingResultContext}
 import licos.knowledge.{Morning, PrivateChannel, ServerToClient}
@@ -12,40 +13,41 @@ import licos.protocol.village.part.{
 }
 import licos.protocol.village.part.character.{CharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.village.part.role.RoleProtocol
-import licos.state.VillageState
 import licos.util.TimestampGenerator
 
-final case class MorningPhaseProtocol(state:                      VillageState,
-                                      character:                  Seq[CharacterProtocol],
-                                      role:                       Seq[RoleProtocol],
-                                      extensionalDisclosureRange: Seq[StatusCharacterProtocol],
-                                      votingResultsSummary:       Seq[VotingResultSummaryProtocol],
-                                      votingResultsDetail:        Seq[VotingResultDetailProtocol]) {
+final case class MorningPhaseProtocol(
+    village:                    Village,
+    character:                  Seq[CharacterProtocol],
+    role:                       Seq[RoleProtocol],
+    extensionalDisclosureRange: Seq[StatusCharacterProtocol],
+    votingResultsSummary:       Seq[VotingResultSummaryProtocol],
+    votingResultsDetail:        Seq[VotingResultDetailProtocol]
+) {
 
   val json: Option[JsonPhase] = {
-    state.phase = Some(Morning)
-    if (state.isAvailable) {
+    village.currentPhase = Morning
+    if (village.isAvailable) {
       Option(
         new JsonPhase(
           BaseProtocol(
             Seq[Context](BaseContext, VotingResultContext),
             SystemMessage,
             VillageProtocol(
-              state.villageId,
-              state.villageName,
-              state.totalNumberOfCharacters,
-              state.lang,
+              village.id,
+              village.name,
+              village.cast.totalNumberOfPlayers,
+              village.language,
               ChatSettingsProtocol(
-                state.villageId,
-                state.maxNumberOfChatMessages,
-                state.maxLengthOfUnicodeCodePoints
+                village.id,
+                village.maxNumberOfChatMessages,
+                village.maxLengthOfUnicodeCodePoints
               )
             ),
-            state.token,
-            state.phase.get,
-            state.day.get,
-            state.phaseTimeLimit.get,
-            state.phaseStartTime.get,
+            village.tokenOpt.get,
+            village.currentPhase,
+            village.currentDay,
+            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
+            village.phaseStartTimeOpt.get,
             Option(TimestampGenerator.now),
             None,
             ServerToClient,
@@ -56,7 +58,8 @@ final case class MorningPhaseProtocol(state:                      VillageState,
           ).json,
           character.map(_.json),
           role.map(_.json)
-        ))
+        )
+      )
     } else {
       None
     }

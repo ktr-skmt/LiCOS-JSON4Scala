@@ -8,13 +8,15 @@ import licos.knowledge.{Character, Status}
 import licos.protocol.village.part.UpdateProtocol
 import licos.util.LiCOSOnline
 
-final case class CharacterProtocol(character: Character,
-                                   villageId: Long,
-                                   lang:      Locale,
-                                   isMine:    Boolean,
-                                   status:    Status,
-                                   update:    UpdateProtocol,
-                                   isAChoice: Boolean) {
+final case class CharacterProtocol(
+    character: Character,
+    villageId: Long,
+    lang:      Locale,
+    isMine:    Boolean,
+    status:    Status,
+    update:    UpdateProtocol,
+    isAChoice: Boolean
+) {
 
   private val `@id`: String = LiCOSOnline.state(villageId, s"character#${character.intId}")
 
@@ -27,7 +29,7 @@ final case class CharacterProtocol(character: Character,
     isMine,
     status.label,
     update.json(`@id`),
-    isAChoice,
+    isAChoice
   )
 
 }

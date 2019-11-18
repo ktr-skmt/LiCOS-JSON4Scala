@@ -1,16 +1,18 @@
 package licos.protocol.village.server2client
 
+import licos.entity.Village
 import licos.json.element.village.JsonGameResult
 import licos.protocol.village.part.character.ResultCharacterProtocol
 import licos.protocol.village.part.role.ResultRoleProtocol
-import licos.state.VillageState
 
-final case class GameResultProtocol(state:     VillageState,
-                                    character: Seq[ResultCharacterProtocol],
-                                    role:      Seq[ResultRoleProtocol]) {
+final case class GameResultProtocol(
+    village:   Village,
+    character: Seq[ResultCharacterProtocol],
+    role:      Seq[ResultRoleProtocol]
+) {
 
   val json: Option[JsonGameResult] = {
-    server2logger.GameResultProtocol(state, character, role, Nil).json
+    server2logger.GameResultProtocol(village, character, role, Nil).json
   }
 
 }

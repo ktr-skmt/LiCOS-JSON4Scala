@@ -1,41 +1,43 @@
 package licos.protocol.village.client2server.server2logger
 
+import licos.entity.Village
 import licos.json.element.village.JsonVote
 import licos.json.element.village.iri.{BaseContext, Context, VoteContext, VoteMessage}
 import licos.knowledge.{Character, ClientToServer, PrivateChannel, Role}
 import licos.protocol.village.part.character.{RoleCharacterProtocol, SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
-import licos.state.VillageState
 import licos.util.{LiCOSOnline, TimestampGenerator}
 
-final case class VoteProtocol(state:                      VillageState,
-                              character:                  Character,
-                              role:                       Role,
-                              extensionalDisclosureRange: Seq[StatusCharacterProtocol]) {
+final case class VoteProtocol(
+    village:                    Village,
+    character:                  Character,
+    role:                       Role,
+    extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+) {
 
   val json: Option[JsonVote] = {
-    if (state.isAvailable) {
+    if (village.isAvailable) {
       Option(
         new JsonVote(
           BaseProtocol(
             Seq[Context](BaseContext, VoteContext),
             VoteMessage,
             VillageProtocol(
-              state.villageId,
-              state.villageName,
-              state.totalNumberOfCharacters,
-              state.lang,
+              village.id,
+              village.name,
+              village.cast.totalNumberOfPlayers,
+              village.language,
               ChatSettingsProtocol(
-                state.villageId,
-                state.maxNumberOfChatMessages,
-                state.maxLengthOfUnicodeCodePoints
+                village.id,
+                village.maxNumberOfChatMessages,
+                village.maxLengthOfUnicodeCodePoints
               )
             ),
-            state.token,
-            state.phase.get,
-            state.day.get,
-            state.phaseTimeLimit.get,
-            state.phaseStartTime.get,
+            village.tokenOpt.get,
+            village.currentPhase,
+            village.currentDay,
+            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
+            village.phaseStartTimeOpt.get,
             None,
             Option(TimestampGenerator.now),
             ClientToServer,
@@ -45,18 +47,19 @@ final case class VoteProtocol(state:                      VillageState,
             Nil
           ).json,
           RoleCharacterProtocol(
-            state.myCharacter,
-            state.villageId,
-            state.lang,
-            state.myRole
+            village.myCharacterOpt.get,
+            village.id,
+            village.language,
+            village.myRoleOpt.get
           ).json,
           SimpleCharacterProtocol(
             character,
-            state.villageId,
-            state.lang,
+            village.id,
+            village.language,
             role
-          ).json(LiCOSOnline.stateVillage(state.villageId))
-        ))
+          ).json(LiCOSOnline.stateVillage(village.id))
+        )
+      )
     } else {
       None
     }

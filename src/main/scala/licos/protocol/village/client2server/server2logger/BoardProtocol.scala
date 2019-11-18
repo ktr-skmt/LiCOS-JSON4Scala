@@ -1,43 +1,45 @@
 package licos.protocol.village.client2server.server2logger
 
+import licos.entity.Village
 import licos.json.element.village.JsonBoard
 import licos.json.element.village.iri.{BaseContext, BoardContext, BoardMessage, Context}
 import licos.knowledge.{Character, ClientToServer, PolarityMark, PrivateChannel, Role}
 import licos.protocol.village.part.character.{RoleCharacterProtocol, SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.village.part.role.SimpleRoleProtocol
 import licos.protocol.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
-import licos.state.VillageState
 import licos.util.{LiCOSOnline, TimestampGenerator}
 
-final case class BoardProtocol(state:                      VillageState,
-                               character:                  Character,
-                               role:                       Role,
-                               prediction:                 PolarityMark,
-                               extensionalDisclosureRange: Seq[StatusCharacterProtocol]) {
+final case class BoardProtocol(
+    village:                    Village,
+    character:                  Character,
+    role:                       Role,
+    prediction:                 PolarityMark,
+    extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+) {
 
   val json: Option[JsonBoard] = {
-    if (state.isAvailable) {
+    if (village.isAvailable) {
       Option(
         new JsonBoard(
           BaseProtocol(
             Seq[Context](BaseContext, BoardContext),
             BoardMessage,
             VillageProtocol(
-              state.villageId,
-              state.villageName,
-              state.totalNumberOfCharacters,
-              state.lang,
+              village.id,
+              village.name,
+              village.cast.totalNumberOfPlayers,
+              village.language,
               ChatSettingsProtocol(
-                state.villageId,
-                state.maxNumberOfChatMessages,
-                state.maxLengthOfUnicodeCodePoints
+                village.id,
+                village.maxNumberOfChatMessages,
+                village.maxLengthOfUnicodeCodePoints
               )
             ),
-            state.token,
-            state.phase.get,
-            state.day.get,
-            state.phaseTimeLimit.get,
-            state.phaseStartTime.get,
+            village.tokenOpt.get,
+            village.currentPhase,
+            village.currentDay,
+            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
+            village.phaseStartTimeOpt.get,
             None,
             Option(TimestampGenerator.now),
             ClientToServer,
@@ -47,24 +49,25 @@ final case class BoardProtocol(state:                      VillageState,
             Nil
           ).json,
           RoleCharacterProtocol(
-            state.myCharacter,
-            state.villageId,
-            state.lang,
-            state.myRole
+            village.myCharacterOpt.get,
+            village.id,
+            village.language,
+            village.myRoleOpt.get
           ).json,
           SimpleCharacterProtocol(
             character,
-            state.villageId,
-            state.lang,
+            village.id,
+            village.language,
             role
-          ).json(LiCOSOnline.stateVillage(state.villageId)),
+          ).json(LiCOSOnline.stateVillage(village.id)),
           SimpleRoleProtocol(
             role,
-            state.villageId,
-            state.lang
-          ).json(LiCOSOnline.stateVillage(state.villageId)),
+            village.id,
+            village.language
+          ).json(LiCOSOnline.stateVillage(village.id)),
           prediction.label
-        ))
+        )
+      )
     } else {
       None
     }

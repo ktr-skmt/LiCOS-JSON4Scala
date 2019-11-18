@@ -7,11 +7,13 @@ import licos.json.element.village.JsonStarInfo
 import licos.json.element.village.iri.StarContext
 import licos.util.LiCOSOnline
 
-final case class StarInfoProtocol(villageId:       Long,
-                                  token:           UUID,
-                                  serverTimestamp: OffsetDateTime,
-                                  clientTimestamp: OffsetDateTime,
-                                  isMarked:        Boolean) {
+final case class StarInfoProtocol(
+    villageId:       Long,
+    token:           UUID,
+    serverTimestamp: OffsetDateTime,
+    clientTimestamp: OffsetDateTime,
+    isMarked:        Boolean
+) {
 
   val json: JsonStarInfo = {
     JsonStarInfo(

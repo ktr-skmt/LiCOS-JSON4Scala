@@ -8,12 +8,14 @@ import licos.knowledge.{Character, Role, Status}
 import licos.protocol.village.part.role.SimpleRoleProtocol
 import licos.util.LiCOSOnline
 
-final case class StatusCharacterProtocol(character:     Character,
-                                         villageId:     Long,
-                                         lang:          Locale,
-                                         role:          Role,
-                                         status:        Status,
-                                         isHumanPlayer: Boolean) {
+final case class StatusCharacterProtocol(
+    character:     Character,
+    villageId:     Long,
+    lang:          Locale,
+    role:          Role,
+    status:        Status,
+    isHumanPlayer: Boolean
+) {
 
   val json: JsonStatusCharacter = {
     val `@id`: String = LiCOSOnline.state(villageId, s"character#${character.intId}")

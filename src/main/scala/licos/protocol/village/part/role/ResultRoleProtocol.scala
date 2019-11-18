@@ -8,11 +8,13 @@ import licos.knowledge.Role
 import licos.protocol.village.part.character.SimpleCharacterProtocol
 import licos.util.LiCOSOnline
 
-final case class ResultRoleProtocol(role:      Role,
-                                    isMine:    Boolean,
-                                    character: Seq[SimpleCharacterProtocol],
-                                    villageId: Long,
-                                    locale:    Locale) {
+final case class ResultRoleProtocol(
+    role:      Role,
+    isMine:    Boolean,
+    character: Seq[SimpleCharacterProtocol],
+    villageId: Long,
+    locale:    Locale
+) {
 
   def json: JsonResultRole = {
     val `@id`: String = LiCOSOnline.state(villageId, s"role#${role.name.en.toLowerCase}")
