@@ -1,6 +1,6 @@
 package licos.knowledge
 
-import licos.protocol.village.part.NameProtocol
+import licos.protocol.element.village.part.NameProtocol
 import licos.util.WerewolfWorld
 
 import scala.collection.mutable.ListBuffer

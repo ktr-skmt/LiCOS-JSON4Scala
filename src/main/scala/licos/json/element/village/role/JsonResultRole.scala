@@ -14,13 +14,13 @@ import org.bson.types.ObjectId
 import scala.collection.JavaConverters._
 
 final case class JsonResultRole(
-    `@context`:         String,
-    `@id`:              String,
-    isMine:             Boolean,
-    name:               JsonName,
-    image:              String,
-    numberOfCharacters: Int,
-    character:          Seq[JsonSimpleCharacter]
+    `@context`:      String,
+    `@id`:           String,
+    isMine:          Boolean,
+    name:            JsonName,
+    image:           String,
+    numberOfPlayers: Int,
+    character:       Seq[JsonSimpleCharacter]
 ) extends JsonAbstractRole(
       `@context`: String,
       `@id`:      String,
@@ -30,42 +30,42 @@ final case class JsonResultRole(
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(
-      `@id`:              String,
-      isMine:             Boolean,
-      name:               JsonName,
-      image:              String,
-      numberOfCharacters: Int,
-      character:          Seq[JsonSimpleCharacter]
+      `@id`:           String,
+      isMine:          Boolean,
+      name:            JsonName,
+      image:           String,
+      numberOfPlayers: Int,
+      character:       Seq[JsonSimpleCharacter]
   ) = {
     this(
-      RoleContext.iri:    String,
-      `@id`:              String,
-      isMine:             Boolean,
-      name:               JsonName,
-      image:              String,
-      numberOfCharacters: Int,
-      character:          Seq[JsonSimpleCharacter]
+      RoleContext.iri: String,
+      `@id`:           String,
+      isMine:          Boolean,
+      name:            JsonName,
+      image:           String,
+      numberOfPlayers: Int,
+      character:       Seq[JsonSimpleCharacter]
     )
   }
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(
-      `@context`:         String,
-      `@id`:              String,
-      isMine:             Boolean,
-      name:               JsonName,
-      image:              String,
-      numberOfCharacters: Int,
-      character:          JList[JsonSimpleCharacter]
+      `@context`:      String,
+      `@id`:           String,
+      isMine:          Boolean,
+      name:            JsonName,
+      image:           String,
+      numberOfPlayers: Int,
+      character:       JList[JsonSimpleCharacter]
   ) = {
     this(
-      `@context`:         String,
-      `@id`:              String,
-      isMine:             Boolean,
-      name:               JsonName,
-      image:              String,
-      numberOfCharacters: Int,
-      character.asScala:  Seq[JsonSimpleCharacter]
+      `@context`:        String,
+      `@id`:             String,
+      isMine:            Boolean,
+      name:              JsonName,
+      image:             String,
+      numberOfPlayers:   Int,
+      character.asScala: Seq[JsonSimpleCharacter]
     )
   }
 
@@ -77,7 +77,7 @@ final case class JsonResultRole(
       isMine:                         Boolean,
       name.toBson:                    BsonName,
       image:                          String,
-      numberOfCharacters:             Int,
+      numberOfPlayers:                Int,
       character.map(_.toBson).asJava: JList[BsonSimpleCharacter]
     )
   }
@@ -94,7 +94,7 @@ object JsonResultRole {
       (JsPath \ "isMine").read[Boolean] and
       (JsPath \ "name").read[JsonName] and
       (JsPath \ "image").read[String](RoleValidation.image) and
-      (JsPath \ "numberOfCharacters").read[Int](RoleValidation.numberOfCharacters) and
+      (JsPath \ "numberOfPlayers").read[Int](RoleValidation.numberOfPlayers) and
       (JsPath \ "character").read[Seq[JsonSimpleCharacter]]
   )(JsonResultRole.apply _)
 

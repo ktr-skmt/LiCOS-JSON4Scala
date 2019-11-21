@@ -16,6 +16,10 @@ final case class JsonStar(base: JsonBase, sub: JsonSubStar) extends JsonElement 
     this(base, JsonSubStar(myCharacter, star))
   }
 
+  def myCharacter: JsonRoleCharacter = sub.myCharacter
+
+  def star: JsonStarInfo = sub.star
+
   override def toBson: BsonStar = {
     new BsonStar(
       new ObjectId(),

@@ -21,7 +21,7 @@ final case class JsonChatFromServer private (base: JsonBase, sub: JsonSubChatFro
       id:                           Int,
       counter:                      Int,
       maxNumberOfChatMessages:      Int,
-      interval:                     String,
+      interval:                     Int,
       text:                         JsonChatText,
       maxLengthOfUnicodeCodePoints: Int,
       isOver:                       Boolean
@@ -34,7 +34,7 @@ final case class JsonChatFromServer private (base: JsonBase, sub: JsonSubChatFro
         id:                           Int,
         counter:                      Int,
         maxNumberOfChatMessages:      Int,
-        interval:                     String,
+        interval:                     Int,
         text:                         JsonChatText,
         maxLengthOfUnicodeCodePoints: Int,
         isOver:                       Boolean
@@ -53,7 +53,7 @@ final case class JsonChatFromServer private (base: JsonBase, sub: JsonSubChatFro
         id:                           Int,
         counter:                      Int,
         maxNumberOfChatMessages:      Int,
-        interval:                     String,
+        interval:                     Int,
         text:                         JsonChatText,
         maxLengthOfUnicodeCodePoints: Int,
         isOver:                       Boolean
@@ -66,7 +66,7 @@ final case class JsonChatFromServer private (base: JsonBase, sub: JsonSubChatFro
   def id:                           Int                 = sub.id
   def counter:                      Int                 = sub.counter
   def maxNumberOfChatMessages:      Int                 = sub.maxNumberOfChatMessages
-  def interval:                     String              = sub.interval
+  def interval:                     Int                 = sub.interval
   def text:                         JsonChatText        = sub.text
   def maxLengthOfUnicodeCodePoints: Int                 = sub.maxLengthOfUnicodeCodePoints
   def isOver:                       Boolean             = sub.isOver
@@ -80,7 +80,7 @@ final case class JsonChatFromServer private (base: JsonBase, sub: JsonSubChatFro
         id:                      Int,
         counter:                 Int,
         maxNumberOfChatMessages: Int,
-        interval:                String,
+        interval:                Int,
         JsonChatText(
           s"""${text.`@value`}
              |
@@ -102,7 +102,7 @@ final case class JsonChatFromServer private (base: JsonBase, sub: JsonSubChatFro
       id:                           Int,
       counter:                      Int,
       maxNumberOfChatMessages:      Int,
-      interval:                     String,
+      interval:                     Int,
       text.toBson:                  BsonChatText,
       maxLengthOfUnicodeCodePoints: Int,
       isOver:                       Boolean
@@ -124,7 +124,7 @@ final case class JsonSubChatFromServer(
     id:                           Int,
     counter:                      Int,
     maxNumberOfChatMessages:      Int,
-    interval:                     String,
+    interval:                     Int,
     text:                         JsonChatText,
     maxLengthOfUnicodeCodePoints: Int,
     isOver:                       Boolean
@@ -141,7 +141,7 @@ object JsonSubChatFromServer {
       (JsPath \ "id").read[Int](ChatValidation.id) and
       (JsPath \ "counter").read[Int](ChatValidation.counter) and
       (JsPath \ "maxNumberOfChatMessages").read[Int](ChatValidation.maxNumberOfChatMessages) and
-      (JsPath \ "interval").read[String](ChatValidation.interval) and
+      (JsPath \ "interval").read[Int](ChatValidation.interval) and
       (JsPath \ "text").read[JsonChatText] and
       (JsPath \ "maxLengthOfUnicodeCodePoints").read[Int](ChatValidation.maxLengthOfUnicodeCodePoints) and
       (JsPath \ "isOver").read[Boolean]

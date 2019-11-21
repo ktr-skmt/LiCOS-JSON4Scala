@@ -24,7 +24,7 @@ object RoleValidation {
     val en: Reads[String] = pattern(roleNames.r)
     val ja: Reads[String] = pattern("""(?:狩人|狂人|共有者|霊媒師|占い師|村人|ハムスター人間|人狼)""".r)
   }
-  val image:              Reads[String] = pattern(WerewolfWorld.roleIcon(roleNamesInLowerCase).r)
-  val numberOfCharacters: Reads[Int]    = min(0) keepAnd max(7)
+  val image:           Reads[String] = pattern(WerewolfWorld.roleIcon(roleNamesInLowerCase).r)
+  val numberOfPlayers: Reads[Int]    = min(0) keepAnd max(7)
 
 }

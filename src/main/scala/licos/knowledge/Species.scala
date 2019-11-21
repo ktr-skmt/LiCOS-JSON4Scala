@@ -1,6 +1,6 @@
 package licos.knowledge
 
-import licos.protocol.village.part.NameProtocol
+import licos.protocol.element.village.part.NameProtocol
 
 sealed abstract class Species(id: String, name: NameProtocol) {
   override def toString: String = id

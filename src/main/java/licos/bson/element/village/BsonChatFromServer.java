@@ -35,7 +35,7 @@ public class BsonChatFromServer extends BsonElement {
     private int maxNumberOfChatMessages;
 
     @Getter @Setter
-    private String interval;
+    private int interval;
 
     @Getter @Setter @Reference
     private BsonChatText text;
@@ -58,7 +58,7 @@ public class BsonChatFromServer extends BsonElement {
                               int id,
                               int counter,
                               int maxNumberOfChatMessages,
-                              String interval,
+                              int interval,
                               BsonChatText text,
                               int maxLengthOfUnicodeCodePoints,
                               boolean isOver) {

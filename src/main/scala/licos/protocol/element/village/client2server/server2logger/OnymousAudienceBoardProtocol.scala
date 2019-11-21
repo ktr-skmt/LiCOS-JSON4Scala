@@ -1,0 +1,84 @@
+package licos.protocol.element.village.client2server.server2logger
+
+import licos.entity.Village
+import licos.json.element.village.JsonOnymousAudienceBoard
+import licos.json.element.village.iri.{BaseContext, BoardContext, BoardMessage, Context}
+import licos.knowledge.{Character, ClientToServer, OnymousAudienceChannel, PolarityMark, Role}
+import licos.protocol.element.village.VillageMessageProtocol
+import licos.protocol.element.village.part.character.{SimpleCharacterProtocol, StatusCharacterProtocol}
+import licos.protocol.element.village.part.role.SimpleRoleProtocol
+import licos.protocol.element.village.part.{AvatarProtocol, BaseProtocol, ChatSettingsProtocol, VillageProtocol}
+import licos.util.{LiCOSOnline, TimestampGenerator}
+
+final case class OnymousAudienceBoardProtocol(
+    village:                    Village,
+    character:                  Character,
+    role:                       Role,
+    prediction:                 PolarityMark,
+    extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+) extends VillageMessageProtocol {
+
+  val json: Option[JsonOnymousAudienceBoard] = {
+    if (village.isAvailable) {
+      Some(
+        new JsonOnymousAudienceBoard(
+          BaseProtocol(
+            Seq[Context](BaseContext, BoardContext),
+            BoardMessage,
+            VillageProtocol(
+              village.id,
+              village.name,
+              village.cast.totalNumberOfPlayers,
+              village.language,
+              ChatSettingsProtocol(
+                village.id,
+                village.maxNumberOfChatMessages,
+                village.maxLengthOfUnicodeCodePoints
+              )
+            ),
+            village.tokenOpt.get,
+            village.currentPhase,
+            village.currentDay,
+            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
+            village.phaseStartTimeOpt.get,
+            None,
+            Option(TimestampGenerator.now),
+            ClientToServer,
+            OnymousAudienceChannel,
+            extensionalDisclosureRange,
+            Nil,
+            Nil
+          ).json,
+          AvatarProtocol(
+            village.tokenOpt.get,
+            village.avatarNameOpt.get,
+            village.avatarImageOpt.get
+          ).json(LiCOSOnline.stateVillage(village.id)),
+          SimpleCharacterProtocol(
+            character,
+            village.id,
+            village.language,
+            role
+          ).json(LiCOSOnline.stateVillage(village.id)),
+          SimpleRoleProtocol(
+            role,
+            village.id,
+            village.language
+          ).json(LiCOSOnline.stateVillage(village.id)),
+          prediction.label
+        )
+      )
+    } else {
+      None
+    }
+  }
+
+}
+
+object OnymousAudienceBoardProtocol {
+
+  def read(json: JsonOnymousAudienceBoard, village: Village): Option[OnymousAudienceBoardProtocol] = {
+
+  }
+
+}
