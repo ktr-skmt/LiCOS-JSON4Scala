@@ -20,8 +20,16 @@ final case class ScrollProtocol(
 
 object ScrollProtocol {
 
-  def read(json: JsonScroll): Option[ScrollProtocol] = {
-
+  def read(json: JsonScroll, village: Village): Option[ScrollProtocol] = {
+    Some(
+      ScrollProtocol(
+        village,
+        json.nodeId,
+        json.scrollTop,
+        json.scrollHeight,
+        json.offsetHeight
+      )
+    )
   }
 
 }

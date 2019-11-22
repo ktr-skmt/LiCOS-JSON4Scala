@@ -11,24 +11,24 @@ import licos.util.LiCOSOnline
 final case class CharacterProtocol(
     character: Character,
     villageId: Long,
-    language:      Locale,
+    language:  Locale,
     isMine:    Boolean,
     status:    Status,
-    update:    UpdateProtocol,
+    updateProtocol: UpdateProtocol,
     isAChoice: Boolean
 ) {
 
-  private val `@id`: String = LiCOSOnline.state(villageId, s"character#${character.intId}")
+  private val `@id`: String = LiCOSOnline.state(villageId, s"character#${character.getId}")
 
   val json: JsonCharacter = JsonCharacter(
     CharacterContext.iri,
     `@id`,
-    character.intId,
+    character.getId,
     character.name.json(Option(language)),
     character.icon,
     isMine,
     status.label,
-    update.json(`@id`),
+    updateProtocol.json(`@id`),
     isAChoice
   )
 

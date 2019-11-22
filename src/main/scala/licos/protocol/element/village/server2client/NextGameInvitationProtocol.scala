@@ -6,7 +6,7 @@ import licos.protocol.element.village.VillageMessageProtocol
 final case class NextGameInvitationProtocol(villageId: Long) extends VillageMessageProtocol {
 
   val json: Option[JsonNextGameInvitation] = {
-    Option(new JsonNextGameInvitation(villageId))
+    Some(new JsonNextGameInvitation(villageId))
   }
 
 }
@@ -14,7 +14,7 @@ final case class NextGameInvitationProtocol(villageId: Long) extends VillageMess
 object NextGameInvitationProtocol {
 
   def read(json: JsonNextGameInvitation): Option[NextGameInvitationProtocol] = {
-    Option(NextGameInvitationProtocol(json.villageId))
+    Some(NextGameInvitationProtocol(json.villageId))
   }
 
 }

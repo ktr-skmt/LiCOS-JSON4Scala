@@ -6,7 +6,7 @@ import licos.protocol.element.village.VillageMessageProtocol
 final case class NextGameInvitationIsClosedProtocol() extends VillageMessageProtocol {
 
   val json: Option[JsonNextGameInvitationIsClosed] = {
-    Option(new JsonNextGameInvitationIsClosed())
+    Some(new JsonNextGameInvitationIsClosed())
   }
 
 }
@@ -14,7 +14,7 @@ final case class NextGameInvitationIsClosedProtocol() extends VillageMessageProt
 object NextGameInvitationIsClosedProtocol {
 
   def read(json: JsonNextGameInvitationIsClosed): Option[NextGameInvitationIsClosedProtocol] = {
-    Option(NextGameInvitationIsClosedProtocol())
+    Some(NextGameInvitationIsClosedProtocol())
   }
 
 }

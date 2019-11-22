@@ -7,11 +7,11 @@ import licos.json.element.village.iri.VillageContext
 import licos.util.LiCOSOnline
 
 final case class VillageProtocol(
-    id:                      Long,
-    name:                    String,
-    totalNumberOfCharacters: Int,
-    language:                    Locale,
-    chatSettings:            ChatSettingsProtocol
+    id:                   Long,
+    name:                 String,
+    totalNumberOfPlayers: Int,
+    language:             Locale,
+    chatSettings:         ChatSettingsProtocol
 ) {
 
   val json: JsonVillage = JsonVillage(
@@ -19,7 +19,7 @@ final case class VillageProtocol(
     LiCOSOnline.stateVillage,
     id,
     name,
-    totalNumberOfCharacters,
+    totalNumberOfPlayers,
     language.getLanguage,
     chatSettings.json
   )

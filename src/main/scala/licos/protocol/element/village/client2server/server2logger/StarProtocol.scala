@@ -4,12 +4,15 @@ import java.time.OffsetDateTime
 
 import licos.entity.Village
 import licos.json.element.village.JsonStar
+import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{BaseContext, Context, StarContext, StarMessage}
-import licos.knowledge.{ClientToServer, PrivateChannel}
+import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role, Status}
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, StarInfoProtocol, VillageProtocol}
 import licos.util.TimestampGenerator
+
+import scala.collection.mutable.ListBuffer
 
 final case class StarProtocol(
     village:                    Village,
@@ -52,9 +55,9 @@ final case class StarProtocol(
           ).json,
           RoleCharacterProtocol(
             village.myCharacterOpt.get,
+            village.myRoleOpt.get,
             village.id,
-            village.language,
-            village.myRoleOpt.get
+            village.language
           ).json,
           StarInfoProtocol(
             village.id,
@@ -74,8 +77,34 @@ final case class StarProtocol(
 
 object StarProtocol {
 
-  def read(json: JsonStar): Option[StarProtocol] = {
+  def read(json: JsonStar, village: Village): Option[StarProtocol] = {
 
+    val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]
+    json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
+      val characterOpt: Option[Character] = Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
+      val roleOpt: Option[Role] = village.cast.parse(jsonStatusCharacter.role.name.en)
+      val statusOpt: Option[Status] = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
+      if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty) {
+        statusCharacterBuffer += StatusCharacterProtocol(
+          characterOpt.get,
+          roleOpt.get,
+          statusOpt.get,
+          jsonStatusCharacter.isHumanPlayer,
+          village.id,
+          village.language
+        )
+      }
+    }
+
+    Some(
+      StarProtocol(
+        village,
+        OffsetDateTime.parse(json.star.serverTimestamp),
+        OffsetDateTime.parse(json.star.clientTimestamp),
+        json.star.isMarked,
+        statusCharacterBuffer.result
+      )
+    )
   }
 
 }

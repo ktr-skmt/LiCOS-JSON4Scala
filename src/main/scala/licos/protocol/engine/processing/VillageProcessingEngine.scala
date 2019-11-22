@@ -146,7 +146,7 @@ class VillageProcessingEngine(
       case Right(json: JsonBuildVillage) =>
         buildVillageAnalysisEngine match {
           case Some(engine: BuildVillageAnalysisEngine) =>
-            BuildVillageProtocol.read(json) match {
+            BuildVillageProtocol.read(json, box.village) match {
               case Some(protocol) =>
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(BuildVillageAnalysisEngine.name))
@@ -156,7 +156,7 @@ class VillageProcessingEngine(
       case Right(json: JsonChatFromClient) =>
         chatFromClientAnalysisEngine match {
           case Some(engine: ChatFromClientAnalysisEngine) =>
-            ChatFromClientProtocol.read(json) match {
+            ChatFromClientProtocol.read(json, box.village) match {
               case Some(protocol) =>
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ChatFromClientAnalysisEngine.name))
@@ -177,7 +177,7 @@ class VillageProcessingEngine(
         } else {
           errorFromClientAnalysisEngine match {
             case Some(engine: ErrorFromClientAnalysisEngine) =>
-              ErrorFromClientProtocol.read(json) match {
+              ErrorFromClientProtocol.read(json, box.village) match {
                 case Some(protocol) =>
                   engine.process(box, protocol)
                 case None => Failure(new JSON2ProtocolException(ErrorFromClientAnalysisEngine.name))
@@ -219,7 +219,7 @@ class VillageProcessingEngine(
         } else {
           onymousAudienceChatFromClientAnalysisEngine match {
             case Some(engine: OnymousAudienceChatFromClientAnalysisEngine) =>
-              OnymousAudienceChatFromClientProtocol.read(json) match {
+              OnymousAudienceChatFromClientProtocol.read(json, box.village) match {
                 case Some(protocol) =>
                   engine.process(box, protocol)
                 case None => Failure(new JSON2ProtocolException(OnymousAudienceChatFromClientAnalysisEngine.name))
@@ -280,7 +280,7 @@ class VillageProcessingEngine(
       case Right(json: JsonScroll) =>
         scrollAnalysisEngine match {
           case Some(engine: ScrollAnalysisEngine) =>
-            ScrollProtocol.read(json) match {
+            ScrollProtocol.read(json, box.village) match {
               case Some(protocol) =>
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ScrollAnalysisEngine.name))
@@ -404,7 +404,7 @@ class VillageProcessingEngine(
           case None => Failure(new NoEngineException(NextGameInvitationIsClosedAnalysisEngine.name))
         }
       case _ =>
-        Failure(new NoEngineException("NoAnalysisEngine"))
+        Failure(new NoEngineException("AnalysisEngine"))
     }
   }
 }

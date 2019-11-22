@@ -1,34 +1,11 @@
 package licos.knowledge
 
-object Status {
-  val defaultValue: Status = Alive(updateDay = 1, updatePhase = Morning)
-
-  def labelToStatusOpt(label: String, day: Int, phase: Phase): Option[Status] = {
-    label match {
-      case "alive"              => Option(Alive(day, phase))
-      case "dead"               => Option(Dead(day, phase))
-      case "death by execution" => Option(DeathByExecution(day, phase))
-      case "death by attack"    => Option(DeathByAttack(day, phase))
-      case "death by fear"      => Option(DeathByFear(day, phase))
-      case "unnatural death"    => Option(UnnaturalDeath(day, phase))
-      case _                    => None
-    }
-  }
-}
-
-sealed abstract class Status(val label: String, val updateDay: Int, val updatePhase: Phase) {
+sealed abstract class Status(val label: String) {
 
   override def toString: String = label
 
   def toIntermediateStatus: Status
-  def isAlive: Boolean = {
-    this match {
-      case Alive(_, _) =>
-        true
-      case _ =>
-        false
-    }
-  }
+  def isAlive: Boolean = this == Alive
   def isDead: Boolean = !isAlive
 
   override def equals(o: Any): Boolean = {
@@ -39,32 +16,26 @@ sealed abstract class Status(val label: String, val updateDay: Int, val updatePh
   }
 }
 
-final case class Alive(override val updateDay: Int, override val updatePhase: Phase)
-    extends Status("alive", updateDay, updatePhase) {
+case object Alive extends Status("alive") {
   override def toIntermediateStatus: Status = this
 }
 
-final case class Dead(override val updateDay: Int, override val updatePhase: Phase)
-    extends Status("dead", updateDay, updatePhase) {
+case object Dead extends Status("dead") {
   override def toIntermediateStatus: Status = this
 }
 
-final case class DeathByExecution(override val updateDay: Int, override val updatePhase: Phase)
-    extends Status("death by execution", updateDay, updatePhase) {
-  override def toIntermediateStatus: Status = DeathByExecution(updateDay, updatePhase)
+case object DeathByExecution extends Status("death by execution") {
+  override def toIntermediateStatus: Status = this
 }
 
-final case class DeathByAttack(override val updateDay: Int, override val updatePhase: Phase)
-    extends Status("death by attack", updateDay, updatePhase) {
-  override def toIntermediateStatus: Status = Dead(updateDay, updatePhase)
+case object DeathByAttack extends Status("death by attack") {
+  override def toIntermediateStatus: Status = Dead
 }
 
-final case class DeathByFear(override val updateDay: Int, override val updatePhase: Phase)
-    extends Status("death by fear", updateDay, updatePhase) {
-  override def toIntermediateStatus: Status = Dead(updateDay, updatePhase)
+case object DeathByFear extends Status("death by fear") {
+  override def toIntermediateStatus: Status = Dead
 }
 
-final case class UnnaturalDeath(override val updateDay: Int, override val updatePhase: Phase)
-    extends Status("unnatural death", updateDay, updatePhase) {
-  override def toIntermediateStatus: Status = UnnaturalDeath(updateDay, updatePhase)
+case object UnnaturalDeath extends Status("unnatural death") {
+  override def toIntermediateStatus: Status = UnnaturalDeath
 }

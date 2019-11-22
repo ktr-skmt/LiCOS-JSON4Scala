@@ -15,8 +15,18 @@ final case class OnymousAudienceChatFromServerProtocol(village: Village, isMine:
 
 object OnymousAudienceChatFromServerProtocol {
 
-  def read(json: JsonOnymousAudienceChat): Option[OnymousAudienceChatFromServerProtocol] = {
-
+  def read(json: JsonOnymousAudienceChat, village: Village): Option[OnymousAudienceChatFromServerProtocol] = {
+    if (json.isFromServer) {
+      Some(
+        OnymousAudienceChatFromServerProtocol(
+          village,
+          json.isMine,
+          json.text.`@value`
+        )
+      )
+    } else {
+      None
+    }
   }
 
 }

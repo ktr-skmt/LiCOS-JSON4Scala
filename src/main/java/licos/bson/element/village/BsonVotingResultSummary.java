@@ -20,7 +20,7 @@ public class BsonVotingResultSummary extends BsonElement {
     private String $id;
 
     @Getter @Setter @Reference
-    private BsonSimpleCharacter characterToLynch;
+    private BsonSimpleCharacter characterToPutToDeath;
 
     @Getter @Setter
     private int numberOfVotes;
@@ -35,12 +35,12 @@ public class BsonVotingResultSummary extends BsonElement {
 
     public BsonVotingResultSummary(ObjectId _id,
                                    String $id,
-                                   BsonSimpleCharacter characterToLynch,
+                                   BsonSimpleCharacter characterToPutToDeath,
                                    int numberOfVotes,
                                    int rankOfVotes) {
         this._id = _id;
         this.$id = $id;
-        this.characterToLynch = characterToLynch;
+        this.characterToPutToDeath = characterToPutToDeath;
         this.numberOfVotes = numberOfVotes;
         this.rankOfVotes = rankOfVotes;
     }
@@ -49,7 +49,7 @@ public class BsonVotingResultSummary extends BsonElement {
     public JsonVotingResultSummary toJson() {
         return new JsonVotingResultSummary(
                 $id,
-                characterToLynch.toJson(),
+                characterToPutToDeath.toJson(),
                 numberOfVotes,
                 rankOfVotes
         );

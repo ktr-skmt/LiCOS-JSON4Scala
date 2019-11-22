@@ -11,15 +11,15 @@ import licos.util.LiCOSOnline
 
 final case class ResultCharacterProtocol(
     character:   Character,
-    villageId:   Long,
-    language:        Locale,
     isMine:      Boolean,
     role:        Role,
     status:      Status,
     result:      Outcome,
     token:       UUID,
     avatarName:  String,
-    avatarImage: String
+    avatarImage: String,
+    villageId:   Long,
+    language:    Locale
 ) {
 
   val json: JsonResultCharacter = {
@@ -27,7 +27,7 @@ final case class ResultCharacterProtocol(
     JsonResultCharacter(
       CharacterContext.iri,
       `@id`,
-      character.intId,
+      character.getId,
       character.name.json(Option(language)),
       character.icon,
       isMine,

@@ -17,11 +17,13 @@ object AnonymousAudienceChatFromServerProtocol {
 
   def read(json: JsonAnonymousAudienceChat, village: Village): Option[AnonymousAudienceChatFromServerProtocol] = {
     if (json.isFromServer) {
-      Some(AnonymousAudienceChatFromServerProtocol(
-        village,
-        json.isMine,
-        json.text.`@value`
-      ))
+      Some(
+        AnonymousAudienceChatFromServerProtocol(
+          village,
+          json.isMine,
+          json.text.`@value`
+        )
+      )
     } else {
       None
     }

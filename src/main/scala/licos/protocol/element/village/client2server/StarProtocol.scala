@@ -22,12 +22,14 @@ final case class StarProtocol(
 object StarProtocol {
 
   def read(json: JsonStar, village: Village): Option[StarProtocol] = {
-    Some(StarProtocol(
-      village,
-      OffsetDateTime.parse(json.star.serverTimestamp),
-      OffsetDateTime.parse(json.star.clientTimestamp),
-      json.star.isMarked
-    ))
+    Some(
+      StarProtocol(
+        village,
+        OffsetDateTime.parse(json.star.serverTimestamp),
+        OffsetDateTime.parse(json.star.clientTimestamp),
+        json.star.isMarked
+      )
+    )
   }
 
 }

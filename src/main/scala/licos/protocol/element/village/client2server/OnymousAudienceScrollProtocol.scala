@@ -21,7 +21,11 @@ object OnymousAudienceScrollProtocol {
   def read(json: JsonOnymousAudienceScroll, village: Village): Option[OnymousAudienceScrollProtocol] = {
     Some(
       OnymousAudienceScrollProtocol(
-
+        village,
+        json.nodeId,
+        json.scrollTop,
+        json.scrollHeight,
+        json.offsetHeight
       )
     )
   }

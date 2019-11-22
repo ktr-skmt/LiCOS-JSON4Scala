@@ -12,19 +12,17 @@ final case class VotingResultSummaryProtocol(
     numberOfVotes: Int,
     rankOfVotes:   Int,
     villageId:     Long,
-    language:        Locale,
-    role:          Role
+    language:      Locale
 ) {
 
   val json: JsonVotingResultSummary = {
-    val `@id`: String = LiCOSOnline.state(villageId, s"votingResultsSummary#${character.intId}")
+    val `@id`: String = LiCOSOnline.state(villageId, s"votingResultsSummary#${character.getId}")
     JsonVotingResultSummary(
       `@id`,
       SimpleCharacterProtocol(
         character,
         villageId,
-        language,
-        role
+        language
       ).json(`@id`),
       numberOfVotes,
       rankOfVotes

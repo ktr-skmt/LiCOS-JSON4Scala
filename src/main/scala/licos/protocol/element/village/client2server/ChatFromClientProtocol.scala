@@ -2,6 +2,7 @@ package licos.protocol.element.village.client2server
 
 import licos.entity.Village
 import licos.json.element.village.JsonChatFromClient
+import licos.knowledge.Data2Knowledge
 import licos.protocol.PlayerChatChannel
 import licos.protocol.element.village.VillageMessageProtocol
 
@@ -21,14 +22,19 @@ final case class ChatFromClientProtocol(
 object ChatFromClientProtocol {
 
   def read(json: JsonChatFromClient, village: Village): Option[ChatFromClientProtocol] = {
-    Some(
-      ChatFromClientProtocol(
-        village,
-        ,
-        json.text.`@value`,
-        json.isOver
+    val channelOpt: Option[PlayerChatChannel] = Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)
+    if (channelOpt.nonEmpty) {
+      Some(
+        ChatFromClientProtocol(
+          village,
+          channelOpt.get,
+          json.text.`@value`,
+          json.isOver
+        )
       )
-    )
+    } else {
+      None
+    }
   }
 
 }

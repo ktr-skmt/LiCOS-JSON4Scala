@@ -14,11 +14,14 @@ final case class OnymousAudienceChatFromClientProtocol(village: Village, text: S
 
 object OnymousAudienceChatFromClientProtocol {
 
-  def read(json: JsonOnymousAudienceChat): Option[OnymousAudienceChatFromClientProtocol] = {
+  def read(json: JsonOnymousAudienceChat, village: Village): Option[OnymousAudienceChatFromClientProtocol] = {
     if (!json.isFromServer) {
-      Option(OnymousAudienceChatFromClientProtocol(
-
-      ))
+      Some(
+        OnymousAudienceChatFromClientProtocol(
+          village,
+          json.text.`@value`
+        )
+      )
     } else {
       None
     }

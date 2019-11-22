@@ -13,15 +13,14 @@ final case class BoardResultProtocol(
     phase:     Phase,
     day:       Int,
     villageId: Long,
-    language:    Locale,
-    role:      Role
+    language:  Locale
 ) {
 
   def json(`@id`: String): JsonBoardResult = {
     JsonBoardResult(
       BoardResultContext.iri,
-      `@id`.concat(s"/board#${character.intId}"),
-      SimpleCharacterProtocol(character, villageId, language, role).json(`@id`),
+      `@id`.concat(s"/board#${character.getId}"),
+      SimpleCharacterProtocol(character, villageId, language).json(`@id`),
       polarity.label,
       phase.label,
       day

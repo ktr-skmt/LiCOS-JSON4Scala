@@ -32,6 +32,8 @@ final case class JsonFlavorText private (base: JsonBase, sub: JsonSubFlavorText)
     )
   }
 
+  def flavorText: Seq[JsonChatFromServer] = sub.flavorText
+
   override def toBson: BsonFlavorText = {
     new BsonFlavorText(
       new ObjectId(),

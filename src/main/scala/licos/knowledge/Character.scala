@@ -4,8 +4,14 @@ import licos.protocol.element.village.part.NameProtocol
 import licos.util.WerewolfWorld
 
 sealed abstract class Character(val name: NameProtocol) {
-  def id:    String = name.en
-  var intId: Int    = -1
+  private var id: Int    = -1
+
+  def getId: Int = id
+
+  def setId(id: Int): Character = {
+    this.id = id
+    this
+  }
 
   def icon: String = WerewolfWorld.characterIcon(name.en.head.toString.toLowerCase)
 
@@ -19,7 +25,7 @@ sealed abstract class Character(val name: NameProtocol) {
   override def toString: String = name.en
 }
 
-case object Adil
+final case class Adil()
     extends Character(
       NameProtocol()
         .ar("Adil")
@@ -37,7 +43,7 @@ case object Adil
         .zhTW("Adil")
     )
 
-case object Borya
+final case class Borya()
     extends Character(
       NameProtocol()
         .ar("Borya")
@@ -55,7 +61,7 @@ case object Borya
         .zhTW("Borya")
     )
 
-case object Chacha
+final case class Chacha()
     extends Character(
       NameProtocol()
         .ar("Chacha")
@@ -73,7 +79,7 @@ case object Chacha
         .zhTW("Chacha")
     )
 
-case object Devdatta
+final case class Devdatta()
     extends Character(
       NameProtocol()
         .ar("Devdatta")
@@ -91,7 +97,7 @@ case object Devdatta
         .zhTW("Devdatta")
     )
 
-case object Ekrem
+final case class Ekrem()
     extends Character(
       NameProtocol()
         .ar("Ekrem")
@@ -109,7 +115,7 @@ case object Ekrem
         .zhTW("Ekrem")
     )
 
-case object Fernando
+final case class Fernando()
     extends Character(
       NameProtocol()
         .ar("Fernando")
@@ -127,7 +133,7 @@ case object Fernando
         .zhTW("Fernando")
     )
 
-case object Gavriil
+final case class Gavriil()
     extends Character(
       NameProtocol()
         .ar("Gavriil")
@@ -145,7 +151,7 @@ case object Gavriil
         .zhTW("Gavriil")
     )
 
-case object Henrik
+final case class Henrik()
     extends Character(
       NameProtocol()
         .ar("Henrik")
@@ -163,7 +169,7 @@ case object Henrik
         .zhTW("Henrik")
     )
 
-case object Ileanna
+final case class Ileanna()
     extends Character(
       NameProtocol()
         .ar("Ileanna")
@@ -181,7 +187,7 @@ case object Ileanna
         .zhTW("Ileanna")
     )
 
-case object Jasmin
+final case class Jasmin()
     extends Character(
       NameProtocol()
         .ar("Jasmin")
@@ -199,7 +205,7 @@ case object Jasmin
         .zhTW("Jasmin")
     )
 
-case object Kaiji
+final case class Kaiji()
     extends Character(
       NameProtocol()
         .ar("Kaiji")
@@ -217,7 +223,7 @@ case object Kaiji
         .zhTW("開司")
     )
 
-case object Louise
+final case class Louise()
     extends Character(
       NameProtocol()
         .ar("Louise")
@@ -235,7 +241,7 @@ case object Louise
         .zhTW("Louise")
     )
 
-case object Marthe
+final case class Marthe()
     extends Character(
       NameProtocol()
         .ar("Marthe")
@@ -253,7 +259,7 @@ case object Marthe
         .zhTW("Marthe")
     )
 
-case object Nanyamka
+final case class Nanyamka()
     extends Character(
       NameProtocol()
         .ar("Nanyamka")
@@ -271,7 +277,7 @@ case object Nanyamka
         .zhTW("Nanyamka")
     )
 
-case object Oliwia
+final case class Oliwia()
     extends Character(
       NameProtocol()
         .ar("Oliwia")
@@ -289,7 +295,7 @@ case object Oliwia
         .zhTW("Oliwia")
     )
 
-case object Ryan
+final case class Ryan()
     extends Character(
       NameProtocol()
         .ar("Ryan")
@@ -307,7 +313,7 @@ case object Ryan
         .zhTW("Ryan")
     )
 
-case object Susan
+final case class Susan()
     extends Character(
       NameProtocol()
         .ar("Susan")
@@ -325,7 +331,7 @@ case object Susan
         .zhTW("Susan")
     )
 
-case object Thuy
+final case class Thuy()
     extends Character(
       NameProtocol()
         .ar("Thuy")
@@ -343,7 +349,7 @@ case object Thuy
         .zhTW("Thuy")
     )
 
-case object Uma
+final case class Uma()
     extends Character(
       NameProtocol()
         .ar("Uma")
@@ -361,7 +367,7 @@ case object Uma
         .zhTW("Uma")
     )
 
-case object Valeria
+final case class Valeria()
     extends Character(
       NameProtocol()
         .ar("Valeria")
@@ -379,7 +385,7 @@ case object Valeria
         .zhTW("Valeria")
     )
 
-case object Yihan
+final case class Yihan()
     extends Character(
       NameProtocol()
         .ar("Yihan")

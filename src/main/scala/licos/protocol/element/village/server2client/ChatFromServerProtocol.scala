@@ -2,7 +2,8 @@ package licos.protocol.element.village.server2client
 
 import licos.entity.Village
 import licos.json.element.village.JsonChatFromServer
-import licos.protocol.{GraveChannel, PlayerChatChannel, PrivateChannel, PublicChannel, WerewolfChannel}
+import licos.knowledge.Data2Knowledge
+import licos.protocol.PlayerChatChannel
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.SimpleCharacterProtocol
 
@@ -30,33 +31,26 @@ object ChatFromServerProtocol {
 
   def read(json: JsonChatFromServer, village: Village): Option[ChatFromServerProtocol] = {
 
-    val channelOpt: Option[PlayerChatChannel] = {
-      json.base.intensionalDisclosureRange match {
-        case PublicChannel.channel.label => Option(PublicChannel)
-        case PrivateChannel.channel.label => Option(PrivateChannel)
-        case WerewolfChannel.channel.label => Option(WerewolfChannel)
-        case GraveChannel.channel.label => Option(GraveChannel)
-        case _ => None
-      }
-    }
+    val channelOpt: Option[PlayerChatChannel] =
+      Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)
 
     if (channelOpt.nonEmpty && village.myCharacterOpt.nonEmpty && village.myRoleOpt.nonEmpty) {
-      Some(ChatFromServerProtocol(
-        village,
-        channelOpt.get,
-        SimpleCharacterProtocol(
-          village.myCharacterOpt.get,
-          village.id,
-          village.language,
-          village.myRoleOpt.get
-        ),
-        json.isMine,
-        json.id,
-        json.counter,
-        json.interval,
-        json.text.`@value`,
-        json.isOver
-      ))
+      Some(
+        ChatFromServerProtocol(
+          village,
+          channelOpt.get,
+          SimpleCharacterProtocol(
+            village.myCharacterOpt.get,
+            village.id,
+            village.language
+          ),
+          json.isMine,
+          json.id,
+          json.counter,
+          json.interval,
+          json.text.`@value`,
+          json.isOver
+        ))
     } else {
       None
     }

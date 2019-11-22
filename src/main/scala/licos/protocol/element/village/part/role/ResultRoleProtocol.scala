@@ -13,7 +13,7 @@ final case class ResultRoleProtocol(
     isMine:    Boolean,
     character: Seq[SimpleCharacterProtocol],
     villageId: Long,
-    language:    Locale
+    language:  Locale
 ) {
 
   def json: JsonResultRole = {

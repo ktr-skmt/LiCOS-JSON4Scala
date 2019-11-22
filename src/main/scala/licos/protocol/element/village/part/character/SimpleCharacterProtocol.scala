@@ -4,16 +4,16 @@ import java.util.Locale
 
 import licos.json.element.village.character.JsonSimpleCharacter
 import licos.json.element.village.iri.CharacterContext
-import licos.knowledge.{Character, Role}
+import licos.knowledge.Character
 import licos.util.LiCOSOnline
 
-final case class SimpleCharacterProtocol(character: Character, villageId: Long, language: Locale, role: Role) {
+final case class SimpleCharacterProtocol(character: Character, villageId: Long, language: Locale) {
   def json(`@id`: String): JsonSimpleCharacter = {
     JsonSimpleCharacter(
       CharacterContext.iri,
       LiCOSOnline
-        .state(villageId, `@id`.concat(s"/character#${character.intId}")),
-      character.intId,
+        .state(villageId, `@id`.concat(s"/character#${character.getId}")),
+      character.getId,
       character.name.json(Option(language)),
       character.icon
     )

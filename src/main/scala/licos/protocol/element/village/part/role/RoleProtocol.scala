@@ -9,12 +9,12 @@ import licos.protocol.element.village.part.BoardResultProtocol
 import licos.util.LiCOSOnline
 
 final case class RoleProtocol(
-    role:               Role,
-    isMine:             Boolean,
+    role:            Role,
+    isMine:          Boolean,
     numberOfPlayers: Int,
-    board:              Seq[BoardResultProtocol],
-    villageId:          Long,
-    language:               Locale
+    board:           Seq[BoardResultProtocol],
+    villageId:       Long,
+    language:        Locale
 ) {
 
   val json: JsonRole = {
