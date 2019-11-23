@@ -21,7 +21,7 @@ final case class ScrollProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  private val json: Option[JsonScroll] = {
+  val json: Option[JsonScroll] = {
     if (village.isAvailable) {
       Some(
         new JsonScroll(

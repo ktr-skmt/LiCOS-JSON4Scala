@@ -22,7 +22,7 @@ final case class StarProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  private val json: Option[JsonStar] = {
+  val json: Option[JsonStar] = {
     if (village.isAvailable) {
       Some(
         new JsonStar(

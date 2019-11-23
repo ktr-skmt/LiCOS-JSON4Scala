@@ -21,7 +21,7 @@ final case class BoardProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  private val json: Option[JsonBoard] = {
+  val json: Option[JsonBoard] = {
     if (village.isAvailable) {
       Some(
         new JsonBoard(

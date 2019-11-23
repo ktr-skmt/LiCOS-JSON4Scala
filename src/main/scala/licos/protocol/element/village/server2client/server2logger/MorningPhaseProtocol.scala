@@ -23,7 +23,7 @@ final case class MorningPhaseProtocol(
     votingResultsDetail:        Seq[VotingResultDetailProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  private val json: Option[JsonPhase] = {
+  val json: Option[JsonPhase] = {
     village.currentPhase = Morning
     if (village.isAvailable) {
       Some(

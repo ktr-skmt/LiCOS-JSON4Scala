@@ -18,7 +18,7 @@ final case class VoteProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  private val json: Option[JsonVote] = {
+  val json: Option[JsonVote] = {
     if (village.isAvailable) {
       Some(
         new JsonVote(

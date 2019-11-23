@@ -21,7 +21,7 @@ final case class OnymousAudienceBoardProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  private val json: Option[JsonOnymousAudienceBoard] = {
+  val json: Option[JsonOnymousAudienceBoard] = {
     if (village.isAvailable) {
       Some(
         new JsonOnymousAudienceBoard(

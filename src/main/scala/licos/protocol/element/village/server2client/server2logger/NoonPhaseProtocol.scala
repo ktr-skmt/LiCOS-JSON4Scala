@@ -21,7 +21,7 @@ final case class NoonPhaseProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  private val json: Option[JsonPhase] = {
+  val json: Option[JsonPhase] = {
     village.currentPhase = Noon
     if (village.isAvailable) {
       Some(

@@ -21,7 +21,7 @@ final case class GameResultProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  private val json: Option[JsonGameResult] = {
+  val json: Option[JsonGameResult] = {
     village.currentPhase = Result
     if (village.isAvailable) {
       Some(

@@ -20,7 +20,7 @@ final case class OnymousAudienceScrollProtocol(village:                    Villa
                                                extensionalDisclosureRange: Seq[StatusCharacterProtocol])
     extends Client2ServerVillageMessageProtocolForLogging {
 
-  private val json: Option[JsonOnymousAudienceScroll] = {
+  val json: Option[JsonOnymousAudienceScroll] = {
     if (village.isAvailable) {
       Some(
         new JsonOnymousAudienceScroll(

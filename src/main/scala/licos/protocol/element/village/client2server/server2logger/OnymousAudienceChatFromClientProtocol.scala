@@ -18,7 +18,7 @@ final case class OnymousAudienceChatFromClientProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  private val json: Option[JsonOnymousAudienceChat] = {
+  val json: Option[JsonOnymousAudienceChat] = {
     if (village.isAvailable) {
       Some(
         new JsonOnymousAudienceChat(

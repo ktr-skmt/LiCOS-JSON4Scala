@@ -21,7 +21,7 @@ final case class NightPhaseProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  private val json: Option[JsonPhase] = {
+  val json: Option[JsonPhase] = {
     village.currentPhase = Night
     if (village.isAvailable) {
       Some(

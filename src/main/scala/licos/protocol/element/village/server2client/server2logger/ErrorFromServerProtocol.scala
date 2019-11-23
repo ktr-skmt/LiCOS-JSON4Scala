@@ -20,7 +20,7 @@ final case class ErrorFromServerProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  private val json: Option[JsonError] = {
+  val json: Option[JsonError] = {
     if (village.isAvailable) {
       Some(
         new JsonError(
