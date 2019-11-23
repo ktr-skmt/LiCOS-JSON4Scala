@@ -9,6 +9,7 @@ import licos.protocol.engine.analysis.village.client2server.{
   LeaveWaitingPageAnalysisEngine,
   OnymousAudienceBoardAnalysisEngine,
   OnymousAudienceChatFromClientAnalysisEngine,
+  OnymousAudienceScrollAnalysisEngine,
   ReadyAnalysisEngine,
   ReceivedChatMessageAnalysisEngine,
   ReceivedFlavorTextMessageAnalysisEngine,
@@ -43,6 +44,7 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
   private var leaveWaitingPageAnalysisEngine:              Option[LeaveWaitingPageAnalysisEngine]              = None
   private var onymousAudienceBoardAnalysisEngine:          Option[OnymousAudienceBoardAnalysisEngine]          = None
   private var onymousAudienceChatFromClientAnalysisEngine: Option[OnymousAudienceChatFromClientAnalysisEngine] = None
+  private var onymousAudienceScrollAnalysisEngine:         Option[OnymousAudienceScrollAnalysisEngine]         = None
   private var readyAnalysisEngine:                         Option[ReadyAnalysisEngine]                         = None
   private var receivedChatMessageAnalysisEngine:           Option[ReceivedChatMessageAnalysisEngine]           = None
   private var receivedFlavorTextMessageAnalysisEngine:     Option[ReceivedFlavorTextMessageAnalysisEngine]     = None
@@ -74,6 +76,7 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
       leaveWaitingPageAnalysisEngine,
       onymousAudienceBoardAnalysisEngine,
       onymousAudienceChatFromClientAnalysisEngine,
+      onymousAudienceScrollAnalysisEngine,
       readyAnalysisEngine,
       receivedChatMessageAnalysisEngine,
       receivedFlavorTextMessageAnalysisEngine,
@@ -135,6 +138,11 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
   def set(onymousAudienceChatFromClientAnalysisEngine: OnymousAudienceChatFromClientAnalysisEngine)
     : VillageProcessingEngineFactory = {
     this.onymousAudienceChatFromClientAnalysisEngine = Option(onymousAudienceChatFromClientAnalysisEngine)
+    this
+  }
+
+  def set(onymousAudienceScrollAnalysisEngine: OnymousAudienceScrollAnalysisEngine): VillageProcessingEngineFactory = {
+    this.onymousAudienceScrollAnalysisEngine = Option(onymousAudienceScrollAnalysisEngine)
     this
   }
 

@@ -209,7 +209,7 @@ class VillageProcessingEngine(
         if (json.isFromServer) {
           onymousAudienceChatFromServerAnalysisEngine match {
             case Some(engine: OnymousAudienceChatFromServerAnalysisEngine) =>
-              OnymousAudienceChatFromServerProtocol.read(json) match {
+              OnymousAudienceChatFromServerProtocol.read(json, box.village) match {
                 case Some(protocol) =>
                   engine.process(box, protocol)
                 case None => Failure(new JSON2ProtocolException(OnymousAudienceChatFromServerAnalysisEngine.name))
