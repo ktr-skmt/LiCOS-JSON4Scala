@@ -1,6 +1,6 @@
 package licos.protocol.engine.processing
 
 import licos.entity.Village
-import licos.knowledge.{Character, Role}
+import licos.protocol.engine.BOX
 
-abstract class VillageBOX(val village: Village)
+abstract class VillageBOX(val village: Village) extends BOX
