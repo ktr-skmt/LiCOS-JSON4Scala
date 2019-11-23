@@ -3,7 +3,7 @@ package licos.entity
 import java.time.OffsetDateTime
 import java.util.{Locale, UUID}
 
-import licos.knowledge.{Alive, Architecture, AvatarSetting, Cast, Character, Morning, Phase, Role}
+import licos.knowledge.{Alive, Architecture, AvatarSetting, Cast, Character, Lobby, Morning, Phase, Role}
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
@@ -11,6 +11,7 @@ import scala.collection.mutable.ListBuffer
 final case class Village(
     id:                           Long,
     name:                         String,
+    lobby:                        Lobby,
     hostPlayer:                   HostPlayer,
     avatarSetting:                AvatarSetting,
     maxNumberOfHumanPlayers:      Int,

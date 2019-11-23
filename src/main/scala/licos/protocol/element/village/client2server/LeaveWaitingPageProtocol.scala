@@ -1,31 +1,30 @@
 package licos.protocol.element.village.client2server
 
-import licos.entity.Village
+import java.util.UUID
+
 import licos.json.element.lobby.JsonLeaveWaitingPage
-import licos.knowledge.Lobby
+import licos.knowledge.{Data2Knowledge, Lobby}
 
-final case class LeaveWaitingPageProtocol(village: Village) extends Client2ServerVillageMessageProtocol {
+final case class LeaveWaitingPageProtocol(token: UUID, villageId: Long, lobby: Lobby)
+    extends Client2ServerVillageMessageProtocol {
 
-  def json(lobby: Lobby): Option[JsonLeaveWaitingPage] = {
-    if (village.isAvailable) {
-      Option(
-        new JsonLeaveWaitingPage(
-          village.tokenOpt.get.toString,
-          village.id,
-          lobby.label
-        )
+  def json: Option[JsonLeaveWaitingPage] = {
+    Some(
+      new JsonLeaveWaitingPage(
+        token.toString,
+        villageId,
+        lobby.label
       )
-    } else {
-      None
-    }
+    )
   }
-
 }
 
 object LeaveWaitingPageProtocol {
 
   def read(json: JsonLeaveWaitingPage): Option[LeaveWaitingPageProtocol] = {
-
+    Data2Knowledge.lobbyOpt(json.lobby) map { lobby: Lobby =>
+      new LeaveWaitingPageProtocol(UUID.fromString(json.token), json.villageId, lobby)
+    }
   }
 
 }

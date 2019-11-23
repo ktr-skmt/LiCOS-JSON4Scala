@@ -28,12 +28,12 @@ object Data2Knowledge {
 
   def statusOpt(label: String): Option[Status] = {
     label match {
-      case Alive.label            => Option(Alive)
-      case Dead.label             => Option(Dead)
-      case DeathByExecution.label => Option(DeathByExecution)
-      case DeathByAttack.label    => Option(DeathByAttack)
-      case DeathByFear.label      => Option(DeathByFear)
-      case UnnaturalDeath.label   => Option(UnnaturalDeath)
+      case Alive.label            => Some(Alive)
+      case Dead.label             => Some(Dead)
+      case DeathByExecution.label => Some(DeathByExecution)
+      case DeathByAttack.label    => Some(DeathByAttack)
+      case DeathByFear.label      => Some(DeathByFear)
+      case UnnaturalDeath.label   => Some(UnnaturalDeath)
       case _                      => None
     }
   }
@@ -43,6 +43,16 @@ object Data2Knowledge {
       case Victory.label => Some(Victory)
       case Defeat.label  => Some(Defeat)
       case _             => None
+    }
+  }
+
+  def lobbyOpt(label: String): Option[Lobby] = {
+    label match {
+      case HumanPlayerLobby.label       => Some(HumanPlayerLobby)
+      case RobotPlayerLobby.label       => Some(RobotPlayerLobby)
+      case OnymousAudienceLobby.label   => Some(OnymousAudienceLobby)
+      case AnonymousAudienceLobby.label => Some(AnonymousAudienceLobby)
+      case _                            => None
     }
   }
 

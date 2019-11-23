@@ -4,12 +4,6 @@ sealed abstract class Lobby(val label: String) {
 
   override def toString: String = label
 
-  def toArchitecture: Architecture = {
-    this match {
-      case RobotPlayerLobby => JohnVonNeumannArchitecture
-      case _                => HumanArchitecture
-    }
-  }
 }
 
 case object HumanPlayerLobby extends Lobby("human player")
