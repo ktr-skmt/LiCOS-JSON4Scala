@@ -5,7 +5,6 @@ import licos.json.element.village.JsonGameResult
 import licos.json.element.village.character.{JsonResultCharacter, JsonSimpleCharacter}
 import licos.json.element.village.role.JsonResultRole
 import licos.knowledge.{Character, Data2Knowledge, Outcome, Role, Status}
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.{ResultCharacterProtocol, SimpleCharacterProtocol}
 import licos.protocol.element.village.part.role.ResultRoleProtocol
 
@@ -15,7 +14,7 @@ final case class GameResultProtocol(
     village:   Village,
     character: Seq[ResultCharacterProtocol],
     role:      Seq[ResultRoleProtocol]
-) extends VillageMessageProtocol {
+) extends Server2ClientVillageMessageProtocol {
 
   val json: Option[JsonGameResult] = {
     server2logger.GameResultProtocol(village, character, role, Nil).json

@@ -3,13 +3,12 @@ package licos.protocol.element.village.client2server
 import licos.entity.Village
 import licos.json.element.village.JsonOnymousAudienceBoard
 import licos.knowledge.{Character, Data2Knowledge, PolarityMark, Role}
-import licos.protocol.element.village.VillageMessageProtocol
 
 final case class OnymousAudienceBoardProtocol(village:    Village,
                                               character:  Character,
                                               role:       Role,
                                               prediction: PolarityMark)
-    extends VillageMessageProtocol {
+    extends Client2ServerVillageMessageProtocol {
 
   val json: Option[JsonOnymousAudienceBoard] = {
     server2logger.OnymousAudienceBoardProtocol(village, character, role, prediction, Nil).json

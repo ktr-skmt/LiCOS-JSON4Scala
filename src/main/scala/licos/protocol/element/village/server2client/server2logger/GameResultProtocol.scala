@@ -6,7 +6,6 @@ import licos.json.element.village.character.{JsonResultCharacter, JsonSimpleChar
 import licos.json.element.village.iri.{BaseContext, Context, SystemMessage, VotingResultContext}
 import licos.json.element.village.role.JsonResultRole
 import licos.knowledge.{Character, Data2Knowledge, Outcome, PublicChannel, Result, Role, ServerToClient, Status}
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
 import licos.protocol.element.village.part.character.{ResultCharacterProtocol, SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.role.ResultRoleProtocol
@@ -19,7 +18,7 @@ final case class GameResultProtocol(
     character:                  Seq[ResultCharacterProtocol],
     role:                       Seq[ResultRoleProtocol],
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
-) extends VillageMessageProtocol {
+) extends Server2ClientVillageMessageProtocolForLogging {
 
   val json: Option[JsonGameResult] = {
     village.currentPhase = Result

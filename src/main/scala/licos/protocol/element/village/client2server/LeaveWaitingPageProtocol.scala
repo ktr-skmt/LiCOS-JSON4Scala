@@ -3,9 +3,8 @@ package licos.protocol.element.village.client2server
 import licos.entity.Village
 import licos.json.element.lobby.JsonLeaveWaitingPage
 import licos.knowledge.Lobby
-import licos.protocol.element.village.VillageMessageProtocol
 
-final case class LeaveWaitingPageProtocol(village: Village) extends VillageMessageProtocol {
+final case class LeaveWaitingPageProtocol(village: Village) extends Client2ServerVillageMessageProtocol {
 
   def json(lobby: Lobby): Option[JsonLeaveWaitingPage] = {
     if (village.isAvailable) {

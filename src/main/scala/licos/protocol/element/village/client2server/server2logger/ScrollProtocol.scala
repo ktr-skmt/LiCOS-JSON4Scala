@@ -5,7 +5,6 @@ import licos.json.element.village.JsonScroll
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{BaseContext, Context, ScrollContext, ScrollMessage}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role, Status}
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
 import licos.util.TimestampGenerator
@@ -19,7 +18,7 @@ final case class ScrollProtocol(
     scrollHeight:               Int,
     offsetHeight:               Int,
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
-) extends VillageMessageProtocol {
+) extends Client2ServerVillageMessageProtocolForLogging {
 
   val json: Option[JsonScroll] = {
     if (village.isAvailable) {

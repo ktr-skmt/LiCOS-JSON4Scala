@@ -4,7 +4,6 @@ import licos.entity.Village
 import licos.json.element.village.JsonChatFromServer
 import licos.knowledge.Data2Knowledge
 import licos.protocol.PlayerChatChannel
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.SimpleCharacterProtocol
 
 final case class ChatFromServerProtocol(
@@ -17,7 +16,7 @@ final case class ChatFromServerProtocol(
     interval:  Int,
     text:      String,
     isOver:    Boolean
-) extends VillageMessageProtocol {
+) extends Server2ClientVillageMessageProtocol {
 
   val json: Option[JsonChatFromServer] = {
     server2logger

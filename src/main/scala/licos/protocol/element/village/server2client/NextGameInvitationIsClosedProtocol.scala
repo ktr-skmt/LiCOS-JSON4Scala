@@ -1,9 +1,8 @@
 package licos.protocol.element.village.server2client
 
 import licos.json.element.village.invite.JsonNextGameInvitationIsClosed
-import licos.protocol.element.village.VillageMessageProtocol
 
-final case class NextGameInvitationIsClosedProtocol() extends VillageMessageProtocol {
+final case class NextGameInvitationIsClosedProtocol() extends Server2ClientVillageMessageProtocol {
 
   val json: Option[JsonNextGameInvitationIsClosed] = {
     Some(new JsonNextGameInvitationIsClosed())

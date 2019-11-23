@@ -2,12 +2,11 @@ package licos.protocol.element.village.server2client
 
 import licos.entity.Village
 import licos.json.element.village.{JsonChatFromServer, JsonFlavorText}
-import licos.protocol.element.village.VillageMessageProtocol
 
 import scala.collection.mutable.ListBuffer
 
 final case class FlavorTextProtocol(village: Village, flavorText: Seq[ChatFromServerProtocol])
-    extends VillageMessageProtocol {
+    extends Server2ClientVillageMessageProtocol {
 
   val json: Option[JsonFlavorText] = {
     server2logger.FlavorTextProtocol(village, flavorText, Nil).json

@@ -3,9 +3,10 @@ package licos.entity
 import java.time.OffsetDateTime
 import java.util.{Locale, UUID}
 
-import licos.knowledge.{Architecture, AvatarSetting, Cast, Character, Phase, Role, Status}
+import licos.knowledge.{Alive, Architecture, AvatarSetting, Cast, Character, Morning, Phase, Role}
 
 import scala.collection.mutable
+import scala.collection.mutable.ListBuffer
 
 final case class Village(
     id:                           Long,
@@ -23,8 +24,8 @@ final case class Village(
     avatars:                      mutable.ListBuffer[AvatarInVillage]
 ) {
 
-  var currentDay:        Int                     = Status.defaultValue.updateDay
-  var currentPhase:      Phase                   = Status.defaultValue.updatePhase
+  var currentPhase:      Phase                   = Morning
+  var currentDay:        Int                     = 1
   var phaseStartTimeOpt: Option[OffsetDateTime]  = Option.empty[OffsetDateTime]
   var currentChatId:     Int                     = 0
   var myAvatarOpt:       Option[AvatarInVillage] = Option.empty[AvatarInVillage]
@@ -67,7 +68,17 @@ final case class Village(
     myRoleOpt.nonEmpty
   }
 
-  def numberOfAlivePlayers: Int = {}
+  def alivePlayers: Seq[PlayerInVillage] = {
+    val playerBuffer = ListBuffer.empty[PlayerInVillage]
+    avatars foreach {
+      case player: PlayerInVillage if player.status(currentPhase, currentDay) == Alive =>
+        playerBuffer += player
+      case _ =>
+    }
+    playerBuffer.result
+  }
+
+  def numberOfAlivePlayers: Int = alivePlayers.size
 
 }
 

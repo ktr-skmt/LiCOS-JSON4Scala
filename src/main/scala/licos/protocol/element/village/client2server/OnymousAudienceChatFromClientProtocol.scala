@@ -2,9 +2,8 @@ package licos.protocol.element.village.client2server
 
 import licos.entity.Village
 import licos.json.element.village.JsonOnymousAudienceChat
-import licos.protocol.element.village.VillageMessageProtocol
 
-final case class OnymousAudienceChatFromClientProtocol(village: Village, text: String) extends VillageMessageProtocol {
+final case class OnymousAudienceChatFromClientProtocol(village: Village, text: String) extends Client2ServerVillageMessageProtocol {
 
   val json: Option[JsonOnymousAudienceChat] = {
     server2logger.OnymousAudienceChatFromClientProtocol(village, text, Nil).json

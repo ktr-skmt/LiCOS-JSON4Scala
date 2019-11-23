@@ -5,7 +5,6 @@ import licos.json.element.village.JsonOnymousAudienceChat
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{BaseContext, ChatContext, ChatMessage, Context}
 import licos.knowledge.{Character, Data2Knowledge, OnymousAudienceChannel, Role, ServerToClient, Status}
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{AvatarProtocol, BaseProtocol, ChatSettingsProtocol, ChatTextProtocol, VillageProtocol}
 import licos.util.{LiCOSOnline, TimestampGenerator}
@@ -17,7 +16,7 @@ final case class OnymousAudienceChatFromServerProtocol(
     isMine:                     Boolean,
     text:                       String,
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
-) extends VillageMessageProtocol {
+) extends Server2ClientVillageMessageProtocolForLogging {
 
   val json: Option[JsonOnymousAudienceChat] = {
     if (village.isAvailable) {

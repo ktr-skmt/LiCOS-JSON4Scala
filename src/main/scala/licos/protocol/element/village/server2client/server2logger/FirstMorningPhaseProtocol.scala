@@ -6,7 +6,6 @@ import licos.json.element.village.{JsonBoardResult, JsonPhase}
 import licos.json.element.village.iri.{BaseContext, Context, SystemMessage, VotingResultContext}
 import licos.json.element.village.role.JsonRole
 import licos.knowledge.{Character, Data2Knowledge, Morning, Phase, PolarityMark, PrivateChannel, Role, ServerToClient, Status}
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.{BaseProtocol, BoardResultProtocol, ChatSettingsProtocol, UpdateProtocol, VillageProtocol}
 import licos.protocol.element.village.part.character.{CharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.role.RoleProtocol
@@ -19,7 +18,7 @@ final case class FirstMorningPhaseProtocol(
     character:                  Seq[CharacterProtocol],
     role:                       Seq[RoleProtocol],
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
-) extends VillageMessageProtocol {
+) extends Server2ClientVillageMessageProtocolForLogging {
 
   val json: Option[JsonPhase] = {
     village.currentPhase = Morning

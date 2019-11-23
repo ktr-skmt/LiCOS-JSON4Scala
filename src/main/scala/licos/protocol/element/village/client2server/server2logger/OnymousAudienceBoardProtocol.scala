@@ -5,7 +5,6 @@ import licos.json.element.village.JsonOnymousAudienceBoard
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{BaseContext, BoardContext, BoardMessage, Context}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, OnymousAudienceChannel, PolarityMark, Role, Status}
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.{SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.role.SimpleRoleProtocol
 import licos.protocol.element.village.part.{AvatarProtocol, BaseProtocol, ChatSettingsProtocol, VillageProtocol}
@@ -19,7 +18,7 @@ final case class OnymousAudienceBoardProtocol(
     role:                       Role,
     prediction:                 PolarityMark,
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
-) extends VillageMessageProtocol {
+) extends Client2ServerVillageMessageProtocolForLogging {
 
   val json: Option[JsonOnymousAudienceBoard] = {
     if (village.isAvailable) {

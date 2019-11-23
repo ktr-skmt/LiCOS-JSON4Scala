@@ -2,9 +2,8 @@ package licos.protocol.element.village.client2server
 
 import licos.entity.Village
 import licos.json.element.lobby.JsonBuildVillage
-import licos.protocol.element.village.VillageMessageProtocol
 
-final case class BuildVillageProtocol(village: Village) extends VillageMessageProtocol {
+final case class BuildVillageProtocol(village: Village) extends Client2ServerVillageMessageProtocol {
 
   val json: Option[JsonBuildVillage] = {
     if (village.isAvailable) {

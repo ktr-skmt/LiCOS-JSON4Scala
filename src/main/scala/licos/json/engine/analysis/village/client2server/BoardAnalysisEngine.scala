@@ -1,7 +1,7 @@
 package licos.json.engine.analysis.village.client2server
 
 import licos.json.engine.BOX
-import licos.json.engine.analysis.JsonAnalysisEngine
+import licos.json.engine.analysis.AnalysisEngine
 import licos.json.element.village.JsonBoard
 import play.api.libs.json.JsValue
 
@@ -9,7 +9,7 @@ import play.api.libs.json.JsValue
   *
   * @author Kotaro Sakamoto
   */
-trait JsonBoardAnalysisEngine extends JsonAnalysisEngine {
+trait BoardAnalysisEngine extends AnalysisEngine {
 
   /** Returns a play.api.libs.json.JsValue response from a JSON message.
     *
@@ -21,7 +21,7 @@ trait JsonBoardAnalysisEngine extends JsonAnalysisEngine {
 
 }
 
-object JsonBoardAnalysisEngine {
+object BoardAnalysisEngine {
 
   /**
     * Board analysis engine name.

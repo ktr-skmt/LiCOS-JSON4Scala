@@ -5,7 +5,6 @@ import licos.json.element.village.JsonVote
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{BaseContext, Context, VoteContext, VoteMessage}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role, Status}
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
 import licos.util.{LiCOSOnline, TimestampGenerator}
@@ -16,7 +15,7 @@ final case class VoteProtocol(
     village:                    Village,
     character:                  Character,
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
-) extends VillageMessageProtocol {
+) extends Client2ServerVillageMessageProtocolForLogging {
 
   val json: Option[JsonVote] = {
     if (village.isAvailable) {

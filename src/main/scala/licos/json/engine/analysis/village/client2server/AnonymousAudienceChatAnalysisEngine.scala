@@ -1,10 +1,10 @@
 package licos.json.engine.analysis.village.client2server
 
-import licos.json.engine.analysis.village.MetaJsonAnonymousAudienceChatAnalysisEngine
+import licos.json.engine.analysis.village.MetaAnonymousAudienceChatAnalysisEngine
 
-trait JsonAnonymousAudienceChatAnalysisEngine extends MetaJsonAnonymousAudienceChatAnalysisEngine
+trait AnonymousAudienceChatAnalysisEngine extends MetaAnonymousAudienceChatAnalysisEngine
 
-object JsonAnonymousAudienceChatAnalysisEngine {
+object AnonymousAudienceChatAnalysisEngine {
 
   /**
     * Anonymous-audience-chat analysis engine name.

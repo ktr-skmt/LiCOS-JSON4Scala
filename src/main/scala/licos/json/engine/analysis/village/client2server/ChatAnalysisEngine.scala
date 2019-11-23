@@ -1,7 +1,7 @@
 package licos.json.engine.analysis.village.client2server
 
 import licos.json.engine.BOX
-import licos.json.engine.analysis.JsonAnalysisEngine
+import licos.json.engine.analysis.AnalysisEngine
 import licos.json.element.village.JsonChatFromClient
 import play.api.libs.json.JsValue
 
@@ -9,7 +9,7 @@ import play.api.libs.json.JsValue
   *
   * @author Kotaro Sakamoto
   */
-trait JsonChatAnalysisEngine extends JsonAnalysisEngine {
+trait ChatAnalysisEngine extends AnalysisEngine {
 
   /** Returns a play.api.libs.json.JsValue response from a JSON message.
     *
@@ -21,7 +21,7 @@ trait JsonChatAnalysisEngine extends JsonAnalysisEngine {
 
 }
 
-object JsonChatAnalysisEngine {
+object ChatAnalysisEngine {
 
   /**
     * Chat analysis engine name.

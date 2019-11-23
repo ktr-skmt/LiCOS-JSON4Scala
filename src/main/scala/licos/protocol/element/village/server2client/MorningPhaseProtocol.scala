@@ -5,7 +5,6 @@ import licos.json.element.village.character.JsonCharacter
 import licos.json.element.village.role.JsonRole
 import licos.json.element.village.{JsonBoardResult, JsonPhase, JsonVotingResultSummary}
 import licos.knowledge.{Character, Data2Knowledge, Morning, Phase, PolarityMark, Role, Status}
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.{BoardResultProtocol, UpdateProtocol, VotingResultSummaryProtocol}
 import licos.protocol.element.village.part.character.CharacterProtocol
 import licos.protocol.element.village.part.role.RoleProtocol
@@ -17,7 +16,7 @@ final case class MorningPhaseProtocol(
     character:            Seq[CharacterProtocol],
     role:                 Seq[RoleProtocol],
     votingResultsSummary: Seq[VotingResultSummaryProtocol]
-) extends VillageMessageProtocol {
+) extends Server2ClientVillageMessageProtocol {
 
   val json: Option[JsonPhase] = {
     server2logger.MorningPhaseProtocol(village, character, role, Nil, votingResultsSummary, Nil).json

@@ -1,0 +1,5 @@
+package licos.protocol.element.village.client2server
+
+import licos.protocol.element.village.VillageMessageProtocol
+
+trait Client2ServerVillageMessageProtocol extends VillageMessageProtocol

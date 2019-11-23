@@ -1,13 +1,15 @@
 package licos.protocol.element.village.client2server
 
-import licos.json.element.village.JsonFlavorText
-import licos.json.element.village.receipt.JsonReceivedFlavorTextMessage
-import licos.protocol.element.village.VillageMessageProtocol
+import java.util.UUID
 
-final case class ReceivedFlavorTextMessageProtocol(flavorText: JsonFlavorText) extends VillageMessageProtocol {
+import licos.json.element.village.receipt.JsonReceivedFlavorTextMessage
+import licos.knowledge.{Data2Knowledge, Phase}
+
+final case class ReceivedFlavorTextMessageProtocol(token: UUID, villageId: Long, phase: Phase, day: Int)
+    extends Client2ServerVillageMessageProtocol {
 
   val json: Option[JsonReceivedFlavorTextMessage] = {
-    Option(new JsonReceivedFlavorTextMessage(flavorText))
+    Some(new JsonReceivedFlavorTextMessage(token.toString, villageId, phase.label, day))
   }
 
 }
@@ -15,7 +17,9 @@ final case class ReceivedFlavorTextMessageProtocol(flavorText: JsonFlavorText) e
 object ReceivedFlavorTextMessageProtocol {
 
   def read(json: JsonReceivedFlavorTextMessage): Option[ReceivedFlavorTextMessageProtocol] = {
-
+    Data2Knowledge.phaseOpt(json.phase) map { phase: Phase =>
+      ReceivedFlavorTextMessageProtocol(UUID.fromString(json.token), json.villageId, phase, json.day)
+    }
   }
 
 }

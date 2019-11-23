@@ -6,7 +6,6 @@ import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{BaseContext, ChatContext, ChatMessage, Context}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, Role, Status}
 import licos.protocol.PlayerChatChannel
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, ChatTextProtocol, VillageProtocol}
 import licos.util.{LiCOSOnline, TimestampGenerator}
@@ -19,7 +18,7 @@ final case class ChatFromClientProtocol(
     text:                       String,
     isOver:                     Boolean,
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
-) extends VillageMessageProtocol {
+) extends Client2ServerVillageMessageProtocolForLogging {
 
   val json: Option[JsonChatFromClient] = {
     if (village.isAvailable) {
@@ -79,7 +78,7 @@ final case class ChatFromClientProtocol(
 
 }
 
-object CharFromClientProtocol {
+object ChatFromClientProtocol {
 
   def read(json: JsonChatFromClient, village: Village): Option[ChatFromClientProtocol] = {
     val channelOpt: Option[PlayerChatChannel] = Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)

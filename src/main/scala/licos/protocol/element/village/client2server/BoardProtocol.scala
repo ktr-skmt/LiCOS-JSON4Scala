@@ -3,10 +3,9 @@ package licos.protocol.element.village.client2server
 import licos.entity.Village
 import licos.json.element.village.JsonBoard
 import licos.knowledge.{Character, Data2Knowledge, PolarityMark, Role}
-import licos.protocol.element.village.VillageMessageProtocol
 
 final case class BoardProtocol(village: Village, character: Character, role: Role, prediction: PolarityMark)
-    extends VillageMessageProtocol {
+    extends Client2ServerVillageMessageProtocol {
 
   val json: Option[JsonBoard] = {
     server2logger.BoardProtocol(village, character, role, prediction, Nil).json
@@ -34,7 +33,7 @@ object BoardProtocol {
       }
     }
     val roleOpt: Option[Role] = Data2Knowledge.roleOpt(json.role.name.en, numberOfPlayers)
-    if (predictionOpt.nonEmpty && characterOpt.nonEmpty && roleOpt.nonEmpty) {
+    if (village.isAvailable && predictionOpt.nonEmpty && characterOpt.nonEmpty && roleOpt.nonEmpty) {
       Some(
         BoardProtocol(
           village,

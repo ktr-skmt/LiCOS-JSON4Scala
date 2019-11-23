@@ -2,9 +2,8 @@ package licos.protocol.element.village.client2server
 
 import licos.entity.Village
 import licos.json.element.lobby.JsonReady
-import licos.protocol.element.village.VillageMessageProtocol
 
-final case class ReadyProtocol(village: Village) extends VillageMessageProtocol {
+final case class ReadyProtocol(village: Village) extends Client2ServerVillageMessageProtocol {
 
   val json: Option[JsonReady] = {
     if (village.isAvailable) {

@@ -3,21 +3,9 @@ package licos.entity
 import java.sql.Timestamp
 import java.util.UUID
 
-import licos.knowledge.{
-  Architecture,
-  Character,
-  HunterRole,
-  Night,
-  Noon,
-  Outcome,
-  Phase,
-  Role,
-  SeerRole,
-  Status,
-  WerewolfRole
-}
+import licos.knowledge.{Alive, Architecture, Character, HunterRole, Morning, Night, Noon, Outcome, Phase, Role, SeerRole, Status, WerewolfRole}
 
-sealed abstract class AvatarInVillage() {}
+sealed abstract class AvatarInVillage()
 
 final case class PlayerInVillage(
     village:      Village,
@@ -36,11 +24,13 @@ final case class PlayerInVillage(
 
   var outcomeOpt: Option[Outcome] = Option.empty[Outcome]
 
-  private var status: Status = Status.defaultValue
+  private var status: Status = Alive
+  private var updatePhase: Phase = Morning
+  private var updateDay: Int = 1
 
   def status(phase: Phase, day: Int): Status = {
-    if (status.updateDay == day && status.updatePhase == Noon && phase == Night) {
-      Status.defaultValue
+    if (updateDay == day && updatePhase == Noon && phase == Night) {
+      Alive
     } else {
       status
     }
@@ -48,6 +38,14 @@ final case class PlayerInVillage(
 
   def status(status: Status): Unit = {
     this.status = status
+  }
+
+  def updatePhase(phase: Phase): Unit = {
+    this.updatePhase = phase
+  }
+
+  def updateDay(day: Int): Unit = {
+    this.updateDay = day
   }
 
   var playerPutToDeath: Option[PlayerInVillage] = Option.empty[PlayerInVillage]
@@ -122,6 +120,6 @@ final case class OnymousAudienceInVillage(
     name:      String,
     image:     String,
     isPrimary: Boolean
-) extends AvatarInVillage() {}
+) extends AvatarInVillage()
 
-final case class AnonymousAudienceInVillage(village: Village) extends AvatarInVillage() {}
+final case class AnonymousAudienceInVillage(village: Village) extends AvatarInVillage()

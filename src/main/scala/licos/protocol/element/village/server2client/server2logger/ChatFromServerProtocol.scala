@@ -6,7 +6,6 @@ import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{BaseContext, ChatContext, ChatMessage, Context}
 import licos.knowledge.{Character, Data2Knowledge, Morning, Role, ServerToClient, Status}
 import licos.protocol.PlayerChatChannel
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.{SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, ChatTextProtocol, VillageProtocol}
 import licos.util.{LiCOSOnline, TimestampGenerator}
@@ -24,7 +23,7 @@ final case class ChatFromServerProtocol(
     text:                       String,
     isOver:                     Boolean,
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
-) extends VillageMessageProtocol {
+) extends Server2ClientVillageMessageProtocolForLogging {
 
   val json: Option[JsonChatFromServer] = {
     village.currentPhase = Morning

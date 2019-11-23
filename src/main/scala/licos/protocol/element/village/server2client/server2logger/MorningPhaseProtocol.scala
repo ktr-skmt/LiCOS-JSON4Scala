@@ -16,7 +16,6 @@ import licos.knowledge.{
   ServerToClient,
   Status
 }
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.{
   BaseProtocol,
   BoardResultProtocol,
@@ -43,7 +42,7 @@ final case class MorningPhaseProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol],
     votingResultsSummary:       Seq[VotingResultSummaryProtocol],
     votingResultsDetail:        Seq[VotingResultDetailProtocol]
-) extends VillageMessageProtocol {
+) extends Server2ClientVillageMessageProtocolForLogging {
 
   val json: Option[JsonPhase] = {
     village.currentPhase = Morning

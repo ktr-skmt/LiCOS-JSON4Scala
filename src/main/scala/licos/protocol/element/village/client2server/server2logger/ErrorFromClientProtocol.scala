@@ -5,7 +5,6 @@ import licos.json.element.village.JsonError
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{BaseContext, ChatContext, ChatMessage, Context}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role, Severity, Status}
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, NameProtocol, VillageProtocol}
 import licos.util.TimestampGenerator
@@ -18,7 +17,7 @@ final case class ErrorFromClientProtocol(
     severity:                   Severity,
     source:                     String,
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
-) extends VillageMessageProtocol {
+) extends Client2ServerVillageMessageProtocolForLogging {
 
   val json: Option[JsonError] = {
     if (village.isAvailable) {

@@ -16,6 +16,17 @@ final case class JsonReceivedChatMessage(
   override protected def validType: String = JsonReceivedChatMessage.`type`
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(token: String, villageId: Long, serverTimestamp: String, clientTimestamp: String) = {
+    this(
+      JsonReceivedChatMessage.`type`,
+      token,
+      villageId,
+      serverTimestamp,
+      clientTimestamp
+    )
+  }
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(chat: JsonChatFromServer, clientTimestamp: String) = {
     this(
       JsonReceivedChatMessage.`type`,

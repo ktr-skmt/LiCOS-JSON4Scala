@@ -11,6 +11,11 @@ final case class JsonReceivedFlavorTextMessage(`type`: String, token: String, vi
   override protected def validType: String = JsonReceivedFlavorTextMessage.`type`
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(token: String, villageId: Long, phase: String, day: Int) = {
+    this(JsonReceivedFlavorTextMessage.`type`, token, villageId, phase, day)
+  }
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(flavorText: JsonFlavorText) = {
     this(
       JsonReceivedFlavorTextMessage.`type`,

@@ -11,6 +11,11 @@ final case class JsonReceivedSystemMessage(`type`: String, token: String, villag
   override protected def validType: String = JsonReceivedSystemMessage.`type`
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(token: String, villageId: Long, phase: String, day: Int) = {
+    this(JsonReceivedSystemMessage.`type`, token, villageId, phase, day)
+  }
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(phase: JsonPhase) = {
     this(
       JsonReceivedSystemMessage.`type`,

@@ -1,10 +1,10 @@
 package licos.json.engine.analysis.village.client2server
 
-import licos.json.engine.analysis.village.MetaJsonErrorAnalysisEngine
+import licos.json.engine.analysis.village.MetaErrorAnalysisEngine
 
-trait JsonErrorAnalysisEngine extends MetaJsonErrorAnalysisEngine
+trait ErrorAnalysisEngine extends MetaErrorAnalysisEngine
 
-object JsonErrorAnalysisEngine {
+object ErrorAnalysisEngine {
 
   /**
     * Error analysis engine name.

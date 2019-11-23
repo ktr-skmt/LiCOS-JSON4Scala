@@ -3,7 +3,6 @@ package licos.protocol.element.village.client2server
 import licos.entity.Village
 import licos.json.element.village.JsonError
 import licos.knowledge.{Data2Knowledge, Severity}
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.NameProtocol
 
 final case class ErrorFromClientProtocol(
@@ -11,7 +10,7 @@ final case class ErrorFromClientProtocol(
     content:  NameProtocol,
     severity: Severity,
     source:   String
-) extends VillageMessageProtocol {
+) extends Client2ServerVillageMessageProtocol {
 
   val json: Option[JsonError] = {
     server2logger.ErrorFromClientProtocol(village, content, severity, source, Nil).json

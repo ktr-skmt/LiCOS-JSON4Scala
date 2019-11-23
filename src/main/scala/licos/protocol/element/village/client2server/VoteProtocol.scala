@@ -3,9 +3,8 @@ package licos.protocol.element.village.client2server
 import licos.entity.Village
 import licos.json.element.village.JsonVote
 import licos.knowledge.{Character, Data2Knowledge}
-import licos.protocol.element.village.VillageMessageProtocol
 
-final case class VoteProtocol(village: Village, character: Character) extends VillageMessageProtocol {
+final case class VoteProtocol(village: Village, character: Character) extends Client2ServerVillageMessageProtocol {
 
   val json: Option[JsonVote] = {
     server2logger.VoteProtocol(village, character, Nil).json

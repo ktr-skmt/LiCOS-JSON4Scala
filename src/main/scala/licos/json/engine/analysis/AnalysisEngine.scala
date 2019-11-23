@@ -4,4 +4,4 @@ package licos.json.engine.analysis
   *
   * @author Kotaro Sakamoto
   */
-trait JsonAnalysisEngine
+trait AnalysisEngine

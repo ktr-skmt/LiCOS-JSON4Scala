@@ -4,14 +4,13 @@ import java.time.OffsetDateTime
 
 import licos.entity.Village
 import licos.json.element.village.JsonStar
-import licos.protocol.element.village.VillageMessageProtocol
 
 final case class StarProtocol(
     village:         Village,
     serverTimestamp: OffsetDateTime,
     clientTimestamp: OffsetDateTime,
     isMarked:        Boolean
-) extends VillageMessageProtocol {
+) extends Client2ServerVillageMessageProtocol {
 
   val json: Option[JsonStar] = {
     server2logger.StarProtocol(village, serverTimestamp, clientTimestamp, isMarked, Nil).json

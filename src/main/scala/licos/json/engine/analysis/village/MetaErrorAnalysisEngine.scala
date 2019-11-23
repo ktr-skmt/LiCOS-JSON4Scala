@@ -1,7 +1,7 @@
 package licos.json.engine.analysis.village
 
 import licos.json.engine.BOX
-import licos.json.engine.analysis.JsonAnalysisEngine
+import licos.json.engine.analysis.AnalysisEngine
 import licos.json.element.village.JsonError
 import play.api.libs.json.JsValue
 
@@ -9,7 +9,7 @@ import play.api.libs.json.JsValue
   *
   * @author Kotaro Sakamoto
   */
-trait MetaJsonErrorAnalysisEngine extends JsonAnalysisEngine {
+trait MetaErrorAnalysisEngine extends AnalysisEngine {
 
   /** Returns a play.api.libs.json.JsValue response from a JSON message.
     *

@@ -5,7 +5,6 @@ import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.{JsonChatFromServer, JsonFlavorText}
 import licos.json.element.village.iri.{BaseContext, Context, FlavorTextContext, FlavorTextMessage}
 import licos.knowledge.{Character, Data2Knowledge, FlavorText, PublicChannel, Role, ServerToClient, Status}
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
 import licos.util.TimestampGenerator
@@ -16,7 +15,7 @@ final case class FlavorTextProtocol(
     village:                    Village,
     flavorText:                 Seq[licos.protocol.element.village.server2client.ChatFromServerProtocol],
     extensionalDisclosureRange: Seq[StatusCharacterProtocol])
-    extends VillageMessageProtocol {
+    extends Server2ClientVillageMessageProtocolForLogging {
 
   val json: Option[JsonFlavorText] = {
     village.currentPhase = FlavorText

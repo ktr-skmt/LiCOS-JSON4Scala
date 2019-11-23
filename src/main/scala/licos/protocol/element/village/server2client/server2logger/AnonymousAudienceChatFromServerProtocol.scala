@@ -5,7 +5,6 @@ import licos.json.element.village.JsonAnonymousAudienceChat
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{BaseContext, ChatContext, ChatMessage, Context}
 import licos.knowledge.{AnonymousAudienceChannel, Character, Data2Knowledge, Role, ServerToClient, Status}
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, ChatTextProtocol, VillageProtocol}
 import licos.util.TimestampGenerator
@@ -17,7 +16,7 @@ final case class AnonymousAudienceChatFromServerProtocol(
     isMine:                     Boolean,
     text:                       String,
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
-) extends VillageMessageProtocol {
+) extends Server2ClientVillageMessageProtocolForLogging {
 
   val json: Option[JsonAnonymousAudienceChat] = {
     if (village.isAvailable) {

@@ -7,7 +7,6 @@ import licos.json.element.village.JsonStar
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{BaseContext, Context, StarContext, StarMessage}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role, Status}
-import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, StarInfoProtocol, VillageProtocol}
 import licos.util.TimestampGenerator
@@ -20,7 +19,7 @@ final case class StarProtocol(
     clientTimestamp:            OffsetDateTime,
     isMarked:                   Boolean,
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
-) extends VillageMessageProtocol {
+) extends Client2ServerVillageMessageProtocolForLogging {
 
   val json: Option[JsonStar] = {
     if (village.isAvailable) {

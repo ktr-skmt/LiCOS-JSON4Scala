@@ -1,9 +1,8 @@
 package licos.protocol.element.village.server2client
 
 import licos.json.element.village.invite.JsonNextGameInvitation
-import licos.protocol.element.village.VillageMessageProtocol
 
-final case class NextGameInvitationProtocol(villageId: Long) extends VillageMessageProtocol {
+final case class NextGameInvitationProtocol(villageId: Long) extends Server2ClientVillageMessageProtocol {
 
   val json: Option[JsonNextGameInvitation] = {
     Some(new JsonNextGameInvitation(villageId))
