@@ -4,6 +4,7 @@ import licos.entity.Village
 import licos.json.element.village.JsonError
 import licos.knowledge.{Data2Knowledge, Severity}
 import licos.protocol.element.village.part.NameProtocol
+import play.api.libs.json.{JsValue, Json}
 
 final case class ErrorFromClientProtocol(
     village:  Village,
@@ -12,9 +13,11 @@ final case class ErrorFromClientProtocol(
     source:   String
 ) extends Client2ServerVillageMessageProtocol {
 
-  val json: Option[JsonError] = {
+  private val json: Option[JsonError] = {
     server2logger.ErrorFromClientProtocol(village, content, severity, source, Nil).json
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

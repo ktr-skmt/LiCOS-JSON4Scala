@@ -10,6 +10,7 @@ import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, 
 import licos.protocol.element.village.part.character.{ResultCharacterProtocol, SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.role.ResultRoleProtocol
 import licos.util.TimestampGenerator
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -20,7 +21,7 @@ final case class GameResultProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  val json: Option[JsonGameResult] = {
+  private val json: Option[JsonGameResult] = {
     village.currentPhase = Result
     if (village.isAvailable) {
       Some(
@@ -60,6 +61,8 @@ final case class GameResultProtocol(
       None
     }
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

@@ -8,6 +8,7 @@ import licos.knowledge.{Character, Data2Knowledge, PrivateChannel, Role, ServerT
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, NameProtocol, VillageProtocol}
 import licos.util.TimestampGenerator
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -19,7 +20,7 @@ final case class ErrorFromServerProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  val json: Option[JsonError] = {
+  private val json: Option[JsonError] = {
     if (village.isAvailable) {
       Some(
         new JsonError(
@@ -60,6 +61,8 @@ final case class ErrorFromServerProtocol(
       None
     }
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

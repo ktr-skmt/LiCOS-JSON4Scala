@@ -2,12 +2,13 @@ package licos.protocol.element.village.client2server
 
 import licos.entity.Village
 import licos.json.element.lobby.JsonReady
+import play.api.libs.json.{JsValue, Json}
 
 final case class ReadyProtocol(village: Village) extends Client2ServerVillageMessageProtocol {
 
-  val json: Option[JsonReady] = {
+  private val json: Option[JsonReady] = {
     if (village.isAvailable) {
-      Option(
+      Some(
         new JsonReady(
           village.tokenOpt.get.toString,
           village.id
@@ -17,6 +18,8 @@ final case class ReadyProtocol(village: Village) extends Client2ServerVillageMes
       None
     }
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

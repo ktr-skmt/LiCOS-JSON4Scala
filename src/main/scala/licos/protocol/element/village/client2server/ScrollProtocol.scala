@@ -2,6 +2,7 @@ package licos.protocol.element.village.client2server
 
 import licos.entity.Village
 import licos.json.element.village.JsonScroll
+import play.api.libs.json.{JsValue, Json}
 
 final case class ScrollProtocol(
     village:      Village,
@@ -11,9 +12,11 @@ final case class ScrollProtocol(
     offsetHeight: Int
 ) extends Client2ServerVillageMessageProtocol {
 
-  val json: Option[JsonScroll] = {
+  private val json: Option[JsonScroll] = {
     server2logger.ScrollProtocol(village, nodeId, scrollTop, scrollHeight, offsetHeight, Nil).json
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

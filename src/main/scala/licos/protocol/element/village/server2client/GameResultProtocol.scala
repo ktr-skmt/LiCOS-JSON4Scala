@@ -7,6 +7,7 @@ import licos.json.element.village.role.JsonResultRole
 import licos.knowledge.{Character, Data2Knowledge, Outcome, Role, Status}
 import licos.protocol.element.village.part.character.{ResultCharacterProtocol, SimpleCharacterProtocol}
 import licos.protocol.element.village.part.role.ResultRoleProtocol
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -16,9 +17,11 @@ final case class GameResultProtocol(
     role:      Seq[ResultRoleProtocol]
 ) extends Server2ClientVillageMessageProtocol {
 
-  val json: Option[JsonGameResult] = {
+  private val json: Option[JsonGameResult] = {
     server2logger.GameResultProtocol(village, character, role, Nil).json
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

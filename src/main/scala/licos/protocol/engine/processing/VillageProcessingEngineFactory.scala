@@ -66,7 +66,7 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
   private var noonPhaseAnalysisEngine:                     Option[NoonPhaseAnalysisEngine]                     = None
   private var onymousAudienceChatFromServerAnalysisEngine: Option[OnymousAudienceChatFromServerAnalysisEngine] = None
 
-  override def create: ProcessingEngine = {
+  override def create: VillageProcessingEngine = {
     new VillageProcessingEngine(
       anonymousAudienceChatFromClientAnalysisEngine,
       boardAnalysisEngine,

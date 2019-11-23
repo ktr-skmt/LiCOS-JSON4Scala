@@ -9,6 +9,7 @@ import licos.protocol.PlayerChatChannel
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, ChatTextProtocol, VillageProtocol}
 import licos.util.{LiCOSOnline, TimestampGenerator}
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -20,7 +21,7 @@ final case class ChatFromClientProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  val json: Option[JsonChatFromClient] = {
+  private val json: Option[JsonChatFromClient] = {
     if (village.isAvailable) {
       Some(
         new JsonChatFromClient(
@@ -75,6 +76,8 @@ final case class ChatFromClientProtocol(
       None
     }
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

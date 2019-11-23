@@ -8,6 +8,7 @@ import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChanne
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{AvatarProtocol, BaseProtocol, ChatSettingsProtocol, VillageProtocol}
 import licos.util.{LiCOSOnline, TimestampGenerator}
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -19,7 +20,7 @@ final case class OnymousAudienceScrollProtocol(village:                    Villa
                                                extensionalDisclosureRange: Seq[StatusCharacterProtocol])
     extends Client2ServerVillageMessageProtocolForLogging {
 
-  val json: Option[JsonOnymousAudienceScroll] = {
+  private val json: Option[JsonOnymousAudienceScroll] = {
     if (village.isAvailable) {
       Some(
         new JsonOnymousAudienceScroll(
@@ -65,6 +66,8 @@ final case class OnymousAudienceScrollProtocol(village:                    Villa
       None
     }
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 }
 
 object OnymousAudienceScrollProtocol {

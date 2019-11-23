@@ -4,6 +4,7 @@ import java.time.OffsetDateTime
 
 import licos.entity.Village
 import licos.json.element.village.JsonStar
+import play.api.libs.json.{JsValue, Json}
 
 final case class StarProtocol(
     village:         Village,
@@ -12,9 +13,11 @@ final case class StarProtocol(
     isMarked:        Boolean
 ) extends Client2ServerVillageMessageProtocol {
 
-  val json: Option[JsonStar] = {
+  private val json: Option[JsonStar] = {
     server2logger.StarProtocol(village, serverTimestamp, clientTimestamp, isMarked, Nil).json
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

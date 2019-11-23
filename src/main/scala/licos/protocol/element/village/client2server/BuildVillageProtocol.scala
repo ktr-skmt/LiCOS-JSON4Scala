@@ -1,18 +1,12 @@
 package licos.protocol.element.village.client2server
 
 import licos.entity.Village
-import licos.json.element.lobby.{
-  JsonBuildVillage,
-  JsonHostPlayer,
-  JsonHuman,
-  JsonPlayerSetting,
-  JsonRobot,
-  JsonRoleSetting
-}
+import licos.json.element.lobby.{JsonBuildVillage, JsonHostPlayer, JsonHuman, JsonPlayerSetting, JsonRobot, JsonRoleSetting}
+import play.api.libs.json.{JsValue, Json}
 
 final case class BuildVillageProtocol(village: Village) extends Client2ServerVillageMessageProtocol {
 
-  val json: Option[JsonBuildVillage] = {
+  private val json: Option[JsonBuildVillage] = {
     if (village.isAvailable) {
       Some(
         new JsonBuildVillage(
@@ -55,6 +49,8 @@ final case class BuildVillageProtocol(village: Village) extends Client2ServerVil
       None
     }
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 }
 
 object BuildVillageProtocol {

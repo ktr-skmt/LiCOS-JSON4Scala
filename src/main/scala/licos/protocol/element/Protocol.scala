@@ -1,3 +1,7 @@
 package licos.protocol.element
 
-trait Protocol
+import play.api.libs.json.JsValue
+
+trait Protocol {
+  def toJsonOpt: Option[JsValue]
+}

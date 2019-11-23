@@ -2,13 +2,16 @@ package licos.protocol.element.village.server2client
 
 import licos.entity.Village
 import licos.json.element.village.JsonOnymousAudienceChat
+import play.api.libs.json.{JsValue, Json}
 
 final case class OnymousAudienceChatFromServerProtocol(village: Village, isMine: Boolean, text: String)
     extends Server2ClientVillageMessageProtocol {
 
-  val json: Option[JsonOnymousAudienceChat] = {
+  private val json: Option[JsonOnymousAudienceChat] = {
     server2logger.OnymousAudienceChatFromServerProtocol(village, isMine, text, Nil).json
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

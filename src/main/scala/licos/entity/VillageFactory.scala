@@ -2,7 +2,7 @@ package licos.entity
 
 import java.util.Locale
 
-import licos.knowledge.{AvatarSetting, Cast, Character, Role}
+import licos.knowledge.{AvatarSetting, Cast, Character, Lobby, Role}
 
 import scala.collection.mutable
 import scala.util.Try
@@ -12,6 +12,7 @@ class VillageFactory {
 
   private var id:                           Option[Long]                                = None
   private var name:                         Option[String]                              = None
+  private var lobby:                        Option[Lobby]                               = None
   private var hostPlayer:                   Option[HostPlayer]                          = None
   private var maxNumberOfHumanPlayers:      Option[Int]                                 = None
   private var maxNumberOfChatMessages:      Option[Int]                                 = None
@@ -27,6 +28,7 @@ class VillageFactory {
   def canCreate: Boolean = {
     id.nonEmpty &&
     name.nonEmpty &&
+    lobby.nonEmpty &&
     hostPlayer.nonEmpty &&
     avatarSetting.nonEmpty &&
     maxNumberOfHumanPlayers.nonEmpty &&
@@ -39,12 +41,13 @@ class VillageFactory {
     avatars.nonEmpty
   }
 
-  def create(myAvatar: AvatarInVillage, myCharacter: Character, myRole: Role): Try[Village] = {
+  def create: Try[Village] = {
     if (canCreate) {
       Try {
         Village(
           id.get,
           name.get,
+          lobby.get,
           hostPlayer.get,
           avatarSetting.get,
           maxNumberOfHumanPlayers.get,
@@ -72,6 +75,11 @@ class VillageFactory {
 
   def setName(name: String): VillageFactory = {
     this.name = Option(name)
+    this
+  }
+
+  def setLobby(lobby: Lobby): VillageFactory = {
+    this.lobby = Option(lobby)
     this
   }
 

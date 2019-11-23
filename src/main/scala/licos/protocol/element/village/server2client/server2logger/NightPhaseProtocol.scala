@@ -10,6 +10,7 @@ import licos.protocol.element.village.part.{BaseProtocol, BoardResultProtocol, C
 import licos.protocol.element.village.part.character.{CharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.role.RoleProtocol
 import licos.util.TimestampGenerator
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -20,7 +21,7 @@ final case class NightPhaseProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  val json: Option[JsonPhase] = {
+  private val json: Option[JsonPhase] = {
     village.currentPhase = Night
     if (village.isAvailable) {
       Some(
@@ -60,6 +61,8 @@ final case class NightPhaseProtocol(
       None
     }
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

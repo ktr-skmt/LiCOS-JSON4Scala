@@ -3,13 +3,16 @@ package licos.protocol.element.village.client2server
 import licos.entity.Village
 import licos.json.element.village.JsonBoard
 import licos.knowledge.{Character, Data2Knowledge, PolarityMark, Role}
+import play.api.libs.json.{JsValue, Json}
 
 final case class BoardProtocol(village: Village, character: Character, role: Role, prediction: PolarityMark)
     extends Client2ServerVillageMessageProtocol {
 
-  val json: Option[JsonBoard] = {
+  private val json: Option[JsonBoard] = {
     server2logger.BoardProtocol(village, character, role, prediction, Nil).json
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

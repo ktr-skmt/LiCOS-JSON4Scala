@@ -8,6 +8,7 @@ import licos.knowledge.{Character, Data2Knowledge, FlavorText, PublicChannel, Ro
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
 import licos.util.TimestampGenerator
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -56,6 +57,8 @@ final case class FlavorTextProtocol(
       None
     }
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

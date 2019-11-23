@@ -9,6 +9,7 @@ import licos.protocol.element.village.part.character.{RoleCharacterProtocol, Sim
 import licos.protocol.element.village.part.role.SimpleRoleProtocol
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
 import licos.util.{LiCOSOnline, TimestampGenerator}
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -20,7 +21,7 @@ final case class BoardProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  val json: Option[JsonBoard] = {
+  private val json: Option[JsonBoard] = {
     if (village.isAvailable) {
       Some(
         new JsonBoard(
@@ -74,6 +75,8 @@ final case class BoardProtocol(
       None
     }
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

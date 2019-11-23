@@ -5,33 +5,12 @@ import licos.json.element.village.character.{JsonCharacter, JsonStatusCharacter}
 import licos.json.element.village.{JsonBoardResult, JsonPhase, JsonVotingResultDetail, JsonVotingResultSummary}
 import licos.json.element.village.iri.{BaseContext, Context, SystemMessage, VotingResultContext}
 import licos.json.element.village.role.JsonRole
-import licos.knowledge.{
-  Character,
-  Data2Knowledge,
-  Morning,
-  Phase,
-  PolarityMark,
-  PrivateChannel,
-  Role,
-  ServerToClient,
-  Status
-}
-import licos.protocol.element.village.part.{
-  BaseProtocol,
-  BoardResultProtocol,
-  ChatSettingsProtocol,
-  UpdateProtocol,
-  VillageProtocol,
-  VotingResultDetailProtocol,
-  VotingResultSummaryProtocol
-}
-import licos.protocol.element.village.part.character.{
-  CharacterProtocol,
-  SimpleCharacterProtocol,
-  StatusCharacterProtocol
-}
+import licos.knowledge.{Character, Data2Knowledge, Morning, Phase, PolarityMark, PrivateChannel, Role, ServerToClient, Status}
+import licos.protocol.element.village.part.{BaseProtocol, BoardResultProtocol, ChatSettingsProtocol, UpdateProtocol, VillageProtocol, VotingResultDetailProtocol, VotingResultSummaryProtocol}
+import licos.protocol.element.village.part.character.{CharacterProtocol, SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.role.RoleProtocol
 import licos.util.TimestampGenerator
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -44,7 +23,7 @@ final case class MorningPhaseProtocol(
     votingResultsDetail:        Seq[VotingResultDetailProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  val json: Option[JsonPhase] = {
+  private val json: Option[JsonPhase] = {
     village.currentPhase = Morning
     if (village.isAvailable) {
       Some(
@@ -84,6 +63,8 @@ final case class MorningPhaseProtocol(
       None
     }
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

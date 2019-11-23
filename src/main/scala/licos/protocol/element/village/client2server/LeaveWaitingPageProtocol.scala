@@ -4,11 +4,12 @@ import java.util.UUID
 
 import licos.json.element.lobby.JsonLeaveWaitingPage
 import licos.knowledge.{Data2Knowledge, Lobby}
+import play.api.libs.json.{JsValue, Json}
 
 final case class LeaveWaitingPageProtocol(token: UUID, villageId: Long, lobby: Lobby)
     extends Client2ServerVillageMessageProtocol {
 
-  def json: Option[JsonLeaveWaitingPage] = {
+  private val json: Option[JsonLeaveWaitingPage] = {
     Some(
       new JsonLeaveWaitingPage(
         token.toString,
@@ -17,6 +18,8 @@ final case class LeaveWaitingPageProtocol(token: UUID, villageId: Long, lobby: L
       )
     )
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 }
 
 object LeaveWaitingPageProtocol {

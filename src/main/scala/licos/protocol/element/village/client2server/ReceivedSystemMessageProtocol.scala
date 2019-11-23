@@ -4,12 +4,15 @@ import java.util.UUID
 
 import licos.json.element.village.receipt.JsonReceivedSystemMessage
 import licos.knowledge.{Data2Knowledge, Phase}
+import play.api.libs.json.{JsValue, Json}
 
 final case class ReceivedSystemMessageProtocol(token: UUID, villageId: Long, phase: Phase, day: Int) extends Client2ServerVillageMessageProtocol {
 
-  val json: Option[JsonReceivedSystemMessage] = {
+  private val json: Option[JsonReceivedSystemMessage] = {
     Some(new JsonReceivedSystemMessage(token.toString, villageId, phase.label, day))
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

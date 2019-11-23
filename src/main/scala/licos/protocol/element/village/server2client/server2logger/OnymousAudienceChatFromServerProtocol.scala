@@ -8,6 +8,7 @@ import licos.knowledge.{Character, Data2Knowledge, OnymousAudienceChannel, Role,
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{AvatarProtocol, BaseProtocol, ChatSettingsProtocol, ChatTextProtocol, VillageProtocol}
 import licos.util.{LiCOSOnline, TimestampGenerator}
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -18,7 +19,7 @@ final case class OnymousAudienceChatFromServerProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  val json: Option[JsonOnymousAudienceChat] = {
+  private val json: Option[JsonOnymousAudienceChat] = {
     if (village.isAvailable) {
       Some(
         new JsonOnymousAudienceChat(
@@ -67,6 +68,8 @@ final case class OnymousAudienceChatFromServerProtocol(
       None
     }
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

@@ -9,6 +9,7 @@ import licos.protocol.PlayerChatChannel
 import licos.protocol.element.village.part.character.{SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, ChatTextProtocol, VillageProtocol}
 import licos.util.{LiCOSOnline, TimestampGenerator}
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -76,6 +77,7 @@ final case class ChatFromServerProtocol(
     }
   }
 
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 }
 
 object ChatFromServerProtocol {

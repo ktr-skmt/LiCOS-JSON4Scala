@@ -8,6 +8,7 @@ import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChanne
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
 import licos.util.{LiCOSOnline, TimestampGenerator}
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -17,7 +18,7 @@ final case class VoteProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  val json: Option[JsonVote] = {
+  private val json: Option[JsonVote] = {
     if (village.isAvailable) {
       Some(
         new JsonVote(
@@ -65,6 +66,8 @@ final case class VoteProtocol(
       None
     }
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

@@ -10,6 +10,7 @@ import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChanne
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, StarInfoProtocol, VillageProtocol}
 import licos.util.TimestampGenerator
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -21,7 +22,7 @@ final case class StarProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  val json: Option[JsonStar] = {
+  private val json: Option[JsonStar] = {
     if (village.isAvailable) {
       Some(
         new JsonStar(
@@ -71,6 +72,8 @@ final case class StarProtocol(
       None
     }
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 

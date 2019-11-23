@@ -8,6 +8,7 @@ import licos.knowledge.{Character, Data2Knowledge, Morning, Phase, PolarityMark,
 import licos.protocol.element.village.part.{BoardResultProtocol, UpdateProtocol, VotingResultSummaryProtocol}
 import licos.protocol.element.village.part.character.CharacterProtocol
 import licos.protocol.element.village.part.role.RoleProtocol
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -18,9 +19,11 @@ final case class MorningPhaseProtocol(
     votingResultsSummary: Seq[VotingResultSummaryProtocol]
 ) extends Server2ClientVillageMessageProtocol {
 
-  val json: Option[JsonPhase] = {
+  private val json: Option[JsonPhase] = {
     server2logger.MorningPhaseProtocol(village, character, role, Nil, votingResultsSummary, Nil).json
   }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
 
 }
 
