@@ -24,7 +24,8 @@ final case class ChatFromClientProtocol(
 object ChatFromClientProtocol {
 
   def read(json: JsonChatFromClient, village: Village): Option[ChatFromClientProtocol] = {
-    val channelOpt: Option[PlayerChatChannel] = Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)
+    val channelOpt: Option[PlayerChatChannel] =
+      Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)
     if (channelOpt.nonEmpty) {
       Some(
         ChatFromClientProtocol(

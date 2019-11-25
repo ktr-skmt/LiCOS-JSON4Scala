@@ -1,5 +1,34 @@
 package licos.protocol.element.lobby.client2server
 
-final case class SelectVillageProtocol() {
+import java.util.UUID
+
+import licos.json.element.lobby.JsonSelectVillage
+import play.api.libs.json.{JsValue, Json}
+
+final case class SelectVillageProtocol(token: UUID, villageId: Long) extends Client2ServerLobbyMessageProtocol {
+
+  private val json: Option[JsonSelectVillage] = {
+    Some(
+      new JsonSelectVillage(
+        token.toString,
+        villageId
+      )
+    )
+  }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+
+}
+
+object SelectVillageProtocol {
+
+  def read(json: JsonSelectVillage): Option[SelectVillageProtocol] = {
+    Some(
+      SelectVillageProtocol(
+        UUID.fromString(json.token),
+        json.villageId
+      )
+    )
+  }
 
 }

@@ -2,7 +2,7 @@ package json.engine.lobby.unitTestExample
 
 import json.engine.LobbyUnitTestExample
 
-case class PlayerInWaitingPage(filePath: String) extends LobbyUnitTestExample(filePath) {
+final case class PlayerInWaitingPage(filePath: String) extends LobbyUnitTestExample(filePath) {
   override val `type`: String = PlayerInWaitingPage.`type`
 }
 

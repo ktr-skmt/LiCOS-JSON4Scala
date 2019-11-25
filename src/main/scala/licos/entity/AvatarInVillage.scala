@@ -3,7 +3,21 @@ package licos.entity
 import java.sql.Timestamp
 import java.util.UUID
 
-import licos.knowledge.{Alive, Architecture, Character, HunterRole, Morning, Night, Noon, Outcome, Phase, Role, SeerRole, Status, WerewolfRole}
+import licos.knowledge.{
+  Alive,
+  Architecture,
+  Character,
+  HunterRole,
+  Morning,
+  Night,
+  Noon,
+  Outcome,
+  Phase,
+  Role,
+  SeerRole,
+  Status,
+  WerewolfRole
+}
 
 sealed abstract class AvatarInVillage()
 
@@ -24,9 +38,9 @@ final case class PlayerInVillage(
 
   var outcomeOpt: Option[Outcome] = Option.empty[Outcome]
 
-  private var status: Status = Alive
-  private var updatePhase: Phase = Morning
-  private var updateDay: Int = 1
+  private var status:      Status = Alive
+  private var updatePhase: Phase  = Morning
+  private var updateDay:   Int    = 1
 
   def status(phase: Phase, day: Int): Status = {
     if (updateDay == day && updatePhase == Noon && phase == Night) {

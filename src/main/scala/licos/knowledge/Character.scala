@@ -4,7 +4,7 @@ import licos.protocol.element.village.part.NameProtocol
 import licos.util.WerewolfWorld
 
 sealed abstract class Character(val name: NameProtocol) {
-  private var id: Int    = -1
+  private var id: Int = -1
 
   def getId: Int = id
 

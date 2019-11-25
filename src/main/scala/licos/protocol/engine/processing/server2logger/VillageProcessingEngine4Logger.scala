@@ -68,12 +68,7 @@ import licos.protocol.engine.analysis.village.server2client.server2logger.{
   NoonPhaseAnalysisEngine,
   OnymousAudienceChatFromServerAnalysisEngine
 }
-import licos.protocol.engine.processing.{
-  JSON2ProtocolException,
-  NoEngineException,
-  ProcessingEngine,
-  VillageBOX,
-}
+import licos.protocol.engine.processing.{JSON2ProtocolException, NoEngineException, ProcessingEngine, VillageBOX}
 import play.api.libs.json.{JsValue, Json}
 
 import scala.util.{Failure, Try}
@@ -98,8 +93,8 @@ class VillageProcessingEngine4Logger(
     morningPhaseAnalysisEngine:                    Option[MorningPhaseAnalysisEngine],
     nightPhaseAnalysisEngine:                      Option[NightPhaseAnalysisEngine],
     noonPhaseAnalysisEngine:                       Option[NoonPhaseAnalysisEngine],
-    onymousAudienceChatFromServerAnalysisEngine:   Option[OnymousAudienceChatFromServerAnalysisEngine])
-    extends ProcessingEngine {
+    onymousAudienceChatFromServerAnalysisEngine:   Option[OnymousAudienceChatFromServerAnalysisEngine]
+) extends ProcessingEngine {
 
   override protected val flowController: FlowController = new VillageFlowController()
 

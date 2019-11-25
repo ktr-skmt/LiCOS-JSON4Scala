@@ -6,8 +6,12 @@ import java.util.UUID
 import licos.json.element.village.receipt.JsonReceivedChatMessage
 import play.api.libs.json.{JsValue, Json}
 
-final case class ReceivedChatMessageProtocol(token: UUID, villageId: Long, serverTimestamp: OffsetDateTime, clientTimestamp: OffsetDateTime)
-    extends Client2ServerVillageMessageProtocol {
+final case class ReceivedChatMessageProtocol(
+    token:           UUID,
+    villageId:       Long,
+    serverTimestamp: OffsetDateTime,
+    clientTimestamp: OffsetDateTime
+) extends Client2ServerVillageMessageProtocol {
 
   private val json: Option[JsonReceivedChatMessage] = {
     Some(new JsonReceivedChatMessage(token.toString, villageId, serverTimestamp.toString, clientTimestamp.toString))

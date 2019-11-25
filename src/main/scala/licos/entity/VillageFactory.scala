@@ -2,7 +2,7 @@ package licos.entity
 
 import java.util.Locale
 
-import licos.knowledge.{AvatarSetting, Cast, Character, Lobby, Role}
+import licos.knowledge.{AvatarSetting, Cast, Lobby}
 
 import scala.collection.mutable
 import scala.util.Try

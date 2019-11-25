@@ -8,7 +8,10 @@ import licos.protocol.engine.processing.VillageBOX
 import scala.util.Try
 
 trait ReceivedFlavorTextMessageAnalysisEngine extends VillageMessageAnalysisEngine {
-  def process(box: VillageBOX, receivedFlavorTextMessage: ReceivedFlavorTextMessageProtocol): Try[VillageMessageProtocol]
+  def process(
+      box:                       VillageBOX,
+      receivedFlavorTextMessage: ReceivedFlavorTextMessageProtocol
+  ): Try[VillageMessageProtocol]
 }
 
 object ReceivedFlavorTextMessageAnalysisEngine {

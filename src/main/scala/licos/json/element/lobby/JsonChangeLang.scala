@@ -21,7 +21,7 @@ object JsonChangeLang {
 
   implicit val jsonReads: Reads[JsonChangeLang] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
-      (JsPath \ "lang").read[String](VillageValidation.lang)
+      (JsPath \ "lang").read[String](VillageValidation.language)
   )(JsonChangeLang.apply _)
 
   implicit val jsonWrites: OWrites[JsonChangeLang] = Json.writes[JsonChangeLang]

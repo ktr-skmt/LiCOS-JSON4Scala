@@ -8,7 +8,10 @@ import licos.protocol.engine.processing.VillageBOX
 import scala.util.Try
 
 trait NextGameInvitationIsClosedAnalysisEngine extends VillageMessageAnalysisEngine {
-  def process(box: VillageBOX, nextGameInvitationIsClosed: NextGameInvitationIsClosedProtocol): Try[VillageMessageProtocol]
+  def process(
+      box:                        VillageBOX,
+      nextGameInvitationIsClosed: NextGameInvitationIsClosedProtocol
+  ): Try[VillageMessageProtocol]
 }
 
 object NextGameInvitationIsClosedAnalysisEngine {

@@ -25,10 +25,10 @@ import scala.util.{Failure, Success, Try}
 
 object VillageProcessingEngineSpec {
 
-  import engine.ClientToServerVillageExample.client2server
-  import engine.ServerToClientVillageExample.server2client
-  import engine.ReceiptVillageExample.receipt
-  import engine.InvitationVillageExample.invitation
+  import json.engine.ClientToServerVillageExample.client2server
+  import json.engine.ServerToClientVillageExample.server2client
+  import json.engine.ReceiptVillageExample.receipt
+  import json.engine.InvitationVillageExample.invitation
 
   @DataPoints
   def jsonExampleSeq: Array[VillageExample] = Array[VillageExample](

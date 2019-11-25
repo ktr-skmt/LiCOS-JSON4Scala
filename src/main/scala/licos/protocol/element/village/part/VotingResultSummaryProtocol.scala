@@ -3,7 +3,7 @@ package licos.protocol.element.village.part
 import java.util.Locale
 
 import licos.json.element.village.JsonVotingResultSummary
-import licos.knowledge.{Character, Role}
+import licos.knowledge.Character
 import licos.protocol.element.village.part.character.SimpleCharacterProtocol
 import licos.util.LiCOSOnline
 

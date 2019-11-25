@@ -26,7 +26,7 @@ object LobbyProcessingEngineSpec {
   def jsonExampleSeq: Array[LobbyExample] = Array[LobbyExample](
     AdvancedSearch("advancedSearch.json"),
     BuildVillage("buildVillage.json"),
-    ChangeLang("changeLang.json"),
+    ChangeLanguage("changeLanguage.json"),
     ChangeUserEmail("changeUserEmail.json"),
     ChangeUserName("changeUserName.json"),
     ChangeUserPassword("changeUserPassword.json"),
@@ -79,7 +79,7 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit {
     .set(new PlayedWithTokenAE())
     .set(new ReadyAE())
     .set(new SearchResultAE())
-    .set(new ChangeLangAE())
+    .set(new ChangeLanguageAE())
     .set(new ChangeUserEmailAE())
     .set(new ChangeUserNameAE())
     .set(new ChangeUserPasswordAE())

@@ -4,7 +4,7 @@ import java.util.Locale
 
 import licos.json.element.village.JsonBoardResult
 import licos.json.element.village.iri.BoardResultContext
-import licos.knowledge.{Character, Phase, PolarityMark, Role}
+import licos.knowledge.{Character, Phase, PolarityMark}
 import licos.protocol.element.village.part.character.SimpleCharacterProtocol
 
 final case class BoardResultProtocol(

@@ -2,7 +2,7 @@ package json.engine.lobby.unitTestExample
 
 import json.engine.LobbyUnitTestExample
 
-case class PingResult(filePath: String) extends LobbyUnitTestExample(filePath) {
+final case class PingResult(filePath: String) extends LobbyUnitTestExample(filePath) {
   override val `type`: String = PingResult.`type`
 }
 

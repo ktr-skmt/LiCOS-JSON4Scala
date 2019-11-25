@@ -5,8 +5,24 @@ import licos.json.element.village.character.{JsonCharacter, JsonStatusCharacter}
 import licos.json.element.village.{JsonBoardResult, JsonPhase}
 import licos.json.element.village.iri.{BaseContext, Context, SystemMessage, VotingResultContext}
 import licos.json.element.village.role.JsonRole
-import licos.knowledge.{Character, Data2Knowledge, Morning, Phase, PolarityMark, PrivateChannel, Role, ServerToClient, Status}
-import licos.protocol.element.village.part.{BaseProtocol, BoardResultProtocol, ChatSettingsProtocol, UpdateProtocol, VillageProtocol}
+import licos.knowledge.{
+  Character,
+  Data2Knowledge,
+  Morning,
+  Phase,
+  PolarityMark,
+  PrivateChannel,
+  Role,
+  ServerToClient,
+  Status
+}
+import licos.protocol.element.village.part.{
+  BaseProtocol,
+  BoardResultProtocol,
+  ChatSettingsProtocol,
+  UpdateProtocol,
+  VillageProtocol
+}
 import licos.protocol.element.village.part.character.{CharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.role.RoleProtocol
 import licos.util.TimestampGenerator
@@ -132,8 +148,9 @@ object FirstMorningPhaseProtocol {
 
       val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]
       json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
-        val characterOpt: Option[Character] = Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
-        val roleOpt: Option[Role] = village.cast.parse(jsonStatusCharacter.role.name.en)
+        val characterOpt: Option[Character] =
+          Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
+        val roleOpt:   Option[Role]   = village.cast.parse(jsonStatusCharacter.role.name.en)
         val statusOpt: Option[Status] = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
         if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty) {
           statusCharacterBuffer += StatusCharacterProtocol(

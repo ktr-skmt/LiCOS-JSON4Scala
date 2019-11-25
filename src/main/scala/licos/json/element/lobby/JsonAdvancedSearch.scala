@@ -46,8 +46,8 @@ object JsonAdvancedSearch {
       (JsPath \ "lobby").read[String](LobbyValidation.lobby) and
       (JsPath \ "villageName").readNullable[String](VillageValidation.name) and
       (JsPath \ "hostName").readNullable[String](AvatarValidation.name) and
-      (JsPath \ "minimum").readNullable[Int](VillageValidation.totalNumberOfCharacters) and
-      (JsPath \ "maximum").readNullable[Int](VillageValidation.totalNumberOfCharacters) and
+      (JsPath \ "minimum").readNullable[Int](VillageValidation.totalNumberOfPlayers) and
+      (JsPath \ "maximum").readNullable[Int](VillageValidation.totalNumberOfPlayers) and
       (JsPath \ "avatar").read[String](BuildVillageValidation.avatar) and
       (JsPath \ "comment").readNullable[String](BuildVillageValidation.comment)
   )(JsonAdvancedSearch.apply _)

@@ -5,11 +5,12 @@ import licos.json.element.village.JsonOnymousAudienceBoard
 import licos.knowledge.{Character, Data2Knowledge, PolarityMark, Role}
 import play.api.libs.json.{JsValue, Json}
 
-final case class OnymousAudienceBoardProtocol(village:    Village,
-                                              character:  Character,
-                                              role:       Role,
-                                              prediction: PolarityMark)
-    extends Client2ServerVillageMessageProtocol {
+final case class OnymousAudienceBoardProtocol(
+    village:    Village,
+    character:  Character,
+    role:       Role,
+    prediction: PolarityMark
+) extends Client2ServerVillageMessageProtocol {
 
   private val json: Option[JsonOnymousAudienceBoard] = {
     server2logger.OnymousAudienceBoardProtocol(village, character, role, prediction, Nil).json

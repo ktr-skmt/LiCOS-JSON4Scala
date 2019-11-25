@@ -26,7 +26,7 @@ object JsonSettings {
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "userName").read[String](UserValidation.name) and
       (JsPath \ "userEmail").read[String](email) and
-      (JsPath \ "lang").read[String](VillageValidation.lang)
+      (JsPath \ "language").read[String](VillageValidation.language)
   )(JsonSettings.apply _)
 
   implicit val jsonWrites: OWrites[JsonSettings] = Json.writes[JsonSettings]

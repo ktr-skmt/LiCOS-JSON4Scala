@@ -17,7 +17,7 @@ import json.engine.lobby.unitTestExample.{
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit
-import parser.LobbyUnitTestParser
+import json.parser.LobbyUnitTestParser
 import play.api.libs.json.{JsValue, Json}
 
 import scala.io.{Codec, Source}

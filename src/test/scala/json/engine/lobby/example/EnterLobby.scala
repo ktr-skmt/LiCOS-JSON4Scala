@@ -2,7 +2,7 @@ package json.engine.lobby.example
 
 import json.engine.ClientToServerLobbyExample
 
-case class EnterLobby(filePath: String) extends ClientToServerLobbyExample(filePath) {
+final case class EnterLobby(filePath: String) extends ClientToServerLobbyExample(filePath) {
   override val `type`: String = EnterLobby.`type`
 }
 

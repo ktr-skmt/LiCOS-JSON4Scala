@@ -75,8 +75,9 @@ object AnonymousAudienceChatFromServerProtocol {
 
       val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]
       json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
-        val characterOpt: Option[Character] = Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
-        val roleOpt: Option[Role] = village.cast.parse(jsonStatusCharacter.role.name.en)
+        val characterOpt: Option[Character] =
+          Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
+        val roleOpt:   Option[Role]   = village.cast.parse(jsonStatusCharacter.role.name.en)
         val statusOpt: Option[Status] = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
         if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty) {
           statusCharacterBuffer += StatusCharacterProtocol(
@@ -90,12 +91,14 @@ object AnonymousAudienceChatFromServerProtocol {
         }
       }
 
-      Some(AnonymousAudienceChatFromServerProtocol(
-        village,
-        json.isMine,
-        json.text.`@value`,
-        statusCharacterBuffer.result
-      ))
+      Some(
+        AnonymousAudienceChatFromServerProtocol(
+          village,
+          json.isMine,
+          json.text.`@value`,
+          statusCharacterBuffer.result
+        )
+      )
     } else {
       None
     }

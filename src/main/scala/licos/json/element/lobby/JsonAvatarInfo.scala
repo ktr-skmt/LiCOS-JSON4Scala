@@ -26,7 +26,7 @@ object JsonAvatarInfo {
       (JsPath \ "token").read[String](AvatarValidation.token) and
       (JsPath \ "name").read[String](AvatarValidation.name) and
       (JsPath \ "image").read[String](AvatarValidation.image) and
-      (JsPath \ "lang").read[String](VillageValidation.lang)
+      (JsPath \ "language").read[String](VillageValidation.language)
   )(JsonAvatarInfo.apply _)
 
   implicit val jsonWrites: OWrites[JsonAvatarInfo] = Json.writes[JsonAvatarInfo]

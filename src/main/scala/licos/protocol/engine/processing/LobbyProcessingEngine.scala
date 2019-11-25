@@ -1,47 +1,125 @@
 package licos.protocol.engine.processing
 
 import com.typesafe.scalalogging.Logger
-import licos.json.element.lobby.{JsonAdvancedSearch, JsonAvatarInfo, JsonBuildVillage, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetAvatarInfo, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLeaveWaitingPage, JsonLobby, JsonPing, JsonPlay, JsonPlayed, JsonPlayedWithToken, JsonPong, JsonReady, JsonSearchResult, JsonSelectVillage, JsonSettings, JsonWaitingPage}
+import licos.json.element.lobby.{
+  JsonAdvancedSearch,
+  JsonAvatarInfo,
+  JsonBuildVillage,
+  JsonChangeLang,
+  JsonChangeUserEmail,
+  JsonChangeUserName,
+  JsonChangeUserPassword,
+  JsonEnterLobby,
+  JsonGetAvatarInfo,
+  JsonGetSettings,
+  JsonIdSearch,
+  JsonKickOutPlayer,
+  JsonLeaveWaitingPage,
+  JsonLobby,
+  JsonPing,
+  JsonPlay,
+  JsonPlayed,
+  JsonPlayedWithToken,
+  JsonPong,
+  JsonReady,
+  JsonSearchResult,
+  JsonSelectVillage,
+  JsonSettings,
+  JsonWaitingPage
+}
 import licos.json.flow.{FlowController, LobbyFlowController}
 import licos.protocol.element.lobby.LobbyMessageProtocol
-import licos.protocol.engine.BOX
-import licos.protocol.engine.analysis.lobby.client2server.{AdvancedSearchAnalysisEngine, BuildVillageAnalysisEngine, ChangeLangAnalysisEngine, ChangeUserEmailAnalysisEngine, ChangeUserNameAnalysisEngine, ChangeUserPasswordAnalysisEngine, EnterLobbyAnalysisEngine, GetAvatarInfoAnalysisEngine, GetSettingsAnalysisEngine, IdSearchAnalysisEngine, KickOutPlayerAnalysisEngine, LeaveWaitingPageAnalysisEngine, PlayAnalysisEngine, PongAnalysisEngine, ReadyAnalysisEngine, SelectVillageAnalysisEngine}
-import licos.protocol.engine.analysis.lobby.server2client.{AvatarInfoAnalysisEngine, LobbyAnalysisEngine, PingAnalysisEngine, PlayedAnalysisEngine, SearchResultAnalysisEngine, SettingsAnalysisEngine, WaitingPageAnalysisEngine}
+import licos.protocol.element.lobby.client2server.{
+  AdvancedSearchProtocol,
+  BuildVillageProtocol,
+  ChangeLangProtocol,
+  ChangeUserEmailProtocol,
+  ChangeUserNameProtocol,
+  ChangeUserPasswordProtocol,
+  EnterLobbyProtocol,
+  GetAvatarInfoProtocol,
+  GetSettingsProtocol,
+  IdSearchProtocol,
+  KickOutPlayerProtocol,
+  LeaveWaitingPageProtocol,
+  PlayProtocol,
+  PongProtocol,
+  ReadyProtocol,
+  SelectVillageProtocol
+}
+import licos.protocol.element.lobby.server2client.{
+  AvatarInfoProtocol,
+  LobbyProtocol,
+  PingProtocol,
+  PlayedProtocol,
+  SearchResultProtocol,
+  SettingsProtocol,
+  WaitingPageProtocol
+}
+import licos.protocol.element.lobby.server2server.PlayedWithTokenProtocol
+import licos.protocol.engine.analysis.lobby.client2server.{
+  AdvancedSearchAnalysisEngine,
+  BuildVillageAnalysisEngine,
+  ChangeLangAnalysisEngine,
+  ChangeUserEmailAnalysisEngine,
+  ChangeUserNameAnalysisEngine,
+  ChangeUserPasswordAnalysisEngine,
+  EnterLobbyAnalysisEngine,
+  GetAvatarInfoAnalysisEngine,
+  GetSettingsAnalysisEngine,
+  IdSearchAnalysisEngine,
+  KickOutPlayerAnalysisEngine,
+  LeaveWaitingPageAnalysisEngine,
+  PlayAnalysisEngine,
+  PongAnalysisEngine,
+  ReadyAnalysisEngine,
+  SelectVillageAnalysisEngine
+}
+import licos.protocol.engine.analysis.lobby.server2client.{
+  AvatarInfoAnalysisEngine,
+  LobbyAnalysisEngine,
+  PingAnalysisEngine,
+  PlayedAnalysisEngine,
+  SearchResultAnalysisEngine,
+  SettingsAnalysisEngine,
+  WaitingPageAnalysisEngine
+}
 import licos.protocol.engine.analysis.lobby.server2server.PlayedWithTokenAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
-import scala.util.Try
+import scala.util.{Failure, Try}
 
-class LobbyProcessingEngine(pongEngine:               Option[PongAnalysisEngine],
-                            pingEngine:               Option[PingAnalysisEngine],
-                            waitingPageEngine:        Option[WaitingPageAnalysisEngine],
-                            lobbyEngine:              Option[LobbyAnalysisEngine],
-                            enterLobbyEngine:         Option[EnterLobbyAnalysisEngine],
-                            getAvatarInfoEngine:      Option[GetAvatarInfoAnalysisEngine],
-                            avatarInfoEngine:         Option[AvatarInfoAnalysisEngine],
-                            selectVillageEngine:      Option[SelectVillageAnalysisEngine],
-                            leaveWaitingPageEngine:   Option[LeaveWaitingPageAnalysisEngine],
-                            kickOutPlayerEngine:      Option[KickOutPlayerAnalysisEngine],
-                            buildVillageEngine:       Option[BuildVillageAnalysisEngine],
-                            advancedSearchEngine:     Option[AdvancedSearchAnalysisEngine],
-                            idSearchEngine:           Option[IdSearchAnalysisEngine],
-                            playEngine:               Option[PlayAnalysisEngine],
-                            playedEngine:             Option[PlayedAnalysisEngine],
-                            playedWithTokenEngine:    Option[PlayedWithTokenAnalysisEngine],
-                            readyEngine:              Option[ReadyAnalysisEngine],
-                            searchResultEngine:       Option[SearchResultAnalysisEngine],
-                            changeLangEngine:         Option[ChangeLangAnalysisEngine],
-                            changeUserEmailEngine:    Option[ChangeUserEmailAnalysisEngine],
-                            changeUserNameEngine:     Option[ChangeUserNameAnalysisEngine],
-                            changeUserPasswordEngine: Option[ChangeUserPasswordAnalysisEngine],
-                            getSettingsEngine:        Option[GetSettingsAnalysisEngine],
-                            settingsEngine:           Option[SettingsAnalysisEngine])
-    extends ProcessingEngine {
+class LobbyProcessingEngine(
+    pongEngine:               Option[PongAnalysisEngine],
+    pingEngine:               Option[PingAnalysisEngine],
+    waitingPageEngine:        Option[WaitingPageAnalysisEngine],
+    lobbyEngine:              Option[LobbyAnalysisEngine],
+    enterLobbyEngine:         Option[EnterLobbyAnalysisEngine],
+    getAvatarInfoEngine:      Option[GetAvatarInfoAnalysisEngine],
+    avatarInfoEngine:         Option[AvatarInfoAnalysisEngine],
+    selectVillageEngine:      Option[SelectVillageAnalysisEngine],
+    leaveWaitingPageEngine:   Option[LeaveWaitingPageAnalysisEngine],
+    kickOutPlayerEngine:      Option[KickOutPlayerAnalysisEngine],
+    buildVillageEngine:       Option[BuildVillageAnalysisEngine],
+    advancedSearchEngine:     Option[AdvancedSearchAnalysisEngine],
+    idSearchEngine:           Option[IdSearchAnalysisEngine],
+    playEngine:               Option[PlayAnalysisEngine],
+    playedEngine:             Option[PlayedAnalysisEngine],
+    playedWithTokenEngine:    Option[PlayedWithTokenAnalysisEngine],
+    readyEngine:              Option[ReadyAnalysisEngine],
+    searchResultEngine:       Option[SearchResultAnalysisEngine],
+    changeLangEngine:         Option[ChangeLangAnalysisEngine],
+    changeUserEmailEngine:    Option[ChangeUserEmailAnalysisEngine],
+    changeUserNameEngine:     Option[ChangeUserNameAnalysisEngine],
+    changeUserPasswordEngine: Option[ChangeUserPasswordAnalysisEngine],
+    getSettingsEngine:        Option[GetSettingsAnalysisEngine],
+    settingsEngine:           Option[SettingsAnalysisEngine]
+) extends ProcessingEngine {
   override protected val flowController: FlowController = new LobbyFlowController()
 
   private final val logger = Logger[LobbyProcessingEngine]
 
-  override def process(box: BOX, msg: String): Try[LobbyMessageProtocol] = {
+  def process(box: LobbyBOX, msg: String): Try[LobbyMessageProtocol] = {
 
     val jsValue: JsValue = Json.parse(msg)
 
@@ -55,197 +133,268 @@ class LobbyProcessingEngine(pongEngine:               Option[PongAnalysisEngine]
         log("JsonPong")
         pongEngine match {
           case Some(engine: PongAnalysisEngine) =>
-            engine.process(box, json)
-          case None =>
-            noAnalysisEngine(PongAnalysisEngine.name, PongAnalysisEngine.isFromServer)
+            PongProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(PongAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(PongAnalysisEngine.name))
         }
-      case Right(ping: JsonPing) =>
+      case Right(json: JsonPing) =>
         log("JsonPing")
         pingEngine match {
           case Some(engine) =>
-            engine.process(box, ping)
-          case None =>
-            noAnalysisEngine(PingAnalysisEngine.name, PingAnalysisEngine.isFromServer)
+            PingProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(PingAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(PingAnalysisEngine.name))
         }
-      case Right(waitingPage: JsonWaitingPage) =>
+      case Right(json: JsonWaitingPage) =>
         log("JsonWaitingPage")
         waitingPageEngine match {
           case Some(engine) =>
-            engine.process(box, waitingPage)
-          case None =>
-            noAnalysisEngine(WaitingPageAnalysisEngine.name, WaitingPageAnalysisEngine.isFromServer)
+            WaitingPageProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(WaitingPageAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(WaitingPageAnalysisEngine.name))
         }
-      case Right(lobby: JsonLobby) =>
+      case Right(json: JsonLobby) =>
         log("JsonLobby")
         lobbyEngine match {
           case Some(engine) =>
-            engine.process(box, lobby)
-          case None =>
-            noAnalysisEngine(LobbyAnalysisEngine.name, LobbyAnalysisEngine.isFromServer)
+            LobbyProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(LobbyAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(LobbyAnalysisEngine.name))
         }
-      case Right(enterLobby: JsonEnterLobby) =>
+      case Right(json: JsonEnterLobby) =>
         log("JsonEnterLobby")
         enterLobbyEngine match {
           case Some(engine) =>
-            engine.process(box, enterLobby)
-          case None =>
-            noAnalysisEngine(EnterLobbyAnalysisEngine.name, EnterLobbyAnalysisEngine.isFromServer)
+            EnterLobbyProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(EnterLobbyAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(EnterLobbyAnalysisEngine.name))
         }
-      case Right(getAvatarInfo: JsonGetAvatarInfo) =>
+      case Right(json: JsonGetAvatarInfo) =>
         log("JsonGetAvatarInfo")
         getAvatarInfoEngine match {
           case Some(engine) =>
-            engine.process(box, getAvatarInfo)
-          case None =>
-            noAnalysisEngine(GetAvatarInfoAnalysisEngine.name, GetAvatarInfoAnalysisEngine.isFromServer)
+            GetAvatarInfoProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(GetAvatarInfoAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(GetAvatarInfoAnalysisEngine.name))
         }
-      case Right(avatarInfo: JsonAvatarInfo) =>
+      case Right(json: JsonAvatarInfo) =>
         log("JsonAvatarInfo")
         avatarInfoEngine match {
           case Some(engine) =>
-            engine.process(box, avatarInfo)
-          case None =>
-            noAnalysisEngine(AvatarInfoAnalysisEngine.name, AvatarInfoAnalysisEngine.isFromServer)
+            AvatarInfoProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(AvatarInfoAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(AvatarInfoAnalysisEngine.name))
         }
-      case Right(selectVillage: JsonSelectVillage) =>
+      case Right(json: JsonSelectVillage) =>
         log("JsonSelectVillage")
         selectVillageEngine match {
           case Some(engine) =>
-            engine.process(box, selectVillage)
-          case None =>
-            noAnalysisEngine(SelectVillageAnalysisEngine.name, SelectVillageAnalysisEngine.isFromServer)
+            SelectVillageProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(SelectVillageAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(SelectVillageAnalysisEngine.name))
         }
-      case Right(leaveWaitingPage: JsonLeaveWaitingPage) =>
+      case Right(json: JsonLeaveWaitingPage) =>
         log("JsonLeaveWaitingPage")
         leaveWaitingPageEngine match {
           case Some(engine) =>
-            engine.process(box, leaveWaitingPage)
-          case None =>
-            noAnalysisEngine(LeaveWaitingPageAnalysisEngine.name, LeaveWaitingPageAnalysisEngine.isFromServer)
+            LeaveWaitingPageProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(LeaveWaitingPageAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(LeaveWaitingPageAnalysisEngine.name))
         }
-      case Right(kickOutPlayer: JsonKickOutPlayer) =>
+      case Right(json: JsonKickOutPlayer) =>
         log("JsonKickOutPlayer")
         kickOutPlayerEngine match {
           case Some(engine) =>
-            engine.process(box, kickOutPlayer)
-          case None =>
-            noAnalysisEngine(KickOutPlayerAnalysisEngine.name, KickOutPlayerAnalysisEngine.isFromServer)
+            KickOutPlayerProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(KickOutPlayerAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(KickOutPlayerAnalysisEngine.name))
         }
-      case Right(buildVillage: JsonBuildVillage) =>
+      case Right(json: JsonBuildVillage) =>
         log("JsonBuildVillage")
         buildVillageEngine match {
           case Some(engine) =>
-            engine.process(box, buildVillage)
-          case None =>
-            noAnalysisEngine(BuildVillageAnalysisEngine.name, BuildVillageAnalysisEngine.isFromServer)
+            BuildVillageProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(BuildVillageAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(BuildVillageAnalysisEngine.name))
         }
-      case Right(advancedSearch: JsonAdvancedSearch) =>
+      case Right(json: JsonAdvancedSearch) =>
         log("JsonAdvancedSearch")
         advancedSearchEngine match {
           case Some(engine) =>
-            engine.process(box, advancedSearch)
-          case None =>
-            noAnalysisEngine(AdvancedSearchAnalysisEngine.name, AdvancedSearchAnalysisEngine.isFromServer)
+            AdvancedSearchProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(AdvancedSearchAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(AdvancedSearchAnalysisEngine.name))
         }
-      case Right(idSearch: JsonIdSearch) =>
+      case Right(json: JsonIdSearch) =>
         log("JsonIdSearch")
         idSearchEngine match {
           case Some(engine) =>
-            engine.process(box, idSearch)
-          case None =>
-            noAnalysisEngine(IdSearchAnalysisEngine.name, IdSearchAnalysisEngine.isFromServer)
+            IdSearchProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(IdSearchAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(IdSearchAnalysisEngine.name))
         }
-      case Right(play: JsonPlay) =>
+      case Right(json: JsonPlay) =>
         log("JsonPlay")
         playEngine match {
           case Some(engine) =>
-            engine.process(box, play)
-          case None =>
-            noAnalysisEngine(PlayAnalysisEngine.name, PlayAnalysisEngine.isFromServer)
+            PlayProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(PlayAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(PlayAnalysisEngine.name))
         }
-      case Right(played: JsonPlayed) =>
+      case Right(json: JsonPlayed) =>
         log("JsonPlayed")
         playedEngine match {
           case Some(engine) =>
-            engine.process(box, played)
-          case None =>
-            noAnalysisEngine(PlayedAnalysisEngine.name, PlayedAnalysisEngine.isFromServer)
+            PlayedProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(PlayedAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(PlayedAnalysisEngine.name))
         }
-      case Right(playedWithToken: JsonPlayedWithToken) =>
+      case Right(json: JsonPlayedWithToken) =>
         log("JsonPlayedWithToken")
         playedWithTokenEngine match {
           case Some(engine) =>
-            engine.process(box, playedWithToken)
-          case None =>
-            noAnalysisEngine(PlayedWithTokenAnalysisEngine.name, PlayedWithTokenAnalysisEngine.isFromServer)
+            PlayedWithTokenProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(PlayedWithTokenAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(PlayedWithTokenAnalysisEngine.name))
         }
-      case Right(ready: JsonReady) =>
+      case Right(json: JsonReady) =>
         log("JsonReady")
         readyEngine match {
           case Some(engine) =>
-            engine.process(box, ready)
-          case None =>
-            noAnalysisEngine(ReadyAnalysisEngine.name, ReadyAnalysisEngine.isFromServer)
+            ReadyProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(ReadyAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(ReadyAnalysisEngine.name))
         }
-      case Right(searchResult: JsonSearchResult) =>
+      case Right(json: JsonSearchResult) =>
         log("JsonSearchResult")
         searchResultEngine match {
           case Some(engine) =>
-            engine.process(box, searchResult)
-          case None =>
-            noAnalysisEngine(SearchResultAnalysisEngine.name, SearchResultAnalysisEngine.isFromServer)
+            SearchResultProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(SearchResultAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(SearchResultAnalysisEngine.name))
         }
-      case Right(changeLang: JsonChangeLang) =>
+      case Right(json: JsonChangeLang) =>
         log("JsonChangeLang")
         changeLangEngine match {
           case Some(engine) =>
-            engine.process(box, changeLang)
-          case None =>
-            noAnalysisEngine(ChangeLangAnalysisEngine.name, ChangeLangAnalysisEngine.isFromServer)
+            ChangeLangProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(ChangeLangAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(ChangeLangAnalysisEngine.name))
         }
-      case Right(changeUserEmail: JsonChangeUserEmail) =>
+      case Right(json: JsonChangeUserEmail) =>
         log("JsonChangeUserEmail")
         changeUserEmailEngine match {
           case Some(engine) =>
-            engine.process(box, changeUserEmail)
-          case None =>
-            noAnalysisEngine(ChangeUserEmailAnalysisEngine.name, ChangeUserEmailAnalysisEngine.isFromServer)
+            ChangeUserEmailProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(ChangeUserEmailAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(ChangeUserEmailAnalysisEngine.name))
         }
-      case Right(changeUserName: JsonChangeUserName) =>
+      case Right(json: JsonChangeUserName) =>
         log("JsonChangeUserName")
         changeUserNameEngine match {
           case Some(engine) =>
-            engine.process(box, changeUserName)
-          case None =>
-            noAnalysisEngine(ChangeUserNameAnalysisEngine.name, ChangeUserNameAnalysisEngine.isFromServer)
+            ChangeUserNameProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(ChangeUserNameAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(ChangeUserNameAnalysisEngine.name))
         }
-      case Right(changeUserPassword: JsonChangeUserPassword) =>
+      case Right(json: JsonChangeUserPassword) =>
         log("JsonChangeUserPassword")
         changeUserPasswordEngine match {
           case Some(engine) =>
-            engine.process(box, changeUserPassword)
-          case None =>
-            noAnalysisEngine(ChangeUserPasswordAnalysisEngine.name, ChangeUserPasswordAnalysisEngine.isFromServer)
+            ChangeUserPasswordProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(ChangeUserPasswordAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(ChangeUserPasswordAnalysisEngine.name))
         }
-      case Right(getSettings: JsonGetSettings) =>
+      case Right(json: JsonGetSettings) =>
         log("JsonGetSettings")
         getSettingsEngine match {
           case Some(engine) =>
-            engine.process(box, getSettings)
-          case None =>
-            noAnalysisEngine(GetSettingsAnalysisEngine.name, GetSettingsAnalysisEngine.isFromServer)
+            GetSettingsProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(GetSettingsAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(GetSettingsAnalysisEngine.name))
         }
-      case Right(settings: JsonSettings) =>
+      case Right(json: JsonSettings) =>
         log("JsonSettings")
         settingsEngine match {
           case Some(engine) =>
-            engine.process(box, settings)
-          case None =>
-            noAnalysisEngine(SettingsAnalysisEngine.name, GetSettingsAnalysisEngine.isFromServer)
+            SettingsProtocol.read(json) match {
+              case Some(protocol) =>
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(SettingsAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(SettingsAnalysisEngine.name))
         }
       case _ =>
-        log("return nothing")
-        otherwise
+        Failure(new NoEngineException("AnalysisEngine"))
     }
   }
 }

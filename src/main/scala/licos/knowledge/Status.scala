@@ -6,7 +6,7 @@ sealed abstract class Status(val label: String) {
 
   def toIntermediateStatus: Status
   def isAlive: Boolean = this == Alive
-  def isDead: Boolean = !isAlive
+  def isDead:  Boolean = !isAlive
 
   override def equals(o: Any): Boolean = {
     o match {

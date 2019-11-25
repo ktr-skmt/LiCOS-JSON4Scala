@@ -93,8 +93,8 @@ class VillageProcessingEngine(
     nextGameInvitationIsClosedAnalysisEngine:      Option[NextGameInvitationIsClosedAnalysisEngine],
     nightPhaseAnalysisEngine:                      Option[NightPhaseAnalysisEngine],
     noonPhaseAnalysisEngine:                       Option[NoonPhaseAnalysisEngine],
-    onymousAudienceChatFromServerAnalysisEngine:   Option[OnymousAudienceChatFromServerAnalysisEngine])
-    extends ProcessingEngine {
+    onymousAudienceChatFromServerAnalysisEngine:   Option[OnymousAudienceChatFromServerAnalysisEngine]
+) extends ProcessingEngine {
 
   override protected val flowController: FlowController = new VillageFlowController()
 

@@ -99,8 +99,9 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
     )
   }
 
-  def set(anonymousAudienceChatFromClientAnalysisEngine: AnonymousAudienceChatFromClientAnalysisEngine)
-    : VillageProcessingEngineFactory = {
+  def set(
+      anonymousAudienceChatFromClientAnalysisEngine: AnonymousAudienceChatFromClientAnalysisEngine
+  ): VillageProcessingEngineFactory = {
     this.anonymousAudienceChatFromClientAnalysisEngine = Option(anonymousAudienceChatFromClientAnalysisEngine)
     this
   }
@@ -135,8 +136,9 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(onymousAudienceChatFromClientAnalysisEngine: OnymousAudienceChatFromClientAnalysisEngine)
-    : VillageProcessingEngineFactory = {
+  def set(
+      onymousAudienceChatFromClientAnalysisEngine: OnymousAudienceChatFromClientAnalysisEngine
+  ): VillageProcessingEngineFactory = {
     this.onymousAudienceChatFromClientAnalysisEngine = Option(onymousAudienceChatFromClientAnalysisEngine)
     this
   }
@@ -156,8 +158,9 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(receivedFlavorTextMessageAnalysisEngine: ReceivedFlavorTextMessageAnalysisEngine)
-    : VillageProcessingEngineFactory = {
+  def set(
+      receivedFlavorTextMessageAnalysisEngine: ReceivedFlavorTextMessageAnalysisEngine
+  ): VillageProcessingEngineFactory = {
     this.receivedFlavorTextMessageAnalysisEngine = Option(receivedFlavorTextMessageAnalysisEngine)
     this
   }
@@ -182,8 +185,9 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(anonymousAudienceChatFromServerAnalysisEngine: AnonymousAudienceChatFromServerAnalysisEngine)
-    : VillageProcessingEngineFactory = {
+  def set(
+      anonymousAudienceChatFromServerAnalysisEngine: AnonymousAudienceChatFromServerAnalysisEngine
+  ): VillageProcessingEngineFactory = {
     this.anonymousAudienceChatFromServerAnalysisEngine = Option(anonymousAudienceChatFromServerAnalysisEngine)
     this
   }
@@ -223,8 +227,9 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(nextGameInvitationIsClosedAnalysisEngine: NextGameInvitationIsClosedAnalysisEngine)
-    : VillageProcessingEngineFactory = {
+  def set(
+      nextGameInvitationIsClosedAnalysisEngine: NextGameInvitationIsClosedAnalysisEngine
+  ): VillageProcessingEngineFactory = {
     this.nextGameInvitationIsClosedAnalysisEngine = Option(nextGameInvitationIsClosedAnalysisEngine)
     this
   }
@@ -239,8 +244,9 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(onymousAudienceChatFromServerAnalysisEngine: OnymousAudienceChatFromServerAnalysisEngine)
-    : VillageProcessingEngineFactory = {
+  def set(
+      onymousAudienceChatFromServerAnalysisEngine: OnymousAudienceChatFromServerAnalysisEngine
+  ): VillageProcessingEngineFactory = {
     this.onymousAudienceChatFromServerAnalysisEngine = Option(onymousAudienceChatFromServerAnalysisEngine)
     this
   }

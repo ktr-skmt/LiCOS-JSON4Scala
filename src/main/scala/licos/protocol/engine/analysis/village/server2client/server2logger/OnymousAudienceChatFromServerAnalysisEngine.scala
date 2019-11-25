@@ -8,8 +8,10 @@ import licos.protocol.engine.processing.VillageBOX
 import scala.util.Try
 
 trait OnymousAudienceChatFromServerAnalysisEngine extends VillageMessageAnalysisEngine {
-  def process(box:                           VillageBOX,
-              onymousAudienceChatFromServer: OnymousAudienceChatFromServerProtocol): Try[VillageMessageProtocol]
+  def process(
+      box:                           VillageBOX,
+      onymousAudienceChatFromServer: OnymousAudienceChatFromServerProtocol
+  ): Try[VillageMessageProtocol]
 }
 
 object OnymousAudienceChatFromServerAnalysisEngine {

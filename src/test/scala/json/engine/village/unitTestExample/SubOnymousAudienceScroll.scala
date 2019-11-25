@@ -2,7 +2,7 @@ package json.engine.village.unitTestExample
 
 import json.engine.VillageUnitTestExample
 
-case class SubOnymousAudienceScroll(filePath: String) extends VillageUnitTestExample(filePath) {
+final case class SubOnymousAudienceScroll(filePath: String) extends VillageUnitTestExample(filePath) {
   override val `type`: String = SubOnymousAudienceScroll.`type`
 }
 

@@ -5,9 +5,31 @@ import licos.json.element.village.character.{JsonCharacter, JsonStatusCharacter}
 import licos.json.element.village.{JsonBoardResult, JsonPhase, JsonVotingResultDetail, JsonVotingResultSummary}
 import licos.json.element.village.iri.{BaseContext, Context, SystemMessage, VotingResultContext}
 import licos.json.element.village.role.JsonRole
-import licos.knowledge.{Character, Data2Knowledge, Morning, Phase, PolarityMark, PrivateChannel, Role, ServerToClient, Status}
-import licos.protocol.element.village.part.{BaseProtocol, BoardResultProtocol, ChatSettingsProtocol, UpdateProtocol, VillageProtocol, VotingResultDetailProtocol, VotingResultSummaryProtocol}
-import licos.protocol.element.village.part.character.{CharacterProtocol, SimpleCharacterProtocol, StatusCharacterProtocol}
+import licos.knowledge.{
+  Character,
+  Data2Knowledge,
+  Morning,
+  Phase,
+  PolarityMark,
+  PrivateChannel,
+  Role,
+  ServerToClient,
+  Status
+}
+import licos.protocol.element.village.part.{
+  BaseProtocol,
+  BoardResultProtocol,
+  ChatSettingsProtocol,
+  UpdateProtocol,
+  VillageProtocol,
+  VotingResultDetailProtocol,
+  VotingResultSummaryProtocol
+}
+import licos.protocol.element.village.part.character.{
+  CharacterProtocol,
+  SimpleCharacterProtocol,
+  StatusCharacterProtocol
+}
 import licos.protocol.element.village.part.role.RoleProtocol
 import licos.util.TimestampGenerator
 import play.api.libs.json.{JsValue, Json}
@@ -133,7 +155,8 @@ object MorningPhaseProtocol {
     json.base.votingResultsSummary foreach { jsonVotingResultSummary: JsonVotingResultSummary =>
       val characterOpt: Option[Character] = Data2Knowledge.characterOpt(
         jsonVotingResultSummary.characterToPutToDeath.name.en,
-        jsonVotingResultSummary.characterToPutToDeath.id)
+        jsonVotingResultSummary.characterToPutToDeath.id
+      )
       if (characterOpt.nonEmpty) {
         votingResultSummaryBuffer += VotingResultSummaryProtocol(
           characterOpt.get,

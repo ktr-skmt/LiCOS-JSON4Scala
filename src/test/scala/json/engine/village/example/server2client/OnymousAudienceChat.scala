@@ -2,7 +2,7 @@ package json.engine.village.example.server2client
 
 import json.engine.ServerToClientVillageExample
 
-case class OnymousAudienceChat(filePath: String) extends ServerToClientVillageExample(filePath) {
+final case class OnymousAudienceChat(filePath: String) extends ServerToClientVillageExample(filePath) {
   override val `type`: String = OnymousAudienceChat.`type`
 }
 

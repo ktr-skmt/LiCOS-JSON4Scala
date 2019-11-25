@@ -1,5 +1,37 @@
 package licos.protocol.element.lobby.server2client
 
-final case class SettingsProtocol() {
+import java.util.Locale
+
+import licos.json.element.lobby.JsonSettings
+import play.api.libs.json.{JsValue, Json}
+
+final case class SettingsProtocol(userName: String, userEmail: String, lang: Locale)
+    extends Server2ClientLobbyMessageProtocol {
+
+  private val json: Option[JsonSettings] = {
+    Some(
+      new JsonSettings(
+        userName,
+        userEmail,
+        lang.getLanguage
+      )
+    )
+  }
+
+  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+
+}
+
+object SettingsProtocol {
+
+  def read(json: JsonSettings): Option[SettingsProtocol] = {
+    Some(
+      SettingsProtocol(
+        json.userName,
+        json.userEmail,
+        new Locale(json.lang)
+      )
+    )
+  }
 
 }

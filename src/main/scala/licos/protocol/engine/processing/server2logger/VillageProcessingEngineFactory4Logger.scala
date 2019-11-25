@@ -76,8 +76,9 @@ class VillageProcessingEngineFactory4Logger extends ProcessingEngineFactory {
     )
   }
 
-  def set(anonymousAudienceChatFromClientAnalysisEngine: AnonymousAudienceChatFromClientAnalysisEngine)
-    : VillageProcessingEngineFactory4Logger = {
+  def set(
+      anonymousAudienceChatFromClientAnalysisEngine: AnonymousAudienceChatFromClientAnalysisEngine
+  ): VillageProcessingEngineFactory4Logger = {
     this.anonymousAudienceChatFromClientAnalysisEngine = Option(anonymousAudienceChatFromClientAnalysisEngine)
     this
   }
@@ -98,19 +99,22 @@ class VillageProcessingEngineFactory4Logger extends ProcessingEngineFactory {
   }
 
   def set(
-      onymousAudienceBoardAnalysisEngine: OnymousAudienceBoardAnalysisEngine): VillageProcessingEngineFactory4Logger = {
+      onymousAudienceBoardAnalysisEngine: OnymousAudienceBoardAnalysisEngine
+  ): VillageProcessingEngineFactory4Logger = {
     this.onymousAudienceBoardAnalysisEngine = Option(onymousAudienceBoardAnalysisEngine)
     this
   }
 
-  def set(onymousAudienceChatFromClientAnalysisEngine: OnymousAudienceChatFromClientAnalysisEngine)
-    : VillageProcessingEngineFactory4Logger = {
+  def set(
+      onymousAudienceChatFromClientAnalysisEngine: OnymousAudienceChatFromClientAnalysisEngine
+  ): VillageProcessingEngineFactory4Logger = {
     this.onymousAudienceChatFromClientAnalysisEngine = Option(onymousAudienceChatFromClientAnalysisEngine)
     this
   }
 
-  def set(onymousAudienceScrollAnalysisEngine: OnymousAudienceScrollAnalysisEngine)
-    : VillageProcessingEngineFactory4Logger = {
+  def set(
+      onymousAudienceScrollAnalysisEngine: OnymousAudienceScrollAnalysisEngine
+  ): VillageProcessingEngineFactory4Logger = {
     this.onymousAudienceScrollAnalysisEngine = Option(onymousAudienceScrollAnalysisEngine)
     this
   }
@@ -130,8 +134,9 @@ class VillageProcessingEngineFactory4Logger extends ProcessingEngineFactory {
     this
   }
 
-  def set(anonymousAudienceChatFromServerAnalysisEngine: AnonymousAudienceChatFromServerAnalysisEngine)
-    : VillageProcessingEngineFactory4Logger = {
+  def set(
+      anonymousAudienceChatFromServerAnalysisEngine: AnonymousAudienceChatFromServerAnalysisEngine
+  ): VillageProcessingEngineFactory4Logger = {
     this.anonymousAudienceChatFromServerAnalysisEngine = Option(anonymousAudienceChatFromServerAnalysisEngine)
     this
   }
@@ -176,8 +181,9 @@ class VillageProcessingEngineFactory4Logger extends ProcessingEngineFactory {
     this
   }
 
-  def set(onymousAudienceChatFromServerAnalysisEngine: OnymousAudienceChatFromServerAnalysisEngine)
-    : VillageProcessingEngineFactory4Logger = {
+  def set(
+      onymousAudienceChatFromServerAnalysisEngine: OnymousAudienceChatFromServerAnalysisEngine
+  ): VillageProcessingEngineFactory4Logger = {
     this.onymousAudienceChatFromServerAnalysisEngine = Option(onymousAudienceChatFromServerAnalysisEngine)
     this
   }

@@ -9,13 +9,13 @@ import licos.protocol.element.village.part.UpdateProtocol
 import licos.util.LiCOSOnline
 
 final case class CharacterProtocol(
-    character: Character,
-    villageId: Long,
-    language:  Locale,
-    isMine:    Boolean,
-    status:    Status,
+    character:      Character,
+    villageId:      Long,
+    language:       Locale,
+    isMine:         Boolean,
+    status:         Status,
     updateProtocol: UpdateProtocol,
-    isAChoice: Boolean
+    isAChoice:      Boolean
 ) {
 
   private val `@id`: String = LiCOSOnline.state(villageId, s"character#${character.getId}")

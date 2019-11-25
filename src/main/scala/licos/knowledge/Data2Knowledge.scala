@@ -140,4 +140,12 @@ object Data2Knowledge {
     retOpt.map(_.setId(id))
   }
 
+  def avatarSettingOpt(label: String): Option[AvatarSetting] = {
+    label match {
+      case RandomAvatarSetting.label => Some(RandomAvatarSetting)
+      case FixedAvatarSetting.label  => Some(FixedAvatarSetting)
+      case _                         => None
+    }
+  }
+
 }

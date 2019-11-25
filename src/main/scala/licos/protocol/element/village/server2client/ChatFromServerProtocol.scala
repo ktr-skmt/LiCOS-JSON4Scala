@@ -52,7 +52,8 @@ object ChatFromServerProtocol {
           json.interval,
           json.text.`@value`,
           json.isOver
-        ))
+        )
+      )
     } else {
       None
     }

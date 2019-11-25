@@ -2,7 +2,7 @@ package json.engine.village.unitTestExample
 
 import json.engine.VillageUnitTestExample
 
-case class ChatText(filePath: String) extends VillageUnitTestExample(filePath) {
+final case class ChatText(filePath: String) extends VillageUnitTestExample(filePath) {
   override val `type`: String = ChatText.`type`
 }
 

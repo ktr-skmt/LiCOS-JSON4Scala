@@ -12,13 +12,14 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
-final case class OnymousAudienceScrollProtocol(village:                    Village,
-                                               nodeId:                     String,
-                                               scrollTop:                  Int,
-                                               scrollHeight:               Int,
-                                               offsetHeight:               Int,
-                                               extensionalDisclosureRange: Seq[StatusCharacterProtocol])
-    extends Client2ServerVillageMessageProtocolForLogging {
+final case class OnymousAudienceScrollProtocol(
+    village:                    Village,
+    nodeId:                     String,
+    scrollTop:                  Int,
+    scrollHeight:               Int,
+    offsetHeight:               Int,
+    extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+) extends Client2ServerVillageMessageProtocolForLogging {
 
   val json: Option[JsonOnymousAudienceScroll] = {
     if (village.isAvailable) {
