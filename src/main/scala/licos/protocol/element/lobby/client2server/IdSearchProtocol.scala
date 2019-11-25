@@ -2,7 +2,7 @@ package licos.protocol.element.lobby.client2server
 
 import java.util.UUID
 
-import licos.json.element.lobby.JsonIdSearch
+import licos.json.element.lobby.client2server.JsonIdSearch
 import licos.knowledge.{Data2Knowledge, Lobby}
 import play.api.libs.json.{JsValue, Json}
 

@@ -2,7 +2,7 @@ package licos.protocol.element.lobby.client2server
 
 import java.util.UUID
 
-import licos.json.element.lobby.JsonGetAvatarInfo
+import licos.json.element.lobby.server2client.JsonGetAvatarInfo
 import play.api.libs.json.{JsValue, Json}
 
 final case class GetAvatarInfoProtocol(token: UUID) extends Client2ServerLobbyMessageProtocol {

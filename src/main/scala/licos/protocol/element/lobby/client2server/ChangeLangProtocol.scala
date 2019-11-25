@@ -2,7 +2,7 @@ package licos.protocol.element.lobby.client2server
 
 import java.util.Locale
 
-import licos.json.element.lobby.JsonChangeLang
+import licos.json.element.lobby.client2server.JsonChangeLang
 import play.api.libs.json.{JsValue, Json}
 
 final case class ChangeLangProtocol(lang: Locale) extends Client2ServerLobbyMessageProtocol {

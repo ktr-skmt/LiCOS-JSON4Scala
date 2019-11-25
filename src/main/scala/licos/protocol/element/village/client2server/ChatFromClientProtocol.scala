@@ -1,7 +1,7 @@
 package licos.protocol.element.village.client2server
 
 import licos.entity.Village
-import licos.json.element.village.JsonChatFromClient
+import licos.json.element.village.client2server.JsonChatFromClient
 import licos.knowledge.Data2Knowledge
 import licos.protocol.PlayerChatChannel
 import play.api.libs.json.{JsValue, Json}

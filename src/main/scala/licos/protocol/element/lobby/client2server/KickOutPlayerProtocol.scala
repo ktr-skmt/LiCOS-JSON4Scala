@@ -2,7 +2,7 @@ package licos.protocol.element.lobby.client2server
 
 import java.util.UUID
 
-import licos.json.element.lobby.{JsonKickOutPlayer, JsonPlayerTokenInKickOutPlayer}
+import licos.json.element.lobby.client2server.{JsonKickOutPlayer, JsonPlayerTokenInKickOutPlayer}
 import licos.protocol.element.lobby.part.PlayerTokenInKickOutPlayerProtocol
 import play.api.libs.json.{JsValue, Json}
 

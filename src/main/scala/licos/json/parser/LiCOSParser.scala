@@ -1,6 +1,6 @@
 package licos.json.parser
 
-import licos.json.element.lobby.{JsonBuildVillage, JsonLeaveWaitingPage, JsonReady}
+import licos.json.element.lobby.client2server.{JsonBuildVillage, JsonLeaveWaitingPage, JsonReady}
 import licos.json.element.village.{JsonName, JsonSubError}
 import licos.json.engine.analysis.lobby.client2server.{
   BuildVillageAnalysisEngine,

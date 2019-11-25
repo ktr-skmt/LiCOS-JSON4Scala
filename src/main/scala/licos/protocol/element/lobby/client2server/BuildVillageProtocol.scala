@@ -2,7 +2,7 @@ package licos.protocol.element.lobby.client2server
 
 import java.util.UUID
 
-import licos.json.element.lobby.JsonBuildVillage
+import licos.json.element.lobby.client2server.JsonBuildVillage
 import licos.knowledge.{AvatarSetting, Data2Knowledge}
 import licos.protocol.element.lobby.part.{HostPlayerProtocol, PlayerSettingProtocol, RoleSettingProtocol}
 import play.api.libs.json.{JsValue, Json}

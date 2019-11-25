@@ -2,7 +2,7 @@ package licos.protocol.element.lobby.server2client
 
 import java.util.Locale
 
-import licos.json.element.lobby.JsonSettings
+import licos.json.element.lobby.server2client.JsonSettings
 import play.api.libs.json.{JsValue, Json}
 
 final case class SettingsProtocol(userName: String, userEmail: String, lang: Locale)

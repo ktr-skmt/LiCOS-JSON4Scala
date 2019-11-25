@@ -3,7 +3,7 @@ package licos.protocol.element.village.client2server
 import java.time.OffsetDateTime
 
 import licos.entity.Village
-import licos.json.element.village.JsonStar
+import licos.json.element.village.client2server.JsonStar
 import play.api.libs.json.{JsValue, Json}
 
 final case class StarProtocol(

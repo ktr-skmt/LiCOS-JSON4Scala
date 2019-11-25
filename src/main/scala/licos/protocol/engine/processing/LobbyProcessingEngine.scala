@@ -1,32 +1,34 @@
 package licos.protocol.engine.processing
 
 import com.typesafe.scalalogging.Logger
-import licos.json.element.lobby.{
+import licos.json.element.lobby.client2server.{
   JsonAdvancedSearch,
-  JsonAvatarInfo,
   JsonBuildVillage,
   JsonChangeLang,
   JsonChangeUserEmail,
   JsonChangeUserName,
   JsonChangeUserPassword,
   JsonEnterLobby,
-  JsonGetAvatarInfo,
   JsonGetSettings,
   JsonIdSearch,
   JsonKickOutPlayer,
   JsonLeaveWaitingPage,
-  JsonLobby,
-  JsonPing,
   JsonPlay,
-  JsonPlayed,
-  JsonPlayedWithToken,
   JsonPong,
   JsonReady,
+  JsonSelectVillage
+}
+import licos.json.element.lobby.server2client.{
+  JsonAvatarInfo,
+  JsonGetAvatarInfo,
+  JsonLobby,
+  JsonPing,
+  JsonPlayed,
   JsonSearchResult,
-  JsonSelectVillage,
   JsonSettings,
   JsonWaitingPage
 }
+import licos.json.element.lobby.server2server.JsonPlayedWithToken
 import licos.json.flow.{FlowController, LobbyFlowController}
 import licos.protocol.element.lobby.LobbyMessageProtocol
 import licos.protocol.element.lobby.client2server.{

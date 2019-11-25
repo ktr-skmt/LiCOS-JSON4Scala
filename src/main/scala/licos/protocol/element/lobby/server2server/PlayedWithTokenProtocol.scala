@@ -2,7 +2,8 @@ package licos.protocol.element.lobby.server2server
 
 import java.util.UUID
 
-import licos.json.element.lobby.{JsonPlayed, JsonPlayedWithToken}
+import licos.json.element.lobby.server2client.JsonPlayed
+import licos.json.element.lobby.server2server.JsonPlayedWithToken
 import licos.protocol.element.lobby.server2client.PlayedProtocol
 import play.api.libs.json.{JsValue, Json}
 

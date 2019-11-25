@@ -2,7 +2,7 @@ package licos.protocol.element.lobby.client2server
 
 import java.util.UUID
 
-import licos.json.element.lobby.JsonReady
+import licos.json.element.lobby.client2server.JsonReady
 import play.api.libs.json.{JsValue, Json}
 
 final case class ReadyProtocol(token: UUID, villageId: Long) extends Client2ServerLobbyMessageProtocol {

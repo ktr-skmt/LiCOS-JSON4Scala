@@ -3,9 +3,9 @@ package json.engine.village.analysis.server2client
 import json.engine.village.VillageBox
 import json.engine.village.example.server2client.GameResult
 import json.element.JsonTest
+import licos.json.element.village.server2client.JsonGameResult
 import licos.json.engine.BOX
 import licos.json.engine.analysis.village.server2client.GameResultAnalysisEngine
-import licos.json.element.village.JsonGameResult
 import play.api.libs.json.{JsValue, Json}
 
 class GameResultAE extends GameResultAnalysisEngine {

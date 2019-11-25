@@ -4,7 +4,7 @@ import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Reference;
 import licos.bson.element.village.character.BsonSimpleCharacter;
-import licos.json.element.village.JsonChatFromServer;
+import licos.json.element.village.server2client.JsonChatFromServer;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;

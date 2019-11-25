@@ -1,7 +1,7 @@
 package licos.protocol.element.village.client2server
 
 import licos.entity.Village
-import licos.json.element.village.JsonOnymousAudienceBoard
+import licos.json.element.village.client2server.JsonOnymousAudienceBoard
 import licos.knowledge.{Character, Data2Knowledge, PolarityMark, Role}
 import play.api.libs.json.{JsValue, Json}
 

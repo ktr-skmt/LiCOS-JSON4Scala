@@ -1,9 +1,9 @@
 package licos.protocol.element.village.server2client.server2logger
 
 import licos.entity.Village
-import licos.json.element.village.JsonChatFromServer
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{BaseContext, ChatContext, ChatMessage, Context}
+import licos.json.element.village.server2client.JsonChatFromServer
 import licos.knowledge.{Character, Data2Knowledge, Morning, Role, ServerToClient, Status}
 import licos.protocol.PlayerChatChannel
 import licos.protocol.element.village.part.character.{SimpleCharacterProtocol, StatusCharacterProtocol}

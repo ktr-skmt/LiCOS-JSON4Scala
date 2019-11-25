@@ -3,7 +3,7 @@ package json.engine.lobby.analysis
 import json.element.JsonTest
 import json.engine.lobby.LobbyBox
 import json.engine.lobby.example.PlayedWithToken
-import licos.json.element.lobby.JsonPlayedWithToken
+import licos.json.element.lobby.server2server.JsonPlayedWithToken
 import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.server2server.PlayedWithTokenAnalysisEngine
 import play.api.libs.json.{JsValue, Json}

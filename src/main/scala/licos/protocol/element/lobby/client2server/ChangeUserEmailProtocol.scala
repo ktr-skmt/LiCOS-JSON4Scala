@@ -1,6 +1,6 @@
 package licos.protocol.element.lobby.client2server
 
-import licos.json.element.lobby.JsonChangeUserEmail
+import licos.json.element.lobby.client2server.JsonChangeUserEmail
 import play.api.libs.json.{JsValue, Json}
 
 final case class ChangeUserEmailProtocol(userEmail: String) extends Client2ServerLobbyMessageProtocol {

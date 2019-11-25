@@ -1,6 +1,7 @@
 package licos.protocol.element.lobby.server2client
 
-import licos.json.element.lobby.{JsonPlayerInWaitingPage, JsonVillage, JsonWaitingPage}
+import licos.json.element.lobby.server2client.{JsonPlayerInWaitingPage, JsonWaitingPage}
+import licos.json.element.lobby.JsonVillage
 import licos.protocol.element.lobby.part.{ErrorProtocol, PlayerInWaitingPageProtocol, VillageProtocol}
 import play.api.libs.json.{JsValue, Json}
 

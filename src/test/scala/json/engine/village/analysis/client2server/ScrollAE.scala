@@ -3,9 +3,9 @@ package json.engine.village.analysis.client2server
 import json.engine.village.VillageBox
 import json.engine.village.example.client2server.Scroll
 import json.element.JsonTest
+import licos.json.element.village.client2server.JsonScroll
 import licos.json.engine.BOX
 import licos.json.engine.analysis.village.client2server.ScrollAnalysisEngine
-import licos.json.element.village.JsonScroll
 import play.api.libs.json.{JsValue, Json}
 
 class ScrollAE extends ScrollAnalysisEngine {

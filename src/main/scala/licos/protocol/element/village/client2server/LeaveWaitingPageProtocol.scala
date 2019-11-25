@@ -2,7 +2,7 @@ package licos.protocol.element.village.client2server
 
 import java.util.UUID
 
-import licos.json.element.lobby.JsonLeaveWaitingPage
+import licos.json.element.lobby.client2server.JsonLeaveWaitingPage
 import licos.knowledge.{Data2Knowledge, Lobby}
 import play.api.libs.json.{JsValue, Json}
 

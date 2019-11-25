@@ -1,29 +1,24 @@
 package licos.protocol.engine.processing
 
 import com.typesafe.scalalogging.Logger
-import licos.json.element.lobby.{JsonBuildVillage, JsonLeaveWaitingPage, JsonReady}
+import licos.json.element.lobby.client2server.{JsonBuildVillage, JsonLeaveWaitingPage, JsonReady}
+import licos.json.element.village.client2server.{
+  JsonBoard,
+  JsonChatFromClient,
+  JsonOnymousAudienceBoard,
+  JsonOnymousAudienceScroll,
+  JsonScroll,
+  JsonStar,
+  JsonVote
+}
 import licos.json.element.village.invite.{JsonNextGameInvitation, JsonNextGameInvitationIsClosed}
 import licos.json.element.village.receipt.{
   JsonReceivedChatMessage,
   JsonReceivedFlavorTextMessage,
   JsonReceivedSystemMessage
 }
-import licos.json.element.village.{
-  JsonAnonymousAudienceChat,
-  JsonBoard,
-  JsonChatFromClient,
-  JsonChatFromServer,
-  JsonError,
-  JsonFlavorText,
-  JsonGameResult,
-  JsonOnymousAudienceBoard,
-  JsonOnymousAudienceChat,
-  JsonOnymousAudienceScroll,
-  JsonPhase,
-  JsonScroll,
-  JsonStar,
-  JsonVote
-}
+import licos.json.element.village.server2client.{JsonChatFromServer, JsonFlavorText, JsonGameResult, JsonPhase}
+import licos.json.element.village.{JsonAnonymousAudienceChat, JsonError, JsonOnymousAudienceChat}
 import licos.json.flow.{FlowController, VillageFlowController}
 import licos.knowledge.{Morning, Night, Noon}
 import licos.protocol.element.village.VillageMessageProtocol

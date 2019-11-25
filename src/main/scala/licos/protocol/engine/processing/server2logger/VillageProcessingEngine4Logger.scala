@@ -1,22 +1,17 @@
 package licos.protocol.engine.processing.server2logger
 
 import com.typesafe.scalalogging.Logger
-import licos.json.element.village.{
-  JsonAnonymousAudienceChat,
+import licos.json.element.village.client2server.{
   JsonBoard,
   JsonChatFromClient,
-  JsonChatFromServer,
-  JsonError,
-  JsonFlavorText,
-  JsonGameResult,
   JsonOnymousAudienceBoard,
-  JsonOnymousAudienceChat,
   JsonOnymousAudienceScroll,
-  JsonPhase,
   JsonScroll,
   JsonStar,
   JsonVote
 }
+import licos.json.element.village.server2client.{JsonChatFromServer, JsonFlavorText, JsonGameResult, JsonPhase}
+import licos.json.element.village.{JsonAnonymousAudienceChat, JsonError, JsonOnymousAudienceChat}
 import licos.json.flow.{FlowController, VillageFlowController}
 import licos.knowledge.{Morning, Night, Noon}
 import licos.protocol.element.village.VillageMessageProtocol

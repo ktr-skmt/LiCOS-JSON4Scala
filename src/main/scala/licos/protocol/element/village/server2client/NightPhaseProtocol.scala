@@ -3,7 +3,8 @@ package licos.protocol.element.village.server2client
 import licos.entity.Village
 import licos.json.element.village.character.JsonCharacter
 import licos.json.element.village.role.JsonRole
-import licos.json.element.village.{JsonBoardResult, JsonPhase}
+import licos.json.element.village.JsonBoardResult
+import licos.json.element.village.server2client.JsonPhase
 import licos.knowledge.{Character, Data2Knowledge, Night, Phase, PolarityMark, Role, Status}
 import licos.protocol.element.village.part.{BoardResultProtocol, UpdateProtocol}
 import licos.protocol.element.village.part.character.CharacterProtocol

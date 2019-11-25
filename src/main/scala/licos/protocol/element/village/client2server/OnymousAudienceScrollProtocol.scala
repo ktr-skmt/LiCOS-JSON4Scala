@@ -1,7 +1,7 @@
 package licos.protocol.element.village.client2server
 
 import licos.entity.Village
-import licos.json.element.village.JsonOnymousAudienceScroll
+import licos.json.element.village.client2server.JsonOnymousAudienceScroll
 import play.api.libs.json.{JsValue, Json}
 
 final case class OnymousAudienceScrollProtocol(

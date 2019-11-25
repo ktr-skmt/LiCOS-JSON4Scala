@@ -1,6 +1,6 @@
 package licos.protocol.element.lobby.client2server
 
-import licos.json.element.lobby.JsonChangeUserName
+import licos.json.element.lobby.client2server.JsonChangeUserName
 import play.api.libs.json.{JsValue, Json}
 
 final case class ChangeUserNameProtocol(userName: String) extends Client2ServerLobbyMessageProtocol {

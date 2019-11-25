@@ -1,6 +1,7 @@
 package licos.protocol.element.lobby.server2client
 
-import licos.json.element.lobby.{JsonSearchResult, JsonVillage}
+import licos.json.element.lobby.JsonVillage
+import licos.json.element.lobby.server2client.JsonSearchResult
 import licos.protocol.element.lobby.part.{ErrorProtocol, VillageProtocol}
 import play.api.libs.json.{JsValue, Json}
 

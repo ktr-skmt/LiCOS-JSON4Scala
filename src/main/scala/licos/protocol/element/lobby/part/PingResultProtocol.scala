@@ -2,7 +2,7 @@ package licos.protocol.element.lobby.part
 
 import java.util.UUID
 
-import licos.json.element.lobby.JsonPingResult
+import licos.json.element.lobby.server2client.JsonPingResult
 import licos.knowledge.{Data2Knowledge, Status}
 
 final case class PingResultProtocol(token: UUID, ping: String, status: Status) {

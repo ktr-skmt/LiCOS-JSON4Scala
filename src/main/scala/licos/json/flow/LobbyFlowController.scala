@@ -41,7 +41,13 @@ class LobbyFlowController() extends FlowController with LobbyParser {
                                             parseChangeUserPassword(jsValue) >>> {
                                               parseGetSettings(jsValue) >>> {
                                                 parseSettings(jsValue) >>> {
-                                                  parsePlayedWithToken(jsValue)
+                                                  parseAuthorizationRequest(jsValue) >>> {
+                                                    parseAuthorizationRequestAccepted(jsValue) >>> {
+                                                      parseAuthorizationRequestAcceptedResponse(jsValue) >>> {
+                                                        parsePlayedWithToken(jsValue)
+                                                      }
+                                                    }
+                                                  }
                                                 }
                                               }
                                             }

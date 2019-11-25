@@ -1,7 +1,7 @@
 package licos.protocol.element.village.client2server
 
 import licos.entity.Village
-import licos.json.element.lobby.JsonReady
+import licos.json.element.lobby.client2server.JsonReady
 import play.api.libs.json.{JsValue, Json}
 
 final case class ReadyProtocol(village: Village) extends Client2ServerVillageMessageProtocol {

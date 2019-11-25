@@ -1,40 +1,10 @@
 package json.parser
 
-import licos.json.element.village.{
-  JsonAvatar,
-  JsonBase,
-  JsonBoardResult,
-  JsonChatSettings,
-  JsonChatText,
-  JsonName,
-  JsonStarInfo,
-  JsonSubAnonymousAudienceChat,
-  JsonSubBoard,
-  JsonSubChatFromClient,
-  JsonSubChatFromServer,
-  JsonSubError,
-  JsonSubFlavorText,
-  JsonSubGameResult,
-  JsonSubOnymousAudienceBoard,
-  JsonSubOnymousAudienceChat,
-  JsonSubOnymousAudienceScroll,
-  JsonSubPhase,
-  JsonSubScroll,
-  JsonSubStar,
-  JsonSubVote,
-  JsonUpdate,
-  JsonVillage,
-  JsonVotingResultDetail,
-  JsonVotingResultSummary
-}
-import licos.json.element.village.character.{
-  JsonCharacter,
-  JsonResultCharacter,
-  JsonRoleCharacter,
-  JsonSimpleCharacter,
-  JsonStatusCharacter
-}
+import licos.json.element.village.{JsonAvatar, JsonBase, JsonBoardResult, JsonChatSettings, JsonChatText, JsonName, JsonStarInfo, JsonSubAnonymousAudienceChat, JsonSubError, JsonSubOnymousAudienceChat, JsonSubScroll, JsonSubStar, JsonUpdate, JsonVillage, JsonVotingResultDetail, JsonVotingResultSummary}
+import licos.json.element.village.character.{JsonCharacter, JsonResultCharacter, JsonRoleCharacter, JsonSimpleCharacter, JsonStatusCharacter}
+import licos.json.element.village.client2server.{JsonStarInfo, JsonSubBoard, JsonSubChatFromClient, JsonSubOnymousAudienceBoard, JsonSubOnymousAudienceScroll, JsonSubScroll, JsonSubStar, JsonSubVote}
 import licos.json.element.village.role.{JsonResultRole, JsonRole, JsonSimpleRole}
+import licos.json.element.village.server2client.{JsonSubChatFromServer, JsonSubFlavorText, JsonSubGameResult, JsonSubPhase}
 import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
 

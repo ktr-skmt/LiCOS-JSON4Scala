@@ -1,9 +1,9 @@
 package licos.protocol.element.village.server2client
 
 import licos.entity.Village
-import licos.json.element.village.JsonGameResult
 import licos.json.element.village.character.{JsonResultCharacter, JsonSimpleCharacter}
 import licos.json.element.village.role.JsonResultRole
+import licos.json.element.village.server2client.JsonGameResult
 import licos.knowledge.{Character, Data2Knowledge, Outcome, Role, Status}
 import licos.protocol.element.village.part.character.{ResultCharacterProtocol, SimpleCharacterProtocol}
 import licos.protocol.element.village.part.role.ResultRoleProtocol

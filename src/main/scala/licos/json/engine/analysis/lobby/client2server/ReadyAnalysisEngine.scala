@@ -1,6 +1,6 @@
 package licos.json.engine.analysis.lobby.client2server
 
-import licos.json.element.lobby.JsonReady
+import licos.json.element.lobby.client2server.JsonReady
 import licos.json.engine.BOX
 import licos.json.engine.analysis.AnalysisEngine
 import play.api.libs.json.JsValue

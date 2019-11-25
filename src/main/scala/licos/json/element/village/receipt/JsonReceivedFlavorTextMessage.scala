@@ -1,7 +1,7 @@
 package licos.json.element.village.receipt
 
 import licos.json.element.Element
-import licos.json.element.village.JsonFlavorText
+import licos.json.element.village.server2client.JsonFlavorText
 import licos.json.validation.village.{AvatarValidation, TimeValidation, VillageValidation}
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))

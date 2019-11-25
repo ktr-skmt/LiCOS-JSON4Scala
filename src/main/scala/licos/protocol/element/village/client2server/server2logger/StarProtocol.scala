@@ -3,8 +3,8 @@ package licos.protocol.element.village.client2server.server2logger
 import java.time.OffsetDateTime
 
 import licos.entity.Village
-import licos.json.element.village.JsonStar
 import licos.json.element.village.character.JsonStatusCharacter
+import licos.json.element.village.client2server.JsonStar
 import licos.json.element.village.iri.{BaseContext, Context, StarContext, StarMessage}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role, Status}
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, StatusCharacterProtocol}

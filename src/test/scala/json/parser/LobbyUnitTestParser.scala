@@ -1,15 +1,8 @@
 package json.parser
 
-import licos.json.element.lobby.{
-  JsonHostPlayer,
-  JsonHuman,
-  JsonPingResult,
-  JsonPlayerInWaitingPage,
-  JsonPlayerSetting,
-  JsonPlayerTokenInKickOutPlayer,
-  JsonRobot,
-  JsonRoleSetting
-}
+import licos.json.element.lobby.client2server.JsonPlayerTokenInKickOutPlayer
+import licos.json.element.lobby.server2client.{JsonPingResult, JsonPlayerInWaitingPage}
+import licos.json.element.lobby.{JsonHostPlayer, JsonHuman, JsonPlayerSetting, JsonRobot, JsonRoleSetting}
 import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
 

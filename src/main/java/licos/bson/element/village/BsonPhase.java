@@ -5,7 +5,7 @@ import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Reference;
 import licos.bson.element.village.character.BsonCharacter;
 import licos.bson.element.village.role.BsonRole;
-import licos.json.element.village.JsonPhase;
+import licos.json.element.village.server2client.JsonPhase;
 import licos.json.element.village.character.JsonCharacter;
 import licos.json.element.village.role.JsonRole;
 import lombok.Getter;

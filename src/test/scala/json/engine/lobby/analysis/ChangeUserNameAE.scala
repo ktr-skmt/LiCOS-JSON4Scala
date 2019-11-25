@@ -3,7 +3,7 @@ package json.engine.lobby.analysis
 import json.engine.lobby.LobbyBox
 import json.engine.lobby.example.ChangeUserName
 import json.element.JsonTest
-import licos.json.element.lobby.JsonChangeUserName
+import licos.json.element.lobby.client2server.JsonChangeUserName
 import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.client2server.ChangeUserNameAnalysisEngine
 import play.api.libs.json.{JsValue, Json}

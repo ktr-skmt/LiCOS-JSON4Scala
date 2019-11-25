@@ -3,9 +3,9 @@ package json.engine.village.analysis.client2server
 import json.engine.village.VillageBox
 import json.engine.village.example.client2server.Board
 import json.element.JsonTest
+import licos.json.element.village.client2server.JsonBoard
 import licos.json.engine.BOX
 import licos.json.engine.analysis.village.client2server.BoardAnalysisEngine
-import licos.json.element.village.JsonBoard
 import play.api.libs.json.{JsValue, Json}
 
 class BoardAE extends BoardAnalysisEngine {

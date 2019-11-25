@@ -3,7 +3,7 @@ package licos.protocol.element.lobby.part
 import java.net.URL
 import java.util.UUID
 
-import licos.json.element.lobby.JsonPlayerInWaitingPage
+import licos.json.element.lobby.server2client.JsonPlayerInWaitingPage
 
 final case class PlayerInWaitingPageProtocol(
     token:       UUID,

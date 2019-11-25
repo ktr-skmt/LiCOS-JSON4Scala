@@ -1,14 +1,8 @@
 package licos.protocol.element.village.client2server
 
 import licos.entity.Village
-import licos.json.element.lobby.{
-  JsonBuildVillage,
-  JsonHostPlayer,
-  JsonHuman,
-  JsonPlayerSetting,
-  JsonRobot,
-  JsonRoleSetting
-}
+import licos.json.element.lobby.client2server.JsonBuildVillage
+import licos.json.element.lobby.{JsonHostPlayer, JsonHuman, JsonPlayerSetting, JsonRobot, JsonRoleSetting}
 import play.api.libs.json.{JsValue, Json}
 
 final case class BuildVillageProtocol(village: Village) extends Client2ServerVillageMessageProtocol {

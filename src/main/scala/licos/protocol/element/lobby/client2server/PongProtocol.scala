@@ -2,7 +2,7 @@ package licos.protocol.element.lobby.client2server
 
 import java.util.UUID
 
-import licos.json.element.lobby.JsonPong
+import licos.json.element.lobby.client2server.JsonPong
 import play.api.libs.json.{JsValue, Json}
 
 final case class PongProtocol(token: UUID, id: String) extends Client2ServerLobbyMessageProtocol {

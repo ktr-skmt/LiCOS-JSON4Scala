@@ -15,7 +15,7 @@ Notable packages includes:
       - [[licos.json.engine.analysis.village `licos.json.engine.analysis.village`]] contains LiCOS's JSON analysis engines for village such as
         [[licos.json.engine.analysis.village.client2server.BoardAnalysisEngine `BoardAnalysisEngine`]].
   - [[licos.json.element.lobby `licos.json.element.lobby`]] contains LiCOS's JSON entities for lobby such as
-    [[licos.json.element.lobby.JsonAdvancedSearch `JsonAdvancedSearch`]].
+    [[licos.json.element.lobby.client2server.JsonAdvancedSearch `JsonAdvancedSearch`]].
   - [[licos.json.element.village `licos.json.element.village`]] contains LiCOS's JSON entities for village such as
     [[licos.json.element.village.JsonAvatar `JsonAvatar`]].
 

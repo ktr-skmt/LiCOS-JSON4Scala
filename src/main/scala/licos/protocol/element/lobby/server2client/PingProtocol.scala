@@ -2,7 +2,7 @@ package licos.protocol.element.lobby.server2client
 
 import java.util.UUID
 
-import licos.json.element.lobby.{JsonPing, JsonPingResult}
+import licos.json.element.lobby.server2client.{JsonPing, JsonPingResult}
 import licos.protocol.element.lobby.part.PingResultProtocol
 import play.api.libs.json.{JsValue, Json}
 

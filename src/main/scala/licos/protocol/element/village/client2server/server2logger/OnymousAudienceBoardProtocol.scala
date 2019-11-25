@@ -1,8 +1,8 @@
 package licos.protocol.element.village.client2server.server2logger
 
 import licos.entity.Village
-import licos.json.element.village.JsonOnymousAudienceBoard
 import licos.json.element.village.character.JsonStatusCharacter
+import licos.json.element.village.client2server.JsonOnymousAudienceBoard
 import licos.json.element.village.iri.{BaseContext, BoardContext, BoardMessage, Context}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, OnymousAudienceChannel, PolarityMark, Role, Status}
 import licos.protocol.element.village.part.character.{SimpleCharacterProtocol, StatusCharacterProtocol}

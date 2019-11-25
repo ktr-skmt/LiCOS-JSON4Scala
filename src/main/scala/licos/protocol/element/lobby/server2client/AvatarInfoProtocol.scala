@@ -3,7 +3,7 @@ package licos.protocol.element.lobby.server2client
 import java.net.URL
 import java.util.{Locale, UUID}
 
-import licos.json.element.lobby.JsonAvatarInfo
+import licos.json.element.lobby.server2client.JsonAvatarInfo
 import play.api.libs.json.{JsValue, Json}
 
 final case class AvatarInfoProtocol(token: UUID, name: String, image: URL, lang: Locale)

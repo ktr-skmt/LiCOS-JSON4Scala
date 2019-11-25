@@ -2,9 +2,10 @@ package licos.protocol.element.village.server2client.server2logger
 
 import licos.entity.Village
 import licos.json.element.village.character.{JsonCharacter, JsonStatusCharacter}
-import licos.json.element.village.{JsonBoardResult, JsonPhase, JsonVotingResultDetail, JsonVotingResultSummary}
+import licos.json.element.village.{JsonBoardResult, JsonVotingResultDetail, JsonVotingResultSummary}
 import licos.json.element.village.iri.{BaseContext, Context, SystemMessage, VotingResultContext}
 import licos.json.element.village.role.JsonRole
+import licos.json.element.village.server2client.JsonPhase
 import licos.knowledge.{
   Character,
   Data2Knowledge,
