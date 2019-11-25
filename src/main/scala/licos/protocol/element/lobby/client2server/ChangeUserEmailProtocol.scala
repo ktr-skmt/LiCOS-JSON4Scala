@@ -13,7 +13,11 @@ final case class ChangeUserEmailProtocol(userEmail: String) extends Client2Serve
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonChangeUserEmail =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

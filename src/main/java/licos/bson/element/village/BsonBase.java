@@ -137,7 +137,7 @@ public class BsonBase extends BsonElementToJsonElement {
                 day,
                 phaseTimeLimit,
                 phaseStartTime,
-                serverTimestamp,
+                Option.apply(serverTimestamp),
                 Option.apply(clientTimestamp),
                 directionality,
                 intensionalDisclosureRange,

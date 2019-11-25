@@ -78,7 +78,11 @@ final case class NoonPhaseProtocol(
     }
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonPhase =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

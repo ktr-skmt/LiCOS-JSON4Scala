@@ -17,7 +17,11 @@ final case class ChatFromClientProtocol(
     server2logger.ChatFromClientProtocol(village, channel, text, isOver, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonChatFromClient =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

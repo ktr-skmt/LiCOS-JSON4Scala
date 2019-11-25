@@ -80,7 +80,11 @@ final case class BoardProtocol(
     }
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonBoard =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

@@ -11,7 +11,11 @@ final case class OnymousAudienceChatFromServerProtocol(village: Village, isMine:
     server2logger.OnymousAudienceChatFromServerProtocol(village, isMine, text, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonOnymousAudienceChat =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

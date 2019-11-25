@@ -13,7 +13,11 @@ final case class ReceivedSystemMessageProtocol(token: UUID, villageId: Long, pha
     Some(new JsonReceivedSystemMessage(token.toString, villageId, phase.label, day))
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonReceivedSystemMessage =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

@@ -17,7 +17,7 @@ final case class JsonVillage(
 ) extends JsonElement {
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
-  def this(id: Long, name: String, totalNumberOfPlayers: Int, lang: String, chatSettings: JsonChatSettings) = {
+  def this(id: Long, name: String, totalNumberOfPlayers: Int, language: String, chatSettings: JsonChatSettings) = {
     this(
       VillageContext.iri:       String,
       LiCOSOnline.stateVillage: String,

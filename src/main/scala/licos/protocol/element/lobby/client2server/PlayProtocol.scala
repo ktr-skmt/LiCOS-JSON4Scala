@@ -16,7 +16,11 @@ final case class PlayProtocol(token: UUID, villageId: Long) extends Client2Serve
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonPlay =>
+      Json.toJson(j)
+    }
+  }
 }
 
 object PlayProtocol {

@@ -21,7 +21,11 @@ final case class GameResultProtocol(
     server2logger.GameResultProtocol(village, character, role, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonGameResult =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

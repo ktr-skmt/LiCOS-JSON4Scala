@@ -69,7 +69,11 @@ final case class ScrollProtocol(
     }
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonScroll =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

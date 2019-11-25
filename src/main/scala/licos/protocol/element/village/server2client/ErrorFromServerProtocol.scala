@@ -17,7 +17,11 @@ final case class ErrorFromServerProtocol(
     server2logger.ErrorFromServerProtocol(village, content, severity, source, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonError =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

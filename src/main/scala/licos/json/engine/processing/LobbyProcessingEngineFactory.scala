@@ -27,7 +27,7 @@ class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var playedWithTokenEngine:    Option[PlayedWithTokenAnalysisEngine]    = None
   private var readyEngine:              Option[ReadyAnalysisEngine]              = None
   private var searchResultEngine:       Option[SearchResultAnalysisEngine]       = None
-  private var changeLanguageEngine:     Option[ChangeLanguageAnalysisEngine]     = None
+  private var changeLangEngine:         Option[ChangeLangAnalysisEngine]         = None
   private var changeUserEmailEngine:    Option[ChangeUserEmailAnalysisEngine]    = None
   private var changeUserNameEngine:     Option[ChangeUserNameAnalysisEngine]     = None
   private var changeUserPasswordEngine: Option[ChangeUserPasswordAnalysisEngine] = None
@@ -58,7 +58,7 @@ class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       playedWithTokenEngine:    Option[PlayedWithTokenAnalysisEngine],
       readyEngine:              Option[ReadyAnalysisEngine],
       searchResultEngine:       Option[SearchResultAnalysisEngine],
-      changeLanguageEngine:     Option[ChangeLanguageAnalysisEngine],
+      changeLangEngine:         Option[ChangeLangAnalysisEngine],
       changeUserEmailEngine:    Option[ChangeUserEmailAnalysisEngine],
       changeUserNameEngine:     Option[ChangeUserNameAnalysisEngine],
       changeUserPasswordEngine: Option[ChangeUserPasswordAnalysisEngine],
@@ -157,8 +157,8 @@ class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(changeLanguageEngine: ChangeLanguageAnalysisEngine): LobbyProcessingEngineFactory = {
-    this.changeLanguageEngine = Option(changeLanguageEngine)
+  def set(changeLangEngine: ChangeLangAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.changeLangEngine = Option(changeLangEngine)
     this
   }
 

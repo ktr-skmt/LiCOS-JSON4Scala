@@ -66,7 +66,11 @@ final case class GameResultProtocol(
     }
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonGameResult =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

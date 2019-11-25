@@ -19,7 +19,11 @@ final case class NightPhaseProtocol(village: Village, character: Seq[CharacterPr
     server2logger.NightPhaseProtocol(village, character, role, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonPhase =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

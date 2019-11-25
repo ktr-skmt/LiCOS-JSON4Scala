@@ -23,7 +23,11 @@ final case class MorningPhaseProtocol(
     server2logger.MorningPhaseProtocol(village, character, role, Nil, votingResultsSummary, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonPhase =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

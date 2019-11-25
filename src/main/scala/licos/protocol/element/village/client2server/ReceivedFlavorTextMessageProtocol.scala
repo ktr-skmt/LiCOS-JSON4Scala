@@ -13,7 +13,11 @@ final case class ReceivedFlavorTextMessageProtocol(token: UUID, villageId: Long,
     Some(new JsonReceivedFlavorTextMessage(token.toString, villageId, phase.label, day))
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonReceivedFlavorTextMessage =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

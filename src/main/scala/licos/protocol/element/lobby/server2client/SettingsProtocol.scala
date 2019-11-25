@@ -18,7 +18,11 @@ final case class SettingsProtocol(userName: String, userEmail: String, lang: Loc
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonSettings =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

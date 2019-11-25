@@ -16,7 +16,11 @@ final case class ScrollProtocol(
     server2logger.ScrollProtocol(village, nodeId, scrollTop, scrollHeight, offsetHeight, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonScroll =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

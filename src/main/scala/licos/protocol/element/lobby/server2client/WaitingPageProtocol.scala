@@ -36,7 +36,11 @@ final case class WaitingPageProtocol(
     }
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonWaitingPage =>
+      Json.toJson(j)
+    }
+  }
 }
 
 object WaitingPageProtocol {

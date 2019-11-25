@@ -17,7 +17,11 @@ final case class StarProtocol(
     server2logger.StarProtocol(village, serverTimestamp, clientTimestamp, isMarked, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonStar =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

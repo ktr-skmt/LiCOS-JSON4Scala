@@ -13,7 +13,11 @@ final case class ChangeUserPasswordProtocol(userPassword: String) extends Client
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonChangeUserPassword =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

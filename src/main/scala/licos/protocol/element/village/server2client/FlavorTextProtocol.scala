@@ -13,7 +13,11 @@ final case class FlavorTextProtocol(village: Village, flavorText: Seq[ChatFromSe
     server2logger.FlavorTextProtocol(village, flavorText, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonFlavorText =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

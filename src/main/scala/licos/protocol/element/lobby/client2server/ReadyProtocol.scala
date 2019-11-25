@@ -16,7 +16,11 @@ final case class ReadyProtocol(token: UUID, villageId: Long) extends Client2Serv
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonReady =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

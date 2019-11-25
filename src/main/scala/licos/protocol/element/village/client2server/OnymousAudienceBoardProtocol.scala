@@ -16,7 +16,11 @@ final case class OnymousAudienceBoardProtocol(
     server2logger.OnymousAudienceBoardProtocol(village, character, role, prediction, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonOnymousAudienceBoard =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

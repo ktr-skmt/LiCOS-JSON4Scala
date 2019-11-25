@@ -16,7 +16,11 @@ final case class OnymousAudienceScrollProtocol(
     server2logger.OnymousAudienceScrollProtocol(village, nodeId, scrollTop, scrollHeight, offsetHeight, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonOnymousAudienceScroll =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

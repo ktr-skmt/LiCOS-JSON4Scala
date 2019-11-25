@@ -73,7 +73,11 @@ final case class StarProtocol(
     }
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonStar =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

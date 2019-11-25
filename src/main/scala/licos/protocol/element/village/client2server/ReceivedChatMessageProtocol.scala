@@ -17,7 +17,11 @@ final case class ReceivedChatMessageProtocol(
     Some(new JsonReceivedChatMessage(token.toString, villageId, serverTimestamp.toString, clientTimestamp.toString))
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonReceivedChatMessage =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

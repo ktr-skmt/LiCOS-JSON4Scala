@@ -15,7 +15,11 @@ final case class ChangeLangProtocol(lang: Locale) extends Client2ServerLobbyMess
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonChangeLang =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

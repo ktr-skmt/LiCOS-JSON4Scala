@@ -12,7 +12,11 @@ final case class BoardProtocol(village: Village, character: Character, role: Rol
     server2logger.BoardProtocol(village, character, role, prediction, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonBoard =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

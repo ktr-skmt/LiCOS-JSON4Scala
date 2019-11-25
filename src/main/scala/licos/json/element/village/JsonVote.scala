@@ -24,8 +24,8 @@ final case class JsonVote private (base: JsonBase, sub: JsonSubVote) extends Jso
     new BsonVote(
       new ObjectId(),
       base.toBson:        BsonBase,
-      character.toBson:   BsonSimpleCharacter,
-      myCharacter.toBson: BsonRoleCharacter
+      myCharacter.toBson: BsonRoleCharacter,
+      character.toBson:   BsonSimpleCharacter
     )
   }
 }

@@ -21,10 +21,10 @@ public class BsonVote extends BsonElement {
     private BsonBase base;
 
     @Getter @Setter @Reference
-    private BsonSimpleCharacter character;
+    private BsonRoleCharacter myCharacter;
 
     @Getter @Setter @Reference
-    private BsonRoleCharacter myCharacter;
+    private BsonSimpleCharacter character;
 
     @SuppressWarnings("unused")
     private BsonVote() {
@@ -33,20 +33,20 @@ public class BsonVote extends BsonElement {
 
     public BsonVote(ObjectId _id,
                     BsonBase base,
-                    BsonSimpleCharacter character,
-                    BsonRoleCharacter myCharacter) {
+                    BsonRoleCharacter myCharacter,
+                    BsonSimpleCharacter character) {
         this._id = _id;
         this.base = base;
-        this.character = character;
         this.myCharacter = myCharacter;
+        this.character = character;
     }
 
     @Override
     public JsonVote toJson() {
         return new JsonVote(
                 base.toJson(),
-                character.toJson(),
-                myCharacter.toJson()
+                myCharacter.toJson(),
+                character.toJson()
         );
     }
 }

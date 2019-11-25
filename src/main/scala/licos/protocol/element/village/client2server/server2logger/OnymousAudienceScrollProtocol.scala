@@ -68,7 +68,11 @@ final case class OnymousAudienceScrollProtocol(
     }
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonOnymousAudienceScroll =>
+      Json.toJson(j)
+    }
+  }
 }
 
 object OnymousAudienceScrollProtocol {

@@ -71,7 +71,11 @@ final case class VoteProtocol(
     }
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonVote =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

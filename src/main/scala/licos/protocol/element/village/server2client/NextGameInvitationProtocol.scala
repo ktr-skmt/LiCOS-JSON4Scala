@@ -9,7 +9,11 @@ final case class NextGameInvitationProtocol(villageId: Long) extends Server2Clie
     Some(new JsonNextGameInvitation(villageId))
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonNextGameInvitation =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

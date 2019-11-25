@@ -75,7 +75,11 @@ final case class OnymousAudienceChatFromServerProtocol(
     }
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonOnymousAudienceChat =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

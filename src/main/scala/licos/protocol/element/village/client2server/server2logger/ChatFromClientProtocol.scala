@@ -81,7 +81,11 @@ final case class ChatFromClientProtocol(
     }
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonChatFromClient =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

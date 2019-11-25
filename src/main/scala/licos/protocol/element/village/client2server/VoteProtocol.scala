@@ -11,7 +11,11 @@ final case class VoteProtocol(village: Village, character: Character) extends Cl
     server2logger.VoteProtocol(village, character, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonVote =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

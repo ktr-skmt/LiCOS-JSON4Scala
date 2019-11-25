@@ -19,7 +19,11 @@ final case class ReadyProtocol(village: Village) extends Client2ServerVillageMes
     }
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonReady =>
+      Json.toJson(j)
+    }
+  }
 
 }
 

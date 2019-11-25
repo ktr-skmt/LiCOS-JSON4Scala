@@ -57,7 +57,11 @@ final case class BuildVillageProtocol(village: Village) extends Client2ServerVil
     }
   }
 
-  override def toJsonOpt: Option[JsValue] = json.map(Json.toJson)
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonBuildVillage =>
+      Json.toJson(j)
+    }
+  }
 }
 
 object BuildVillageProtocol {
