@@ -1,21 +1,23 @@
 package licos.json.engine.processing
 
 import licos.json.engine.analysis.auth.robot2server.AuthenticationAndAuthorizationRequestAnalysisEngine
-import licos.json.engine.analysis.auth.server2robot.AuthenticationAndAuthorizationRequestResponseAnalysisEngine
+import licos.json.engine.analysis.auth.server2robot.{
+  AuthenticationRequestResponseAnalysisEngine,
+  AuthorizationRequestResponseAnalysisEngine
+}
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.Var", "org.wartremover.warts.Overloading"))
 class AuthProcessingEngineFactory extends ProcessingEngineFactory {
   private var authenticationAndAuthorizationRequestEngine: Option[AuthenticationAndAuthorizationRequestAnalysisEngine] =
     None
-  private var authenticationAndAuthorizationRequestResponseEngine
-      : Option[AuthenticationAndAuthorizationRequestResponseAnalysisEngine] = None
+  private var authenticationRequestResponseEngine: Option[AuthenticationRequestResponseAnalysisEngine] = None
+  private var authorizationRequestResponseEngine:  Option[AuthorizationRequestResponseAnalysisEngine]  = None
 
   override def create: AuthProcessingEngine = {
     new AuthProcessingEngine(
       authenticationAndAuthorizationRequestEngine: Option[AuthenticationAndAuthorizationRequestAnalysisEngine],
-      authenticationAndAuthorizationRequestResponseEngine: Option[
-        AuthenticationAndAuthorizationRequestResponseAnalysisEngine
-      ]
+      authenticationRequestResponseEngine:         Option[AuthenticationRequestResponseAnalysisEngine],
+      authorizationRequestResponseEngine:          Option[AuthorizationRequestResponseAnalysisEngine]
     )
   }
 
@@ -27,11 +29,16 @@ class AuthProcessingEngineFactory extends ProcessingEngineFactory {
   }
 
   def set(
-      authenticationAndAuthorizationRequestResponseEngine: AuthenticationAndAuthorizationRequestResponseAnalysisEngine
+      authenticationRequestResponseEngine: AuthenticationRequestResponseAnalysisEngine
   ): AuthProcessingEngineFactory = {
-    this.authenticationAndAuthorizationRequestResponseEngine = Option(
-      authenticationAndAuthorizationRequestResponseEngine
-    )
+    this.authenticationRequestResponseEngine = Option(authenticationRequestResponseEngine)
+    this
+  }
+
+  def set(
+      authorizationRequestResponseEngine: AuthorizationRequestResponseAnalysisEngine
+  ): AuthProcessingEngineFactory = {
+    this.authorizationRequestResponseEngine = Option(authorizationRequestResponseEngine)
     this
   }
 }

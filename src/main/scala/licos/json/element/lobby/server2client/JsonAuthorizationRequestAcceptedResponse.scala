@@ -27,7 +27,7 @@ object JsonAuthorizationRequestAcceptedResponse {
   implicit val jsonReads: Reads[JsonAuthorizationRequestAcceptedResponse] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "accessToken").read[String](AvatarValidation.token) and
-      (JsPath \ "response").read[String](ResponseValidation.server2robot)
+      (JsPath \ "response").read[String](ResponseValidation.server2client)
   )(JsonAuthorizationRequestAcceptedResponse.apply _)
 
   implicit val jsonWrites: OWrites[JsonAuthorizationRequestAcceptedResponse] =

@@ -2,19 +2,21 @@ package licos.json.engine.processing
 
 import com.typesafe.scalalogging.Logger
 import licos.json.element.auth.robot2server.JsonAuthenticationAndAuthorizationRequest
-import licos.json.element.auth.server2robot.JsonAuthenticationAndAuthorizationRequestResponse
+import licos.json.element.auth.server2robot.{JsonAuthenticationRequestResponse, JsonAuthorizationRequestResponse}
 import licos.json.element.village.{JsonName, JsonSubError}
 import licos.json.engine.BOX
 import licos.json.engine.analysis.auth.robot2server.AuthenticationAndAuthorizationRequestAnalysisEngine
-import licos.json.engine.analysis.auth.server2robot.AuthenticationAndAuthorizationRequestResponseAnalysisEngine
+import licos.json.engine.analysis.auth.server2robot.{
+  AuthenticationRequestResponseAnalysisEngine,
+  AuthorizationRequestResponseAnalysisEngine
+}
 import licos.json.flow.AuthFlowController
 import play.api.libs.json.{JsValue, Json}
 
 class AuthProcessingEngine(
     authenticationAndAuthorizationRequestEngine: Option[AuthenticationAndAuthorizationRequestAnalysisEngine],
-    authenticationAndAuthorizationRequestResponseEngine: Option[
-      AuthenticationAndAuthorizationRequestResponseAnalysisEngine
-    ]
+    authenticationRequestResponseEngine:         Option[AuthenticationRequestResponseAnalysisEngine],
+    authorizationRequestResponseEngine:          Option[AuthorizationRequestResponseAnalysisEngine]
 ) extends ProcessingEngine {
 
   override protected val flowController = new AuthFlowController()
@@ -98,15 +100,26 @@ class AuthProcessingEngine(
               AuthenticationAndAuthorizationRequestAnalysisEngine.isFromServer
             )
         }
-      case Right(authenticationAndAuthorizationRequestResponse: JsonAuthenticationAndAuthorizationRequestResponse) =>
-        log("JsonAuthenticationAndAuthorizationRequestResponse")
-        authenticationAndAuthorizationRequestResponseEngine match {
+      case Right(authenticationRequestResponse: JsonAuthenticationRequestResponse) =>
+        log("JsonAuthenticationRequestResponse")
+        authenticationRequestResponseEngine match {
           case Some(engine) =>
-            engine.process(box, authenticationAndAuthorizationRequestResponse)
+            engine.process(box, authenticationRequestResponse)
           case None =>
             noAnalysisEngine(
-              AuthenticationAndAuthorizationRequestResponseAnalysisEngine.name,
-              AuthenticationAndAuthorizationRequestResponseAnalysisEngine.isFromServer
+              AuthenticationRequestResponseAnalysisEngine.name,
+              AuthenticationRequestResponseAnalysisEngine.isFromServer
+            )
+        }
+      case Right(authorizationRequestResponse: JsonAuthorizationRequestResponse) =>
+        log("JsonAuthenticationAndAuthorizationRequestResponse")
+        authorizationRequestResponseEngine match {
+          case Some(engine) =>
+            engine.process(box, authorizationRequestResponse)
+          case None =>
+            noAnalysisEngine(
+              AuthorizationRequestResponseAnalysisEngine.name,
+              AuthorizationRequestResponseAnalysisEngine.isFromServer
             )
         }
       case _ =>

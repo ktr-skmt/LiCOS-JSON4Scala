@@ -1,9 +1,9 @@
 package licos.json.parser
 
 import licos.json.element.auth.robot2server.JsonAuthenticationAndAuthorizationRequest
-import licos.json.element.auth.server2robot.JsonAuthenticationAndAuthorizationRequestResponse
+import licos.json.element.auth.server2robot.{JsonAuthenticationRequestResponse, JsonAuthorizationRequestResponse}
 import licos.json.engine.analysis.auth.robot2server.AuthenticationAndAuthorizationRequestAnalysisEngine
-import licos.json.engine.analysis.auth.server2robot.AuthenticationAndAuthorizationRequestResponseAnalysisEngine
+import licos.json.engine.analysis.auth.server2robot.AuthorizationRequestResponseAnalysisEngine
 import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue, Json}
 
@@ -31,20 +31,37 @@ trait AuthParser extends LiCOSParser {
     }
   }
 
-  protected def parseAuthenticationAndAuthorizationRequestResponse(
+  protected def parseAuthenticationRequestResponse(
       jsValue: JsValue
-  ): Either[JsValue, JsonAuthenticationAndAuthorizationRequestResponse] = {
-    Try(jsValue.validate[JsonAuthenticationAndAuthorizationRequestResponse]) match {
-      case Success(json: JsResult[JsonAuthenticationAndAuthorizationRequestResponse]) =>
+  ): Either[JsValue, JsonAuthenticationRequestResponse] = {
+    Try(jsValue.validate[JsonAuthenticationRequestResponse]) match {
+      case Success(json: JsResult[JsonAuthenticationRequestResponse]) =>
         json match {
           case JsSuccess(j, _) => Right(j)
           case e: JsError =>
             log.debug(Json.prettyPrint(JsError.toJson(e)))
-            Left(returnError(e, jsValue, AuthenticationAndAuthorizationRequestResponseAnalysisEngine.isFromServer))
+            Left(returnError(e, jsValue, AuthorizationRequestResponseAnalysisEngine.isFromServer))
         }
       case Failure(err: Throwable) =>
         log.error(err.getMessage)
-        Left(returnError(err, jsValue, AuthenticationAndAuthorizationRequestResponseAnalysisEngine.isFromServer))
+        Left(returnError(err, jsValue, AuthorizationRequestResponseAnalysisEngine.isFromServer))
+    }
+  }
+
+  protected def parseAuthorizationRequestResponse(
+      jsValue: JsValue
+  ): Either[JsValue, JsonAuthorizationRequestResponse] = {
+    Try(jsValue.validate[JsonAuthorizationRequestResponse]) match {
+      case Success(json: JsResult[JsonAuthorizationRequestResponse]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, AuthorizationRequestResponseAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, AuthorizationRequestResponseAnalysisEngine.isFromServer))
     }
   }
 }

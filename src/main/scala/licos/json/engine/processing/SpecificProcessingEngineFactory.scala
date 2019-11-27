@@ -13,6 +13,7 @@ object SpecificProcessingEngineFactory {
     specificProcessingEngine match {
       case LobbyPE   => new LobbyProcessingEngineFactory()
       case VillagePE => new VillageProcessingEngineFactory()
+      case AuthPE    => new AuthProcessingEngineFactory()
     }
   }
 }

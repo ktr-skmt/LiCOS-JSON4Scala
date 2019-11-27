@@ -5,3 +5,5 @@ sealed trait SpecificProcessingEngine
 case object LobbyPE extends SpecificProcessingEngine
 
 case object VillagePE extends SpecificProcessingEngine
+
+case object AuthPE extends SpecificProcessingEngine
