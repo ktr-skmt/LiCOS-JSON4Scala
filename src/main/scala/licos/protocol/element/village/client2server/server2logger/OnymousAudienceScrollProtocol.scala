@@ -49,8 +49,8 @@ final case class OnymousAudienceScrollProtocol(
             ClientToServer,
             PrivateChannel,
             extensionalDisclosureRange,
-            Nil,
-            Nil
+            None,
+            None
           ).json,
           AvatarProtocol(
             village.tokenOpt.get,

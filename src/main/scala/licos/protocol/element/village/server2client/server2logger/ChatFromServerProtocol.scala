@@ -55,8 +55,8 @@ final case class ChatFromServerProtocol(
             ServerToClient,
             channel.channel,
             extensionalDisclosureRange,
-            Nil,
-            Nil
+            None,
+            None
           ).json,
           character.json(LiCOSOnline.stateVillage(village.id)),
           isMine,

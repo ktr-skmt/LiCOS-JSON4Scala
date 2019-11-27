@@ -24,8 +24,8 @@ final case class JsonBase(
     directionality:             String,
     intensionalDisclosureRange: String,
     extensionalDisclosureRange: Seq[JsonStatusCharacter],
-    votingResultsSummary:       Seq[JsonVotingResultSummary],
-    votingResultsDetails:       Seq[JsonVotingResultDetail]
+    votingResultsSummary:       Option[Seq[JsonVotingResultSummary]],
+    votingResultsDetails:       Option[Seq[JsonVotingResultDetail]]
 ) extends JsonElement {
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
@@ -48,21 +48,21 @@ final case class JsonBase(
   ) = {
 
     this(
-      `@context`.asScala:                 Seq[String],
-      `@id`:                              String,
-      village:                            JsonVillage,
-      token:                              String,
-      phase:                              String,
-      day:                                Int,
-      phaseTimeLimit:                     Int,
-      phaseStartTime:                     String,
-      serverTimestamp:                    Option[String],
-      clientTimestamp:                    Option[String],
-      directionality:                     String,
-      intensionalDisclosureRange:         String,
-      extensionalDisclosureRange.asScala: Seq[JsonStatusCharacter],
-      votingResultsSummary.asScala:       Seq[JsonVotingResultSummary],
-      votingResultsDetails.asScala:       Seq[JsonVotingResultDetail]
+      `@context`.asScala:                   Seq[String],
+      `@id`:                                String,
+      village:                              JsonVillage,
+      token:                                String,
+      phase:                                String,
+      day:                                  Int,
+      phaseTimeLimit:                       Int,
+      phaseStartTime:                       String,
+      serverTimestamp:                      Option[String],
+      clientTimestamp:                      Option[String],
+      directionality:                       String,
+      intensionalDisclosureRange:           String,
+      extensionalDisclosureRange.asScala:   Seq[JsonStatusCharacter],
+      Option(votingResultsSummary.asScala): Option[Seq[JsonVotingResultSummary]],
+      Option(votingResultsDetails.asScala): Option[Seq[JsonVotingResultDetail]]
     )
   }
 
@@ -85,25 +85,28 @@ final case class JsonBase(
         directionality:             String,
         intensionalDisclosureRange: String,
         extensionalDisclosureRange: Seq[JsonStatusCharacter],
-        votingResultsSummary:       Seq[JsonVotingResultSummary],
-        votingResultsDetails:       Seq[JsonVotingResultDetail]
+        votingResultsSummary:       Option[Seq[JsonVotingResultSummary]],
+        votingResultsDetails:       Option[Seq[JsonVotingResultDetail]]
       )
     }
   }
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Null"))
   override def toBson: BsonBase = {
     val bsonVotingResultSummary: JList[BsonVotingResultSummary] = {
-      if (votingResultsSummary.isEmpty) {
-        new java.util.LinkedList[BsonVotingResultSummary]()
-      } else {
-        votingResultsSummary.map(_.toBson).asJava
+      votingResultsSummary match {
+        case Some(summaries: Seq[JsonVotingResultSummary]) =>
+          summaries.map(_.toBson).asJava
+        case None =>
+          new java.util.LinkedList[BsonVotingResultSummary]()
       }
     }
     val bsonVotingResultDetail: JList[BsonVotingResultDetail] = {
-      if (votingResultsDetails.isEmpty) {
-        new java.util.LinkedList[BsonVotingResultDetail]()
-      } else {
-        votingResultsDetails.map(_.toBson).asJava
+      votingResultsDetails match {
+        case Some(details: Seq[JsonVotingResultDetail]) =>
+          details.map(_.toBson).asJava
+        case None =>
+          new java.util.LinkedList[BsonVotingResultDetail]()
       }
     }
     new BsonBase(
@@ -141,8 +144,8 @@ final case class JsonBase(
       directionality:             String,
       intensionalDisclosureRange: String,
       Nil:                        Seq[JsonStatusCharacter],
-      votingResultsSummary:       Seq[JsonVotingResultSummary],
-      votingResultsDetails:       Seq[JsonVotingResultDetail]
+      votingResultsSummary:       Option[Seq[JsonVotingResultSummary]],
+      votingResultsDetails:       Option[Seq[JsonVotingResultDetail]]
     )
   }
 }
@@ -166,8 +169,8 @@ object JsonBase {
       (JsPath \ "directionality").read[String](BaseValidation.directionality) and
       (JsPath \ "intensionalDisclosureRange").read[String](BaseValidation.intensionalDisclosureRange) and
       (JsPath \ "extensionalDisclosureRange").read[Seq[JsonStatusCharacter]] and
-      (JsPath \ "votingResultsSummary").read[Seq[JsonVotingResultSummary]] and
-      (JsPath \ "votingResultsDetails").read[Seq[JsonVotingResultDetail]]
+      (JsPath \ "votingResultsSummary").readNullable[Seq[JsonVotingResultSummary]] and
+      (JsPath \ "votingResultsDetails").readNullable[Seq[JsonVotingResultDetail]]
   )(JsonBase.apply _)
 
   implicit val jsonWrites: OWrites[JsonBase] = Json.writes[JsonBase]

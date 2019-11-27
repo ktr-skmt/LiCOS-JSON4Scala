@@ -121,6 +121,7 @@ class LobbyProcessingEngine(
 
   private final val logger = Logger[LobbyProcessingEngine]
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
   def process(box: LobbyBOX, msg: String): Try[LobbyMessageProtocol] = {
 
     val jsValue: JsValue = Json.parse(msg)

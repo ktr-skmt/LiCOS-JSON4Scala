@@ -2,7 +2,13 @@ package sample
 
 import licos.entity.{Village, VillageFactory}
 import licos.protocol.element.village.VillageMessageProtocol
-import licos.protocol.engine.processing.{SpecificProcessingEngineFactory, VillageBOX, VillagePE, VillageProcessingEngine, VillageProcessingEngineFactory}
+import licos.protocol.engine.processing.{
+  SpecificProcessingEngineFactory,
+  VillageBOX,
+  VillagePE,
+  VillageProcessingEngine,
+  VillageProcessingEngineFactory
+}
 import play.api.libs.json.{JsValue, Json}
 import protocol.engine.village.VillageBox
 
@@ -10,9 +16,8 @@ import scala.io.{BufferedSource, Source}
 import scala.util.{Failure, Success}
 
 object ProtocolVillageMessageRunner extends App {
-  private val processingEngineFactory: VillageProcessingEngineFactory = SpecificProcessingEngineFactory.
-    create(VillagePE).
-    asInstanceOf[VillageProcessingEngineFactory]
+  private val processingEngineFactory: VillageProcessingEngineFactory =
+    SpecificProcessingEngineFactory.create(VillagePE).asInstanceOf[VillageProcessingEngineFactory]
 
   private val processingEngine: VillageProcessingEngine = processingEngineFactory.create
   // set analysis engines

@@ -50,8 +50,8 @@ final case class StarProtocol(
             ClientToServer,
             PrivateChannel,
             extensionalDisclosureRange,
-            Nil,
-            Nil
+            None,
+            None
           ).json,
           RoleCharacterProtocol(
             village.myCharacterOpt.get,

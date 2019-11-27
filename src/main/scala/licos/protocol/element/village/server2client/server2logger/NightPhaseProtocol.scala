@@ -67,8 +67,8 @@ final case class NightPhaseProtocol(
             ServerToClient,
             PrivateChannel,
             extensionalDisclosureRange,
-            Nil,
-            Nil
+            None,
+            None
           ).json,
           character.map(_.json),
           role.map(_.json)

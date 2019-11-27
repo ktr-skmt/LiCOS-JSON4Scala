@@ -95,6 +95,7 @@ class VillageProcessingEngine(
 
   private final val logger: Logger = Logger[VillageProcessingEngine]
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
   def process(box: VillageBOX, msg: String): Try[VillageMessageProtocol] = {
 
     val jsValue: JsValue = Json.parse(msg)

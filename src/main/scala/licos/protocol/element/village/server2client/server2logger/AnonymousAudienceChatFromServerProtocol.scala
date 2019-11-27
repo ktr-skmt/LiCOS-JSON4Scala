@@ -47,8 +47,8 @@ final case class AnonymousAudienceChatFromServerProtocol(
             ServerToClient,
             AnonymousAudienceChannel,
             extensionalDisclosureRange,
-            Nil,
-            Nil
+            None,
+            None
           ).json,
           isMine,
           ChatTextProtocol(

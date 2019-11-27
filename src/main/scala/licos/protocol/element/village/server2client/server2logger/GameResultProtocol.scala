@@ -54,8 +54,8 @@ final case class GameResultProtocol(
             ServerToClient,
             PublicChannel,
             extensionalDisclosureRange,
-            Nil,
-            Nil
+            None,
+            None
           ).json,
           character.map(_.json),
           role.map(_.json)

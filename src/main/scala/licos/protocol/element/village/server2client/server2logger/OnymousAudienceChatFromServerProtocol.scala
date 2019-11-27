@@ -53,8 +53,8 @@ final case class OnymousAudienceChatFromServerProtocol(
             ServerToClient,
             OnymousAudienceChannel,
             extensionalDisclosureRange,
-            Nil,
-            Nil
+            None,
+            None
           ).json,
           AvatarProtocol(
             village.tokenOpt.get,

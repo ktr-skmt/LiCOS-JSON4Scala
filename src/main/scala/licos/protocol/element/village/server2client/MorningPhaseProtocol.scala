@@ -95,19 +95,21 @@ object MorningPhaseProtocol {
       }
 
       val votingResultSummaryBuffer = ListBuffer.empty[VotingResultSummaryProtocol]
-      json.base.votingResultsSummary foreach { jsonVotingResultSummary: JsonVotingResultSummary =>
-        val characterOpt: Option[Character] = Data2Knowledge.characterOpt(
-          jsonVotingResultSummary.characterToPutToDeath.name.en,
-          jsonVotingResultSummary.characterToPutToDeath.id
-        )
-        if (characterOpt.nonEmpty) {
-          votingResultSummaryBuffer += VotingResultSummaryProtocol(
-            characterOpt.get,
-            jsonVotingResultSummary.numberOfVotes,
-            jsonVotingResultSummary.rankOfVotes,
-            village.id,
-            village.language
+      json.base.votingResultsSummary foreach { summaries: Seq[JsonVotingResultSummary] =>
+        summaries foreach { jsonVotingResultSummary: JsonVotingResultSummary =>
+          val characterOpt: Option[Character] = Data2Knowledge.characterOpt(
+            jsonVotingResultSummary.characterToPutToDeath.name.en,
+            jsonVotingResultSummary.characterToPutToDeath.id
           )
+          if (characterOpt.nonEmpty) {
+            votingResultSummaryBuffer += VotingResultSummaryProtocol(
+              characterOpt.get,
+              jsonVotingResultSummary.numberOfVotes,
+              jsonVotingResultSummary.rankOfVotes,
+              village.id,
+              village.language
+            )
+          }
         }
       }
 

@@ -21,7 +21,7 @@ object JsonPlayed {
 
   implicit val jsonReads: Reads[JsonPlayed] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
-      (JsPath \ "language").read[String](VillageValidation.language)
+      (JsPath \ "lang").read[String](VillageValidation.language)
   )(JsonPlayed.apply _)
 
   implicit val jsonWrites: OWrites[JsonPlayed] = Json.writes[JsonPlayed]

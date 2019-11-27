@@ -53,8 +53,8 @@ final case class ChatFromClientProtocol(
             ClientToServer,
             channel.channel,
             extensionalDisclosureRange,
-            Nil,
-            Nil
+            None,
+            None
           ).json,
           RoleCharacterProtocol(
             village.myCharacterOpt.get,

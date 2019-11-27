@@ -47,8 +47,8 @@ final case class FlavorTextProtocol(
             ServerToClient,
             PublicChannel,
             extensionalDisclosureRange,
-            Nil,
-            Nil
+            None,
+            None
           ).json,
           flavorText.flatMap(_.json)
         )

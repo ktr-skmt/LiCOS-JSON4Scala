@@ -24,8 +24,8 @@ final case class BaseProtocol(
     directionality:             Directionality,
     intensionalDisclosureRange: Channel,
     extensionalDisclosureRange: Seq[StatusCharacterProtocol],
-    votingResultsSummary:       Seq[VotingResultSummaryProtocol],
-    votingResultsDetails:       Seq[VotingResultDetailProtocol]
+    votingResultsSummary:       Option[Seq[VotingResultSummaryProtocol]],
+    votingResultsDetails:       Option[Seq[VotingResultDetailProtocol]]
 ) {
 
   val json: JsonBase = JsonBase(
@@ -42,8 +42,8 @@ final case class BaseProtocol(
     directionality.label,
     intensionalDisclosureRange.label,
     extensionalDisclosureRange.map(_.json),
-    votingResultsSummary.map(_.json),
-    votingResultsDetails.map(_.json)
+    votingResultsSummary.map(_.map(_.json)),
+    votingResultsDetails.map(_.map(_.json))
   )
 
 }

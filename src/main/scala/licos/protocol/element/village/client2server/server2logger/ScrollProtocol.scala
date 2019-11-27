@@ -49,8 +49,8 @@ final case class ScrollProtocol(
             ClientToServer,
             PrivateChannel,
             extensionalDisclosureRange,
-            Nil,
-            Nil
+            None,
+            None
           ).json,
           RoleCharacterProtocol(
             village.myCharacterOpt.get,

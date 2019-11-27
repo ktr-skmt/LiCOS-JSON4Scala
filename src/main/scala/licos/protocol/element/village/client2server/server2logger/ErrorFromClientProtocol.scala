@@ -48,8 +48,8 @@ final case class ErrorFromClientProtocol(
             ClientToServer,
             PrivateChannel,
             extensionalDisclosureRange,
-            Nil,
-            Nil
+            None,
+            None
           ).json,
           content.json(Option(village.language)),
           severity.label,

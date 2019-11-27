@@ -52,8 +52,8 @@ final case class OnymousAudienceChatFromClientProtocol(
             ClientToServer,
             OnymousAudienceChannel,
             extensionalDisclosureRange,
-            Nil,
-            Nil
+            None,
+            None
           ).json,
           AvatarProtocol(
             village.tokenOpt.get,

@@ -75,8 +75,8 @@ final case class MorningPhaseProtocol(
             ServerToClient,
             PrivateChannel,
             extensionalDisclosureRange,
-            votingResultsSummary,
-            votingResultsDetail
+            Option(votingResultsSummary),
+            Option(votingResultsDetail)
           ).json,
           character.map(_.json),
           role.map(_.json)
@@ -157,42 +157,46 @@ object MorningPhaseProtocol {
     }
 
     val votingResultSummaryBuffer = ListBuffer.empty[VotingResultSummaryProtocol]
-    json.base.votingResultsSummary foreach { jsonVotingResultSummary: JsonVotingResultSummary =>
-      val characterOpt: Option[Character] = Data2Knowledge.characterOpt(
-        jsonVotingResultSummary.characterToPutToDeath.name.en,
-        jsonVotingResultSummary.characterToPutToDeath.id
-      )
-      if (characterOpt.nonEmpty) {
-        votingResultSummaryBuffer += VotingResultSummaryProtocol(
-          characterOpt.get,
-          jsonVotingResultSummary.numberOfVotes,
-          jsonVotingResultSummary.rankOfVotes,
-          village.id,
-          village.language
+    json.base.votingResultsSummary foreach { summaries: Seq[JsonVotingResultSummary] =>
+      summaries foreach { jsonVotingResultSummary: JsonVotingResultSummary =>
+        val characterOpt: Option[Character] = Data2Knowledge.characterOpt(
+          jsonVotingResultSummary.characterToPutToDeath.name.en,
+          jsonVotingResultSummary.characterToPutToDeath.id
         )
+        if (characterOpt.nonEmpty) {
+          votingResultSummaryBuffer += VotingResultSummaryProtocol(
+            characterOpt.get,
+            jsonVotingResultSummary.numberOfVotes,
+            jsonVotingResultSummary.rankOfVotes,
+            village.id,
+            village.language
+          )
+        }
       }
     }
 
     val votingResultDetailBuffer = ListBuffer.empty[VotingResultDetailProtocol]
-    json.base.votingResultsDetails foreach { jsonVotingResultDetail: JsonVotingResultDetail =>
-      val sourceCharacterOpt: Option[Character] = Data2Knowledge
-        .characterOpt(jsonVotingResultDetail.sourceCharacter.name.en, jsonVotingResultDetail.sourceCharacter.id)
-      val targetCharacterOpt: Option[Character] = Data2Knowledge
-        .characterOpt(jsonVotingResultDetail.targetCharacter.name.en, jsonVotingResultDetail.targetCharacter.id)
-      if (sourceCharacterOpt.nonEmpty && targetCharacterOpt.nonEmpty) {
-        votingResultDetailBuffer += VotingResultDetailProtocol(
-          SimpleCharacterProtocol(
-            sourceCharacterOpt.get,
-            village.id,
-            village.language
-          ),
-          SimpleCharacterProtocol(
-            targetCharacterOpt.get,
-            village.id,
-            village.language
-          ),
-          village.id
-        )
+    json.base.votingResultsDetails foreach { details: Seq[JsonVotingResultDetail] =>
+      details foreach { jsonVotingResultDetail: JsonVotingResultDetail =>
+        val sourceCharacterOpt: Option[Character] = Data2Knowledge
+          .characterOpt(jsonVotingResultDetail.sourceCharacter.name.en, jsonVotingResultDetail.sourceCharacter.id)
+        val targetCharacterOpt: Option[Character] = Data2Knowledge
+          .characterOpt(jsonVotingResultDetail.targetCharacter.name.en, jsonVotingResultDetail.targetCharacter.id)
+        if (sourceCharacterOpt.nonEmpty && targetCharacterOpt.nonEmpty) {
+          votingResultDetailBuffer += VotingResultDetailProtocol(
+            SimpleCharacterProtocol(
+              sourceCharacterOpt.get,
+              village.id,
+              village.language
+            ),
+            SimpleCharacterProtocol(
+              targetCharacterOpt.get,
+              village.id,
+              village.language
+            ),
+            village.id
+          )
+        }
       }
     }
 

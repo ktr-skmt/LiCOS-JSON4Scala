@@ -46,8 +46,8 @@ final case class AnonymousAudienceChatFromClientProtocol(
             ClientToServer,
             AnonymousAudienceChannel,
             extensionalDisclosureRange,
-            Nil,
-            Nil
+            None,
+            None
           ).json,
           isMine = true,
           ChatTextProtocol(text, village.language).json,
