@@ -4,6 +4,7 @@ import licos.entity.Village
 import licos.json.element.lobby.client2server.JsonReady
 import play.api.libs.json.{JsValue, Json}
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class ReadyProtocol(village: Village) extends Client2ServerVillageMessageProtocol {
 
   private val json: Option[JsonReady] = {

@@ -8,6 +8,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
 final case class LobbyProtocol(lobby: Lobby, villages: Seq[VillageProtocol], error: Option[ErrorProtocol])
     extends Server2ClientLobbyMessageProtocol {
 
@@ -38,9 +39,10 @@ final case class LobbyProtocol(lobby: Lobby, villages: Seq[VillageProtocol], err
 
 object LobbyProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures", "org.wartremover.warts.OptionPartial"))
   def read(json: JsonLobby): Option[LobbyProtocol] = {
 
-    val lobbyOpt = Data2Knowledge.lobbyOpt(json.lobby)
+    val lobbyOpt: Option[Lobby] = Data2Knowledge.lobbyOpt(json.lobby)
 
     val villageBuffer = ListBuffer.empty[VillageProtocol]
     json.villages foreach { village: JsonVillage =>

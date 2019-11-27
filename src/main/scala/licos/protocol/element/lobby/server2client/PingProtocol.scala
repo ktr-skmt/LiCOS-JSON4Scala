@@ -8,6 +8,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
 final case class PingProtocol(id: UUID, results: Seq[PingResultProtocol]) extends Server2ClientLobbyMessageProtocol {
 
   private val json: Option[JsonPing] = {
@@ -38,6 +39,7 @@ final case class PingProtocol(id: UUID, results: Seq[PingResultProtocol]) extend
 
 object PingProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
   def read(json: JsonPing): Option[PingProtocol] = {
 
     val buffer = ListBuffer.empty[PingResultProtocol]

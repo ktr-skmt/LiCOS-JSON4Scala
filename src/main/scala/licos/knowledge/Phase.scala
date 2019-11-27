@@ -9,7 +9,8 @@ sealed abstract class Phase(val label: String) {
   override def equals(o: Any): Boolean = {
     o match {
       case p: Phase =>
-        p.label == label
+        import cats.implicits._
+        p.label === label
       case _ => false
     }
   }
@@ -25,14 +26,14 @@ case object Morning extends Phase("morning") {
   override def timeLimit(day: Int, numberOfAlivePlayers: Int): Option[FiniteDuration] = {
     if (1 < day) {
       if (numberOfAlivePlayers <= 6) {
-        Some((4 * 60).seconds)
+        Some(4.minutes)
       } else if (numberOfAlivePlayers <= 12) {
-        Some((6 * 60).seconds)
+        Some(6.minutes)
       } else {
-        Some((8 * 60).seconds)
+        Some(8.minutes)
       }
     } else {
-      Some((5 * 60).seconds)
+      Some(5.minutes)
     }
   }
 }

@@ -5,6 +5,7 @@ import java.util.UUID
 import licos.json.element.auth.robot2server.{JsonAuthenticationAndAuthorizationRequest, JsonSourceCode}
 import licos.protocol.element.auth.part.SourceCodeProtocol
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class AuthenticationAndAuthorizationRequestProtocol(
     userEmail:    String,
     userPassword: String,
@@ -36,6 +37,7 @@ final case class AuthenticationAndAuthorizationRequestProtocol(
 
 object AuthenticationAndAuthorizationRequestProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonAuthenticationAndAuthorizationRequest): Option[AuthenticationAndAuthorizationRequestProtocol] = {
 
     val sourceCode: Option[SourceCodeProtocol] = SourceCodeProtocol.read(json.sourceCode)

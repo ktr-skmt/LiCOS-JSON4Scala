@@ -5,12 +5,16 @@ sealed abstract class Status(val label: String) {
   override def toString: String = label
 
   def toIntermediateStatus: Status
-  def isAlive: Boolean = this == Alive
-  def isDead:  Boolean = !isAlive
+  def isAlive: Boolean = {
+    import cats.implicits._
+    this.label === Alive.label
+  }
+  def isDead: Boolean = !isAlive
 
   override def equals(o: Any): Boolean = {
+    import cats.implicits._
     o match {
-      case status: Status if status.label == this.label => true
+      case status: Status if status.label === this.label => true
       case _ => false
     }
   }

@@ -7,6 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures", "org.wartremover.warts.OptionPartial"))
 final case class WaitingPageProtocol(
     village: VillageProtocol,
     players: Seq[PlayerInWaitingPageProtocol],
@@ -46,6 +47,7 @@ final case class WaitingPageProtocol(
 
 object WaitingPageProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures", "org.wartremover.warts.OptionPartial"))
   def read(json: JsonWaitingPage): Option[WaitingPageProtocol] = {
 
     val village: Option[VillageProtocol] = VillageProtocol.read(json.village)

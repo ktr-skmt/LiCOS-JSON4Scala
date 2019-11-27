@@ -3,7 +3,7 @@ package licos.protocol.element.village.client2server.server2logger
 import licos.entity.Village
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonOnymousAudienceScroll
-import licos.json.element.village.iri.{BaseContext, Context, ScrollContext, ScrollMessage}
+import licos.json.element.village.iri.{Contexts, ScrollMessage}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role, Status}
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{AvatarProtocol, BaseProtocol, ChatSettingsProtocol, VillageProtocol}
@@ -12,6 +12,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class OnymousAudienceScrollProtocol(
     village:                    Village,
     nodeId:                     String,
@@ -26,7 +27,7 @@ final case class OnymousAudienceScrollProtocol(
       Some(
         new JsonOnymousAudienceScroll(
           BaseProtocol(
-            Seq[Context](BaseContext, ScrollContext),
+            Contexts.get(ScrollMessage),
             ScrollMessage,
             VillageProtocol(
               village.id,
@@ -77,6 +78,13 @@ final case class OnymousAudienceScrollProtocol(
 
 object OnymousAudienceScrollProtocol {
 
+  @SuppressWarnings(
+    Array[String](
+      "org.wartremover.warts.Any",
+      "org.wartremover.warts.MutableDataStructures",
+      "org.wartremover.warts.OptionPartial"
+    )
+  )
   def read(json: JsonOnymousAudienceScroll, village: Village): Option[OnymousAudienceScrollProtocol] = {
 
     val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]

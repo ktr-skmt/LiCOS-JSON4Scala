@@ -3,7 +3,7 @@ package licos.protocol.element.village.server2client.server2logger
 import licos.entity.Village
 import licos.json.element.village.JsonError
 import licos.json.element.village.character.JsonStatusCharacter
-import licos.json.element.village.iri.{BaseContext, Context, ErrorContext, ErrorMessage}
+import licos.json.element.village.iri.{Contexts, ErrorMessage}
 import licos.knowledge.{Character, Data2Knowledge, PrivateChannel, Role, ServerToClient, Severity, Status}
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, NameProtocol, VillageProtocol}
@@ -12,6 +12,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class ErrorFromServerProtocol(
     village:                    Village,
     content:                    NameProtocol,
@@ -25,7 +26,7 @@ final case class ErrorFromServerProtocol(
       Some(
         new JsonError(
           BaseProtocol(
-            Seq[Context](BaseContext, ErrorContext),
+            Contexts.get(ErrorMessage),
             ErrorMessage,
             VillageProtocol(
               village.id,
@@ -72,6 +73,13 @@ final case class ErrorFromServerProtocol(
 
 object ErrorFromServerProtocol {
 
+  @SuppressWarnings(
+    Array[String](
+      "org.wartremover.warts.Any",
+      "org.wartremover.warts.OptionPartial",
+      "org.wartremover.warts.MutableDataStructures"
+    )
+  )
   def read(json: JsonError, village: Village): Option[ErrorFromServerProtocol] = {
     if (json.isFromServer) {
       val content:     NameProtocol     = Data2Knowledge.name(json.content)

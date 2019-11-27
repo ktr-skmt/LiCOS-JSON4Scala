@@ -3,7 +3,7 @@ package licos.protocol.element.village.client2server.server2logger
 import licos.entity.Village
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonBoard
-import licos.json.element.village.iri.{BaseContext, BoardContext, BoardMessage, Context}
+import licos.json.element.village.iri.{BoardMessage, Contexts}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PolarityMark, PrivateChannel, Role, Status}
 import licos.protocol.element.village.part.character.{
   RoleCharacterProtocol,
@@ -17,6 +17,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class BoardProtocol(
     village:                    Village,
     character:                  Character,
@@ -30,7 +31,7 @@ final case class BoardProtocol(
       Some(
         new JsonBoard(
           BaseProtocol(
-            Seq[Context](BaseContext, BoardContext),
+            Contexts.get(BoardMessage),
             BoardMessage,
             VillageProtocol(
               village.id,
@@ -90,6 +91,13 @@ final case class BoardProtocol(
 
 object BoardProtocol {
 
+  @SuppressWarnings(
+    Array[String](
+      "org.wartremover.warts.Any",
+      "org.wartremover.warts.MutableDataStructures",
+      "org.wartremover.warts.OptionPartial"
+    )
+  )
   def read(json: JsonBoard, village: Village): Option[BoardProtocol] = {
     val predictionOpt: Option[PolarityMark] = Data2Knowledge.polarityMarkOpt(json.prediction)
     val characterOpt:  Option[Character]    = Data2Knowledge.characterOpt(json.character.name.en, json.character.id)

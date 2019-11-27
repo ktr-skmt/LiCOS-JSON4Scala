@@ -316,7 +316,8 @@ class VillageProcessingEngine(
       case Right(json: JsonPhase) =>
         json.base.phase match {
           case Morning.label =>
-            if (json.base.day == 1) {
+            import cats.implicits._
+            if (json.base.day === 1) {
               firstMorningPhaseAnalysisEngine match {
                 case Some(engine: FirstMorningPhaseAnalysisEngine) =>
                   FirstMorningPhaseProtocol.read(json, box.village) match {

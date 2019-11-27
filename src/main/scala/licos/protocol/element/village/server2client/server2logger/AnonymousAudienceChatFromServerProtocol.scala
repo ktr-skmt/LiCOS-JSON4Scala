@@ -3,7 +3,7 @@ package licos.protocol.element.village.server2client.server2logger
 import licos.entity.Village
 import licos.json.element.village.JsonAnonymousAudienceChat
 import licos.json.element.village.character.JsonStatusCharacter
-import licos.json.element.village.iri.{BaseContext, ChatContext, ChatMessage, Context}
+import licos.json.element.village.iri.{ChatMessage, Contexts}
 import licos.knowledge.{AnonymousAudienceChannel, Character, Data2Knowledge, Role, ServerToClient, Status}
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, ChatTextProtocol, VillageProtocol}
@@ -12,6 +12,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class AnonymousAudienceChatFromServerProtocol(
     village:                    Village,
     isMine:                     Boolean,
@@ -24,7 +25,7 @@ final case class AnonymousAudienceChatFromServerProtocol(
       Some(
         new JsonAnonymousAudienceChat(
           BaseProtocol(
-            Seq[Context](BaseContext, ChatContext),
+            Contexts.get(ChatMessage),
             ChatMessage,
             VillageProtocol(
               village.id,
@@ -74,6 +75,13 @@ final case class AnonymousAudienceChatFromServerProtocol(
 
 object AnonymousAudienceChatFromServerProtocol {
 
+  @SuppressWarnings(
+    Array[String](
+      "org.wartremover.warts.Any",
+      "org.wartremover.warts.OptionPartial",
+      "org.wartremover.warts.MutableDataStructures"
+    )
+  )
   def read(json: JsonAnonymousAudienceChat, village: Village): Option[AnonymousAudienceChatFromServerProtocol] = {
     if (json.isFromServer) {
 

@@ -33,9 +33,17 @@ final case class FirstMorningPhaseProtocol(
 
 object FirstMorningPhaseProtocol {
 
+  @SuppressWarnings(
+    Array[String](
+      "org.wartremover.warts.Any",
+      "org.wartremover.warts.OptionPartial",
+      "org.wartremover.warts.MutableDataStructures"
+    )
+  )
   def read(json: JsonPhase, village: Village): Option[FirstMorningPhaseProtocol] = {
 
-    if (json.base.phase == Morning.label && json.base.day == 1) {
+    import cats.implicits._
+    if (json.base.phase === Morning.label && json.base.day === 1) {
 
       val characterBuffer = ListBuffer.empty[CharacterProtocol]
       val roleBuffer      = ListBuffer.empty[RoleProtocol]

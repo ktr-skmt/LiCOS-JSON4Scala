@@ -5,6 +5,7 @@ import licos.json.element.auth.robot2server.{JsonProgrammingLanguage, JsonSource
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
 final case class SourceCodeProtocol(
     timestamp:           String,
     programmingLanguage: Seq[ProgrammingLanguageProtocol],
@@ -31,6 +32,7 @@ final case class SourceCodeProtocol(
 
 object SourceCodeProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
   def read(json: JsonSourceCode): Option[SourceCodeProtocol] = {
 
     val buffer = ListBuffer.empty[ProgrammingLanguageProtocol]

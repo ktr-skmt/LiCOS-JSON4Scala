@@ -26,6 +26,7 @@ object LiCOSOnline {
     * @param villageId a village id.
     * @return a URI of a JSON-LD's id.
     */
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def stateVillage(villageId: Long): String = {
     s"$stateVillage#$villageId"
   }

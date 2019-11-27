@@ -5,6 +5,7 @@ import licos.json.element.lobby.client2server.JsonBuildVillage
 import licos.json.element.lobby.{JsonHostPlayer, JsonHuman, JsonPlayerSetting, JsonRobot, JsonRoleSetting}
 import play.api.libs.json.{JsValue, Json}
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class BuildVillageProtocol(village: Village) extends Client2ServerVillageMessageProtocol {
 
   private val json: Option[JsonBuildVillage] = {

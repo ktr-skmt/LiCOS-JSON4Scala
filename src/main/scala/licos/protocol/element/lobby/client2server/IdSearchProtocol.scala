@@ -29,6 +29,7 @@ final case class IdSearchProtocol(token: UUID, lobby: Lobby, idForSearching: Int
 
 object IdSearchProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonIdSearch): Option[IdSearchProtocol] = {
 
     val lobbyOpt: Option[Lobby] = Data2Knowledge.lobbyOpt(json.lobby)

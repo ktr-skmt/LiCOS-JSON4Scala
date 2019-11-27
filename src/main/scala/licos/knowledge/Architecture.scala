@@ -1,7 +1,10 @@
 package licos.knowledge
 
 sealed abstract class Architecture(val label: String) {
-  def isHuman: Boolean = this == HumanArchitecture
+  def isHuman: Boolean = {
+    import cats.implicits._
+    this.label === HumanArchitecture.label
+  }
   def isRobot: Boolean = !isHuman
 
   override def toString: String = s"Architecture($label)"

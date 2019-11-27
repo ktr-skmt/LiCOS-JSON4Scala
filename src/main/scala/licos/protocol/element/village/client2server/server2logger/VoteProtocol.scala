@@ -3,7 +3,7 @@ package licos.protocol.element.village.client2server.server2logger
 import licos.entity.Village
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonVote
-import licos.json.element.village.iri.{BaseContext, Context, VoteContext, VoteMessage}
+import licos.json.element.village.iri.{Contexts, VoteMessage}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role, Status}
 import licos.protocol.element.village.part.character.{
   RoleCharacterProtocol,
@@ -16,6 +16,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class VoteProtocol(
     village:                    Village,
     character:                  Character,
@@ -27,7 +28,7 @@ final case class VoteProtocol(
       Some(
         new JsonVote(
           BaseProtocol(
-            Seq[Context](BaseContext, VoteContext),
+            Contexts.get(VoteMessage),
             VoteMessage,
             VillageProtocol(
               village.id,
@@ -81,6 +82,13 @@ final case class VoteProtocol(
 
 object VoteProtocol {
 
+  @SuppressWarnings(
+    Array[String](
+      "org.wartremover.warts.Any",
+      "org.wartremover.warts.MutableDataStructures",
+      "org.wartremover.warts.OptionPartial"
+    )
+  )
   def read(json: JsonVote, village: Village): Option[VoteProtocol] = {
     val characterOpt: Option[Character] = Data2Knowledge.characterOpt(json.character.name.en, json.character.id)
     if (characterOpt.nonEmpty) {

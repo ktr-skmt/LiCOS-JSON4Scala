@@ -21,6 +21,7 @@ import licos.knowledge.{
 
 sealed abstract class AvatarInVillage()
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading", "org.wartremover.warts.Var"))
 final case class PlayerInVillage(
     village:      Village,
     id:           Long,
@@ -43,7 +44,8 @@ final case class PlayerInVillage(
   private var updateDay:   Int    = 1
 
   def status(phase: Phase, day: Int): Status = {
-    if (updateDay == day && updatePhase == Noon && phase == Night) {
+    import cats.implicits._
+    if (updateDay === day && updatePhase.label === Noon.label && phase.label === Night.label) {
       Alive
     } else {
       status

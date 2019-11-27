@@ -5,6 +5,7 @@ import licos.util.WerewolfWorld
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
 sealed abstract class Role(val species: Species, val team: Team, val numberOfPlayers: Int, val name: NameProtocol) {
   override def toString: String                = name.en
   val characters:        ListBuffer[Character] = ListBuffer.empty[Character]
@@ -14,7 +15,8 @@ sealed abstract class Role(val species: Species, val team: Team, val numberOfPla
   override def equals(o: Any): Boolean = {
     o match {
       case role: Role =>
-        this.name.en == role.name.en
+        import cats.implicits._
+        this.name.en === role.name.en
       case _ => false
     }
   }

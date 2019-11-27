@@ -27,6 +27,7 @@ class Cast(
 
   def allRoles: Seq[Role] = Seq[Role](master, villager, seer, medium, hunter, mason, madman, werewolf, werehamster)
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Var"))
   def parse(roleLabel: String): Option[Role] = {
     var retOpt = Option.empty[Role]
     val breaks = new Breaks()

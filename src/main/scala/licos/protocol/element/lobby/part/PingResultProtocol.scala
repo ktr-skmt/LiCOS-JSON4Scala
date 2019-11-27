@@ -21,6 +21,7 @@ final case class PingResultProtocol(token: UUID, ping: String, status: Status) {
 
 object PingResultProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonPingResult): Option[PingResultProtocol] = {
 
     val status: Option[Status] = Data2Knowledge.statusOpt(json.status)

@@ -2,7 +2,7 @@ package licos.protocol.element.village.server2client.server2logger
 
 import licos.entity.Village
 import licos.json.element.village.character.JsonStatusCharacter
-import licos.json.element.village.iri.{BaseContext, Context, FlavorTextContext, FlavorTextMessage}
+import licos.json.element.village.iri.{Contexts, FlavorTextMessage}
 import licos.json.element.village.server2client.{JsonChatFromServer, JsonFlavorText}
 import licos.knowledge.{Character, Data2Knowledge, FlavorText, PublicChannel, Role, ServerToClient, Status}
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
@@ -12,6 +12,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class FlavorTextProtocol(
     village:                    Village,
     flavorText:                 Seq[licos.protocol.element.village.server2client.ChatFromServerProtocol],
@@ -24,7 +25,7 @@ final case class FlavorTextProtocol(
       Some(
         new JsonFlavorText(
           BaseProtocol(
-            Seq[Context](BaseContext, FlavorTextContext),
+            Contexts.get(FlavorTextMessage),
             FlavorTextMessage,
             VillageProtocol(
               village.id,
@@ -50,7 +51,7 @@ final case class FlavorTextProtocol(
             None,
             None
           ).json,
-          flavorText.flatMap(_.json)
+          flavorText.flatMap(_.json.toList)
         )
       )
     } else {
@@ -68,6 +69,13 @@ final case class FlavorTextProtocol(
 
 object FlavorTextProtocol {
 
+  @SuppressWarnings(
+    Array[String](
+      "org.wartremover.warts.Any",
+      "org.wartremover.warts.OptionPartial",
+      "org.wartremover.warts.MutableDataStructures"
+    )
+  )
   def read(json: JsonFlavorText, village: Village): Option[FlavorTextProtocol] = {
     val chatBuffer = ListBuffer.empty[licos.protocol.element.village.server2client.ChatFromServerProtocol]
     json.flavorText foreach { jsonChatFromServer: JsonChatFromServer =>

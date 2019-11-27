@@ -7,6 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
 final case class SearchResultProtocol(villages: Seq[VillageProtocol], error: Option[ErrorProtocol])
     extends Server2ClientLobbyMessageProtocol {
 
@@ -37,6 +38,7 @@ final case class SearchResultProtocol(villages: Seq[VillageProtocol], error: Opt
 
 object SearchResultProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
   def read(json: JsonSearchResult): Option[SearchResultProtocol] = {
 
     val villageBuffer = ListBuffer.empty[VillageProtocol]

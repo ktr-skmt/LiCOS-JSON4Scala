@@ -3,7 +3,7 @@ package licos.protocol.element.village.client2server.server2logger
 import licos.entity.Village
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonChatFromClient
-import licos.json.element.village.iri.{BaseContext, ChatContext, ChatMessage, Context}
+import licos.json.element.village.iri.{ChatMessage, Contexts}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, Role, Status}
 import licos.protocol.PlayerChatChannel
 import licos.protocol.element.village.part.character.{
@@ -17,6 +17,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class ChatFromClientProtocol(
     village:                    Village,
     channel:                    PlayerChatChannel,
@@ -30,7 +31,7 @@ final case class ChatFromClientProtocol(
       Some(
         new JsonChatFromClient(
           BaseProtocol(
-            Seq[Context](BaseContext, ChatContext),
+            Contexts.get(ChatMessage),
             ChatMessage,
             VillageProtocol(
               village.id,
@@ -91,6 +92,13 @@ final case class ChatFromClientProtocol(
 
 object ChatFromClientProtocol {
 
+  @SuppressWarnings(
+    Array[String](
+      "org.wartremover.warts.Any",
+      "org.wartremover.warts.MutableDataStructures",
+      "org.wartremover.warts.OptionPartial"
+    )
+  )
   def read(json: JsonChatFromClient, village: Village): Option[ChatFromClientProtocol] = {
     val channelOpt: Option[PlayerChatChannel] =
       Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)

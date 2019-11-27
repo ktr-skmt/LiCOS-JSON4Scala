@@ -2,6 +2,7 @@ package licos.protocol.element.lobby.part
 
 import licos.json.element.lobby.{JsonHuman, JsonPlayerSetting, JsonRobot}
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class PlayerSettingProtocol(number: Int, current: Int, robot: RobotProtocol, human: HumanProtocol) {
 
   val json: Option[JsonPlayerSetting] = {
@@ -27,6 +28,7 @@ final case class PlayerSettingProtocol(number: Int, current: Int, robot: RobotPr
 
 object PlayerSettingProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonPlayerSetting): Option[PlayerSettingProtocol] = {
 
     val robotOpt: Option[RobotProtocol] = RobotProtocol.read(json.robot)

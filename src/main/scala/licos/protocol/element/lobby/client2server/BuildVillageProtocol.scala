@@ -2,11 +2,13 @@ package licos.protocol.element.lobby.client2server
 
 import java.util.UUID
 
+import licos.json.element.lobby.{JsonHostPlayer, JsonPlayerSetting, JsonRoleSetting}
 import licos.json.element.lobby.client2server.JsonBuildVillage
 import licos.knowledge.{AvatarSetting, Data2Knowledge}
 import licos.protocol.element.lobby.part.{HostPlayerProtocol, PlayerSettingProtocol, RoleSettingProtocol}
 import play.api.libs.json.{JsValue, Json}
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class BuildVillageProtocol(
     token:          UUID,
     name:           String,
@@ -21,9 +23,9 @@ final case class BuildVillageProtocol(
 
   private val json: Option[JsonBuildVillage] = {
 
-    val jsonHostPlayer    = hostPlayer.json
-    val jsonPlayerSetting = playerSetting.json
-    val jsonRoleSetting   = roleSetting.json
+    val jsonHostPlayer:    Option[JsonHostPlayer]    = hostPlayer.json
+    val jsonPlayerSetting: Option[JsonPlayerSetting] = playerSetting.json
+    val jsonRoleSetting:   Option[JsonRoleSetting]   = roleSetting.json
 
     if (jsonHostPlayer.nonEmpty && jsonPlayerSetting.nonEmpty && jsonRoleSetting.nonEmpty) {
 
@@ -56,6 +58,7 @@ final case class BuildVillageProtocol(
 
 object BuildVillageProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonBuildVillage): Option[BuildVillageProtocol] = {
 
     val hostPlayer:    Option[HostPlayerProtocol]    = HostPlayerProtocol.read(json.hostPlayer)

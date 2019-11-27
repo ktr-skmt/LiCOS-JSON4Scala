@@ -95,6 +95,7 @@ class VillageProcessingEngine4Logger(
 
   private final val logger: Logger = Logger[VillageProcessingEngine4Logger]
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
   def process(box: VillageBOX, msg: String): Try[VillageMessageProtocol] = {
 
     val jsValue: JsValue = Json.parse(msg)
@@ -255,7 +256,8 @@ class VillageProcessingEngine4Logger(
       case Right(json: JsonPhase) =>
         json.base.phase match {
           case Morning.label =>
-            if (json.base.day == 1) {
+            import cats.implicits._
+            if (json.base.day === 1) {
               firstMorningPhaseAnalysisEngine match {
                 case Some(engine: FirstMorningPhaseAnalysisEngine) =>
                   FirstMorningPhaseProtocol.read(json, box.village) match {

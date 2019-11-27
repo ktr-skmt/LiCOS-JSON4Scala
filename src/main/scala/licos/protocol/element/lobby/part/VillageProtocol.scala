@@ -3,6 +3,7 @@ package licos.protocol.element.lobby.part
 import licos.json.element.lobby.{JsonHostPlayer, JsonPlayerSetting, JsonRoleSetting, JsonVillage}
 import licos.knowledge.{AvatarSetting, Data2Knowledge}
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class VillageProtocol(
     name:           String,
     id:             Long,
@@ -38,6 +39,7 @@ final case class VillageProtocol(
 
 object VillageProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonVillage): Option[VillageProtocol] = {
 
     val hostPlayer:    Option[HostPlayerProtocol]    = HostPlayerProtocol.read(json.hostPlayer)

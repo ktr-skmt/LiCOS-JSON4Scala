@@ -8,6 +8,9 @@ import licos.knowledge.{Alive, Architecture, AvatarSetting, Cast, Character, Lob
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(
+  Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.MutableDataStructures", "org.wartremover.warts.Var")
+)
 final case class Village(
     id:                           Long,
     name:                         String,
@@ -71,8 +74,9 @@ final case class Village(
 
   def alivePlayers: Seq[PlayerInVillage] = {
     val playerBuffer = ListBuffer.empty[PlayerInVillage]
+    import cats.implicits._
     avatars foreach {
-      case player: PlayerInVillage if player.status(currentPhase, currentDay) == Alive =>
+      case player: PlayerInVillage if player.status(currentPhase, currentDay).label === Alive.label =>
         playerBuffer += player
       case _ =>
     }

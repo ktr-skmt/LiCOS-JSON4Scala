@@ -23,6 +23,7 @@ final case class FlavorTextProtocol(village: Village, flavorText: Seq[ChatFromSe
 
 object FlavorTextProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
   def read(json: JsonFlavorText, village: Village): Option[FlavorTextProtocol] = {
     val chatBuffer = ListBuffer.empty[ChatFromServerProtocol]
     json.flavorText foreach { jsonChatFromServer: JsonChatFromServer =>

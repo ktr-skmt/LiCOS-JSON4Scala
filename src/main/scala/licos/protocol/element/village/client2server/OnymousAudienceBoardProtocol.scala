@@ -26,6 +26,7 @@ final case class OnymousAudienceBoardProtocol(
 
 object OnymousAudienceBoardProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonOnymousAudienceBoard, village: Village): Option[OnymousAudienceBoardProtocol] = {
     val predictionOpt: Option[PolarityMark] = Data2Knowledge.polarityMarkOpt(json.prediction)
     val characterOpt:  Option[Character]    = Data2Knowledge.characterOpt(json.character.name.en, json.character.id)

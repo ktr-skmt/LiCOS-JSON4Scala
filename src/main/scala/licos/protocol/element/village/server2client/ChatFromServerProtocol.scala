@@ -35,6 +35,7 @@ final case class ChatFromServerProtocol(
 
 object ChatFromServerProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonChatFromServer, village: Village): Option[ChatFromServerProtocol] = {
 
     val channelOpt: Option[PlayerChatChannel] =

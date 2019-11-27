@@ -29,6 +29,7 @@ final case class LeaveWaitingPageProtocol(token: UUID, villageId: Long, lobby: L
 
 object LeaveWaitingPageProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonLeaveWaitingPage): Option[LeaveWaitingPageProtocol] = {
 
     val lobbyOpt: Option[Lobby] = Data2Knowledge.lobbyOpt(json.lobby)

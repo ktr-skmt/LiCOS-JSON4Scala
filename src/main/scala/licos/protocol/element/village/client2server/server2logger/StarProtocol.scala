@@ -5,7 +5,7 @@ import java.time.OffsetDateTime
 import licos.entity.Village
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonStar
-import licos.json.element.village.iri.{BaseContext, Context, StarContext, StarMessage}
+import licos.json.element.village.iri.{Contexts, StarMessage}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role, Status}
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, StarInfoProtocol, VillageProtocol}
@@ -14,6 +14,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class StarProtocol(
     village:                    Village,
     serverTimestamp:            OffsetDateTime,
@@ -27,7 +28,7 @@ final case class StarProtocol(
       Some(
         new JsonStar(
           BaseProtocol(
-            Seq[Context](BaseContext, StarContext),
+            Contexts.get(StarMessage),
             StarMessage,
             VillageProtocol(
               village.id,
@@ -83,6 +84,13 @@ final case class StarProtocol(
 
 object StarProtocol {
 
+  @SuppressWarnings(
+    Array[String](
+      "org.wartremover.warts.Any",
+      "org.wartremover.warts.MutableDataStructures",
+      "org.wartremover.warts.OptionPartial"
+    )
+  )
   def read(json: JsonStar, village: Village): Option[StarProtocol] = {
 
     val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]

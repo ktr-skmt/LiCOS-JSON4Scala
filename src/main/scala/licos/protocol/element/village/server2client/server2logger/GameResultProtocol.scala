@@ -2,7 +2,7 @@ package licos.protocol.element.village.server2client.server2logger
 
 import licos.entity.Village
 import licos.json.element.village.character.{JsonResultCharacter, JsonSimpleCharacter, JsonStatusCharacter}
-import licos.json.element.village.iri.{BaseContext, Context, SystemMessage, VotingResultContext}
+import licos.json.element.village.iri.{Contexts, SystemMessage}
 import licos.json.element.village.role.JsonResultRole
 import licos.json.element.village.server2client.JsonGameResult
 import licos.knowledge.{Character, Data2Knowledge, Outcome, PublicChannel, Result, Role, ServerToClient, Status}
@@ -18,6 +18,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class GameResultProtocol(
     village:                    Village,
     character:                  Seq[ResultCharacterProtocol],
@@ -31,7 +32,7 @@ final case class GameResultProtocol(
       Some(
         new JsonGameResult(
           BaseProtocol(
-            Seq[Context](BaseContext, VotingResultContext),
+            Contexts.get(SystemMessage),
             SystemMessage,
             VillageProtocol(
               village.id,
@@ -76,6 +77,13 @@ final case class GameResultProtocol(
 
 object GameResultProtocol {
 
+  @SuppressWarnings(
+    Array[String](
+      "org.wartremover.warts.Any",
+      "org.wartremover.warts.OptionPartial",
+      "org.wartremover.warts.MutableDataStructures"
+    )
+  )
   def read(json: JsonGameResult, village: Village): Option[GameResultProtocol] = {
 
     val characterBuffer = ListBuffer.empty[ResultCharacterProtocol]

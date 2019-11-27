@@ -31,6 +31,13 @@ final case class GameResultProtocol(
 
 object GameResultProtocol {
 
+  @SuppressWarnings(
+    Array[String](
+      "org.wartremover.warts.Any",
+      "org.wartremover.warts.OptionPartial",
+      "org.wartremover.warts.MutableDataStructures"
+    )
+  )
   def read(json: JsonGameResult, village: Village): Option[GameResultProtocol] = {
 
     val characterBuffer = ListBuffer.empty[ResultCharacterProtocol]

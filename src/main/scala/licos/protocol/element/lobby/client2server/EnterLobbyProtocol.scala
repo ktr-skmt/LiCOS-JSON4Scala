@@ -28,6 +28,7 @@ final case class EnterLobbyProtocol(token: UUID, lobby: Lobby, page: Int) extend
 
 object EnterLobbyProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonEnterLobby): Option[EnterLobbyProtocol] = {
 
     val lobbyOpt: Option[Lobby] = Data2Knowledge.lobbyOpt(json.lobby)

@@ -3,6 +3,7 @@ package licos.knowledge
 import licos.protocol.element.village.part.NameProtocol
 import licos.util.WerewolfWorld
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.Var"))
 sealed abstract class Character(val name: NameProtocol) {
   private var id: Int = -1
 
@@ -17,7 +18,9 @@ sealed abstract class Character(val name: NameProtocol) {
 
   override def equals(o: Any): Boolean = {
     o match {
-      case character: Character => this.name.en == character.name.en
+      case character: Character =>
+        import cats.implicits._
+        this.name.en === character.name.en
       case _ => false
     }
   }

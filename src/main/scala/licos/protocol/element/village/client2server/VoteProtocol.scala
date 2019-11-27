@@ -21,6 +21,7 @@ final case class VoteProtocol(village: Village, character: Character) extends Cl
 
 object VoteProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonVote, village: Village): Option[VoteProtocol] = {
     val characterOpt: Option[Character] = Data2Knowledge.characterOpt(json.character.name.en, json.character.id)
     if (characterOpt.nonEmpty) {

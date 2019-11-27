@@ -27,6 +27,7 @@ final case class ChatFromClientProtocol(
 
 object ChatFromClientProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonChatFromClient, village: Village): Option[ChatFromClientProtocol] = {
     val channelOpt: Option[PlayerChatChannel] =
       Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)

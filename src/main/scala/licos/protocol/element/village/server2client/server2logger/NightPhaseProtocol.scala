@@ -3,7 +3,7 @@ package licos.protocol.element.village.server2client.server2logger
 import licos.entity.Village
 import licos.json.element.village.JsonBoardResult
 import licos.json.element.village.character.{JsonCharacter, JsonStatusCharacter}
-import licos.json.element.village.iri.{BaseContext, Context, SystemMessage, VotingResultContext}
+import licos.json.element.village.iri.{Contexts, SystemMessage}
 import licos.json.element.village.role.JsonRole
 import licos.json.element.village.server2client.JsonPhase
 import licos.knowledge.{
@@ -31,6 +31,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class NightPhaseProtocol(
     village:                    Village,
     character:                  Seq[CharacterProtocol],
@@ -44,7 +45,7 @@ final case class NightPhaseProtocol(
       Some(
         new JsonPhase(
           BaseProtocol(
-            Seq[Context](BaseContext, VotingResultContext),
+            Contexts.get(SystemMessage),
             SystemMessage,
             VillageProtocol(
               village.id,
@@ -89,6 +90,13 @@ final case class NightPhaseProtocol(
 
 object NightPhaseProtocol {
 
+  @SuppressWarnings(
+    Array[String](
+      "org.wartremover.warts.Any",
+      "org.wartremover.warts.OptionPartial",
+      "org.wartremover.warts.MutableDataStructures"
+    )
+  )
   def read(json: JsonPhase, village: Village): Option[NightPhaseProtocol] = {
     val characterBuffer = ListBuffer.empty[CharacterProtocol]
     val roleBuffer      = ListBuffer.empty[RoleProtocol]

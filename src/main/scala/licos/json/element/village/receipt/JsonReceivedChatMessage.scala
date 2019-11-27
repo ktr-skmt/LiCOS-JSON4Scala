@@ -26,7 +26,7 @@ final case class JsonReceivedChatMessage(
     )
   }
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial", "org.wartremover.warts.Overloading"))
   def this(chat: JsonChatFromServer, clientTimestamp: String) = {
     this(
       JsonReceivedChatMessage.`type`,

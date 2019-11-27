@@ -22,6 +22,7 @@ final case class BoardProtocol(village: Village, character: Character, role: Rol
 
 object BoardProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonBoard, village: Village): Option[BoardProtocol] = {
     val predictionOpt: Option[PolarityMark] = Data2Knowledge.polarityMarkOpt(json.prediction)
     val characterOpt:  Option[Character]    = Data2Knowledge.characterOpt(json.character.name.en, json.character.id)

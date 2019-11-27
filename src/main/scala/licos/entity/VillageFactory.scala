@@ -7,7 +7,7 @@ import licos.knowledge.{AvatarSetting, Cast, Lobby}
 import scala.collection.mutable
 import scala.util.Try
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Var"))
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial", "org.wartremover.warts.Var"))
 class VillageFactory {
 
   private var id:                           Option[Long]                                = None

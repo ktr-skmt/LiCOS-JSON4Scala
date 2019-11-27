@@ -42,6 +42,7 @@ final case class AdvancedSearchProtocol(
 
 object AdvancedSearchProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonAdvancedSearch): Option[AdvancedSearchProtocol] = {
     val lobbyOpt:         Option[Lobby]         = Data2Knowledge.lobbyOpt(json.lobby)
     val avatarSettingOpt: Option[AvatarSetting] = Data2Knowledge.avatarSettingOpt(json.avatar)

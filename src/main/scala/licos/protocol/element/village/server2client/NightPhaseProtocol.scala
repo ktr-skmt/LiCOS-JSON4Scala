@@ -30,8 +30,16 @@ final case class NightPhaseProtocol(village: Village, character: Seq[CharacterPr
 
 object NightPhaseProtocol {
 
+  @SuppressWarnings(
+    Array[String](
+      "org.wartremover.warts.Any",
+      "org.wartremover.warts.OptionPartial",
+      "org.wartremover.warts.MutableDataStructures"
+    )
+  )
   def read(json: JsonPhase, village: Village): Option[NightPhaseProtocol] = {
-    if (json.base.phase == Night.label) {
+    import cats.implicits._
+    if (json.base.phase === Night.label) {
       val characterBuffer = ListBuffer.empty[CharacterProtocol]
       val roleBuffer      = ListBuffer.empty[RoleProtocol]
 

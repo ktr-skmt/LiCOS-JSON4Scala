@@ -27,6 +27,7 @@ final case class ErrorFromServerProtocol(
 
 object ErrorFromServerProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonError, village: Village): Option[ErrorFromServerProtocol] = {
     if (json.isFromServer) {
       val content:     NameProtocol     = Data2Knowledge.name(json.content)

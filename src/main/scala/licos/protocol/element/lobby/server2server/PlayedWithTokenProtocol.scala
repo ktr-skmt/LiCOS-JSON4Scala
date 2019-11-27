@@ -7,6 +7,7 @@ import licos.json.element.lobby.server2server.JsonPlayedWithToken
 import licos.protocol.element.lobby.server2client.PlayedProtocol
 import play.api.libs.json.{JsValue, Json}
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class PlayedWithTokenProtocol(to: UUID, json: PlayedProtocol) extends Server2ServerLobbyMessageProtocol {
 
   private val json_ : Option[JsonPlayedWithToken] = {
@@ -34,6 +35,7 @@ final case class PlayedWithTokenProtocol(to: UUID, json: PlayedProtocol) extends
 
 object PlayedWithTokenProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonPlayedWithToken): Option[PlayedWithTokenProtocol] = {
 
     val played: Option[PlayedProtocol] = PlayedProtocol.read(json.json)

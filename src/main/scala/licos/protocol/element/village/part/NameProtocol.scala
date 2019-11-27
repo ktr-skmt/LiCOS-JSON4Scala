@@ -4,6 +4,7 @@ import java.util.Locale
 
 import licos.json.element.village.JsonName
 
+@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading", "org.wartremover.warts.Var"))
 final case class NameProtocol() {
   private var ar_   : String = ""
   private var de_   : String = ""

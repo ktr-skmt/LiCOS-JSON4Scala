@@ -23,6 +23,7 @@ final case class ErrorProtocol(content: NameProtocol, severity: Severity, source
 
 object ErrorProtocol {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonSubError): Option[ErrorProtocol] = {
 
     val content:  NameProtocol     = Data2Knowledge.name(json.content)
