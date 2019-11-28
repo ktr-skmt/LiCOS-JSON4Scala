@@ -4,9 +4,55 @@ import java.nio.charset.StandardCharsets
 
 import com.typesafe.scalalogging.Logger
 import json.engine.LobbyExample
-import json.engine.lobby.analysis._
-import json.engine.lobby.example._
 import json.element.JsonTest
+import json.engine.lobby.analysis.client2server.{
+  AdvancedSearchAE,
+  BuildVillageAE,
+  ChangeLangAE,
+  ChangeUserEmailAE,
+  ChangeUserNameAE,
+  ChangeUserPasswordAE,
+  EnterLobbyAE,
+  GetAvatarInfoAE,
+  GetSettingsAE,
+  IdSearchAE,
+  KickOutPlayerAE,
+  LeaveWaitingPageAE,
+  PlayAE,
+  PongAE,
+  ReadyAE,
+  SelectVillageAE
+}
+import json.engine.lobby.analysis.server2client.{
+  AvatarInfoAE,
+  LobbyAE,
+  PingAE,
+  PlayedAE,
+  SearchResultAE,
+  SettingsAE,
+  WaitingPageAE
+}
+import json.engine.lobby.analysis.server2server.PlayedWithTokenAE
+import json.engine.lobby.example.client2server.{
+  AdvancedSearch,
+  BuildVillage,
+  ChangeLang,
+  ChangeUserEmail,
+  ChangeUserName,
+  ChangeUserPassword,
+  EnterLobby,
+  GetAvatarInfo,
+  GetSettings,
+  IdSearch,
+  KickOutPlayer,
+  LeaveWaitingPage,
+  Play,
+  Pong,
+  Ready,
+  SelectVillage
+}
+import json.engine.lobby.example.server2client.{AvatarInfo, Lobby, Ping, Played, SearchResult, Settings, WaitingPage}
+import json.engine.lobby.example.server2server.PlayedWithToken
 import licos.json.engine.processing.{
   LobbyPE,
   LobbyProcessingEngine,

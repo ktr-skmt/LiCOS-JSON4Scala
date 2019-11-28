@@ -16,16 +16,10 @@ import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit
 import protocol.element.AuthMessageTestProtocol
 import protocol.engine.AuthExample
-import protocol.engine.auth.analysis.{
-  AuthenticationAndAuthorizationRequestAE,
-  AuthenticationRequestResponseAE,
-  AuthorizationRequestResponseAE
-}
-import protocol.engine.auth.example.{
-  AuthenticationAndAuthorizationRequest,
-  AuthenticationRequestResponse,
-  AuthorizationRequestResponse
-}
+import protocol.engine.auth.analysis.robot2server.AuthenticationAndAuthorizationRequestAE
+import protocol.engine.auth.analysis.server2robot.{AuthenticationRequestResponseAE, AuthorizationRequestResponseAE}
+import protocol.engine.auth.example.robot2server.AuthenticationAndAuthorizationRequest
+import protocol.engine.auth.example.server2robot.{AuthenticationRequestResponse, AuthorizationRequestResponse}
 
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success}

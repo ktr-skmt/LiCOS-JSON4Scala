@@ -3,6 +3,7 @@ package licos.protocol.engine.processing
 import com.typesafe.scalalogging.Logger
 import licos.json.element.lobby.client2server.{
   JsonAdvancedSearch,
+  JsonAuthorizationRequestAccepted,
   JsonBuildVillage,
   JsonChangeLang,
   JsonChangeUserEmail,
@@ -19,6 +20,8 @@ import licos.json.element.lobby.client2server.{
   JsonSelectVillage
 }
 import licos.json.element.lobby.server2client.{
+  JsonAuthorizationRequest,
+  JsonAuthorizationRequestAcceptedResponse,
   JsonAvatarInfo,
   JsonGetAvatarInfo,
   JsonLobby,
@@ -33,6 +36,7 @@ import licos.json.flow.{FlowController, LobbyFlowController}
 import licos.protocol.element.lobby.LobbyMessageProtocol
 import licos.protocol.element.lobby.client2server.{
   AdvancedSearchProtocol,
+  AuthorizationRequestAcceptedProtocol,
   BuildVillageProtocol,
   ChangeLangProtocol,
   ChangeUserEmailProtocol,
@@ -50,6 +54,8 @@ import licos.protocol.element.lobby.client2server.{
   SelectVillageProtocol
 }
 import licos.protocol.element.lobby.server2client.{
+  AuthorizationRequestAcceptedResponseProtocol,
+  AuthorizationRequestProtocol,
   AvatarInfoProtocol,
   LobbyProtocol,
   PingProtocol,
@@ -61,6 +67,7 @@ import licos.protocol.element.lobby.server2client.{
 import licos.protocol.element.lobby.server2server.PlayedWithTokenProtocol
 import licos.protocol.engine.analysis.lobby.client2server.{
   AdvancedSearchAnalysisEngine,
+  AuthorizationRequestAcceptedAnalysisEngine,
   BuildVillageAnalysisEngine,
   ChangeLangAnalysisEngine,
   ChangeUserEmailAnalysisEngine,
@@ -78,6 +85,8 @@ import licos.protocol.engine.analysis.lobby.client2server.{
   SelectVillageAnalysisEngine
 }
 import licos.protocol.engine.analysis.lobby.server2client.{
+  AuthorizationRequestAcceptedResponseAnalysisEngine,
+  AuthorizationRequestAnalysisEngine,
   AvatarInfoAnalysisEngine,
   LobbyAnalysisEngine,
   PingAnalysisEngine,
@@ -92,30 +101,33 @@ import play.api.libs.json.{JsValue, Json}
 import scala.util.{Failure, Try}
 
 class LobbyProcessingEngine(
-    pongEngine:               Option[PongAnalysisEngine],
-    pingEngine:               Option[PingAnalysisEngine],
-    waitingPageEngine:        Option[WaitingPageAnalysisEngine],
-    lobbyEngine:              Option[LobbyAnalysisEngine],
-    enterLobbyEngine:         Option[EnterLobbyAnalysisEngine],
-    getAvatarInfoEngine:      Option[GetAvatarInfoAnalysisEngine],
-    avatarInfoEngine:         Option[AvatarInfoAnalysisEngine],
-    selectVillageEngine:      Option[SelectVillageAnalysisEngine],
-    leaveWaitingPageEngine:   Option[LeaveWaitingPageAnalysisEngine],
-    kickOutPlayerEngine:      Option[KickOutPlayerAnalysisEngine],
-    buildVillageEngine:       Option[BuildVillageAnalysisEngine],
-    advancedSearchEngine:     Option[AdvancedSearchAnalysisEngine],
-    idSearchEngine:           Option[IdSearchAnalysisEngine],
-    playEngine:               Option[PlayAnalysisEngine],
-    playedEngine:             Option[PlayedAnalysisEngine],
-    playedWithTokenEngine:    Option[PlayedWithTokenAnalysisEngine],
-    readyEngine:              Option[ReadyAnalysisEngine],
-    searchResultEngine:       Option[SearchResultAnalysisEngine],
-    changeLangEngine:         Option[ChangeLangAnalysisEngine],
-    changeUserEmailEngine:    Option[ChangeUserEmailAnalysisEngine],
-    changeUserNameEngine:     Option[ChangeUserNameAnalysisEngine],
-    changeUserPasswordEngine: Option[ChangeUserPasswordAnalysisEngine],
-    getSettingsEngine:        Option[GetSettingsAnalysisEngine],
-    settingsEngine:           Option[SettingsAnalysisEngine]
+    pongEngine:                                 Option[PongAnalysisEngine],
+    pingEngine:                                 Option[PingAnalysisEngine],
+    waitingPageEngine:                          Option[WaitingPageAnalysisEngine],
+    lobbyEngine:                                Option[LobbyAnalysisEngine],
+    enterLobbyEngine:                           Option[EnterLobbyAnalysisEngine],
+    getAvatarInfoEngine:                        Option[GetAvatarInfoAnalysisEngine],
+    avatarInfoEngine:                           Option[AvatarInfoAnalysisEngine],
+    selectVillageEngine:                        Option[SelectVillageAnalysisEngine],
+    leaveWaitingPageEngine:                     Option[LeaveWaitingPageAnalysisEngine],
+    kickOutPlayerEngine:                        Option[KickOutPlayerAnalysisEngine],
+    buildVillageEngine:                         Option[BuildVillageAnalysisEngine],
+    advancedSearchEngine:                       Option[AdvancedSearchAnalysisEngine],
+    idSearchEngine:                             Option[IdSearchAnalysisEngine],
+    playEngine:                                 Option[PlayAnalysisEngine],
+    playedEngine:                               Option[PlayedAnalysisEngine],
+    playedWithTokenEngine:                      Option[PlayedWithTokenAnalysisEngine],
+    readyEngine:                                Option[ReadyAnalysisEngine],
+    searchResultEngine:                         Option[SearchResultAnalysisEngine],
+    changeLangEngine:                           Option[ChangeLangAnalysisEngine],
+    changeUserEmailEngine:                      Option[ChangeUserEmailAnalysisEngine],
+    changeUserNameEngine:                       Option[ChangeUserNameAnalysisEngine],
+    changeUserPasswordEngine:                   Option[ChangeUserPasswordAnalysisEngine],
+    getSettingsEngine:                          Option[GetSettingsAnalysisEngine],
+    settingsEngine:                             Option[SettingsAnalysisEngine],
+    authorizationRequestEngine:                 Option[AuthorizationRequestAnalysisEngine],
+    authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine],
+    authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine]
 ) extends ProcessingEngine {
   override protected val flowController: FlowController = new LobbyFlowController()
 
@@ -443,6 +455,45 @@ class LobbyProcessingEngine(
               case None => Failure(new JSON2ProtocolException(SettingsAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(SettingsAnalysisEngine.name))
+        }
+      case Right(json: JsonAuthorizationRequest) =>
+        log("JsonAuthorizationRequest")
+        authorizationRequestEngine match {
+          case Some(engine) =>
+            log("AuthorizationRequestAnalysisEngine")
+            AuthorizationRequestProtocol.read(json) match {
+              case Some(protocol) =>
+                log("AuthorizationRequestProtocol")
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(AuthorizationRequestAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(AuthorizationRequestAnalysisEngine.name))
+        }
+      case Right(json: JsonAuthorizationRequestAcceptedResponse) =>
+        log("JsonAuthorizationRequestAcceptedResponse")
+        authorizationRequestAcceptedResponseEngine match {
+          case Some(engine) =>
+            log("AuthorizationRequestAcceptedResponseAnalysisEngine")
+            AuthorizationRequestAcceptedResponseProtocol.read(json) match {
+              case Some(protocol) =>
+                log("AuthorizationRequestAcceptedResponseProtocol")
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(AuthorizationRequestAcceptedResponseAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(AuthorizationRequestAcceptedResponseAnalysisEngine.name))
+        }
+      case Right(json: JsonAuthorizationRequestAccepted) =>
+        log("JsonAuthorizationRequestAccepted")
+        authorizationRequestAcceptedEngine match {
+          case Some(engine) =>
+            log("AuthorizationRequestAcceptedAnalysisEngine")
+            AuthorizationRequestAcceptedProtocol.read(json) match {
+              case Some(protocol) =>
+                log("AuthorizationRequestAcceptedProtocol")
+                engine.process(box, protocol)
+              case None => Failure(new JSON2ProtocolException(AuthorizationRequestAcceptedAnalysisEngine.name))
+            }
+          case None => Failure(new NoEngineException(AuthorizationRequestAcceptedAnalysisEngine.name))
         }
       case _ =>
         Failure(new NoEngineException("AnalysisEngine"))

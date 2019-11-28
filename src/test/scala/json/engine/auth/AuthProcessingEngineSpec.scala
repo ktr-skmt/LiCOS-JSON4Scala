@@ -5,16 +5,10 @@ import java.nio.charset.StandardCharsets
 import com.typesafe.scalalogging.Logger
 import json.element.JsonTest
 import json.engine.AuthExample
-import json.engine.auth.analysis.{
-  AuthenticationAndAuthorizationRequestAE,
-  AuthenticationRequestResponseAE,
-  AuthorizationRequestResponseAE
-}
-import json.engine.auth.example.{
-  AuthenticationAndAuthorizationRequest,
-  AuthenticationRequestResponse,
-  AuthorizationRequestResponse
-}
+import json.engine.auth.analysis.robot2server.AuthenticationAndAuthorizationRequestAE
+import json.engine.auth.analysis.server2robot.{AuthenticationRequestResponseAE, AuthorizationRequestResponseAE}
+import json.engine.auth.example.robot2server.AuthenticationAndAuthorizationRequest
+import json.engine.auth.example.server2robot.{AuthenticationRequestResponse, AuthorizationRequestResponse}
 import licos.json.engine.processing.{
   AuthPE,
   AuthProcessingEngine,

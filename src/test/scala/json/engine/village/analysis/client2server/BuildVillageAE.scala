@@ -1,8 +1,8 @@
 package json.engine.village.analysis.client2server
 
-import json.engine.lobby.example.BuildVillage
 import json.engine.village.VillageBox
 import json.element.JsonTest
+import json.engine.lobby.example.client2server.BuildVillage
 import licos.json.element.lobby.client2server.JsonBuildVillage
 import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.client2server.BuildVillageAnalysisEngine

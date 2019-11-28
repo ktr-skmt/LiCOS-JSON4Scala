@@ -9,14 +9,14 @@ abstract class VillageExample(filePath: String) {
 }
 
 abstract class ClientToServerVillageExample(filePath: String)
-  extends VillageExample(ClientToServerVillageExample.client2server(filePath))
+    extends VillageExample(ClientToServerVillageExample.client2server(filePath))
 
 object ClientToServerVillageExample {
   def client2server(filePath: String): String = "client2server/".concat(filePath)
 }
 
 abstract class ServerToClientVillageExample(filePath: String)
-  extends VillageExample(ServerToClientVillageExample.server2client(filePath))
+    extends VillageExample(ServerToClientVillageExample.server2client(filePath))
 
 object ServerToClientVillageExample {
   def server2client(filePath: String): String = "server2client/".concat(filePath)
@@ -28,4 +28,11 @@ object ReceiptVillageExample {
 
 object InvitationVillageExample {
   def invitation(filePath: String): String = "invitation/".concat(filePath)
+}
+
+abstract class ServerToLoggerVillageExample(filePath: String)
+    extends VillageExample(ServerToLoggerVillageExample.server2logger(filePath))
+
+object ServerToLoggerVillageExample {
+  def server2logger(filePath: String): String = "server2logger/".concat(filePath)
 }
