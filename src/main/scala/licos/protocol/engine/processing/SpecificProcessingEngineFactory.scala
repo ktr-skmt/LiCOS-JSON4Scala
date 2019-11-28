@@ -8,6 +8,7 @@ object SpecificProcessingEngineFactory {
       case LobbyPE          => new LobbyProcessingEngineFactory()
       case VillagePE        => new VillageProcessingEngineFactory()
       case VillagePE4Logger => new VillageProcessingEngineFactory4Logger()
+      case AuthPE           => new AuthProcessingEngineFactory()
     }
   }
 }

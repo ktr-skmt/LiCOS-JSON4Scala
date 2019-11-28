@@ -3,7 +3,9 @@ package licos.protocol.element.auth.robot2server
 import java.util.UUID
 
 import licos.json.element.auth.robot2server.{JsonAuthenticationAndAuthorizationRequest, JsonSourceCode}
+import licos.protocol.element.auth.AuthMessageProtocol
 import licos.protocol.element.auth.part.SourceCodeProtocol
+import play.api.libs.json.{JsValue, Json}
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class AuthenticationAndAuthorizationRequestProtocol(
@@ -12,7 +14,7 @@ final case class AuthenticationAndAuthorizationRequestProtocol(
     robotVersion: String,
     accessToken:  UUID,
     sourceCode:   SourceCodeProtocol
-) {
+) extends AuthMessageProtocol {
 
   val json: Option[JsonAuthenticationAndAuthorizationRequest] = {
 
@@ -33,6 +35,11 @@ final case class AuthenticationAndAuthorizationRequestProtocol(
     }
   }
 
+  override def toJsonOpt: Option[JsValue] = {
+    json map { j: JsonAuthenticationAndAuthorizationRequest =>
+      Json.toJson(j)
+    }
+  }
 }
 
 object AuthenticationAndAuthorizationRequestProtocol {

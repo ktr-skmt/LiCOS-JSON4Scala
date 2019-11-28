@@ -28,9 +28,9 @@ object AuthenticationRequestResponseProtocol {
 
   def read(
       json: JsonAuthenticationRequestResponse
-  ): Option[AuthorizationRequestResponseProtocol] = {
+  ): Option[AuthenticationRequestResponseProtocol] = {
     Some(
-      AuthorizationRequestResponseProtocol(
+      AuthenticationRequestResponseProtocol(
         UUID.fromString(json.accessToken),
         json.response
       )

@@ -135,9 +135,11 @@ class LobbyProcessingEngine(
       case Right(json: JsonPong) =>
         log("JsonPong")
         pongEngine match {
-          case Some(engine: PongAnalysisEngine) =>
+          case Some(engine) =>
+            log("PongAnalysisEngine")
             PongProtocol.read(json) match {
               case Some(protocol) =>
+                log("PongProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(PongAnalysisEngine.name))
             }
@@ -147,8 +149,10 @@ class LobbyProcessingEngine(
         log("JsonPing")
         pingEngine match {
           case Some(engine) =>
+            log("PingAnalysisEngine")
             PingProtocol.read(json) match {
               case Some(protocol) =>
+                log("PingProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(PingAnalysisEngine.name))
             }
@@ -158,8 +162,10 @@ class LobbyProcessingEngine(
         log("JsonWaitingPage")
         waitingPageEngine match {
           case Some(engine) =>
+            log("WaitingPageAnalysisEngine")
             WaitingPageProtocol.read(json) match {
               case Some(protocol) =>
+                log("WaitingPageProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(WaitingPageAnalysisEngine.name))
             }
@@ -169,8 +175,10 @@ class LobbyProcessingEngine(
         log("JsonLobby")
         lobbyEngine match {
           case Some(engine) =>
+            log("LobbyAnalysisEngine")
             LobbyProtocol.read(json) match {
               case Some(protocol) =>
+                log("LobbyProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(LobbyAnalysisEngine.name))
             }
@@ -180,8 +188,10 @@ class LobbyProcessingEngine(
         log("JsonEnterLobby")
         enterLobbyEngine match {
           case Some(engine) =>
+            log("EnterLobbyAnalysisEngine")
             EnterLobbyProtocol.read(json) match {
               case Some(protocol) =>
+                log("EnterLobbyProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(EnterLobbyAnalysisEngine.name))
             }
@@ -191,8 +201,10 @@ class LobbyProcessingEngine(
         log("JsonGetAvatarInfo")
         getAvatarInfoEngine match {
           case Some(engine) =>
+            log("GetAvatarInfoAnalysisEngine")
             GetAvatarInfoProtocol.read(json) match {
               case Some(protocol) =>
+                log("GetAvatarInfoProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(GetAvatarInfoAnalysisEngine.name))
             }
@@ -202,8 +214,10 @@ class LobbyProcessingEngine(
         log("JsonAvatarInfo")
         avatarInfoEngine match {
           case Some(engine) =>
+            log("AvatarInfoAnalysisEngine")
             AvatarInfoProtocol.read(json) match {
               case Some(protocol) =>
+                log("AvatarInfoProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(AvatarInfoAnalysisEngine.name))
             }
@@ -213,8 +227,10 @@ class LobbyProcessingEngine(
         log("JsonSelectVillage")
         selectVillageEngine match {
           case Some(engine) =>
+            log("SelectVillageAnalysisEngine")
             SelectVillageProtocol.read(json) match {
               case Some(protocol) =>
+                log("SelectVillageProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(SelectVillageAnalysisEngine.name))
             }
@@ -224,8 +240,10 @@ class LobbyProcessingEngine(
         log("JsonLeaveWaitingPage")
         leaveWaitingPageEngine match {
           case Some(engine) =>
+            log("LeaveWaitingPageAnalysisEngine")
             LeaveWaitingPageProtocol.read(json) match {
               case Some(protocol) =>
+                log("LeaveWaitingPageProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(LeaveWaitingPageAnalysisEngine.name))
             }
@@ -235,8 +253,10 @@ class LobbyProcessingEngine(
         log("JsonKickOutPlayer")
         kickOutPlayerEngine match {
           case Some(engine) =>
+            log("KickOutPlayerAnalysisEngine")
             KickOutPlayerProtocol.read(json) match {
               case Some(protocol) =>
+                log("KickOutPlayerProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(KickOutPlayerAnalysisEngine.name))
             }
@@ -246,8 +266,10 @@ class LobbyProcessingEngine(
         log("JsonBuildVillage")
         buildVillageEngine match {
           case Some(engine) =>
+            log("BuildVillageAnalysisEngine")
             BuildVillageProtocol.read(json) match {
               case Some(protocol) =>
+                log("BuildVillageProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(BuildVillageAnalysisEngine.name))
             }
@@ -257,8 +279,10 @@ class LobbyProcessingEngine(
         log("JsonAdvancedSearch")
         advancedSearchEngine match {
           case Some(engine) =>
+            log("AdvancedSearchAnalysisEngine")
             AdvancedSearchProtocol.read(json) match {
               case Some(protocol) =>
+                log("AdvancedSearchProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(AdvancedSearchAnalysisEngine.name))
             }
@@ -268,8 +292,10 @@ class LobbyProcessingEngine(
         log("JsonIdSearch")
         idSearchEngine match {
           case Some(engine) =>
+            log("IdSearchAnalysisEngine")
             IdSearchProtocol.read(json) match {
               case Some(protocol) =>
+                log("IdSearchProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(IdSearchAnalysisEngine.name))
             }
@@ -279,8 +305,10 @@ class LobbyProcessingEngine(
         log("JsonPlay")
         playEngine match {
           case Some(engine) =>
+            log("PlayAnalysisEngine")
             PlayProtocol.read(json) match {
               case Some(protocol) =>
+                log("PlayProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(PlayAnalysisEngine.name))
             }
@@ -290,8 +318,10 @@ class LobbyProcessingEngine(
         log("JsonPlayed")
         playedEngine match {
           case Some(engine) =>
+            log("PlayedAnalysisEngine")
             PlayedProtocol.read(json) match {
               case Some(protocol) =>
+                log("PlayedProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(PlayedAnalysisEngine.name))
             }
@@ -301,8 +331,10 @@ class LobbyProcessingEngine(
         log("JsonPlayedWithToken")
         playedWithTokenEngine match {
           case Some(engine) =>
+            log("PlayedWithTokenAnalysisEngine")
             PlayedWithTokenProtocol.read(json) match {
               case Some(protocol) =>
+                log("PlayedWithTokenProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(PlayedWithTokenAnalysisEngine.name))
             }
@@ -312,8 +344,10 @@ class LobbyProcessingEngine(
         log("JsonReady")
         readyEngine match {
           case Some(engine) =>
+            log("ReadyAnalysisEngine")
             ReadyProtocol.read(json) match {
               case Some(protocol) =>
+                log("ReadyProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ReadyAnalysisEngine.name))
             }
@@ -323,8 +357,10 @@ class LobbyProcessingEngine(
         log("JsonSearchResult")
         searchResultEngine match {
           case Some(engine) =>
+            log("SearchResultAnalysisEngine")
             SearchResultProtocol.read(json) match {
               case Some(protocol) =>
+                log("SearchResultProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(SearchResultAnalysisEngine.name))
             }
@@ -334,8 +370,10 @@ class LobbyProcessingEngine(
         log("JsonChangeLang")
         changeLangEngine match {
           case Some(engine) =>
+            log("ChangeLangAnalysisEngine")
             ChangeLangProtocol.read(json) match {
               case Some(protocol) =>
+                log("ChangeLangProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ChangeLangAnalysisEngine.name))
             }
@@ -345,8 +383,10 @@ class LobbyProcessingEngine(
         log("JsonChangeUserEmail")
         changeUserEmailEngine match {
           case Some(engine) =>
+            log("ChangeUserEmailAnalysisEngine")
             ChangeUserEmailProtocol.read(json) match {
               case Some(protocol) =>
+                log("ChangeUserEmailProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ChangeUserEmailAnalysisEngine.name))
             }
@@ -356,8 +396,10 @@ class LobbyProcessingEngine(
         log("JsonChangeUserName")
         changeUserNameEngine match {
           case Some(engine) =>
+            log("ChangeUserNameAnalysisEngine")
             ChangeUserNameProtocol.read(json) match {
               case Some(protocol) =>
+                log("ChangeUserNameProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ChangeUserNameAnalysisEngine.name))
             }
@@ -367,8 +409,10 @@ class LobbyProcessingEngine(
         log("JsonChangeUserPassword")
         changeUserPasswordEngine match {
           case Some(engine) =>
+            log("ChangeUserPasswordAnalysisEngine")
             ChangeUserPasswordProtocol.read(json) match {
               case Some(protocol) =>
+                log("ChangeUserPasswordProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ChangeUserPasswordAnalysisEngine.name))
             }
@@ -378,8 +422,10 @@ class LobbyProcessingEngine(
         log("JsonGetSettings")
         getSettingsEngine match {
           case Some(engine) =>
+            log("GetSettingsAnalysisEngine")
             GetSettingsProtocol.read(json) match {
               case Some(protocol) =>
+                log("GetSettingsProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(GetSettingsAnalysisEngine.name))
             }
@@ -389,8 +435,10 @@ class LobbyProcessingEngine(
         log("JsonSettings")
         settingsEngine match {
           case Some(engine) =>
+            log("SettingsAnalysisEngine")
             SettingsProtocol.read(json) match {
               case Some(protocol) =>
+                log("SettingsProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(SettingsAnalysisEngine.name))
             }

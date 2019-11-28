@@ -108,10 +108,13 @@ class VillageProcessingEngine(
     flowController.flow(jsValue) match {
       case Right(json: JsonAnonymousAudienceChat) =>
         if (json.isFromServer) {
+          log("JsonAnonymousAudienceChatFromServer")
           anonymousAudienceChatFromServerAnalysisEngine match {
             case Some(engine: AnonymousAudienceChatFromServerAnalysisEngine) =>
+              log("AnonymousAudienceChatFromServerAnalysisEngine")
               AnonymousAudienceChatFromServerProtocol.read(json, box.village) match {
                 case Some(protocol: AnonymousAudienceChatFromServerProtocol) =>
+                  log("AnonymousAudienceChatFromServerProtocol")
                   engine.process(box, protocol)
                 case None => Failure(new JSON2ProtocolException(AnonymousAudienceChatFromServerAnalysisEngine.name))
               }
@@ -119,10 +122,13 @@ class VillageProcessingEngine(
 
           }
         } else {
+          log("JsonAnonymousAudienceChatFromClient")
           anonymousAudienceChatFromClientAnalysisEngine match {
             case Some(engine: AnonymousAudienceChatFromClientAnalysisEngine) =>
+              log("AnonymousAudienceChatFromClientAnalysisEngine")
               AnonymousAudienceChatFromClientProtocol.read(json, box.village) match {
                 case Some(protocol) =>
+                  log("AnonymousAudienceChatFromClientProtocol")
                   engine.process(box, protocol)
                 case None => Failure(new JSON2ProtocolException(AnonymousAudienceChatFromClientAnalysisEngine.name))
               }
@@ -130,30 +136,39 @@ class VillageProcessingEngine(
           }
         }
       case Right(json: JsonBoard) =>
+        log("JsonBoard")
         boardAnalysisEngine match {
           case Some(engine: BoardAnalysisEngine) =>
+            log("BoardAnalysisEngine")
             BoardProtocol.read(json, box.village) match {
               case Some(protocol) =>
+                log("BoardProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(BoardAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(BoardAnalysisEngine.name))
         }
       case Right(json: JsonBuildVillage) =>
+        log("JsonBuildVillage")
         buildVillageAnalysisEngine match {
           case Some(engine: BuildVillageAnalysisEngine) =>
+            log("BuildVillageAnalysisEngine")
             BuildVillageProtocol.read(json, box.village) match {
               case Some(protocol) =>
+                log("BuildVillageProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(BuildVillageAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(BuildVillageAnalysisEngine.name))
         }
       case Right(json: JsonChatFromClient) =>
+        log("JsonChatFromClient")
         chatFromClientAnalysisEngine match {
           case Some(engine: ChatFromClientAnalysisEngine) =>
+            log("ChatFromClientAnalysisEngine")
             ChatFromClientProtocol.read(json, box.village) match {
               case Some(protocol) =>
+                log("ChatFromClientProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ChatFromClientAnalysisEngine.name))
             }
@@ -161,20 +176,26 @@ class VillageProcessingEngine(
         }
       case Right(json: JsonError) =>
         if (json.isFromServer) {
+          log("JsonErrorFromServer")
           errorFromServerAnalysisEngine match {
             case Some(engine: ErrorFromServerAnalysisEngine) =>
+              log("ErrorFromServerAnalysisEngine")
               ErrorFromServerProtocol.read(json, box.village) match {
                 case Some(protocol) =>
+                  log("ErrorFromServerProtocol")
                   engine.process(box, protocol)
                 case None => Failure(new JSON2ProtocolException(ErrorFromServerAnalysisEngine.name))
               }
             case None => Failure(new NoEngineException(ErrorFromServerAnalysisEngine.name))
           }
         } else {
+          log("JsonErrorFromClient")
           errorFromClientAnalysisEngine match {
             case Some(engine: ErrorFromClientAnalysisEngine) =>
+              log("ErrorFromClientAnalysisEngine")
               ErrorFromClientProtocol.read(json, box.village) match {
                 case Some(protocol) =>
+                  log("ErrorFromClientProtocol")
                   engine.process(box, protocol)
                 case None => Failure(new JSON2ProtocolException(ErrorFromClientAnalysisEngine.name))
               }
@@ -182,20 +203,26 @@ class VillageProcessingEngine(
           }
         }
       case Right(json: JsonLeaveWaitingPage) =>
+        log("JsonLeaveWaitingPage")
         leaveWaitingPageAnalysisEngine match {
           case Some(engine: LeaveWaitingPageAnalysisEngine) =>
+            log("LeaveWaitingPageAnalysisEngine")
             LeaveWaitingPageProtocol.read(json) match {
               case Some(protocol) =>
+                log("LeaveWaitingPageProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(LeaveWaitingPageAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(LeaveWaitingPageAnalysisEngine.name))
         }
       case Right(json: JsonOnymousAudienceBoard) =>
+        log("JsonOnymousAudienceBoard")
         onymousAudienceBoardAnalysisEngine match {
           case Some(engine: OnymousAudienceBoardAnalysisEngine) =>
+            log("OnymousAudienceBoardAnalysisEngine")
             OnymousAudienceBoardProtocol.read(json, box.village) match {
               case Some(protocol) =>
+                log("OnymousAudienceBoardProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(OnymousAudienceBoardAnalysisEngine.name))
             }
@@ -203,20 +230,26 @@ class VillageProcessingEngine(
         }
       case Right(json: JsonOnymousAudienceChat) =>
         if (json.isFromServer) {
+          log("JsonOnymousAudienceChatFromServer")
           onymousAudienceChatFromServerAnalysisEngine match {
             case Some(engine: OnymousAudienceChatFromServerAnalysisEngine) =>
+              log("OnymousAudienceChatFromServerAnalysisEngine")
               OnymousAudienceChatFromServerProtocol.read(json, box.village) match {
                 case Some(protocol) =>
+                  log("OnymousAudienceChatFromServerProtocol")
                   engine.process(box, protocol)
                 case None => Failure(new JSON2ProtocolException(OnymousAudienceChatFromServerAnalysisEngine.name))
               }
             case None => Failure(new NoEngineException(OnymousAudienceChatFromServerAnalysisEngine.name))
           }
         } else {
+          log("JsonOnymousAudienceChatFromClient")
           onymousAudienceChatFromClientAnalysisEngine match {
             case Some(engine: OnymousAudienceChatFromClientAnalysisEngine) =>
+              log("OnymousAudienceChatFromClientAnalysisEngine")
               OnymousAudienceChatFromClientProtocol.read(json, box.village) match {
                 case Some(protocol) =>
+                  log("OnymousAudienceChatFromClientProtocol")
                   engine.process(box, protocol)
                 case None => Failure(new JSON2ProtocolException(OnymousAudienceChatFromClientAnalysisEngine.name))
               }
@@ -224,104 +257,134 @@ class VillageProcessingEngine(
           }
         }
       case Right(json: JsonOnymousAudienceScroll) =>
+        log("JsonOnymousAudienceScroll")
         onymousAudienceScrollAnalysisEngine match {
           case Some(engine: OnymousAudienceScrollAnalysisEngine) =>
+            log("OnymousAudienceScrollAnalysisEngine")
             OnymousAudienceScrollProtocol.read(json, box.village) match {
               case Some(protocol) =>
+                log("OnymousAudienceScrollProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(OnymousAudienceScrollAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(OnymousAudienceScrollAnalysisEngine.name))
         }
       case Right(json: JsonReady) =>
+        log("JsonReady")
         readyAnalysisEngine match {
           case Some(engine: ReadyAnalysisEngine) =>
+            log("ReadyAnalysisEngine")
             ReadyProtocol.read(json, box.village) match {
               case Some(protocol) =>
+                log("ReadyProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ReadyAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(ReadyAnalysisEngine.name))
         }
       case Right(json: JsonReceivedChatMessage) =>
+        log("JsonReceivedChatMessage")
         receivedChatMessageAnalysisEngine match {
           case Some(engine: ReceivedChatMessageAnalysisEngine) =>
+            log("ReceivedChatMessageAnalysisEngine")
             ReceivedChatMessageProtocol.read(json) match {
               case Some(protocol) =>
+                log("ReceivedChatMessageProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ReceivedChatMessageAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(ReceivedChatMessageAnalysisEngine.name))
         }
       case Right(json: JsonReceivedFlavorTextMessage) =>
+        log("JsonReceivedFlavorTextMessage")
         receivedFlavorTextMessageAnalysisEngine match {
           case Some(engine: ReceivedFlavorTextMessageAnalysisEngine) =>
+            log("ReceivedFlavorTextMessageAnalysisEngine")
             ReceivedFlavorTextMessageProtocol.read(json) match {
               case Some(protocol) =>
+                log("ReceivedFlavorTextMessageProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ReceivedFlavorTextMessageAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(ReceivedFlavorTextMessageAnalysisEngine.name))
         }
       case Right(json: JsonReceivedSystemMessage) =>
+        log("JsonReceivedSystemMessage")
         receivedSystemMessageAnalysisEngine match {
           case Some(engine: ReceivedSystemMessageAnalysisEngine) =>
+            log("ReceivedSystemMessageAnalysisEngine")
             ReceivedSystemMessageProtocol.read(json) match {
               case Some(protocol) =>
+                log("ReceivedSystemMessageProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ReceivedSystemMessageAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(ReceivedSystemMessageAnalysisEngine.name))
         }
       case Right(json: JsonScroll) =>
+        log("JsonScroll")
         scrollAnalysisEngine match {
           case Some(engine: ScrollAnalysisEngine) =>
+            log("ScrollAnalysisEngine")
             ScrollProtocol.read(json, box.village) match {
               case Some(protocol) =>
+                log("ScrollProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ScrollAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(ScrollAnalysisEngine.name))
         }
       case Right(json: JsonStar) =>
+        log("JsonStar")
         starAnalysisEngine match {
           case Some(engine: StarAnalysisEngine) =>
+            log("StarAnalysisEngine")
             StarProtocol.read(json, box.village) match {
               case Some(protocol) =>
+                log("StarProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(StarAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(StarAnalysisEngine.name))
         }
       case Right(json: JsonVote) =>
+        log("JsonVote")
         voteAnalysisEngine match {
           case Some(engine: VoteAnalysisEngine) =>
+            log("VoteAnalysisEngine")
             VoteProtocol.read(json, box.village) match {
               case Some(protocol) =>
+                log("VoteProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(VoteAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(VoteAnalysisEngine.name))
         }
       case Right(json: JsonChatFromServer) =>
+        log("JsonChatFromServer")
         chatFromServerAnalysisEngine match {
           case Some(engine: ChatFromServerAnalysisEngine) =>
+            log("ChatFromServerAnalysisEngine")
             ChatFromServerProtocol.read(json, box.village) match {
               case Some(protocol) =>
+                log("ChatFromServerProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(ChatFromServerAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(ChatFromServerAnalysisEngine.name))
         }
       case Right(json: JsonPhase) =>
+        log("JsonPhase")
         json.base.phase match {
           case Morning.label =>
             import cats.implicits._
             if (json.base.day === 1) {
               firstMorningPhaseAnalysisEngine match {
                 case Some(engine: FirstMorningPhaseAnalysisEngine) =>
+                  log("FirstMorningPhaseAnalysisEngine")
                   FirstMorningPhaseProtocol.read(json, box.village) match {
                     case Some(protocol) =>
+                      log("FirstMorningPhaseProtocol")
                       engine.process(box, protocol)
                     case None => Failure(new JSON2ProtocolException(FirstMorningPhaseAnalysisEngine.name))
                   }
@@ -330,8 +393,10 @@ class VillageProcessingEngine(
             } else {
               morningPhaseAnalysisEngine match {
                 case Some(engine: MorningPhaseAnalysisEngine) =>
+                  log("MorningPhaseAnalysisEngine")
                   MorningPhaseProtocol.read(json, box.village) match {
                     case Some(protocol) =>
+                      log("MorningPhaseProtocol")
                       engine.process(box, protocol)
                     case None => Failure(new JSON2ProtocolException(MorningPhaseAnalysisEngine.name))
                   }
@@ -341,8 +406,10 @@ class VillageProcessingEngine(
           case Noon.label =>
             noonPhaseAnalysisEngine match {
               case Some(engine: NoonPhaseAnalysisEngine) =>
+                log("NoonPhaseAnalysisEngine")
                 NoonPhaseProtocol.read(json, box.village) match {
                   case Some(protocol) =>
+                    log("NoonPhaseProtocol")
                     engine.process(box, protocol)
                   case None => Failure(new JSON2ProtocolException(NoonPhaseAnalysisEngine.name))
                 }
@@ -351,8 +418,10 @@ class VillageProcessingEngine(
           case Night.label =>
             nightPhaseAnalysisEngine match {
               case Some(engine: NightPhaseAnalysisEngine) =>
+                log("NightPhaseAnalysisEngine")
                 NightPhaseProtocol.read(json, box.village) match {
                   case Some(protocol) =>
+                    log("NightPhaseProtocol")
                     engine.process(box, protocol)
                   case None => Failure(new JSON2ProtocolException(NightPhaseAnalysisEngine.name))
                 }
@@ -361,40 +430,52 @@ class VillageProcessingEngine(
           case _ => Failure(new NoEngineException("PhaseAnalysisEngine"))
         }
       case Right(json: JsonFlavorText) =>
+        log("JsonFlavorText")
         flavorTextAnalysisEngine match {
           case Some(engine: FlavorTextAnalysisEngine) =>
+            log("FlavorTextAnalysisEngine")
             FlavorTextProtocol.read(json, box.village) match {
               case Some(protocol) =>
+                log("FlavorTextProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(FlavorTextAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(FlavorTextAnalysisEngine.name))
         }
       case Right(json: JsonGameResult) =>
+        log("JsonGameResult")
         gameResultAnalysisEngine match {
           case Some(engine: GameResultAnalysisEngine) =>
+            log("GameResultAnalysisEngine")
             GameResultProtocol.read(json, box.village) match {
               case Some(protocol) =>
+                log("GameResultProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(GameResultAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(GameResultAnalysisEngine.name))
         }
       case Right(json: JsonNextGameInvitation) =>
+        log("JsonNextGameInvitation")
         nextGameInvitationAnalysisEngine match {
           case Some(engine: NextGameInvitationAnalysisEngine) =>
+            log("NextGameInvitationAnalysisEngine")
             NextGameInvitationProtocol.read(json) match {
               case Some(protocol) =>
+                log("NextGameInvitationProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(NextGameInvitationAnalysisEngine.name))
             }
           case None => Failure(new NoEngineException(NextGameInvitationAnalysisEngine.name))
         }
       case Right(json: JsonNextGameInvitationIsClosed) =>
+        log("JsonNextGameInvitationIsClosed")
         nextGameInvitationIsClosedAnalysisEngine match {
           case Some(engine: NextGameInvitationIsClosedAnalysisEngine) =>
+            log("NextGameInvitationIsClosedAnalysisEngine")
             NextGameInvitationIsClosedProtocol.read(json) match {
               case Some(protocol) =>
+                log("NextGameInvitationIsClosedProtocol")
                 engine.process(box, protocol)
               case None => Failure(new JSON2ProtocolException(NextGameInvitationIsClosedAnalysisEngine.name))
             }

@@ -8,6 +8,8 @@ final case class JsonPlayedWithToken(to: String, json: JsonPlayed) extends Eleme
 
 object JsonPlayedWithToken {
 
+  val `type`: String = "playedWithToken"
+
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
