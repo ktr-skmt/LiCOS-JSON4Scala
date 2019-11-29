@@ -39,11 +39,11 @@ final case class ErrorFromServerProtocol(
                 village.maxLengthOfUnicodeCodePoints
               )
             ),
-            village.tokenOpt.get,
-            village.currentPhase,
-            village.currentDay,
-            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
-            village.phaseStartTimeOpt.get,
+            village.token,
+            village.phase,
+            village.day,
+            village.phaseTimeLimit,
+            village.phaseStartTime,
             Option(TimestampGenerator.now),
             None,
             ServerToClient,

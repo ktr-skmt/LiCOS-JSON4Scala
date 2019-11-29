@@ -43,11 +43,11 @@ final case class OnymousAudienceChatFromClientProtocol(
                 village.maxLengthOfUnicodeCodePoints
               )
             ),
-            village.tokenOpt.get,
-            village.currentPhase,
-            village.currentDay,
-            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
-            village.phaseStartTimeOpt.get,
+            village.token,
+            village.phase,
+            village.day,
+            village.phaseTimeLimit,
+            village.phaseStartTime,
             None,
             Option(TimestampGenerator.now),
             ClientToServer,
@@ -57,9 +57,9 @@ final case class OnymousAudienceChatFromClientProtocol(
             None
           ).json,
           AvatarProtocol(
-            village.tokenOpt.get,
-            village.avatarNameOpt.get,
-            village.avatarImageOpt.get
+            village.token,
+            village.myAvatarName,
+            village.myAvatarImage
           ).json(LiCOSOnline.stateVillage(village.id)),
           isMine = true,
           ChatTextProtocol(

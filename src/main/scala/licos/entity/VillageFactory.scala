@@ -1,135 +1,107 @@
 package licos.entity
 
-import java.util.Locale
+import java.net.URL
+import java.time.OffsetDateTime
+import java.util.UUID
 
-import licos.knowledge.{AvatarSetting, Cast, Lobby}
+import licos.knowledge.{Character, Phase, Role}
+import licos.protocol.element.village.part.VillageProtocol
 
 import scala.collection.mutable
-import scala.util.Try
+import scala.concurrent.duration.FiniteDuration
+import scala.util.{Failure, Success, Try}
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial", "org.wartremover.warts.Var"))
-class VillageFactory {
+@SuppressWarnings(
+  Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.MutableDataStructures", "org.wartremover.warts.Var")
+)
+final case class VillageFactory(villageInfoFromLobby: VillageInfoFromLobby) {
 
-  private var id:                           Option[Long]                                = None
-  private var name:                         Option[String]                              = None
-  private var lobby:                        Option[Lobby]                               = None
-  private var hostPlayer:                   Option[HostPlayer]                          = None
-  private var maxNumberOfHumanPlayers:      Option[Int]                                 = None
-  private var maxNumberOfChatMessages:      Option[Int]                                 = None
-  private var maxLengthOfUnicodeCodePoints: Option[Int]                                 = None
-  private var avatarSetting:                Option[AvatarSetting]                       = None
-  private var language:                     Option[Locale]                              = None
-  private var comment:                      Option[String]                              = None
-  private var idForSearching:               Option[Int]                                 = None
-  private var story:                        Option[Int]                                 = None
-  private var cast:                         Option[Cast]                                = None
-  private var avatars:                      Option[mutable.ListBuffer[AvatarInVillage]] = None
+  private var villageProtocol: Option[VillageProtocol]      = None
+  private var token:           Option[UUID]                 = None
+  private var phase:           Option[Phase]                = None
+  private var day:             Option[Int]                  = None
+  private var phaseTimeLimit:  Option[FiniteDuration]       = None
+  private var phaseStartTime:  Option[OffsetDateTime]       = None
+  private var avatars:         Option[Seq[AvatarInVillage]] = None
+  private var chatId:          Option[Int]                  = None
+  private var myAvatarName:    Option[String]               = None
+  private var myAvatarImage:   Option[URL]                  = None
+  private var myCharacter:     Option[Character]            = None
+  private var myRole:          Option[Role]                 = None
 
   def canCreate: Boolean = {
-    id.nonEmpty &&
-    name.nonEmpty &&
-    lobby.nonEmpty &&
-    hostPlayer.nonEmpty &&
-    avatarSetting.nonEmpty &&
-    maxNumberOfHumanPlayers.nonEmpty &&
-    maxNumberOfChatMessages.nonEmpty &&
-    maxLengthOfUnicodeCodePoints.nonEmpty &&
-    language.nonEmpty &&
-    idForSearching.nonEmpty &&
-    story.nonEmpty &&
-    cast.nonEmpty &&
-    avatars.nonEmpty
+    villageProtocol.nonEmpty &&
+    token.nonEmpty &&
+    phase.nonEmpty &&
+    day.nonEmpty &&
+    phaseTimeLimit.nonEmpty &&
+    phaseStartTime.nonEmpty &&
+    avatars.nonEmpty &&
+    myCharacter.nonEmpty &&
+    myRole.nonEmpty &&
+    myAvatarName.nonEmpty &&
+    myAvatarImage.nonEmpty
   }
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial", "org.wartremover.warts.Nothing"))
   def create: Try[Village] = {
     if (canCreate) {
-      Try {
+      Success {
         Village(
-          id.get,
-          name.get,
-          lobby.get,
-          hostPlayer.get,
-          avatarSetting.get,
-          maxNumberOfHumanPlayers.get,
-          maxNumberOfChatMessages.get,
-          maxLengthOfUnicodeCodePoints.get,
-          language.get,
-          comment,
-          idForSearching.get,
-          story.get,
-          cast.get,
-          avatars.get
+          villageInfoFromLobby,
+          villageProtocol.get,
+          token.get,
+          phase.get,
+          day.get,
+          phaseTimeLimit.get,
+          phaseStartTime.get,
+          avatars.get,
+          chatId.getOrElse(-1),
+          myCharacter.get,
+          myRole.get,
+          myAvatarName.get,
+          myAvatarImage.get
         )
       }
     } else {
-      throw new VillageCreationException()
+      Failure(new VillageCreationException())
     }
   }
 
   private class VillageCreationException extends Exception
 
-  def setId(id: Long): VillageFactory = {
-    this.id = Option(id)
+  def setVillageProtocol(villageProtocol: VillageProtocol): VillageFactory = {
+    this.villageProtocol = Option(villageProtocol)
     this
   }
 
-  def setName(name: String): VillageFactory = {
-    this.name = Option(name)
+  def setToken(token: UUID): VillageFactory = {
+    this.token = Option(token)
     this
   }
 
-  def setLobby(lobby: Lobby): VillageFactory = {
-    this.lobby = Option(lobby)
+  def setPhase(phase: Phase): VillageFactory = {
+    this.phase = Option(phase)
     this
   }
 
-  def setHostPlayer(hostPlayer: HostPlayer): VillageFactory = {
-    this.hostPlayer = Option(hostPlayer)
+  def setDay(day: Int): VillageFactory = {
+    this.day = Option(day)
     this
   }
 
-  def setAvatarSetting(avatarSetting: AvatarSetting): VillageFactory = {
-    this.avatarSetting = Option(avatarSetting)
+  def setPhaseTimeLimit(phaseTimeLimit: FiniteDuration): VillageFactory = {
+    this.phaseTimeLimit = Option(phaseTimeLimit)
     this
   }
 
-  def setMaxNumberOfHumanPlayers(maxNumberOfHumanPlayers: Int): VillageFactory = {
-    this.maxNumberOfHumanPlayers = Option(maxNumberOfHumanPlayers)
+  def setPhaseStartTime(phaseStartTime: OffsetDateTime): VillageFactory = {
+    this.phaseStartTime = Option(phaseStartTime)
     this
   }
 
-  def setMaxNumberOfChatMessages(maxNumberOfChatMessages: Int): VillageFactory = {
-    this.maxNumberOfChatMessages = Option(maxNumberOfChatMessages)
-    this
-  }
-
-  def setMaxLengthOfUnicodeCodePoints(maxLengthOfUnicodeCodePoints: Int): VillageFactory = {
-    this.maxLengthOfUnicodeCodePoints = Option(maxLengthOfUnicodeCodePoints)
-    this
-  }
-
-  def setLanguage(language: Locale): VillageFactory = {
-    this.language = Option(language)
-    this
-  }
-
-  def setComment(comment: String): VillageFactory = {
-    this.comment = Option(comment)
-    this
-  }
-
-  def setIdForSearching(idForSearching: Int): VillageFactory = {
-    this.idForSearching = Option(idForSearching)
-    this
-  }
-
-  def setStory(story: Int): VillageFactory = {
-    this.story = Option(story)
-    this
-  }
-
-  def setCast(cast: Cast): VillageFactory = {
-    this.cast = Option(cast)
+  def setChatId(chatId: Int): VillageFactory = {
+    this.chatId = Option(chatId)
     this
   }
 
@@ -138,4 +110,23 @@ class VillageFactory {
     this
   }
 
+  def setMyAvatarName(myAvatarName: String): VillageFactory = {
+    this.myAvatarName = Option(myAvatarName)
+    this
+  }
+
+  def setMyAvatarImage(myAvatarImage: URL): VillageFactory = {
+    this.myAvatarImage = Option(myAvatarImage)
+    this
+  }
+
+  def setMyCharacter(myCharacter: Character): VillageFactory = {
+    this.myCharacter = Option(myCharacter)
+    this
+  }
+
+  def setMyRole(myRole: Role): VillageFactory = {
+    this.myRole = Option(myRole)
+    this
+  }
 }

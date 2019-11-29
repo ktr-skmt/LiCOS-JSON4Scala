@@ -170,6 +170,8 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit with LobbyParser {
       case Success(protocol: LobbyMessageProtocol) =>
         protocol match {
           case p: LobbyMessageTestProtocol =>
+            log.error(p.text)
+            log.error(jsonType)
             assert(p.text == jsonType)
           case _ =>
             fail(

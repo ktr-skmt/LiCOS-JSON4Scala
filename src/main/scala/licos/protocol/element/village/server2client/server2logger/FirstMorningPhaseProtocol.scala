@@ -40,7 +40,6 @@ final case class FirstMorningPhaseProtocol(
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
   val json: Option[JsonPhase] = {
-    village.currentPhase = Morning
     if (village.isAvailable) {
       Some(
         new JsonPhase(
@@ -58,11 +57,11 @@ final case class FirstMorningPhaseProtocol(
                 village.maxLengthOfUnicodeCodePoints
               )
             ),
-            village.tokenOpt.get,
-            village.currentPhase,
-            village.currentDay,
-            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
-            village.phaseStartTimeOpt.get,
+            village.token,
+            village.phase,
+            village.day,
+            village.phaseTimeLimit,
+            village.phaseStartTime,
             Option(TimestampGenerator.now),
             None,
             ServerToClient,

@@ -6,17 +6,7 @@ import licos.json.element.village.character.{JsonCharacter, JsonStatusCharacter}
 import licos.json.element.village.iri.{Contexts, SystemMessage}
 import licos.json.element.village.role.JsonRole
 import licos.json.element.village.server2client.JsonPhase
-import licos.knowledge.{
-  Character,
-  Data2Knowledge,
-  Noon,
-  Phase,
-  PolarityMark,
-  PrivateChannel,
-  Role,
-  ServerToClient,
-  Status
-}
+import licos.knowledge.{Character, Data2Knowledge, Phase, PolarityMark, PrivateChannel, Role, ServerToClient, Status}
 import licos.protocol.element.village.part.{
   BaseProtocol,
   BoardResultProtocol,
@@ -40,7 +30,6 @@ final case class NoonPhaseProtocol(
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
   val json: Option[JsonPhase] = {
-    village.currentPhase = Noon
     if (village.isAvailable) {
       Some(
         new JsonPhase(
@@ -58,11 +47,11 @@ final case class NoonPhaseProtocol(
                 village.maxLengthOfUnicodeCodePoints
               )
             ),
-            village.tokenOpt.get,
-            village.currentPhase,
-            village.currentDay,
-            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
-            village.phaseStartTimeOpt.get,
+            village.token,
+            village.phase,
+            village.day,
+            village.phaseTimeLimit,
+            village.phaseStartTime,
             Option(TimestampGenerator.now),
             None,
             ServerToClient,

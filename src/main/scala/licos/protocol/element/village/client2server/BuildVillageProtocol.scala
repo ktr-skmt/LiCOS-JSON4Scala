@@ -12,7 +12,7 @@ final case class BuildVillageProtocol(village: Village) extends Client2ServerVil
     if (village.isAvailable) {
       Some(
         new JsonBuildVillage(
-          village.tokenOpt.get.toString,
+          village.token.toString,
           village.name,
           -1,
           -1,

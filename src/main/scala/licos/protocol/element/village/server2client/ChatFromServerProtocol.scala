@@ -41,13 +41,13 @@ object ChatFromServerProtocol {
     val channelOpt: Option[PlayerChatChannel] =
       Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)
 
-    if (channelOpt.nonEmpty && village.myCharacterOpt.nonEmpty && village.myRoleOpt.nonEmpty) {
+    if (channelOpt.nonEmpty) {
       Some(
         ChatFromServerProtocol(
           village,
           channelOpt.get,
           SimpleCharacterProtocol(
-            village.myCharacterOpt.get,
+            village.myCharacter,
             village.id,
             village.language
           ),

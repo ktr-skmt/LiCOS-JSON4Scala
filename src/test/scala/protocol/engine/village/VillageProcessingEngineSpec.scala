@@ -1,10 +1,9 @@
 package protocol.engine.village
 
 import java.nio.charset.StandardCharsets
-import java.util.Locale
 
 import com.typesafe.scalalogging.Logger
-import licos.entity.{AvatarInVillage, HostPlayer, Village, VillageFactory}
+import licos.entity.{HostPlayer, VillageInfoFromLobby}
 import licos.json.parser.VillageParser
 import licos.knowledge.{Cast, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
 import licos.protocol.element.village.VillageMessageProtocol
@@ -38,6 +37,7 @@ import protocol.engine.village.analysis.client2server.{
   VoteAE
 }
 import protocol.engine.village.example.client2server.{
+  AnonymousAudienceChatFromClient,
   Board,
   ChatFromClient,
   ErrorFromClient,
@@ -67,7 +67,6 @@ import protocol.engine.village.example.server2client.{
   PostMortemDiscussion
 }
 
-import scala.collection.mutable.ListBuffer
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success}
 
@@ -75,9 +74,9 @@ object VillageProcessingEngineSpec {
   @DataPoints
   def exampleSeq: Array[VillageExample] = Array[VillageExample](
     ReceivedChatMessage("receipt/receivedChatMessage.json"),
-    ReceivedFlavorTextMessage("receipt/receivedFlavorTestMessage.json"),
+    ReceivedFlavorTextMessage("receipt/receivedFlavorTextMessage.json"),
     ReceivedSystemMessage("receipt/receivedSystemMessage.json"),
-    ChatFromClient("anonymousAudienceChat.jsonld"),
+    AnonymousAudienceChatFromClient("anonymousAudienceChat.jsonld"),
     Board("board.jsonld"),
     ChatFromClient("chat.jsonld"),
     ErrorFromClient("error.jsonld"),
@@ -141,56 +140,48 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit with VillageParser 
       isAnonymous = true,
       HumanArchitecture
     )
-    val avatars = ListBuffer.empty[AvatarInVillage]
-    val cast: Cast = Cast.playerNumRoleNumMap(15)("A")
-    val villageFactory = new VillageFactory()
-      .setId(1L)
-      .setName("Fearwick")
-      .setLobby(HumanPlayerLobby)
-      .setHostPlayer(hostPlayer)
-      .setAvatarSetting(RandomAvatarSetting)
-      .setMaxNumberOfHumanPlayers(15)
-      .setMaxNumberOfChatMessages(10)
-      .setMaxLengthOfUnicodeCodePoints(140)
-      .setLanguage(Locale.JAPANESE)
-      .setStory(1)
-      .setIdForSearching(1)
-      .setCast(cast)
-      .setAvatars(avatars)
+    val villageInfoFromLobby = VillageInfoFromLobby(
+      HumanPlayerLobby,
+      hostPlayer,
+      Cast.playerNumRoleNumMap(15)("A"),
+      1,
+      RandomAvatarSetting,
+      15,
+      None
+    )
 
-    villageFactory.create match {
-      case Success(village: Village) =>
-        val box = new VillageBox(village)
+    val box = new VillageBox(villageInfoFromLobby)
 
-        val jsonType:       String = jsonExample.`type`
-        val url:            String = jsonExample.path
-        implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-        log.info(url)
-        val source = Source.fromURL(url)
-        val msg: String = source.getLines.mkString("\n")
-        source.close()
-        log.debug(msg)
-        processingEngine.process(box, msg) match {
-          case Success(protocol: VillageMessageProtocol) =>
-            protocol match {
-              case p: VillageMessageTestProtocol =>
-                assert(p.text == jsonType)
-              case _ =>
-                fail(
-                  Seq[String](
-                    "No AuthMessageTestProtocol"
-                  ).mkString("\n")
-                )
-            }
-          case Failure(error: Throwable) =>
+    val jsonType:       String = jsonExample.`type`
+    val url:            String = jsonExample.path
+    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+    log.info(url)
+    val source = Source.fromURL(url)
+    val msg: String = source.getLines.mkString("\n")
+    source.close()
+    log.debug(msg)
+    processingEngine.process(box, msg) match {
+      case Success(protocol: VillageMessageProtocol) =>
+        protocol match {
+          case p: VillageMessageTestProtocol =>
+            log.error(p.text)
+            log.error(jsonType)
+            assert(p.text == jsonType)
+          case _ =>
             fail(
               Seq[String](
-                "No response is generated.",
-                error.getMessage,
-                msg
+                "No AuthMessageTestProtocol"
               ).mkString("\n")
             )
         }
+      case Failure(error: Throwable) =>
+        fail(
+          Seq[String](
+            "No response is generated.",
+            error.getMessage,
+            msg
+          ).mkString("\n")
+        )
     }
   }
 }

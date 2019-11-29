@@ -4,7 +4,7 @@ import licos.entity.Village
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{ChatMessage, Contexts}
 import licos.json.element.village.server2client.JsonChatFromServer
-import licos.knowledge.{Character, Data2Knowledge, Morning, Role, ServerToClient, Status}
+import licos.knowledge.{Character, Data2Knowledge, Role, ServerToClient, Status}
 import licos.protocol.PlayerChatChannel
 import licos.protocol.element.village.part.character.{SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, ChatTextProtocol, VillageProtocol}
@@ -28,7 +28,6 @@ final case class ChatFromServerProtocol(
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
   val json: Option[JsonChatFromServer] = {
-    village.currentPhase = Morning
     if (village.isAvailable) {
       Some(
         new JsonChatFromServer(
@@ -46,11 +45,11 @@ final case class ChatFromServerProtocol(
                 village.maxLengthOfUnicodeCodePoints
               )
             ),
-            village.tokenOpt.get,
-            village.currentPhase,
-            village.currentDay,
-            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
-            village.phaseStartTimeOpt.get,
+            village.token,
+            village.phase,
+            village.day,
+            village.phaseTimeLimit,
+            village.phaseStartTime,
             Option(TimestampGenerator.now),
             None,
             ServerToClient,
@@ -98,7 +97,7 @@ object ChatFromServerProtocol {
     val channelOpt: Option[PlayerChatChannel] =
       Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)
 
-    if (channelOpt.nonEmpty && village.myCharacterOpt.nonEmpty && village.myRoleOpt.nonEmpty) {
+    if (channelOpt.nonEmpty) {
 
       val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]
       json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
@@ -123,7 +122,7 @@ object ChatFromServerProtocol {
           village,
           channelOpt.get,
           SimpleCharacterProtocol(
-            village.myCharacterOpt.get,
+            village.myCharacter,
             village.id,
             village.language
           ),

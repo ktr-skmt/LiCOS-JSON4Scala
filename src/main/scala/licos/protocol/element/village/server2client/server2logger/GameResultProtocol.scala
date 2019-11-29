@@ -1,11 +1,13 @@
 package licos.protocol.element.village.server2client.server2logger
 
+import java.net.URL
+
 import licos.entity.Village
 import licos.json.element.village.character.{JsonResultCharacter, JsonSimpleCharacter, JsonStatusCharacter}
 import licos.json.element.village.iri.{Contexts, SystemMessage}
 import licos.json.element.village.role.JsonResultRole
 import licos.json.element.village.server2client.JsonGameResult
-import licos.knowledge.{Character, Data2Knowledge, Outcome, PublicChannel, Result, Role, ServerToClient, Status}
+import licos.knowledge.{Character, Data2Knowledge, Outcome, PublicChannel, Role, ServerToClient, Status}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
 import licos.protocol.element.village.part.character.{
   ResultCharacterProtocol,
@@ -27,7 +29,6 @@ final case class GameResultProtocol(
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
   val json: Option[JsonGameResult] = {
-    village.currentPhase = Result
     if (village.isAvailable) {
       Some(
         new JsonGameResult(
@@ -45,11 +46,11 @@ final case class GameResultProtocol(
                 village.maxLengthOfUnicodeCodePoints
               )
             ),
-            village.tokenOpt.get,
-            village.currentPhase,
-            village.currentDay,
-            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
-            village.phaseStartTimeOpt.get,
+            village.token,
+            village.phase,
+            village.day,
+            village.phaseTimeLimit,
+            village.phaseStartTime,
             Option(TimestampGenerator.now),
             None,
             ServerToClient,
@@ -95,16 +96,16 @@ object GameResultProtocol {
       val roleOpt:   Option[Role]    = village.cast.parse(jsonResultCharacter.role.name.en)
       val statusOpt: Option[Status]  = Data2Knowledge.statusOpt(jsonResultCharacter.status)
       val resultOpt: Option[Outcome] = Data2Knowledge.outcomeOpt(jsonResultCharacter.result)
-      if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty && resultOpt.nonEmpty && village.tokenOpt.nonEmpty) {
+      if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty && resultOpt.nonEmpty) {
         characterBuffer += ResultCharacterProtocol(
           characterOpt.get,
           jsonResultCharacter.isMine,
           roleOpt.get,
           statusOpt.get,
           resultOpt.get,
-          village.tokenOpt.get,
+          village.token,
           jsonResultCharacter.avatar.name,
-          jsonResultCharacter.avatar.image,
+          new URL(jsonResultCharacter.avatar.image),
           village.id,
           village.language
         )

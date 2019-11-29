@@ -1,5 +1,7 @@
 package licos.protocol.element.village.server2client
 
+import java.net.URL
+
 import licos.entity.Village
 import licos.json.element.village.character.{JsonResultCharacter, JsonSimpleCharacter}
 import licos.json.element.village.role.JsonResultRole
@@ -49,16 +51,16 @@ object GameResultProtocol {
       val roleOpt:   Option[Role]    = village.cast.parse(jsonResultCharacter.role.name.en)
       val statusOpt: Option[Status]  = Data2Knowledge.statusOpt(jsonResultCharacter.status)
       val resultOpt: Option[Outcome] = Data2Knowledge.outcomeOpt(jsonResultCharacter.result)
-      if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty && resultOpt.nonEmpty && village.tokenOpt.nonEmpty) {
+      if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty && resultOpt.nonEmpty) {
         characterBuffer += ResultCharacterProtocol(
           characterOpt.get,
           jsonResultCharacter.isMine,
           roleOpt.get,
           statusOpt.get,
           resultOpt.get,
-          village.tokenOpt.get,
+          village.token,
           jsonResultCharacter.avatar.name,
-          jsonResultCharacter.avatar.image,
+          new URL(jsonResultCharacter.avatar.image),
           village.id,
           village.language
         )

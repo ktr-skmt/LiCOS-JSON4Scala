@@ -1,82 +1,52 @@
 package licos.entity
 
+import java.net.URL
 import java.time.OffsetDateTime
 import java.util.{Locale, UUID}
 
-import licos.knowledge.{Alive, Architecture, AvatarSetting, Cast, Character, Lobby, Morning, Phase, Role}
+import licos.knowledge.{Alive, AvatarSetting, Cast, Character, Lobby, Phase, Role}
+import licos.protocol.element.village.part.VillageProtocol
 
-import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
+import scala.concurrent.duration.FiniteDuration
 
-@SuppressWarnings(
-  Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.MutableDataStructures", "org.wartremover.warts.Var")
-)
 final case class Village(
-    id:                           Long,
-    name:                         String,
-    lobby:                        Lobby,
-    hostPlayer:                   HostPlayer,
-    avatarSetting:                AvatarSetting,
-    maxNumberOfHumanPlayers:      Int,
-    maxNumberOfChatMessages:      Int,
-    maxLengthOfUnicodeCodePoints: Int,
-    language:                     Locale,
-    comment:                      Option[String],
-    idForSearching:               Int,
-    story:                        Int,
-    cast:                         Cast,
-    avatars:                      mutable.ListBuffer[AvatarInVillage]
+    private val villageInfoFromLobby: VillageInfoFromLobby,
+    private val village:              VillageProtocol,
+    token:                            UUID,
+    phase:                            Phase,
+    day:                              Int,
+    phaseTimeLimit:                   FiniteDuration,
+    phaseStartTime:                   OffsetDateTime,
+    avatars:                          Seq[AvatarInVillage],
+    chatId:                           Int,
+    myCharacter:                      Character,
+    myRole:                           Role,
+    myAvatarName:                     String,
+    myAvatarImage:                    URL
 ) {
 
-  var currentPhase:      Phase                   = Morning
-  var currentDay:        Int                     = 1
-  var phaseStartTimeOpt: Option[OffsetDateTime]  = Option.empty[OffsetDateTime]
-  var currentChatId:     Int                     = 0
-  var myAvatarOpt:       Option[AvatarInVillage] = Option.empty[AvatarInVillage]
-  var myCharacterOpt:    Option[Character]       = Option.empty[Character]
-  var myRoleOpt:         Option[Role]            = Option.empty[Role]
-  def tokenOpt: Option[UUID] = {
-    myAvatarOpt flatMap { avatar: AvatarInVillage =>
-      avatar match {
-        case player:          PlayerInVillage            => Option(player.token)
-        case onymousAudience: OnymousAudienceInVillage   => Option(onymousAudience.token)
-        case _:               AnonymousAudienceInVillage => None
-      }
-    }
-  }
+  def id:                           Long   = village.id
+  def name:                         String = village.name
+  def language:                     Locale = village.language
+  def totalNumberOfPlayers:         Int    = village.totalNumberOfPlayers
+  def maxNumberOfChatMessages:      Int    = village.chatSettings.maxNumberOfChatMessages
+  def maxLengthOfUnicodeCodePoints: Int    = village.chatSettings.maxLengthOfUnicodeCodePoints
 
-  def avatarNameOpt: Option[String] = {
-    myAvatarOpt flatMap { avatar: AvatarInVillage =>
-      avatar match {
-        case player:          PlayerInVillage            => Option(player.name)
-        case onymousAudience: OnymousAudienceInVillage   => Option(onymousAudience.name)
-        case _:               AnonymousAudienceInVillage => None
-      }
-    }
-  }
+  def cast:                    Cast           = villageInfoFromLobby.cast
+  def comment:                 Option[String] = villageInfoFromLobby.comment
+  def hostPlayer:              HostPlayer     = villageInfoFromLobby.hostPlayer
+  def idForSearching:          Int            = villageInfoFromLobby.idForSearching
+  def lobby:                   Lobby          = villageInfoFromLobby.lobby
+  def avatarSetting:           AvatarSetting  = villageInfoFromLobby.avatarSetting
+  def maxNumberOfHumanPlayers: Int            = villageInfoFromLobby.maxNumberOfHumanPlayers
 
-  def avatarImageOpt: Option[String] = {
-    myAvatarOpt flatMap { avatar: AvatarInVillage =>
-      avatar match {
-        case player:          PlayerInVillage            => Option(player.image)
-        case onymousAudience: OnymousAudienceInVillage   => Option(onymousAudience.image)
-        case _:               AnonymousAudienceInVillage => None
-      }
-    }
-  }
-
-  def isAvailable: Boolean = {
-    phaseStartTimeOpt.nonEmpty &&
-    myAvatarOpt.nonEmpty &&
-    myCharacterOpt.nonEmpty &&
-    myRoleOpt.nonEmpty
-  }
-
+  @SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
   def alivePlayers: Seq[PlayerInVillage] = {
     val playerBuffer = ListBuffer.empty[PlayerInVillage]
     import cats.implicits._
     avatars foreach {
-      case player: PlayerInVillage if player.status(currentPhase, currentDay).label === Alive.label =>
+      case player: PlayerInVillage if player.status(phase, day).label === Alive.label =>
         playerBuffer += player
       case _ =>
     }
@@ -85,11 +55,5 @@ final case class Village(
 
   def numberOfAlivePlayers: Int = alivePlayers.size
 
+  def isAvailable: Boolean = true
 }
-
-final case class HostPlayer(
-    id:           Long,
-    name:         String,
-    isAnonymous:  Boolean,
-    architecture: Architecture
-)

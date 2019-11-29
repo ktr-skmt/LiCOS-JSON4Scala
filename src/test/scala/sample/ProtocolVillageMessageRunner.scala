@@ -1,6 +1,7 @@
 package sample
 
-import licos.entity.{Village, VillageFactory}
+import licos.entity.{HostPlayer, VillageInfoFromLobby}
+import licos.knowledge.{Cast, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.engine.processing.{
   SpecificProcessingEngineFactory,
@@ -30,19 +31,28 @@ object ProtocolVillageMessageRunner extends App {
     json
   }
 
-  private val villageFactory: VillageFactory = new VillageFactory()
-  // set parameters
-  villageFactory.create match {
-    case Success(village: Village) =>
-      val anExampleOfBOX: VillageBOX = new VillageBox(village)
+  private val hostPlayer = HostPlayer(
+    1L,
+    "Christopher",
+    isAnonymous = true,
+    HumanArchitecture
+  )
+  private val villageInfoFromLobby = VillageInfoFromLobby(
+    HumanPlayerLobby,
+    hostPlayer,
+    Cast.playerNumRoleNumMap(15)("A"),
+    1,
+    RandomAvatarSetting,
+    15,
+    None
+  )
 
-      processingEngine.process(anExampleOfBOX, aJSONExampleOfTheLiCOSProtocol) match {
-        case Success(protocol: VillageMessageProtocol) =>
-          protocol.toJsonOpt foreach { json: JsValue =>
-            System.err.println(Json.prettyPrint(json))
-          }
-        case Failure(exception: Throwable) =>
-          System.err.println(exception.getMessage)
+  val anExampleOfBOX: VillageBOX = new VillageBox(villageInfoFromLobby)
+
+  processingEngine.process(anExampleOfBOX, aJSONExampleOfTheLiCOSProtocol) match {
+    case Success(protocol: VillageMessageProtocol) =>
+      protocol.toJsonOpt foreach { json: JsValue =>
+        System.err.println(Json.prettyPrint(json))
       }
     case Failure(exception: Throwable) =>
       System.err.println(exception.getMessage)

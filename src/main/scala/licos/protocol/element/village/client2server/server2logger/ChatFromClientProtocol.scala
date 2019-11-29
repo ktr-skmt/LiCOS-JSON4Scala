@@ -44,11 +44,11 @@ final case class ChatFromClientProtocol(
                 village.maxLengthOfUnicodeCodePoints
               )
             ),
-            village.tokenOpt.get,
-            village.currentPhase,
-            village.currentDay,
-            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
-            village.phaseStartTimeOpt.get,
+            village.token,
+            village.phase,
+            village.day,
+            village.phaseTimeLimit,
+            village.phaseStartTime,
             None,
             Option(TimestampGenerator.now),
             ClientToServer,
@@ -58,13 +58,13 @@ final case class ChatFromClientProtocol(
             None
           ).json,
           RoleCharacterProtocol(
-            village.myCharacterOpt.get,
-            village.myRoleOpt.get,
+            village.myCharacter,
+            village.myRole,
             village.id,
             village.language
           ).json,
           SimpleCharacterProtocol(
-            village.myCharacterOpt.get,
+            village.myCharacter,
             village.id,
             village.language
           ).json(LiCOSOnline.stateVillage.concat(s"#${village.id}")),

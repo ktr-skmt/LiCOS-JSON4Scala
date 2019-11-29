@@ -41,11 +41,11 @@ final case class StarProtocol(
                 village.maxLengthOfUnicodeCodePoints
               )
             ),
-            village.tokenOpt.get,
-            village.currentPhase,
-            village.currentDay,
-            village.currentPhase.timeLimit(village.currentDay, village.numberOfAlivePlayers).get,
-            village.phaseStartTimeOpt.get,
+            village.token,
+            village.phase,
+            village.day,
+            village.phaseTimeLimit,
+            village.phaseStartTime,
             None,
             Option(TimestampGenerator.now),
             ClientToServer,
@@ -55,14 +55,14 @@ final case class StarProtocol(
             None
           ).json,
           RoleCharacterProtocol(
-            village.myCharacterOpt.get,
-            village.myRoleOpt.get,
+            village.myCharacter,
+            village.myRole,
             village.id,
             village.language
           ).json,
           StarInfoProtocol(
             village.id,
-            village.tokenOpt.get,
+            village.token,
             serverTimestamp,
             clientTimestamp,
             isMarked

@@ -1,5 +1,6 @@
 package licos.protocol.element.village.part.character
 
+import java.net.URL
 import java.util.{Locale, UUID}
 
 import licos.json.element.village.character.JsonResultCharacter
@@ -17,7 +18,7 @@ final case class ResultCharacterProtocol(
     result:      Outcome,
     token:       UUID,
     avatarName:  String,
-    avatarImage: String,
+    avatarImage: URL,
     villageId:   Long,
     language:    Locale
 ) {

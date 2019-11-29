@@ -22,7 +22,7 @@ final case class AnonymousAudienceChatFromClientProtocol(village: Village, text:
 object AnonymousAudienceChatFromClientProtocol {
 
   def read(json: JsonAnonymousAudienceChat, village: Village): Option[AnonymousAudienceChatFromClientProtocol] = {
-    if (village.isAvailable && !json.isFromServer) {
+    if (!json.isFromServer) {
       Some(
         AnonymousAudienceChatFromClientProtocol(
           village,

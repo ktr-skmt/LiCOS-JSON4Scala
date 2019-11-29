@@ -11,7 +11,7 @@ final case class ReadyProtocol(village: Village) extends Client2ServerVillageMes
     if (village.isAvailable) {
       Some(
         new JsonReady(
-          village.tokenOpt.get.toString,
+          village.token.toString,
           village.id
         )
       )
