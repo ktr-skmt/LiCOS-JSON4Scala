@@ -50,6 +50,6 @@ case object Result extends Phase("result") {
   override def timeLimit(day: Int, numberOfAlivePlayers: Int): Option[FiniteDuration] = Option.empty[FiniteDuration]
 }
 
-case object PostMortemDiscussion extends Phase("postmortem") {
+case object PostMortemDiscussion extends Phase("post-mortem discussion") {
   override def timeLimit(day: Int, numberOfAlivePlayers: Int): Option[FiniteDuration] = Some((24 * 60 * 60).seconds)
 }

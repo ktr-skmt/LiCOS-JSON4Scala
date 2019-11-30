@@ -45,7 +45,8 @@ import protocol.engine.village.analysis.server2client.{
   NextGameInvitationIsClosedAE,
   NightPhaseAE,
   NoonPhaseAE,
-  OnymousAudienceChatFromServerAE
+  OnymousAudienceChatFromServerAE,
+  PostMortemDiscussionAE
 }
 import protocol.engine.village.example.client2server.{
   AnonymousAudienceChatFromClient,
@@ -151,6 +152,7 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit with VillageParser 
     .set(new NightPhaseAE())
     .set(new NoonPhaseAE())
     .set(new OnymousAudienceChatFromServerAE())
+    .set(new PostMortemDiscussionAE())
 
   private val processingEngine: VillageProcessingEngine = processingEngineFactory.create
 

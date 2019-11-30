@@ -12,7 +12,7 @@ import licos.json.element.village.receipt.{
 import licos.json.element.village.server2client.{JsonChatFromServer, JsonFlavorText, JsonGameResult, JsonPhase}
 import licos.json.element.village.{JsonAnonymousAudienceChat, JsonError, JsonOnymousAudienceChat}
 import licos.json.flow.{FlowController, VillageFlowController}
-import licos.knowledge.{Morning, Night, Noon}
+import licos.knowledge.{Morning, Night, Noon, PostMortemDiscussion}
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.client2server.{
   AnonymousAudienceChatFromClientProtocol,
@@ -44,7 +44,8 @@ import licos.protocol.element.village.server2client.{
   NextGameInvitationProtocol,
   NightPhaseProtocol,
   NoonPhaseProtocol,
-  OnymousAudienceChatFromServerProtocol
+  OnymousAudienceChatFromServerProtocol,
+  PostMortemDiscussionProtocol
 }
 import licos.protocol.engine.analysis.village.client2server._
 import licos.protocol.engine.analysis.village.server2client._
@@ -81,7 +82,8 @@ class VillageProcessingEngine(
     nextGameInvitationIsClosedAnalysisEngine:      Option[NextGameInvitationIsClosedAnalysisEngine],
     nightPhaseAnalysisEngine:                      Option[NightPhaseAnalysisEngine],
     noonPhaseAnalysisEngine:                       Option[NoonPhaseAnalysisEngine],
-    onymousAudienceChatFromServerAnalysisEngine:   Option[OnymousAudienceChatFromServerAnalysisEngine]
+    onymousAudienceChatFromServerAnalysisEngine:   Option[OnymousAudienceChatFromServerAnalysisEngine],
+    postMortemDiscussionAnalysisEngine:            Option[PostMortemDiscussionAnalysisEngine]
 ) extends ProcessingEngine {
 
   override protected val flowController: FlowController = new VillageFlowController()
@@ -394,6 +396,19 @@ class VillageProcessingEngine(
                   case None => Failure(new JSON2ProtocolException(NightPhaseAnalysisEngine.name))
                 }
               case None => Failure(new NoEngineException(NightPhaseAnalysisEngine.name))
+            }
+          case PostMortemDiscussion.label =>
+            postMortemDiscussionAnalysisEngine match {
+              case Some(engine: PostMortemDiscussionAnalysisEngine) =>
+                log("PostMortemDiscussionAnalysisEngine")
+                PostMortemDiscussionProtocol.read(json, box.villageInfoFromLobby) match {
+                  case Some(protocol) =>
+                    engine.process(box, protocol)
+                  case None =>
+                    Failure(new JSON2ProtocolException(PostMortemDiscussionAnalysisEngine.name))
+                }
+              case None =>
+                Failure(new NoEngineException(PostMortemDiscussionAnalysisEngine.name))
             }
           case _ => Failure(new NoEngineException("PhaseAnalysisEngine"))
         }

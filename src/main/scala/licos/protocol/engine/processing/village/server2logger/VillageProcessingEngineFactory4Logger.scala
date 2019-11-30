@@ -29,6 +29,7 @@ class VillageProcessingEngineFactory4Logger extends ProcessingEngineFactory {
   private var nightPhaseAnalysisEngine:                    Option[NightPhaseAnalysisEngine]                    = None
   private var noonPhaseAnalysisEngine:                     Option[NoonPhaseAnalysisEngine]                     = None
   private var onymousAudienceChatFromServerAnalysisEngine: Option[OnymousAudienceChatFromServerAnalysisEngine] = None
+  private var postMortemDiscussionAnalysisEngine:          Option[PostMortemDiscussionAnalysisEngine]          = None
 
   override def create: VillageProcessingEngine4Logger = {
     new VillageProcessingEngine4Logger(
@@ -51,7 +52,8 @@ class VillageProcessingEngineFactory4Logger extends ProcessingEngineFactory {
       morningPhaseAnalysisEngine,
       nightPhaseAnalysisEngine,
       noonPhaseAnalysisEngine,
-      onymousAudienceChatFromServerAnalysisEngine
+      onymousAudienceChatFromServerAnalysisEngine,
+      postMortemDiscussionAnalysisEngine
     )
   }
 
@@ -164,6 +166,13 @@ class VillageProcessingEngineFactory4Logger extends ProcessingEngineFactory {
       onymousAudienceChatFromServerAnalysisEngine: OnymousAudienceChatFromServerAnalysisEngine
   ): VillageProcessingEngineFactory4Logger = {
     this.onymousAudienceChatFromServerAnalysisEngine = Option(onymousAudienceChatFromServerAnalysisEngine)
+    this
+  }
+
+  def set(
+      postMortemDiscussionAnalysisEngine: PostMortemDiscussionAnalysisEngine
+  ): VillageProcessingEngineFactory4Logger = {
+    this.postMortemDiscussionAnalysisEngine = Option(postMortemDiscussionAnalysisEngine)
     this
   }
 }

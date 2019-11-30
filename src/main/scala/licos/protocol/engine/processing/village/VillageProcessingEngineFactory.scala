@@ -37,6 +37,7 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
   private var nightPhaseAnalysisEngine:                    Option[NightPhaseAnalysisEngine]                    = None
   private var noonPhaseAnalysisEngine:                     Option[NoonPhaseAnalysisEngine]                     = None
   private var onymousAudienceChatFromServerAnalysisEngine: Option[OnymousAudienceChatFromServerAnalysisEngine] = None
+  private var postMortemDiscussionAnalysisEngine:          Option[PostMortemDiscussionAnalysisEngine]          = None
 
   override def create: VillageProcessingEngine = {
     new VillageProcessingEngine(
@@ -67,7 +68,8 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
       nextGameInvitationIsClosedAnalysisEngine,
       nightPhaseAnalysisEngine,
       noonPhaseAnalysisEngine,
-      onymousAudienceChatFromServerAnalysisEngine
+      onymousAudienceChatFromServerAnalysisEngine,
+      postMortemDiscussionAnalysisEngine
     )
   }
 
@@ -220,6 +222,11 @@ class VillageProcessingEngineFactory extends ProcessingEngineFactory {
       onymousAudienceChatFromServerAnalysisEngine: OnymousAudienceChatFromServerAnalysisEngine
   ): VillageProcessingEngineFactory = {
     this.onymousAudienceChatFromServerAnalysisEngine = Option(onymousAudienceChatFromServerAnalysisEngine)
+    this
+  }
+
+  def set(postMortemDiscussionAnalysisEngine: PostMortemDiscussionAnalysisEngine): VillageProcessingEngineFactory = {
+    this.postMortemDiscussionAnalysisEngine = Option(postMortemDiscussionAnalysisEngine)
     this
   }
 }

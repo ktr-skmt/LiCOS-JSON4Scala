@@ -5,7 +5,7 @@ import licos.json.element.village.client2server._
 import licos.json.element.village.server2client.{JsonChatFromServer, JsonFlavorText, JsonGameResult, JsonPhase}
 import licos.json.element.village.{JsonAnonymousAudienceChat, JsonError, JsonOnymousAudienceChat}
 import licos.json.flow.{FlowController, VillageFlowController}
-import licos.knowledge.{Morning, Night, Noon}
+import licos.knowledge.{Morning, Night, Noon, PostMortemDiscussion}
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.client2server.server2logger.{
   AnonymousAudienceChatFromClientProtocol,
@@ -29,7 +29,8 @@ import licos.protocol.element.village.server2client.server2logger.{
   MorningPhaseProtocol,
   NightPhaseProtocol,
   NoonPhaseProtocol,
-  OnymousAudienceChatFromServerProtocol
+  OnymousAudienceChatFromServerProtocol,
+  PostMortemDiscussionProtocol
 }
 import licos.protocol.engine.analysis.village.client2server.server2logger._
 import licos.protocol.engine.analysis.village.server2client.server2logger._
@@ -59,7 +60,8 @@ class VillageProcessingEngine4Logger(
     morningPhaseAnalysisEngine:                    Option[MorningPhaseAnalysisEngine],
     nightPhaseAnalysisEngine:                      Option[NightPhaseAnalysisEngine],
     noonPhaseAnalysisEngine:                       Option[NoonPhaseAnalysisEngine],
-    onymousAudienceChatFromServerAnalysisEngine:   Option[OnymousAudienceChatFromServerAnalysisEngine]
+    onymousAudienceChatFromServerAnalysisEngine:   Option[OnymousAudienceChatFromServerAnalysisEngine],
+    postMortemDiscussionAnalysisEngine:            Option[PostMortemDiscussionAnalysisEngine]
 ) extends ProcessingEngine {
 
   override protected val flowController: FlowController = new VillageFlowController()
@@ -229,22 +231,15 @@ class VillageProcessingEngine4Logger(
         }
       case Right(json: JsonVote) =>
         log("JsonVote")
-        logger.error("test 25")
         voteAnalysisEngine match {
           case Some(engine: VoteAnalysisEngine) =>
-            logger.error("test 26")
             log("VoteAnalysisEngine")
             VoteProtocol.read(json, box.villageInfoFromLobby) match {
               case Some(protocol) =>
-                logger.error("test 27")
                 engine.process(box, protocol)
-              case None =>
-                logger.error("test 28")
-                Failure(new JSON2ProtocolException(VoteAnalysisEngine.name))
+              case None => Failure(new JSON2ProtocolException(VoteAnalysisEngine.name))
             }
-          case None =>
-            logger.error("test 29")
-            Failure(new NoEngineException(VoteAnalysisEngine.name))
+          case None => Failure(new NoEngineException(VoteAnalysisEngine.name))
         }
       case Right(json: JsonChatFromServer) =>
         log("JsonChatFromServer")
@@ -307,6 +302,17 @@ class VillageProcessingEngine4Logger(
                   case None => Failure(new JSON2ProtocolException(NightPhaseAnalysisEngine.name))
                 }
               case None => Failure(new NoEngineException(NightPhaseAnalysisEngine.name))
+            }
+          case PostMortemDiscussion.label =>
+            postMortemDiscussionAnalysisEngine match {
+              case Some(engine: PostMortemDiscussionAnalysisEngine) =>
+                log("PostMortemDiscussionAnalysisEngine")
+                PostMortemDiscussionProtocol.read(json, box.villageInfoFromLobby) match {
+                  case Some(protocol) =>
+                    engine.process(box, protocol)
+                  case None => Failure(new JSON2ProtocolException(PostMortemDiscussionAnalysisEngine.name))
+                }
+              case None => Failure(new NoEngineException(PostMortemDiscussionAnalysisEngine.name))
             }
           case _ => Failure(new NoEngineException("PhaseAnalysisEngine"))
         }
