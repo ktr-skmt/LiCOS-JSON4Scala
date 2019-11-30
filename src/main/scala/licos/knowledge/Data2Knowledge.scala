@@ -134,10 +134,7 @@ object Data2Knowledge {
         case 'u' => Some(Uma())
         case 'v' => Some(Valeria())
         case 'y' => Some(Yihan())
-        case _   =>
-          //TODO
-          //None
-          Some(Adil())
+        case _   => None
       }
     }
     retOpt.map(_.setId(id))
