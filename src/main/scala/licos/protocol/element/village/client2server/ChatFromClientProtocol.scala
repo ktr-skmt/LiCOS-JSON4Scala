@@ -37,7 +37,7 @@ object ChatFromClientProtocol {
           Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)
         val myCharacterOpt: Option[Character] =
           Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-        val myRoleOpt: Option[Role] = village.cast.parse(json.myCharacter.name.en)
+        val myRoleOpt: Option[Role] = village.cast.parse(json.myCharacter.role.name.en)
         if (channelOpt.nonEmpty && myCharacterOpt.nonEmpty && myRoleOpt.nonEmpty) {
           Some(
             ChatFromClientProtocol(

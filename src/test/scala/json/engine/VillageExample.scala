@@ -29,3 +29,10 @@ object ReceiptVillageExample {
 object InvitationVillageExample {
   def invitation(filePath: String): String = "invitation/".concat(filePath)
 }
+
+abstract class ServerToLoggerVillageExample(filePath: String)
+    extends VillageExample(ServerToLoggerVillageExample.server2logger(filePath))
+
+object ServerToLoggerVillageExample {
+  def server2logger(filePath: String): String = "server2logger/".concat(filePath)
+}

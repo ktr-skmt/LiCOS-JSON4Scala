@@ -5,6 +5,6 @@ sealed abstract class PolarityMark(val label: String) {
 }
 
 case object QuestionMark extends PolarityMark("?")
-case object CrossMark extends PolarityMark("x")
+case object CrossMark extends PolarityMark("X")
 case object TriangleMark extends PolarityMark("Δ")
-case object CircleMark extends PolarityMark("o")
+case object CircleMark extends PolarityMark("O")

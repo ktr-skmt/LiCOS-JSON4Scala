@@ -68,7 +68,6 @@ class VillageProcessingEngine4Logger(
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
   def process(box: VillageBOX, msg: String): Try[VillageMessageProtocol] = {
-
     val jsValue: JsValue = Json.parse(msg)
 
     def log(label: String): Unit = {
@@ -230,15 +229,22 @@ class VillageProcessingEngine4Logger(
         }
       case Right(json: JsonVote) =>
         log("JsonVote")
+        logger.error("test 25")
         voteAnalysisEngine match {
           case Some(engine: VoteAnalysisEngine) =>
+            logger.error("test 26")
             log("VoteAnalysisEngine")
             VoteProtocol.read(json, box.villageInfoFromLobby) match {
               case Some(protocol) =>
+                logger.error("test 27")
                 engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(VoteAnalysisEngine.name))
+              case None =>
+                logger.error("test 28")
+                Failure(new JSON2ProtocolException(VoteAnalysisEngine.name))
             }
-          case None => Failure(new NoEngineException(VoteAnalysisEngine.name))
+          case None =>
+            logger.error("test 29")
+            Failure(new NoEngineException(VoteAnalysisEngine.name))
         }
       case Right(json: JsonChatFromServer) =>
         log("JsonChatFromServer")
@@ -329,6 +335,7 @@ class VillageProcessingEngine4Logger(
           case None => Failure(new NoEngineException(GameResultAnalysisEngine.name))
         }
       case _ =>
+        logger.error("test 30")
         Failure(new NoEngineException("AnalysisEngine"))
     }
   }

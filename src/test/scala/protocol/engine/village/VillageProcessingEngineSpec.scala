@@ -33,6 +33,20 @@ import protocol.engine.village.analysis.client2server.{
   StarAE,
   VoteAE
 }
+import protocol.engine.village.analysis.server2client.{
+  AnonymousAudienceChatFromServerAE,
+  ChatFromServerAE,
+  ErrorFromServerAE,
+  FirstMorningPhaseAE,
+  FlavorTextAE,
+  GameResultAE,
+  MorningPhaseAE,
+  NextGameInvitationAE,
+  NextGameInvitationIsClosedAE,
+  NightPhaseAE,
+  NoonPhaseAE,
+  OnymousAudienceChatFromServerAE
+}
 import protocol.engine.village.example.client2server.{
   AnonymousAudienceChatFromClient,
   Board,
@@ -125,6 +139,18 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit with VillageParser 
     .set(new ScrollAE())
     .set(new StarAE())
     .set(new VoteAE())
+    .set(new NextGameInvitationAE())
+    .set(new NextGameInvitationIsClosedAE())
+    .set(new AnonymousAudienceChatFromServerAE())
+    .set(new ChatFromServerAE())
+    .set(new ErrorFromServerAE())
+    .set(new FirstMorningPhaseAE())
+    .set(new FlavorTextAE())
+    .set(new GameResultAE())
+    .set(new MorningPhaseAE())
+    .set(new NightPhaseAE())
+    .set(new NoonPhaseAE())
+    .set(new OnymousAudienceChatFromServerAE())
 
   private val processingEngine: VillageProcessingEngine = processingEngineFactory.create
 

@@ -124,9 +124,14 @@ object VoteProtocol {
             )
           )
         } else {
+          System.err.println(s"""character ${characterOpt.nonEmpty}""")
+          System.err.println(s"""myCharacter ${myCharacterOpt.nonEmpty}""")
+          System.err.println(s"""myRole ${myRoleOpt.nonEmpty}""")
           None
         }
-      case None => None
+      case None =>
+        System.err.println("test2")
+        None
     }
   }
 

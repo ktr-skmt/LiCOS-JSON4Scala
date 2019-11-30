@@ -13,8 +13,12 @@ import scala.util.{Failure, Success, Try}
 class VoteAE extends VoteAnalysisEngine {
   override def process(box: VillageBOX, vote: VoteProtocol): Try[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Success(VillageMessageTestProtocol(Vote.`type`))
-      case _ => Failure(new NoVillageBOXException())
+      case _: VillageBox =>
+        System.err.println("test 11")
+        Success(VillageMessageTestProtocol(Vote.`type`))
+      case _ =>
+        System.err.println("test 12")
+        Failure(new NoVillageBOXException())
     }
   }
 }
