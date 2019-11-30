@@ -1,5 +1,7 @@
 package licos.entity
 
+import java.net.URL
+
 import licos.knowledge.{Architecture, AvatarSetting, Cast, Lobby}
 
 final case class VillageInfoFromLobby(
@@ -9,7 +11,9 @@ final case class VillageInfoFromLobby(
     idForSearching:          Int,
     avatarSetting:           AvatarSetting,
     maxNumberOfHumanPlayers: Int,
-    comment:                 Option[String]
+    comment:                 Option[String],
+    myAvatarName:            String,
+    myAvatarImage:           URL
 )
 
 final case class HostPlayer(id: Long, name: String, isAnonymous: Boolean, architecture: Architecture)

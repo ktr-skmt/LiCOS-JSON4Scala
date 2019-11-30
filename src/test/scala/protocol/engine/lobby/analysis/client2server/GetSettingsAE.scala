@@ -3,7 +3,7 @@ package protocol.engine.lobby.analysis.client2server
 import licos.protocol.element.lobby.LobbyMessageProtocol
 import licos.protocol.element.lobby.client2server.GetSettingsProtocol
 import licos.protocol.engine.analysis.lobby.client2server.GetSettingsAnalysisEngine
-import licos.protocol.engine.processing.LobbyBOX
+import licos.protocol.engine.processing.lobby.LobbyBOX
 import protocol.element.LobbyMessageTestProtocol
 import protocol.engine.lobby.example.client2server.GetSettings
 import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}

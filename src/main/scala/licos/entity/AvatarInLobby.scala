@@ -5,7 +5,7 @@ import java.util.UUID
 
 import licos.knowledge.Architecture
 
-sealed abstract class AvatarInLobby() {}
+sealed abstract class AvatarInLobby()
 
 final case class PlayerInLobby(
     id:           Long,
@@ -28,4 +28,4 @@ final case class OnymousAudienceInLobby(
     isPrimary: Boolean
 ) extends AvatarInLobby() {}
 
-final case class AnonymousAudienceInLobby() extends AvatarInLobby() {}
+final case class AnonymousAudienceInLobby() extends AvatarInLobby()

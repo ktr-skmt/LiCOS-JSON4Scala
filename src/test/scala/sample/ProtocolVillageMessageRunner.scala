@@ -1,15 +1,12 @@
 package sample
 
+import java.net.URL
+
 import licos.entity.{HostPlayer, VillageInfoFromLobby}
 import licos.knowledge.{Cast, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
 import licos.protocol.element.village.VillageMessageProtocol
-import licos.protocol.engine.processing.{
-  SpecificProcessingEngineFactory,
-  VillageBOX,
-  VillagePE,
-  VillageProcessingEngine,
-  VillageProcessingEngineFactory
-}
+import licos.protocol.engine.processing.village.{VillageBOX, VillageProcessingEngine, VillageProcessingEngineFactory}
+import licos.protocol.engine.processing.{SpecificProcessingEngineFactory, VillagePE}
 import play.api.libs.json.{JsValue, Json}
 import protocol.engine.village.VillageBox
 
@@ -33,7 +30,7 @@ object ProtocolVillageMessageRunner extends App {
 
   private val hostPlayer = HostPlayer(
     1L,
-    "Christopher",
+    "Anonymous",
     isAnonymous = true,
     HumanArchitecture
   )
@@ -44,7 +41,9 @@ object ProtocolVillageMessageRunner extends App {
     1,
     RandomAvatarSetting,
     15,
-    None
+    None,
+    "Christopher",
+    new URL("https://werewolf.world/image/0.3/character_icons/50x50/a_50x50.png")
   )
 
   val anExampleOfBOX: VillageBOX = new VillageBox(villageInfoFromLobby)

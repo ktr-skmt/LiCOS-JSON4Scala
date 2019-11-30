@@ -1,6 +1,6 @@
 package licos.protocol.element.village.client2server.server2logger
 
-import licos.entity.Village
+import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonVote
 import licos.json.element.village.iri.{Contexts, VoteMessage}
@@ -18,58 +18,56 @@ import scala.collection.mutable.ListBuffer
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class VoteProtocol(
-    village:                    Village,
+    village:                    VillageInfo,
     character:                  Character,
+    myCharacter:                Character,
+    myRole:                     Role,
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
   val json: Option[JsonVote] = {
-    if (village.isAvailable) {
-      Some(
-        new JsonVote(
-          BaseProtocol(
-            Contexts.get(VoteMessage),
-            VoteMessage,
-            VillageProtocol(
+    Some(
+      new JsonVote(
+        BaseProtocol(
+          Contexts.get(VoteMessage),
+          VoteMessage,
+          VillageProtocol(
+            village.id,
+            village.name,
+            village.cast.totalNumberOfPlayers,
+            village.language,
+            ChatSettingsProtocol(
               village.id,
-              village.name,
-              village.cast.totalNumberOfPlayers,
-              village.language,
-              ChatSettingsProtocol(
-                village.id,
-                village.maxNumberOfChatMessages,
-                village.maxLengthOfUnicodeCodePoints
-              )
-            ),
-            village.token,
-            village.phase,
-            village.day,
-            village.phaseTimeLimit,
-            village.phaseStartTime,
-            None,
-            Option(TimestampGenerator.now),
-            ClientToServer,
-            PrivateChannel,
-            extensionalDisclosureRange,
-            None,
-            None
-          ).json,
-          RoleCharacterProtocol(
-            village.myCharacter,
-            village.myRole,
-            village.id,
-            village.language
-          ).json,
-          SimpleCharacterProtocol(
-            character,
-            village.id,
-            village.language
-          ).json(LiCOSOnline.stateVillage(village.id))
-        )
+              village.maxNumberOfChatMessages,
+              village.maxLengthOfUnicodeCodePoints
+            )
+          ),
+          village.token,
+          village.phase,
+          village.day,
+          village.phaseTimeLimit,
+          village.phaseStartTime,
+          None,
+          Option(TimestampGenerator.now),
+          ClientToServer,
+          PrivateChannel,
+          extensionalDisclosureRange,
+          None,
+          None
+        ).json,
+        RoleCharacterProtocol(
+          myCharacter,
+          myRole,
+          village.id,
+          village.language
+        ).json,
+        SimpleCharacterProtocol(
+          character,
+          village.id,
+          village.language
+        ).json(LiCOSOnline.stateVillage(village.id))
       )
-    } else {
-      None
-    }
+    )
   }
 
   override def toJsonOpt: Option[JsValue] = {
@@ -89,37 +87,46 @@ object VoteProtocol {
       "org.wartremover.warts.OptionPartial"
     )
   )
-  def read(json: JsonVote, village: Village): Option[VoteProtocol] = {
-    val characterOpt: Option[Character] = Data2Knowledge.characterOpt(json.character.name.en, json.character.id)
-    if (characterOpt.nonEmpty) {
+  def read(json: JsonVote, villageInfoFromLobby: VillageInfoFromLobby): Option[VoteProtocol] = {
+    VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
+      case Some(village: VillageInfo) =>
+        val characterOpt: Option[Character] = Data2Knowledge.characterOpt(json.character.name.en, json.character.id)
+        val myCharacterOpt: Option[Character] =
+          Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
+        val myRoleOpt: Option[Role] = village.cast.parse(json.myCharacter.role.name.en)
+        if (characterOpt.nonEmpty && myCharacterOpt.nonEmpty && myRoleOpt.nonEmpty) {
 
-      val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]
-      json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
-        val characterOpt: Option[Character] =
-          Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
-        val roleOpt:   Option[Role]   = village.cast.parse(jsonStatusCharacter.role.name.en)
-        val statusOpt: Option[Status] = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
-        if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty) {
-          statusCharacterBuffer += StatusCharacterProtocol(
-            characterOpt.get,
-            roleOpt.get,
-            statusOpt.get,
-            jsonStatusCharacter.isHumanPlayer,
-            village.id,
-            village.language
+          val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]
+          json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
+            val characterOpt: Option[Character] =
+              Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
+            val roleOpt:   Option[Role]   = village.cast.parse(jsonStatusCharacter.role.name.en)
+            val statusOpt: Option[Status] = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
+            if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty) {
+              statusCharacterBuffer += StatusCharacterProtocol(
+                characterOpt.get,
+                roleOpt.get,
+                statusOpt.get,
+                jsonStatusCharacter.isHumanPlayer,
+                village.id,
+                village.language
+              )
+            }
+          }
+
+          Some(
+            VoteProtocol(
+              village,
+              characterOpt.get,
+              myCharacterOpt.get,
+              myRoleOpt.get,
+              statusCharacterBuffer.result
+            )
           )
+        } else {
+          None
         }
-      }
-
-      Some(
-        VoteProtocol(
-          village,
-          characterOpt.get,
-          statusCharacterBuffer.result
-        )
-      )
-    } else {
-      None
+      case None => None
     }
   }
 

@@ -1,5 +1,6 @@
 package protocol.engine.village
 
+import java.net.URL
 import java.nio.charset.StandardCharsets
 
 import com.typesafe.scalalogging.Logger
@@ -7,12 +8,8 @@ import licos.entity.{HostPlayer, VillageInfoFromLobby}
 import licos.json.parser.VillageParser
 import licos.knowledge.{Cast, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
 import licos.protocol.element.village.VillageMessageProtocol
-import licos.protocol.engine.processing.{
-  SpecificProcessingEngineFactory,
-  VillagePE,
-  VillageProcessingEngine,
-  VillageProcessingEngineFactory
-}
+import licos.protocol.engine.processing.village.{VillageProcessingEngine, VillageProcessingEngineFactory}
+import licos.protocol.engine.processing.{SpecificProcessingEngineFactory, VillagePE}
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit
@@ -136,7 +133,7 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit with VillageParser 
 
     val hostPlayer = HostPlayer(
       1L,
-      "Christopher",
+      "Anonymous",
       isAnonymous = true,
       HumanArchitecture
     )
@@ -147,7 +144,9 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit with VillageParser 
       1,
       RandomAvatarSetting,
       15,
-      None
+      None,
+      "Christopher",
+      new URL("https://werewolf.world/image/0.3/character_icons/50x50/a_50x50.png")
     )
 
     val box = new VillageBox(villageInfoFromLobby)

@@ -1,12 +1,12 @@
 package licos.protocol.element.village.server2client
 
-import licos.entity.Village
+import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.server2client.{JsonChatFromServer, JsonFlavorText}
 import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
-final case class FlavorTextProtocol(village: Village, flavorText: Seq[ChatFromServerProtocol])
+final case class FlavorTextProtocol(village: VillageInfo, flavorText: Seq[ChatFromServerProtocol])
     extends Server2ClientVillageMessageProtocol {
 
   private val json: Option[JsonFlavorText] = {
@@ -24,17 +24,21 @@ final case class FlavorTextProtocol(village: Village, flavorText: Seq[ChatFromSe
 object FlavorTextProtocol {
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
-  def read(json: JsonFlavorText, village: Village): Option[FlavorTextProtocol] = {
-    val chatBuffer = ListBuffer.empty[ChatFromServerProtocol]
-    json.flavorText foreach { jsonChatFromServer: JsonChatFromServer =>
-      ChatFromServerProtocol.read(jsonChatFromServer, village) foreach chatBuffer.+=
+  def read(json: JsonFlavorText, villageInfoFromLobby: VillageInfoFromLobby): Option[FlavorTextProtocol] = {
+    VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
+      case Some(village: VillageInfo) =>
+        val chatBuffer = ListBuffer.empty[ChatFromServerProtocol]
+        json.flavorText foreach { jsonChatFromServer: JsonChatFromServer =>
+          ChatFromServerProtocol.read(jsonChatFromServer, villageInfoFromLobby) foreach chatBuffer.+=
+        }
+        Some(
+          FlavorTextProtocol(
+            village,
+            chatBuffer.result
+          )
+        )
+      case None => None
     }
-    Some(
-      FlavorTextProtocol(
-        village,
-        chatBuffer.result
-      )
-    )
   }
 
 }

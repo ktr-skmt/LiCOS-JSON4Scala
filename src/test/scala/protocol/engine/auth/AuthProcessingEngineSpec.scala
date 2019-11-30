@@ -5,12 +5,8 @@ import java.nio.charset.StandardCharsets
 import com.typesafe.scalalogging.Logger
 import licos.json.parser.AuthParser
 import licos.protocol.element.auth.AuthMessageProtocol
-import licos.protocol.engine.processing.{
-  AuthPE,
-  AuthProcessingEngine,
-  AuthProcessingEngineFactory,
-  SpecificProcessingEngineFactory
-}
+import licos.protocol.engine.processing.auth.{AuthProcessingEngine, AuthProcessingEngineFactory}
+import licos.protocol.engine.processing.{AuthPE, SpecificProcessingEngineFactory}
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit

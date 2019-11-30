@@ -3,7 +3,7 @@ package protocol.engine.auth.analysis.server2robot
 import licos.protocol.element.auth.AuthMessageProtocol
 import licos.protocol.element.auth.server2robot.AuthorizationRequestResponseProtocol
 import licos.protocol.engine.analysis.auth.server2robot.AuthorizationRequestResponseAnalysisEngine
-import licos.protocol.engine.processing.AuthBOX
+import licos.protocol.engine.processing.auth.AuthBOX
 import protocol.element.AuthMessageTestProtocol
 import protocol.engine.auth.example.server2robot.AuthorizationRequestResponse
 import protocol.engine.auth.{AuthBox, NoAuthBOXException}

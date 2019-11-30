@@ -1,14 +1,21 @@
 package licos.protocol.element.village.server2client
 
-import licos.entity.Village
+import java.net.URL
+
+import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.JsonOnymousAudienceChat
 import play.api.libs.json.{JsValue, Json}
 
-final case class OnymousAudienceChatFromServerProtocol(village: Village, isMine: Boolean, text: String)
-    extends Server2ClientVillageMessageProtocol {
+final case class OnymousAudienceChatFromServerProtocol(
+    village:       VillageInfo,
+    isMine:        Boolean,
+    text:          String,
+    myAvatarName:  String,
+    myAvatarImage: URL
+) extends Server2ClientVillageMessageProtocol {
 
   private val json: Option[JsonOnymousAudienceChat] = {
-    server2logger.OnymousAudienceChatFromServerProtocol(village, isMine, text, Nil).json
+    server2logger.OnymousAudienceChatFromServerProtocol(village, isMine, text, myAvatarName, myAvatarImage, Nil).json
   }
 
   override def toJsonOpt: Option[JsValue] = {
@@ -21,15 +28,24 @@ final case class OnymousAudienceChatFromServerProtocol(village: Village, isMine:
 
 object OnymousAudienceChatFromServerProtocol {
 
-  def read(json: JsonOnymousAudienceChat, village: Village): Option[OnymousAudienceChatFromServerProtocol] = {
+  def read(
+      json:                 JsonOnymousAudienceChat,
+      villageInfoFromLobby: VillageInfoFromLobby
+  ): Option[OnymousAudienceChatFromServerProtocol] = {
     if (json.isFromServer) {
-      Some(
-        OnymousAudienceChatFromServerProtocol(
-          village,
-          json.isMine,
-          json.text.`@value`
-        )
-      )
+      VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
+        case Some(village: VillageInfo) =>
+          Some(
+            OnymousAudienceChatFromServerProtocol(
+              village,
+              json.isMine,
+              json.text.`@value`,
+              json.avatar.name,
+              new URL(json.avatar.image)
+            )
+          )
+        case None => None
+      }
     } else {
       None
     }

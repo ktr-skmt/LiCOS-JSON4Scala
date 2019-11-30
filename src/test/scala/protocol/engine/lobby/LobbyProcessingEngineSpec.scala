@@ -5,12 +5,8 @@ import java.nio.charset.StandardCharsets
 import com.typesafe.scalalogging.Logger
 import licos.json.parser.LobbyParser
 import licos.protocol.element.lobby.LobbyMessageProtocol
-import licos.protocol.engine.processing.{
-  LobbyPE,
-  LobbyProcessingEngine,
-  LobbyProcessingEngineFactory,
-  SpecificProcessingEngineFactory
-}
+import licos.protocol.engine.processing.lobby.{LobbyProcessingEngine, LobbyProcessingEngineFactory}
+import licos.protocol.engine.processing.{LobbyPE, SpecificProcessingEngineFactory}
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit

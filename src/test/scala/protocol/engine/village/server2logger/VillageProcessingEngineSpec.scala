@@ -1,5 +1,6 @@
 package protocol.engine.village.server2logger
 
+import java.net.URL
 import java.nio.charset.StandardCharsets
 
 import com.typesafe.scalalogging.Logger
@@ -8,7 +9,7 @@ import licos.json.parser.VillageParser
 import licos.knowledge.{Cast, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.engine.processing.{SpecificProcessingEngineFactory, VillagePE4Logger}
-import licos.protocol.engine.processing.server2logger.{
+import licos.protocol.engine.processing.village.server2logger.{
   VillageProcessingEngine4Logger,
   VillageProcessingEngineFactory4Logger
 }
@@ -64,7 +65,9 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit with VillageParser 
       1,
       RandomAvatarSetting,
       15,
-      None
+      None,
+      "Christopher",
+      new URL("https://werewolf.world/image/0.3/character_icons/50x50/a_50x50.png")
     )
     val jsonType:       String = jsonExample.`type`
     val url:            String = jsonExample.path

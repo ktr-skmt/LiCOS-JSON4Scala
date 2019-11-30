@@ -3,7 +3,7 @@ package licos.protocol.engine.analysis.lobby.server2server
 import licos.protocol.element.lobby.LobbyMessageProtocol
 import licos.protocol.element.lobby.server2server.PlayedWithTokenProtocol
 import licos.protocol.engine.analysis.lobby.LobbyMessageAnalysisEngine
-import licos.protocol.engine.processing.LobbyBOX
+import licos.protocol.engine.processing.lobby.LobbyBOX
 
 import scala.util.Try
 

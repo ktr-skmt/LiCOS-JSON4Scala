@@ -1,6 +1,8 @@
 package licos.protocol.element.village.client2server.server2logger
 
-import licos.entity.Village
+import java.net.URL
+
+import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonOnymousAudienceScroll
 import licos.json.element.village.iri.{Contexts, ScrollMessage}
@@ -14,59 +16,57 @@ import scala.collection.mutable.ListBuffer
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class OnymousAudienceScrollProtocol(
-    village:                    Village,
+    village:                    VillageInfo,
     nodeId:                     String,
     scrollTop:                  Int,
     scrollHeight:               Int,
     offsetHeight:               Int,
+    myAvatarName:               String,
+    myAvatarImage:              URL,
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
   val json: Option[JsonOnymousAudienceScroll] = {
-    if (village.isAvailable) {
-      Some(
-        new JsonOnymousAudienceScroll(
-          BaseProtocol(
-            Contexts.get(ScrollMessage),
-            ScrollMessage,
-            VillageProtocol(
+    Some(
+      new JsonOnymousAudienceScroll(
+        BaseProtocol(
+          Contexts.get(ScrollMessage),
+          ScrollMessage,
+          VillageProtocol(
+            village.id,
+            village.name,
+            village.cast.totalNumberOfPlayers,
+            village.language,
+            ChatSettingsProtocol(
               village.id,
-              village.name,
-              village.cast.totalNumberOfPlayers,
-              village.language,
-              ChatSettingsProtocol(
-                village.id,
-                village.maxNumberOfChatMessages,
-                village.maxLengthOfUnicodeCodePoints
-              )
-            ),
-            village.token,
-            village.phase,
-            village.day,
-            village.phaseTimeLimit,
-            village.phaseStartTime,
-            None,
-            Option(TimestampGenerator.now),
-            ClientToServer,
-            PrivateChannel,
-            extensionalDisclosureRange,
-            None,
-            None
-          ).json,
-          AvatarProtocol(
-            village.token,
-            village.myAvatarName,
-            village.myAvatarImage
-          ).json(LiCOSOnline.stateVillage(village.id)),
-          nodeId,
-          scrollTop,
-          scrollHeight,
-          offsetHeight
-        )
+              village.maxNumberOfChatMessages,
+              village.maxLengthOfUnicodeCodePoints
+            )
+          ),
+          village.token,
+          village.phase,
+          village.day,
+          village.phaseTimeLimit,
+          village.phaseStartTime,
+          None,
+          Option(TimestampGenerator.now),
+          ClientToServer,
+          PrivateChannel,
+          extensionalDisclosureRange,
+          None,
+          None
+        ).json,
+        AvatarProtocol(
+          village.token,
+          myAvatarName,
+          myAvatarImage
+        ).json(LiCOSOnline.stateVillage(village.id)),
+        nodeId,
+        scrollTop,
+        scrollHeight,
+        offsetHeight
       )
-    } else {
-      None
-    }
+    )
   }
 
   override def toJsonOpt: Option[JsValue] = {
@@ -85,36 +85,44 @@ object OnymousAudienceScrollProtocol {
       "org.wartremover.warts.OptionPartial"
     )
   )
-  def read(json: JsonOnymousAudienceScroll, village: Village): Option[OnymousAudienceScrollProtocol] = {
+  def read(
+      json:                 JsonOnymousAudienceScroll,
+      villageInfoFromLobby: VillageInfoFromLobby
+  ): Option[OnymousAudienceScrollProtocol] = {
+    VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
+      case Some(village: VillageInfo) =>
+        val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]
+        json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
+          val characterOpt: Option[Character] =
+            Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
+          val roleOpt:   Option[Role]   = village.cast.parse(jsonStatusCharacter.role.name.en)
+          val statusOpt: Option[Status] = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
+          if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty) {
+            statusCharacterBuffer += StatusCharacterProtocol(
+              characterOpt.get,
+              roleOpt.get,
+              statusOpt.get,
+              jsonStatusCharacter.isHumanPlayer,
+              village.id,
+              village.language
+            )
+          }
+        }
 
-    val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]
-    json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
-      val characterOpt: Option[Character] =
-        Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
-      val roleOpt:   Option[Role]   = village.cast.parse(jsonStatusCharacter.role.name.en)
-      val statusOpt: Option[Status] = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
-      if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty) {
-        statusCharacterBuffer += StatusCharacterProtocol(
-          characterOpt.get,
-          roleOpt.get,
-          statusOpt.get,
-          jsonStatusCharacter.isHumanPlayer,
-          village.id,
-          village.language
+        Some(
+          OnymousAudienceScrollProtocol(
+            village,
+            json.nodeId,
+            json.scrollTop,
+            json.scrollHeight,
+            json.offsetHeight,
+            json.avatar.name,
+            new URL(json.avatar.image),
+            statusCharacterBuffer.result
+          )
         )
-      }
+      case None => None
     }
-
-    Some(
-      OnymousAudienceScrollProtocol(
-        village,
-        json.nodeId,
-        json.scrollTop,
-        json.scrollHeight,
-        json.offsetHeight,
-        statusCharacterBuffer.result
-      )
-    )
   }
 
 }

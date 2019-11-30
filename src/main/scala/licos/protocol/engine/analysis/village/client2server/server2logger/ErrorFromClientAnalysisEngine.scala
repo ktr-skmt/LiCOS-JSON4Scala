@@ -3,7 +3,7 @@ package licos.protocol.engine.analysis.village.client2server.server2logger
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.client2server.server2logger.ErrorFromClientProtocol
 import licos.protocol.engine.analysis.village.VillageMessageAnalysisEngine
-import licos.protocol.engine.processing.VillageBOX
+import licos.protocol.engine.processing.village.VillageBOX
 
 import scala.util.Try
 

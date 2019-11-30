@@ -1,19 +1,34 @@
 package licos.protocol.element.village.client2server
 
-import licos.entity.Village
+import java.net.URL
+
+import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.client2server.JsonOnymousAudienceScroll
 import play.api.libs.json.{JsValue, Json}
 
 final case class OnymousAudienceScrollProtocol(
-    village:      Village,
-    nodeId:       String,
-    scrollTop:    Int,
-    scrollHeight: Int,
-    offsetHeight: Int
+    village:       VillageInfo,
+    nodeId:        String,
+    scrollTop:     Int,
+    scrollHeight:  Int,
+    offsetHeight:  Int,
+    myAvatarName:  String,
+    myAvatarImage: URL
 ) extends Client2ServerVillageMessageProtocol {
 
   private val json: Option[JsonOnymousAudienceScroll] = {
-    server2logger.OnymousAudienceScrollProtocol(village, nodeId, scrollTop, scrollHeight, offsetHeight, Nil).json
+    server2logger
+      .OnymousAudienceScrollProtocol(
+        village,
+        nodeId,
+        scrollTop,
+        scrollHeight,
+        offsetHeight,
+        myAvatarName,
+        myAvatarImage,
+        Nil
+      )
+      .json
   }
 
   override def toJsonOpt: Option[JsValue] = {
@@ -26,16 +41,25 @@ final case class OnymousAudienceScrollProtocol(
 
 object OnymousAudienceScrollProtocol {
 
-  def read(json: JsonOnymousAudienceScroll, village: Village): Option[OnymousAudienceScrollProtocol] = {
-    Some(
-      OnymousAudienceScrollProtocol(
-        village,
-        json.nodeId,
-        json.scrollTop,
-        json.scrollHeight,
-        json.offsetHeight
-      )
-    )
+  def read(
+      json:                 JsonOnymousAudienceScroll,
+      villageInfoFromLobby: VillageInfoFromLobby
+  ): Option[OnymousAudienceScrollProtocol] = {
+    VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
+      case Some(village: VillageInfo) =>
+        Some(
+          OnymousAudienceScrollProtocol(
+            village,
+            json.nodeId,
+            json.scrollTop,
+            json.scrollHeight,
+            json.offsetHeight,
+            json.avatar.name,
+            new URL(json.avatar.image)
+          )
+        )
+      case None => None
+    }
   }
 
 }

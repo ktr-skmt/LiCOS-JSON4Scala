@@ -1,23 +1,20 @@
 package licos.protocol.element.village.client2server
 
-import licos.entity.Village
+import java.util.UUID
+
 import licos.json.element.lobby.client2server.JsonReady
 import play.api.libs.json.{JsValue, Json}
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
-final case class ReadyProtocol(village: Village) extends Client2ServerVillageMessageProtocol {
+final case class ReadyProtocol(token: UUID, villageId: Long) extends Client2ServerVillageMessageProtocol {
 
   private val json: Option[JsonReady] = {
-    if (village.isAvailable) {
-      Some(
-        new JsonReady(
-          village.token.toString,
-          village.id
-        )
+    Some(
+      new JsonReady(
+        token.toString,
+        villageId
       )
-    } else {
-      None
-    }
+    )
   }
 
   override def toJsonOpt: Option[JsValue] = {
@@ -30,8 +27,8 @@ final case class ReadyProtocol(village: Village) extends Client2ServerVillageMes
 
 object ReadyProtocol {
 
-  def read(json: JsonReady, village: Village): Option[ReadyProtocol] = {
-    Some(ReadyProtocol(village))
+  def read(json: JsonReady): Option[ReadyProtocol] = {
+    Some(ReadyProtocol(UUID.fromString(json.token), json.villageId))
   }
 
 }

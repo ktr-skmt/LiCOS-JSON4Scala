@@ -1,10 +1,10 @@
 package licos.protocol.element.village.client2server
 
-import licos.entity.Village
+import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.JsonAnonymousAudienceChat
 import play.api.libs.json.{JsValue, Json}
 
-final case class AnonymousAudienceChatFromClientProtocol(village: Village, text: String)
+final case class AnonymousAudienceChatFromClientProtocol(village: VillageInfo, text: String)
     extends Client2ServerVillageMessageProtocol {
 
   private val json: Option[JsonAnonymousAudienceChat] = {
@@ -21,14 +21,22 @@ final case class AnonymousAudienceChatFromClientProtocol(village: Village, text:
 
 object AnonymousAudienceChatFromClientProtocol {
 
-  def read(json: JsonAnonymousAudienceChat, village: Village): Option[AnonymousAudienceChatFromClientProtocol] = {
+  def read(
+      json:                 JsonAnonymousAudienceChat,
+      villageInfoFromLobby: VillageInfoFromLobby
+  ): Option[AnonymousAudienceChatFromClientProtocol] = {
     if (!json.isFromServer) {
-      Some(
-        AnonymousAudienceChatFromClientProtocol(
-          village,
-          json.text.`@value`
-        )
-      )
+
+      VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
+        case Some(village: VillageInfo) =>
+          Some(
+            AnonymousAudienceChatFromClientProtocol(
+              village,
+              json.text.`@value`
+            )
+          )
+        case None => None
+      }
     } else {
       None
     }
