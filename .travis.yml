@@ -3,7 +3,7 @@ language: scala
 
 # configurations for codecov badge
 scala:
-  - 2.12.8
+  - 2.12.10
 
 script:
   - sbt clean coverage test coverageReport
