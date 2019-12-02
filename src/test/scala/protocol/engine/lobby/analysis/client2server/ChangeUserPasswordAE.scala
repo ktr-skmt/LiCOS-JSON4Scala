@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class ChangeUserPasswordAE extends ChangeUserPasswordAnalysisEngine {
+final class ChangeUserPasswordAE extends ChangeUserPasswordAnalysisEngine {
   override def process(
       box:                        LobbyBOX,
       changeUserPasswordProtocol: ChangeUserPasswordProtocol

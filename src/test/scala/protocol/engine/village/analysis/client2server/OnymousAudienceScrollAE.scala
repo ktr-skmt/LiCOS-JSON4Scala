@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class OnymousAudienceScrollAE extends OnymousAudienceScrollAnalysisEngine {
+final class OnymousAudienceScrollAE extends OnymousAudienceScrollAnalysisEngine {
   override def process(
       box:                   VillageBOX,
       onymousAudienceScroll: OnymousAudienceScrollProtocol

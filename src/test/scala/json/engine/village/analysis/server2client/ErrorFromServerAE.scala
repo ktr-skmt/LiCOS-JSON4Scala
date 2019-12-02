@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.element.village.JsonError
 import play.api.libs.json.{JsValue, Json}
 
-class ErrorFromServerAE extends server2client.ErrorAnalysisEngine {
+final class ErrorFromServerAE extends server2client.ErrorAnalysisEngine {
   override def process(box: BOX, error: JsonError): Either[JsValue, JsValue] = {
     box match {
       case _: VillageBox => Right(Json.toJson(JsonTest(Error.`type`)))

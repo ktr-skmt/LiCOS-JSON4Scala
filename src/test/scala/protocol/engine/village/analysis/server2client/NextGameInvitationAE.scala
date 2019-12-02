@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class NextGameInvitationAE extends NextGameInvitationAnalysisEngine {
+final class NextGameInvitationAE extends NextGameInvitationAnalysisEngine {
   override def process(box: VillageBOX, nextGameInvitation: NextGameInvitationProtocol): Try[VillageMessageProtocol] = {
     box match {
       case _: VillageBox => Success(VillageMessageTestProtocol(NextGameInvitation.`type`))

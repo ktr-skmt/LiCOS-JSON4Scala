@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.client2server.BuildVillageAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
-class BuildVillageAE extends BuildVillageAnalysisEngine {
+final class BuildVillageAE extends BuildVillageAnalysisEngine {
   override def process(box: BOX, buildVillage: JsonBuildVillage): Either[JsValue, JsValue] = {
     box match {
       case _: VillageBox => Right(Json.toJson(JsonTest(BuildVillage.`type`)))

@@ -8,7 +8,7 @@ import licos.json.engine.analysis.village.server2client.NextGameInvitationAnalys
 import licos.json.element.village.invite.JsonNextGameInvitation
 import play.api.libs.json.{JsValue, Json}
 
-class NextGameInvitationAE extends NextGameInvitationAnalysisEngine {
+final class NextGameInvitationAE extends NextGameInvitationAnalysisEngine {
 
   override def process(box: BOX, nextGameInvitation: JsonNextGameInvitation): Either[JsValue, JsValue] = {
     box match {

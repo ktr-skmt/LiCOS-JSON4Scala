@@ -8,7 +8,7 @@ import licos.json.engine.analysis.village.server2client.NextGameInvitationIsClos
 import licos.json.element.village.invite.JsonNextGameInvitationIsClosed
 import play.api.libs.json.{JsValue, Json}
 
-class NextGameInvitationIsClosedAE extends NextGameInvitationIsClosedAnalysisEngine {
+final class NextGameInvitationIsClosedAE extends NextGameInvitationIsClosedAnalysisEngine {
 
   override def process(
       box:                        BOX,

@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class PingAE extends PingAnalysisEngine {
+final class PingAE extends PingAnalysisEngine {
   override def process(box: LobbyBOX, pingProtocol: PingProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(Ping.`type`))

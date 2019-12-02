@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.client2server.ChangeUserEmailAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
-class ChangeUserEmailAE extends ChangeUserEmailAnalysisEngine {
+final class ChangeUserEmailAE extends ChangeUserEmailAnalysisEngine {
   override def process(box: BOX, changeUserEmail: JsonChangeUserEmail): Either[JsValue, JsValue] = {
     box match {
       case _: LobbyBox => Right(Json.toJson(JsonTest(ChangeUserEmail.`type`)))

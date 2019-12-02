@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class ChangeUserEmailAE extends ChangeUserEmailAnalysisEngine {
+final class ChangeUserEmailAE extends ChangeUserEmailAnalysisEngine {
   override def process(box: LobbyBOX, changeUserEmailProtocol: ChangeUserEmailProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(ChangeUserEmail.`type`))

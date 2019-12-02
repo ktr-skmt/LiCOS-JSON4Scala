@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.server2client.PingAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
-class PingAE extends PingAnalysisEngine {
+final class PingAE extends PingAnalysisEngine {
   override def process(box: BOX, ping: JsonPing): Either[JsValue, JsValue] = {
     box match {
       case _: LobbyBox => Right(Json.toJson(JsonTest(Ping.`type`)))

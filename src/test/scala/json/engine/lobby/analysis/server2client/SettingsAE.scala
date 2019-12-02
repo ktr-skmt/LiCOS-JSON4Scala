@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.server2client.SettingsAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
-class SettingsAE extends SettingsAnalysisEngine {
+final class SettingsAE extends SettingsAnalysisEngine {
 
   override def process(box: BOX, settings: JsonSettings): Either[JsValue, JsValue] = {
     box match {

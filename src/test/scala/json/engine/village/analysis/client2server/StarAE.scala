@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.engine.analysis.village.client2server.StarAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
-class StarAE extends StarAnalysisEngine {
+final class StarAE extends StarAnalysisEngine {
 
   override def process(box: BOX, star: JsonStar): Either[JsValue, JsValue] = {
     box match {

@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class VoteAE extends VoteAnalysisEngine {
+final class VoteAE extends VoteAnalysisEngine {
   override def process(box: VillageBOX, vote: VoteProtocol): Try[VillageMessageProtocol] = {
     box match {
       case _: VillageBox => Success(VillageMessageTestProtocol(Vote.`type`))

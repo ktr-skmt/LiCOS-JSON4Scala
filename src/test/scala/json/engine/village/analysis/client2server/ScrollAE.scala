@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.engine.analysis.village.client2server.ScrollAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
-class ScrollAE extends ScrollAnalysisEngine {
+final class ScrollAE extends ScrollAnalysisEngine {
 
   override def process(box: BOX, scroll: JsonScroll): Either[JsValue, JsValue] = {
     box match {

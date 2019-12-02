@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class ChangeLangAE extends ChangeLangAnalysisEngine {
+final class ChangeLangAE extends ChangeLangAnalysisEngine {
   override def process(box: LobbyBOX, changeLangProtocol: ChangeLangProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(ChangeLang.`type`))

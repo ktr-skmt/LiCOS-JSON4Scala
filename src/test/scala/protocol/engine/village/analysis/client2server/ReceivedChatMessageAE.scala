@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class ReceivedChatMessageAE extends ReceivedChatMessageAnalysisEngine {
+final class ReceivedChatMessageAE extends ReceivedChatMessageAnalysisEngine {
   override def process(
       box:                 VillageBOX,
       receivedChatMessage: ReceivedChatMessageProtocol

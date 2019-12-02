@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.engine.analysis.village.server2client.FlavorTextAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
-class FlavorTextAE extends FlavorTextAnalysisEngine {
+final class FlavorTextAE extends FlavorTextAnalysisEngine {
   override def process(box: BOX, flavorText: JsonFlavorText): Either[JsValue, JsValue] = {
     box match {
       case _: VillageBox => Right(Json.toJson(JsonTest(FlavorText.`type`)))

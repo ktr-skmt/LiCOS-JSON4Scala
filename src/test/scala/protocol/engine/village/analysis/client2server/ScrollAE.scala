@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class ScrollAE extends ScrollAnalysisEngine {
+final class ScrollAE extends ScrollAnalysisEngine {
   override def process(box: VillageBOX, scroll: ScrollProtocol): Try[VillageMessageProtocol] = {
     box match {
       case _: VillageBox => Success(VillageMessageTestProtocol(Scroll.`type`))

@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class LeaveWaitingPageAE extends LeaveWaitingPageAnalysisEngine {
+final class LeaveWaitingPageAE extends LeaveWaitingPageAnalysisEngine {
   override def process(box: LobbyBOX, leaveWaitingPageProtocol: LeaveWaitingPageProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(LeaveWaitingPage.`type`))

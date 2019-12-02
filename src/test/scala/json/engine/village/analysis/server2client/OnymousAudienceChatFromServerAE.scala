@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.element.village.JsonOnymousAudienceChat
 import play.api.libs.json.{JsValue, Json}
 
-class OnymousAudienceChatFromServerAE extends server2client.OnymousAudienceChatAnalysisEngine {
+final class OnymousAudienceChatFromServerAE extends server2client.OnymousAudienceChatAnalysisEngine {
   override def process(box: BOX, onymousAudienceChatFromServer: JsonOnymousAudienceChat): Either[JsValue, JsValue] = {
     box match {
       case _: VillageBox => Right(Json.toJson(JsonTest(OnymousAudienceChat.`type`)))

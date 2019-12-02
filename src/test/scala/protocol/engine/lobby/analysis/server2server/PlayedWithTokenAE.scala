@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class PlayedWithTokenAE extends PlayedWithTokenAnalysisEngine {
+final class PlayedWithTokenAE extends PlayedWithTokenAnalysisEngine {
   override def process(box: LobbyBOX, playedWithTokenProtocol: PlayedWithTokenProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(PlayedWithToken.`type`))

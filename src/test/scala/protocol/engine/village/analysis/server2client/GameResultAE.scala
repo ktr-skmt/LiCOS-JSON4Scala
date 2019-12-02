@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class GameResultAE extends GameResultAnalysisEngine {
+final class GameResultAE extends GameResultAnalysisEngine {
   override def process(box: VillageBOX, gameResult: GameResultProtocol): Try[VillageMessageProtocol] = {
     box match {
       case _: VillageBox => Success(VillageMessageTestProtocol(GameResult.`type`))

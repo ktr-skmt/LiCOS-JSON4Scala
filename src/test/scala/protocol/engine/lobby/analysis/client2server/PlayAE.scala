@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class PlayAE extends PlayAnalysisEngine {
+final class PlayAE extends PlayAnalysisEngine {
   override def process(box: LobbyBOX, playProtocol: PlayProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(Play.`type`))

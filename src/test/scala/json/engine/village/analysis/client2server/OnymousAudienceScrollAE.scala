@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.engine.analysis.village.client2server.OnymousAudienceScrollAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
-class OnymousAudienceScrollAE extends OnymousAudienceScrollAnalysisEngine {
+final class OnymousAudienceScrollAE extends OnymousAudienceScrollAnalysisEngine {
 
   override def process(box: BOX, scroll: JsonOnymousAudienceScroll): Either[JsValue, JsValue] = {
     box match {

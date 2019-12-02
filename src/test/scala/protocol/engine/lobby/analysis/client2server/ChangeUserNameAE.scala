@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class ChangeUserNameAE extends ChangeUserNameAnalysisEngine {
+final class ChangeUserNameAE extends ChangeUserNameAnalysisEngine {
   override def process(box: LobbyBOX, changeUserNameProtocol: ChangeUserNameProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(ChangeUserName.`type`))

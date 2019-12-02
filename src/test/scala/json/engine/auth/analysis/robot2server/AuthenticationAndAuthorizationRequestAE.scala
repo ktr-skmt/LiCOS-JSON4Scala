@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.engine.analysis.auth.robot2server.AuthenticationAndAuthorizationRequestAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
-class AuthenticationAndAuthorizationRequestAE extends AuthenticationAndAuthorizationRequestAnalysisEngine {
+final class AuthenticationAndAuthorizationRequestAE extends AuthenticationAndAuthorizationRequestAnalysisEngine {
   override def process(
       box:                                   BOX,
       authenticationAndAuthorizationRequest: JsonAuthenticationAndAuthorizationRequest

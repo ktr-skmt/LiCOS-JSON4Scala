@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class PongAE extends PongAnalysisEngine {
+final class PongAE extends PongAnalysisEngine {
   override def process(box: LobbyBOX, pongProtocol: PongProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(Pong.`type`))

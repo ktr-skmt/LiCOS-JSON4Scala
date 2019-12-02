@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class ReadyAE extends ReadyAnalysisEngine {
+final class ReadyAE extends ReadyAnalysisEngine {
   override def process(box: LobbyBOX, readyProtocol: ReadyProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(Ready.`type`))

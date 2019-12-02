@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class NightPhaseAE extends NightPhaseAnalysisEngine {
+final class NightPhaseAE extends NightPhaseAnalysisEngine {
   override def process(box: VillageBOX, nightPhase: NightPhaseProtocol): Try[VillageMessageProtocol] = {
     box match {
       case _: VillageBox => Success(VillageMessageTestProtocol(NightPhase.`type`))

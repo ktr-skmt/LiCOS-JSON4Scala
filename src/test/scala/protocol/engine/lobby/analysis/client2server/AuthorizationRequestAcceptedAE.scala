@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class AuthorizationRequestAcceptedAE extends AuthorizationRequestAcceptedAnalysisEngine {
+final class AuthorizationRequestAcceptedAE extends AuthorizationRequestAcceptedAnalysisEngine {
   override def process(
       box:                                  LobbyBOX,
       authorizationRequestAcceptedProtocol: AuthorizationRequestAcceptedProtocol

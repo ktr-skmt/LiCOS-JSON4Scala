@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class PostMortemDiscussionAE extends PostMortemDiscussionAnalysisEngine {
+final class PostMortemDiscussionAE extends PostMortemDiscussionAnalysisEngine {
   override def process(
       box:                  VillageBOX,
       postMortemDiscussion: PostMortemDiscussionProtocol

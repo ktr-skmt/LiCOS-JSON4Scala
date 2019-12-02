@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class OnymousAudienceBoardAE extends OnymousAudienceBoardAnalysisEngine {
+final class OnymousAudienceBoardAE extends OnymousAudienceBoardAnalysisEngine {
   override def process(
       box:                  VillageBOX,
       onymousAudienceBoard: OnymousAudienceBoardProtocol

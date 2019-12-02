@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class KickOutPlayerAE extends KickOutPlayerAnalysisEngine {
+final class KickOutPlayerAE extends KickOutPlayerAnalysisEngine {
   override def process(box: LobbyBOX, kickOutPlayerProtocol: KickOutPlayerProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(KickOutPlayer.`type`))

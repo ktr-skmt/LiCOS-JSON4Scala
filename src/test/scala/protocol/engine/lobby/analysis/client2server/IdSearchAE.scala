@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class IdSearchAE extends IdSearchAnalysisEngine {
+final class IdSearchAE extends IdSearchAnalysisEngine {
   override def process(box: LobbyBOX, idSearchProtocol: IdSearchProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(IdSearch.`type`))

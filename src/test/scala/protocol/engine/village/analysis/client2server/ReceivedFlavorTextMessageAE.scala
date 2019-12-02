@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class ReceivedFlavorTextMessageAE extends ReceivedFlavorTextMessageAnalysisEngine {
+final class ReceivedFlavorTextMessageAE extends ReceivedFlavorTextMessageAnalysisEngine {
   override def process(
       box:                       VillageBOX,
       receivedFlavorTextMessage: ReceivedFlavorTextMessageProtocol

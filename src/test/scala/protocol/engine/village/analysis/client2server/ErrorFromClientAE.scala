@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class ErrorFromClientAE extends ErrorFromClientAnalysisEngine {
+final class ErrorFromClientAE extends ErrorFromClientAnalysisEngine {
   override def process(box: VillageBOX, errorFromClient: ErrorFromClientProtocol): Try[VillageMessageProtocol] = {
     box match {
       case _: VillageBox => Success(VillageMessageTestProtocol(ErrorFromClient.`type`))

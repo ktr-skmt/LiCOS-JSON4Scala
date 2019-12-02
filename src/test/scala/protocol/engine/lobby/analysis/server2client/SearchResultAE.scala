@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class SearchResultAE extends SearchResultAnalysisEngine {
+final class SearchResultAE extends SearchResultAnalysisEngine {
   override def process(box: LobbyBOX, searchResultProtocol: SearchResultProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(SearchResult.`type`))

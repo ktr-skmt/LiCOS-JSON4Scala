@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class WaitingPageAE extends WaitingPageAnalysisEngine {
+final class WaitingPageAE extends WaitingPageAnalysisEngine {
   override def process(box: LobbyBOX, waitingPageProtocol: WaitingPageProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(WaitingPage.`type`))

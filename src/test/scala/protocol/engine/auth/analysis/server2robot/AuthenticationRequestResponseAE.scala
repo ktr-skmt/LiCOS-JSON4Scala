@@ -10,7 +10,7 @@ import protocol.engine.auth.{AuthBox, NoAuthBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class AuthenticationRequestResponseAE extends AuthenticationRequestResponseAnalysisEngine {
+final class AuthenticationRequestResponseAE extends AuthenticationRequestResponseAnalysisEngine {
   override def process(
       box:                                   AuthBOX,
       authenticationRequestResponseProtocol: AuthenticationRequestResponseProtocol

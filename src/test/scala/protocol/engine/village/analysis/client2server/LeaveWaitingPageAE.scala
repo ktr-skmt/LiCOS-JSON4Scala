@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class LeaveWaitingPageAE extends LeaveWaitingPageAnalysisEngine {
+final class LeaveWaitingPageAE extends LeaveWaitingPageAnalysisEngine {
   override def process(
       box:                      VillageBOX,
       leaveWaitingPageProtocol: LeaveWaitingPageProtocol

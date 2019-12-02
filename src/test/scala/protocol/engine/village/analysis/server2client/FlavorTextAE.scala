@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class FlavorTextAE extends FlavorTextAnalysisEngine {
+final class FlavorTextAE extends FlavorTextAnalysisEngine {
   override def process(box: VillageBOX, flavorText: FlavorTextProtocol): Try[VillageMessageProtocol] = {
     box match {
       case _: VillageBox => Success(VillageMessageTestProtocol(FlavorText.`type`))

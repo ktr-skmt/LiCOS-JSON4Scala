@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class BuildVillageAE extends BuildVillageAnalysisEngine {
+final class BuildVillageAE extends BuildVillageAnalysisEngine {
   override def process(box: LobbyBOX, buildVillageProtocol: BuildVillageProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(BuildVillage.`type`))

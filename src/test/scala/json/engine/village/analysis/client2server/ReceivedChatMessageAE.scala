@@ -8,7 +8,7 @@ import licos.json.engine.analysis.village.client2server.ReceivedChatMessageAnaly
 import licos.json.element.village.receipt.JsonReceivedChatMessage
 import play.api.libs.json.{JsValue, Json}
 
-class ReceivedChatMessageAE extends ReceivedChatMessageAnalysisEngine {
+final class ReceivedChatMessageAE extends ReceivedChatMessageAnalysisEngine {
   override def process(box: BOX, receivedChatMessage: JsonReceivedChatMessage): Either[JsValue, JsValue] = {
     box match {
       case _: VillageBox => Right(Json.toJson(JsonTest(ReceivedChatMessage.`type`)))

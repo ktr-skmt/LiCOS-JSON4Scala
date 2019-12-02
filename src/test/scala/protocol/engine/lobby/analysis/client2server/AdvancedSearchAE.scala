@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class AdvancedSearchAE extends AdvancedSearchAnalysisEngine {
+final class AdvancedSearchAE extends AdvancedSearchAnalysisEngine {
   override def process(box: LobbyBOX, advancedSearchProtocol: AdvancedSearchProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(AdvancedSearch.`type`))

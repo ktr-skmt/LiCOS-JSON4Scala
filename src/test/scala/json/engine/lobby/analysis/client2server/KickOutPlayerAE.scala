@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.engine.analysis.lobby.client2server.KickOutPlayerAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
-class KickOutPlayerAE extends KickOutPlayerAnalysisEngine {
+final class KickOutPlayerAE extends KickOutPlayerAnalysisEngine {
   override def process(box: BOX, kickOutPlayer: JsonKickOutPlayer): Either[JsValue, JsValue] = {
     box match {
       case _: LobbyBox => Right(Json.toJson(JsonTest(KickOutPlayer.`type`)))

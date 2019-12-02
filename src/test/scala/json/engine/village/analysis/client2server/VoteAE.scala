@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.engine.analysis.village.client2server.VoteAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
-class VoteAE extends VoteAnalysisEngine {
+final class VoteAE extends VoteAnalysisEngine {
   override def process(box: BOX, vote: JsonVote): Either[JsValue, JsValue] = {
     box match {
       case _: VillageBox => Right(Json.toJson(JsonTest(Vote.`type`)))

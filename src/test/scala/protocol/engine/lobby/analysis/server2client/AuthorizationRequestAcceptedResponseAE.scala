@@ -10,7 +10,7 @@ import protocol.engine.lobby.example.server2client.AuthorizationRequestAcceptedR
 
 import scala.util.{Failure, Success, Try}
 
-class AuthorizationRequestAcceptedResponseAE extends AuthorizationRequestAcceptedResponseAnalysisEngine {
+final class AuthorizationRequestAcceptedResponseAE extends AuthorizationRequestAcceptedResponseAnalysisEngine {
   override def process(
       box:                                          LobbyBOX,
       authorizationRequestAcceptedResponseProtocol: AuthorizationRequestAcceptedResponseProtocol

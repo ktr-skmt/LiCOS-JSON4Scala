@@ -10,7 +10,7 @@ import protocol.engine.village.{NoVillageBOXException, VillageBox}
 
 import scala.util.{Failure, Success, Try}
 
-class StarAE extends StarAnalysisEngine {
+final class StarAE extends StarAnalysisEngine {
   override def process(box: VillageBOX, star: StarProtocol): Try[VillageMessageProtocol] = {
     box match {
       case _: VillageBox => Success(VillageMessageTestProtocol(Star.`type`))

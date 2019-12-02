@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class AvatarInfoAE extends AvatarInfoAnalysisEngine {
+final class AvatarInfoAE extends AvatarInfoAnalysisEngine {
   override def process(box: LobbyBOX, avatarInfoProtocol: AvatarInfoProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(AvatarInfo.`type`))

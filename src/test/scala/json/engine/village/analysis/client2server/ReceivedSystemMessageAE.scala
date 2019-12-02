@@ -8,7 +8,7 @@ import licos.json.engine.analysis.village.client2server.ReceivedSystemMessageAna
 import licos.json.element.village.receipt.JsonReceivedSystemMessage
 import play.api.libs.json.{JsValue, Json}
 
-class ReceivedSystemMessageAE extends ReceivedSystemMessageAnalysisEngine {
+final class ReceivedSystemMessageAE extends ReceivedSystemMessageAnalysisEngine {
   override def process(box: BOX, receivedSystemMessage: JsonReceivedSystemMessage): Either[JsValue, JsValue] = {
     box match {
       case _: VillageBox => Right(Json.toJson(JsonTest(ReceivedSystemMessage.`type`)))

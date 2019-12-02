@@ -8,7 +8,7 @@ import licos.json.engine.BOX
 import licos.json.engine.analysis.village.server2client.PhaseAnalysisEngine
 import play.api.libs.json.{JsValue, Json}
 
-class PhaseAE extends PhaseAnalysisEngine {
+final class PhaseAE extends PhaseAnalysisEngine {
   override def process(box: BOX, phase: JsonPhase): Either[JsValue, JsValue] = {
     box match {
       case _: VillageBox => Right(Json.toJson(JsonTest(Phase.`type`)))

@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class EnterLobbyAE extends EnterLobbyAnalysisEngine {
+final class EnterLobbyAE extends EnterLobbyAnalysisEngine {
   override def process(box: LobbyBOX, enterLobbyProtocol: EnterLobbyProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(EnterLobby.`type`))

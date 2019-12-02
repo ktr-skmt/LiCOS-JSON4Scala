@@ -10,7 +10,7 @@ import protocol.engine.lobby.{LobbyBox, NoLobbyBOXException}
 
 import scala.util.{Failure, Success, Try}
 
-class GetSettingsAE extends GetSettingsAnalysisEngine {
+final class GetSettingsAE extends GetSettingsAnalysisEngine {
   override def process(box: LobbyBOX, getSettingsProtocol: GetSettingsProtocol): Try[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Success(LobbyMessageTestProtocol(GetSettings.`type`))
