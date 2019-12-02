@@ -67,7 +67,7 @@ import play.api.libs.json.{JsResult, JsValue}
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success, Try}
 
-object LobbyProcessingEngineSpec {
+object LobbyProcessingEngineSuite {
   @DataPoints
   def jsonExampleSeq: Array[LobbyExample] = Array[LobbyExample](
     AdvancedSearch("advancedSearch.json"),
@@ -100,9 +100,9 @@ object LobbyProcessingEngineSpec {
 }
 
 @RunWith(classOf[Theories])
-class LobbyProcessingEngineSpec extends AssertionsForJUnit {
+class LobbyProcessingEngineSuite extends AssertionsForJUnit {
 
-  private final val log: Logger = Logger[LobbyProcessingEngine]
+  private final val log: Logger = Logger[LobbyProcessingEngineSuite]
 
   private val processingEngineFactory: LobbyProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(LobbyPE)
@@ -136,9 +136,9 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit {
 
   @Theory
   def process(jsonExample: LobbyExample): Unit = {
-    val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+    val jsonType: String = jsonExample.`type`
+    val url: String = jsonExample.path
+    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
@@ -172,7 +172,7 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit {
   private def parseJsonTest(jsValue: JsValue): Option[JsonTest] = {
     Try(jsValue.validate[JsonTest]) match {
       case Success(json: JsResult[JsonTest]) => json.asOpt
-      case Failure(err:  Throwable) =>
+      case Failure(err: Throwable) =>
         fail(
           Seq[String](
             "Parsing failed.",

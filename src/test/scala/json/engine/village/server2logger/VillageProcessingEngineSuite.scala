@@ -24,7 +24,7 @@ import play.api.libs.json.{JsResult, JsValue}
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success, Try}
 
-object VillageProcessingEngineSpec {
+object VillageProcessingEngineSuite {
   @DataPoints
   def jsonExampleSeq: Array[VillageExample] = Array[VillageExample](
     Vote("nightVoteForLog.jsonld"),
@@ -34,9 +34,9 @@ object VillageProcessingEngineSpec {
 }
 
 @RunWith(classOf[Theories])
-class VillageProcessingEngineSpec extends AssertionsForJUnit {
+class VillageProcessingEngineSuite extends AssertionsForJUnit {
 
-  private final val log: Logger = Logger[VillageProcessingEngineSpec]
+  private final val log: Logger = Logger[VillageProcessingEngineSuite]
 
   private val processingEngineFactory: VillageProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(VillagePE)
@@ -49,9 +49,9 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit {
 
   @Theory
   def process(jsonExample: VillageExample): Unit = {
-    val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+    val jsonType: String = jsonExample.`type`
+    val url: String = jsonExample.path
+    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")

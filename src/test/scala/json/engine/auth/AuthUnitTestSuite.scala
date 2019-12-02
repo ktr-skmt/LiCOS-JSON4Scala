@@ -13,7 +13,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.io.{Codec, Source}
 
-object AuthUnitTestSpec {
+object AuthUnitTestSuite {
 
   @DataPoints
   def exampleSeq: Array[AuthUnitTestExample] = Array[AuthUnitTestExample](
@@ -24,15 +24,15 @@ object AuthUnitTestSpec {
 }
 
 @RunWith(classOf[Theories])
-class AuthUnitTestSpec extends AssertionsForJUnit with AuthUnitTestParser {
+class AuthUnitTestSuite extends AssertionsForJUnit with AuthUnitTestParser {
 
-  private final val log: Logger = Logger[AuthUnitTestSpec]
+  private final val log: Logger = Logger[AuthUnitTestSuite]
 
   @Theory
   def process(jsonExample: AuthUnitTestExample): Unit = {
-    val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+    val jsonType: String = jsonExample.`type`
+    val url: String = jsonExample.path
+    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")

@@ -27,7 +27,7 @@ import protocol.engine.village.example.server2client.server2logger.{ChatFromServ
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success}
 
-object VillageProcessingEngineSpec {
+object VillageProcessingEngineSuite {
   @DataPoints
   def exampleSeq: Array[VillageExample] = Array[VillageExample](
     Vote("nightVoteForLog.jsonld"),
@@ -37,9 +37,9 @@ object VillageProcessingEngineSpec {
 }
 
 @RunWith(classOf[Theories])
-class VillageProcessingEngineSpec extends AssertionsForJUnit with VillageParser {
+class VillageProcessingEngineSuite extends AssertionsForJUnit with VillageParser {
 
-  private final val log: Logger = Logger[VillageProcessingEngineSpec]
+  private final val log: Logger = Logger[VillageProcessingEngineSuite]
 
   private val processingEngineFactory: VillageProcessingEngineFactory4Logger = SpecificProcessingEngineFactory
     .create(VillagePE4Logger)
@@ -83,8 +83,6 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit with VillageParser 
       case Success(protocol: VillageMessageProtocol) =>
         protocol match {
           case p: VillageMessageTestProtocol =>
-            log.error(p.text)
-            log.error(jsonType)
             assert(p.text == jsonType)
           case _ =>
             fail(

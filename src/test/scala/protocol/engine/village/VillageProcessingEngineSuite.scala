@@ -82,7 +82,7 @@ import protocol.engine.village.example.server2client.{
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success}
 
-object VillageProcessingEngineSpec {
+object VillageProcessingEngineSuite {
   @DataPoints
   def exampleSeq: Array[VillageExample] = Array[VillageExample](
     ReceivedChatMessage("receipt/receivedChatMessage.json"),
@@ -117,9 +117,9 @@ object VillageProcessingEngineSpec {
 }
 
 @RunWith(classOf[Theories])
-class VillageProcessingEngineSpec extends AssertionsForJUnit with VillageParser {
+class VillageProcessingEngineSuite extends AssertionsForJUnit with VillageParser {
 
-  private final val log: Logger = Logger[VillageProcessingEngineSpec]
+  private final val log: Logger = Logger[VillageProcessingEngineSuite]
 
   private val processingEngineFactory: VillageProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(VillagePE)
@@ -179,9 +179,9 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit with VillageParser 
 
     val box = new VillageBox(villageInfoFromLobby)
 
-    val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+    val jsonType: String = jsonExample.`type`
+    val url: String = jsonExample.path
+    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
@@ -191,8 +191,6 @@ class VillageProcessingEngineSpec extends AssertionsForJUnit with VillageParser 
       case Success(protocol: VillageMessageProtocol) =>
         protocol match {
           case p: VillageMessageTestProtocol =>
-            log.error(p.text)
-            log.error(jsonType)
             assert(p.text == jsonType)
           case _ =>
             fail(

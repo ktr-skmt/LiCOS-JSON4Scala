@@ -20,7 +20,7 @@ import protocol.engine.auth.example.server2robot.{AuthenticationRequestResponse,
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success}
 
-object AuthProcessingEngineSpec {
+object AuthProcessingEngineSuite {
   @DataPoints
   def exampleSeq: Array[AuthExample] = Array[AuthExample](
     AuthenticationAndAuthorizationRequest("authenticationAndAuthorizationRequest.json"),
@@ -30,9 +30,9 @@ object AuthProcessingEngineSpec {
 }
 
 @RunWith(classOf[Theories])
-class AuthProcessingEngineSpec extends AssertionsForJUnit with AuthParser {
+class AuthProcessingEngineSuite extends AssertionsForJUnit with AuthParser {
 
-  private final val log: Logger = Logger[AuthProcessingEngineSpec]
+  private final val log: Logger = Logger[AuthProcessingEngineSuite]
 
   private val processingEngineFactory: AuthProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(AuthPE)
@@ -45,9 +45,9 @@ class AuthProcessingEngineSpec extends AssertionsForJUnit with AuthParser {
 
   @Theory
   def process(jsonExample: AuthExample): Unit = {
-    val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+    val jsonType: String = jsonExample.`type`
+    val url: String = jsonExample.path
+    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")

@@ -78,7 +78,7 @@ import protocol.engine.lobby.example.server2server.PlayedWithToken
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success}
 
-object LobbyProcessingEngineSpec {
+object LobbyProcessingEngineSuite {
   @DataPoints
   def exampleSeq: Array[LobbyExample] = Array[LobbyExample](
     AdvancedSearch("advancedSearch.json"),
@@ -115,9 +115,9 @@ object LobbyProcessingEngineSpec {
 }
 
 @RunWith(classOf[Theories])
-class LobbyProcessingEngineSpec extends AssertionsForJUnit with LobbyParser {
+class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyParser {
 
-  private final val log: Logger = Logger[LobbyProcessingEngineSpec]
+  private final val log: Logger = Logger[LobbyProcessingEngineSuite]
 
   private val processingEngineFactory: LobbyProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(LobbyPE)
@@ -154,9 +154,9 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit with LobbyParser {
 
   @Theory
   def process(jsonExample: LobbyExample): Unit = {
-    val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+    val jsonType: String = jsonExample.`type`
+    val url: String = jsonExample.path
+    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
@@ -166,8 +166,6 @@ class LobbyProcessingEngineSpec extends AssertionsForJUnit with LobbyParser {
       case Success(protocol: LobbyMessageProtocol) =>
         protocol match {
           case p: LobbyMessageTestProtocol =>
-            log.error(p.text)
-            log.error(jsonType)
             assert(p.text == jsonType)
           case _ =>
             fail(

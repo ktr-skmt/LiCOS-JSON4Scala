@@ -48,7 +48,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.io.{Codec, Source}
 
-object VillageUnitTestSpec {
+object VillageUnitTestSuite {
 
   @DataPoints
   def exampleSeq: Array[VillageUnitTestExample] = Array[VillageUnitTestExample](
@@ -90,15 +90,15 @@ object VillageUnitTestSpec {
 }
 
 @RunWith(classOf[Theories])
-class VillageUnitTestSpec extends AssertionsForJUnit with VillageUnitTestParser {
+class VillageUnitTestSuite extends AssertionsForJUnit with VillageUnitTestParser {
 
-  private final val log: Logger = Logger[VillageUnitTestSpec]
+  private final val log: Logger = Logger[VillageUnitTestSuite]
 
   @Theory
   def process(jsonExample: VillageUnitTestExample): Unit = {
-    val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+    val jsonType: String = jsonExample.`type`
+    val url: String = jsonExample.path
+    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
@@ -178,6 +178,5 @@ class VillageUnitTestSpec extends AssertionsForJUnit with VillageUnitTestParser 
       case _ =>
         fail("no json type")
     }
-
   }
 }

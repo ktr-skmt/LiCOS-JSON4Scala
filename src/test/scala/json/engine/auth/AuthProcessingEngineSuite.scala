@@ -24,7 +24,7 @@ import play.api.libs.json.{JsResult, JsValue}
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success, Try}
 
-object AuthProcessingEngineSpec {
+object AuthProcessingEngineSuite {
 
   @DataPoints
   def exampleSeq: Array[AuthExample] = Array[AuthExample](
@@ -35,9 +35,9 @@ object AuthProcessingEngineSpec {
 }
 
 @RunWith(classOf[Theories])
-class AuthProcessingEngineSpec extends AssertionsForJUnit with AuthParser {
+class AuthProcessingEngineSuite extends AssertionsForJUnit with AuthParser {
 
-  private final val log: Logger = Logger[AuthProcessingEngineSpec]
+  private final val log: Logger = Logger[AuthProcessingEngineSuite]
 
   private val processingEngineFactory: AuthProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(AuthPE)
@@ -50,9 +50,9 @@ class AuthProcessingEngineSpec extends AssertionsForJUnit with AuthParser {
 
   @Theory
   def process(jsonExample: AuthExample): Unit = {
-    val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+    val jsonType: String = jsonExample.`type`
+    val url: String = jsonExample.path
+    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
@@ -86,7 +86,7 @@ class AuthProcessingEngineSpec extends AssertionsForJUnit with AuthParser {
   private def parseJsonTest(jsValue: JsValue): Option[JsonTest] = {
     Try(jsValue.validate[JsonTest]) match {
       case Success(json: JsResult[JsonTest]) => json.asOpt
-      case Failure(err:  Throwable) =>
+      case Failure(err: Throwable) =>
         fail(
           Seq[String](
             "Parsing failed.",

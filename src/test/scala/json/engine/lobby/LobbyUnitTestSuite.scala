@@ -22,7 +22,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.io.{Codec, Source}
 
-object LobbyUnitTestSpec {
+object LobbyUnitTestSuite {
 
   @DataPoints
   def exampleSeq: Array[LobbyUnitTestExample] = Array[LobbyUnitTestExample](
@@ -38,15 +38,15 @@ object LobbyUnitTestSpec {
 }
 
 @RunWith(classOf[Theories])
-class LobbyUnitTestSpec extends AssertionsForJUnit with LobbyUnitTestParser {
+class LobbyUnitTestSuite extends AssertionsForJUnit with LobbyUnitTestParser {
 
-  private final val log: Logger = Logger[LobbyUnitTestSpec]
+  private final val log: Logger = Logger[LobbyUnitTestSuite]
 
   @Theory
   def process(jsonExample: LobbyUnitTestExample): Unit = {
-    val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+    val jsonType: String = jsonExample.`type`
+    val url: String = jsonExample.path
+    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")

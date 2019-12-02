@@ -1,3 +1,4 @@
+
 val jsonLibraryName: String = "LiCOS-JSON4Scala"
 
 name := jsonLibraryName
@@ -112,7 +113,7 @@ lazy val json = (project in file(".")).
         "dev.morphia.morphia" % "core" % "1.5.8-SNAPSHOT",
         "org.projectlombok" % "lombok" % "1.18.10",
         "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
-        "org.slf4j" % "slf4j-api" % "1.7.28" % "compile",// withSources() withJavadoc()
+        "org.slf4j" % "slf4j-api" % "1.7.28" % "compile",
         "ch.qos.logback" % "logback-classic" % "1.2.3",
         "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
         "org.typelevel" %% "cats-core" % "2.0.0"
