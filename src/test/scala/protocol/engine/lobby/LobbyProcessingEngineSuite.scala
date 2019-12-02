@@ -154,9 +154,9 @@ class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyParser {
 
   @Theory
   def process(jsonExample: LobbyExample): Unit = {
-    val jsonType: String = jsonExample.`type`
-    val url: String = jsonExample.path
-    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
+    val jsonType:       String = jsonExample.`type`
+    val url:            String = jsonExample.path
+    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")

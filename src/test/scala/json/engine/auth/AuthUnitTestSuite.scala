@@ -30,9 +30,9 @@ class AuthUnitTestSuite extends AssertionsForJUnit with AuthUnitTestParser {
 
   @Theory
   def process(jsonExample: AuthUnitTestExample): Unit = {
-    val jsonType: String = jsonExample.`type`
-    val url: String = jsonExample.path
-    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
+    val jsonType:       String = jsonExample.`type`
+    val url:            String = jsonExample.path
+    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")

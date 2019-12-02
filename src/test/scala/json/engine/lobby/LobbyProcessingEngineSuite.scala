@@ -136,9 +136,9 @@ class LobbyProcessingEngineSuite extends AssertionsForJUnit {
 
   @Theory
   def process(jsonExample: LobbyExample): Unit = {
-    val jsonType: String = jsonExample.`type`
-    val url: String = jsonExample.path
-    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
+    val jsonType:       String = jsonExample.`type`
+    val url:            String = jsonExample.path
+    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
@@ -172,7 +172,7 @@ class LobbyProcessingEngineSuite extends AssertionsForJUnit {
   private def parseJsonTest(jsValue: JsValue): Option[JsonTest] = {
     Try(jsValue.validate[JsonTest]) match {
       case Success(json: JsResult[JsonTest]) => json.asOpt
-      case Failure(err: Throwable) =>
+      case Failure(err:  Throwable) =>
         fail(
           Seq[String](
             "Parsing failed.",

@@ -96,9 +96,9 @@ class VillageUnitTestSuite extends AssertionsForJUnit with VillageUnitTestParser
 
   @Theory
   def process(jsonExample: VillageUnitTestExample): Unit = {
-    val jsonType: String = jsonExample.`type`
-    val url: String = jsonExample.path
-    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
+    val jsonType:       String = jsonExample.`type`
+    val url:            String = jsonExample.path
+    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")

@@ -44,9 +44,9 @@ class LobbyUnitTestSuite extends AssertionsForJUnit with LobbyUnitTestParser {
 
   @Theory
   def process(jsonExample: LobbyUnitTestExample): Unit = {
-    val jsonType: String = jsonExample.`type`
-    val url: String = jsonExample.path
-    implicit val codec: Codec = Codec(StandardCharsets.UTF_8)
+    val jsonType:       String = jsonExample.`type`
+    val url:            String = jsonExample.path
+    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
     log.info(url)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
