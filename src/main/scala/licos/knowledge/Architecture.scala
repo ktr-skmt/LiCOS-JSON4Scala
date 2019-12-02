@@ -11,5 +11,5 @@ sealed abstract class Architecture(val label: String) {
 }
 
 case object HumanArchitecture extends Architecture("human")
-case object AutomatedRobotArchitecture extends Architecture("automated robot")
+case object FullyAutomatedRobotArchitecture extends Architecture("fully automated robot")
 case object SemiAutomatedRobotArchitecture extends Architecture("semi-automated robot")
