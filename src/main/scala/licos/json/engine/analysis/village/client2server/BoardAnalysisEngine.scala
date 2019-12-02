@@ -1,8 +1,8 @@
 package licos.json.engine.analysis.village.client2server
 
+import licos.json.element.village.client2server.JsonBoard
 import licos.json.engine.BOX
 import licos.json.engine.analysis.AnalysisEngine
-import licos.json.element.village.JsonBoard
 import play.api.libs.json.JsValue
 
 /** The analysis engine for a board.
@@ -26,7 +26,7 @@ object BoardAnalysisEngine {
   /**
     * Board analysis engine name.
     */
-  val name:         String  = "village.client2server.BoardAnalysisEngine"
+  val name:         String  = "village.client2server.JsonBoardAnalysisEngine"
   val isFromServer: Boolean = false
 
 }

@@ -1,8 +1,8 @@
 package licos.json.engine.analysis.village.client2server
 
+import licos.json.element.village.client2server.JsonStar
 import licos.json.engine.BOX
 import licos.json.engine.analysis.AnalysisEngine
-import licos.json.element.village.JsonStar
 import play.api.libs.json.JsValue
 
 /** The analysis engine for a star.

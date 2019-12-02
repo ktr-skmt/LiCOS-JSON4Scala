@@ -1,45 +1,52 @@
 package licos.json.element.village.iri
 
 object Contexts {
-  def get(message: Message): Seq[String] = {
+
+  def get(message: Message): Seq[Context] = {
     message match {
       case BoardMessage =>
-        Seq[String](
-          BaseContext.iri,
-          BoardContext.iri
+        Seq[Context](
+          BaseContext,
+          BoardContext
         )
       case ChatMessage =>
-        Seq[String](
-          BaseContext.iri,
-          ChatContext.iri
+        Seq[Context](
+          BaseContext,
+          ChatContext
         )
       case ErrorMessage =>
-        Seq[String](
-          BaseContext.iri,
-          ErrorContext.iri
+        Seq[Context](
+          BaseContext,
+          ErrorContext
         )
       case ScrollMessage =>
-        Seq[String](
-          BaseContext.iri,
-          ScrollContext.iri
+        Seq[Context](
+          BaseContext,
+          ScrollContext
         )
       case SystemMessage =>
-        Seq[String](
-          BaseContext.iri,
-          VotingResultContext.iri
+        Seq[Context](
+          BaseContext,
+          VotingResultContext
         )
       case VoteMessage =>
-        Seq[String](
-          BaseContext.iri,
-          VoteContext.iri
+        Seq[Context](
+          BaseContext,
+          VoteContext
         )
       case FlavorTextMessage =>
-        Seq[String](
-          BaseContext.iri,
-          FlavorTextContext.iri
+        Seq[Context](
+          BaseContext,
+          FlavorTextContext
+        )
+      case StarMessage =>
+        Seq[Context](
+          BaseContext,
+          StarContext
         )
       case DummyMessage =>
         Nil
     }
   }
+
 }

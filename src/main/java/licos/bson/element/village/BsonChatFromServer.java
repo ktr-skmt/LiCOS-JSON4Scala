@@ -4,18 +4,11 @@ import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Reference;
 import licos.bson.element.village.character.BsonSimpleCharacter;
-import licos.json.element.village.JsonChatFromServer;
+import licos.json.element.village.server2client.JsonChatFromServer;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 
-/**
- * <pre>
- * Created on 2018/01/11.
- * </pre>
- *
- * @author K.Sakamoto
- */
 @Entity("chatsFromServer")
 public class BsonChatFromServer extends BsonElement {
 
@@ -42,7 +35,7 @@ public class BsonChatFromServer extends BsonElement {
     private int maxNumberOfChatMessages;
 
     @Getter @Setter
-    private String interval;
+    private int interval;
 
     @Getter @Setter @Reference
     private BsonChatText text;
@@ -65,7 +58,7 @@ public class BsonChatFromServer extends BsonElement {
                               int id,
                               int counter,
                               int maxNumberOfChatMessages,
-                              String interval,
+                              int interval,
                               BsonChatText text,
                               int maxLengthOfUnicodeCodePoints,
                               boolean isOver) {

@@ -2,11 +2,21 @@ package licos.json.parser
 
 import licos.json.element.village.invite.{JsonNextGameInvitation, JsonNextGameInvitationIsClosed}
 import licos.json.element.village._
+import licos.json.element.village.client2server.{
+  JsonBoard,
+  JsonChatFromClient,
+  JsonOnymousAudienceBoard,
+  JsonOnymousAudienceScroll,
+  JsonScroll,
+  JsonStar,
+  JsonVote
+}
 import licos.json.element.village.receipt.{
   JsonReceivedChatMessage,
   JsonReceivedFlavorTextMessage,
   JsonReceivedSystemMessage
 }
+import licos.json.element.village.server2client.{JsonChatFromServer, JsonFlavorText, JsonGameResult, JsonPhase}
 import licos.json.engine.analysis.village.{client2server, server2client}
 import licos.json.engine.analysis.village.client2server.{
   BoardAnalysisEngine,
@@ -38,7 +48,7 @@ import scala.util.{Failure, Success, Try}
 @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
 trait VillageParser extends LiCOSParser {
 
-  private val log: Logger = LoggerFactory.getLogger(classOf[LiCOSParser])
+  private val log: Logger = LoggerFactory.getLogger(classOf[VillageParser])
 
   /** Tries to parse play.api.libs.json.JsValue as Phase JSON.
     *

@@ -3,18 +3,11 @@ package licos.bson.element.village;
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Reference;
-import licos.json.element.village.JsonOnymousAudienceScroll;
+import licos.json.element.village.client2server.JsonOnymousAudienceScroll;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 
-/**
- * <pre>
- * Created on 2018/01/11.
- * </pre>
- *
- * @author K.Sakamoto
- */
 @Entity("onymousAudienceScrolls")
 public class BsonOnymousAudienceScroll extends BsonElement {
 

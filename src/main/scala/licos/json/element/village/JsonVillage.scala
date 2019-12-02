@@ -1,30 +1,30 @@
 package licos.json.element.village
 
-import licos.LiCOSOnline
 import licos.bson.element.village.BsonVillage
 import licos.json.element.village.iri.VillageContext
 import licos.json.validation.village.VillageValidation
+import licos.util.LiCOSOnline
 import org.bson.types.ObjectId
 
 final case class JsonVillage(
-    `@context`:              String,
-    `@id`:                   String,
-    id:                      Long,
-    name:                    String,
-    totalNumberOfCharacters: Int,
-    lang:                    String,
-    chatSettings:            JsonChatSettings
+    `@context`:           String,
+    `@id`:                String,
+    id:                   Long,
+    name:                 String,
+    totalNumberOfPlayers: Int,
+    language:             String,
+    chatSettings:         JsonChatSettings
 ) extends JsonElement {
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
-  def this(id: Long, name: String, totalNumberOfCharacters: Int, lang: String, chatSettings: JsonChatSettings) = {
+  def this(id: Long, name: String, totalNumberOfPlayers: Int, language: String, chatSettings: JsonChatSettings) = {
     this(
       VillageContext.iri:       String,
       LiCOSOnline.stateVillage: String,
       id:                       Long,
       name:                     String,
-      totalNumberOfCharacters:  Int,
-      lang:                     String,
+      totalNumberOfPlayers:     Int,
+      language:                 String,
       chatSettings:             JsonChatSettings
     )
   }
@@ -32,12 +32,12 @@ final case class JsonVillage(
   override def toBson: BsonVillage = {
     new BsonVillage(
       new ObjectId(),
-      `@context`:              String,
-      `@id`:                   String,
-      id:                      Long,
-      name:                    String,
-      totalNumberOfCharacters: Int,
-      lang:                    String,
+      `@context`:           String,
+      `@id`:                String,
+      id:                   Long,
+      name:                 String,
+      totalNumberOfPlayers: Int,
+      language:             String,
       chatSettings.toBson
     )
   }
@@ -53,8 +53,8 @@ object JsonVillage {
       (JsPath \ "@id").read[String](VillageValidation.`@id`) and
       (JsPath \ "id").read[Long](VillageValidation.id) and
       (JsPath \ "name").read[String](VillageValidation.name) and
-      (JsPath \ "totalNumberOfCharacters").read[Int](VillageValidation.totalNumberOfCharacters) and
-      (JsPath \ "lang").read[String](VillageValidation.lang) and
+      (JsPath \ "totalNumberOfPlayers").read[Int](VillageValidation.totalNumberOfPlayers) and
+      (JsPath \ "language").read[String](VillageValidation.language) and
       (JsPath \ "chatSettings").read[JsonChatSettings]
   )(JsonVillage.apply _)
 

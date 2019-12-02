@@ -5,7 +5,7 @@ import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Reference;
 import licos.bson.element.village.character.BsonCharacter;
 import licos.bson.element.village.role.BsonRole;
-import licos.json.element.village.JsonPhase;
+import licos.json.element.village.server2client.JsonPhase;
 import licos.json.element.village.character.JsonCharacter;
 import licos.json.element.village.role.JsonRole;
 import lombok.Getter;
@@ -16,13 +16,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * <pre>
- * Created on 2018/01/11.
- * </pre>
- *
- * @author K.Sakamoto
- */
 @Entity("phases")
 public class BsonPhase extends BsonElementToJsonElement {
 

@@ -2,7 +2,7 @@ package licos.bson.element.village;
 
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
-import licos.json.element.village.JsonStarInfo;
+import licos.json.element.village.client2server.JsonStarInfo;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;

@@ -1,30 +1,36 @@
 package licos.json.parser
 
-import licos.json.element.lobby.{
+import licos.json.element.lobby.client2server.{
   JsonAdvancedSearch,
-  JsonAvatarInfo,
+  JsonAuthorizationRequestAccepted,
   JsonChangeLang,
   JsonChangeUserEmail,
   JsonChangeUserName,
   JsonChangeUserPassword,
   JsonEnterLobby,
-  JsonGetAvatarInfo,
   JsonGetSettings,
   JsonIdSearch,
   JsonKickOutPlayer,
+  JsonPlay,
+  JsonPong,
+  JsonSelectVillage
+}
+import licos.json.element.lobby.server2client.{
+  JsonAuthorizationRequest,
+  JsonAuthorizationRequestAcceptedResponse,
+  JsonAvatarInfo,
+  JsonGetAvatarInfo,
   JsonLobby,
   JsonPing,
-  JsonPlay,
   JsonPlayed,
-  JsonPlayedWithToken,
-  JsonPong,
   JsonSearchResult,
-  JsonSelectVillage,
   JsonSettings,
   JsonWaitingPage
 }
+import licos.json.element.lobby.server2server.JsonPlayedWithToken
 import licos.json.engine.analysis.lobby.client2server.{
   AdvancedSearchAnalysisEngine,
+  AuthorizationRequestAcceptedAnalysisEngine,
   ChangeLangAnalysisEngine,
   ChangeUserEmailAnalysisEngine,
   ChangeUserNameAnalysisEngine,
@@ -39,6 +45,8 @@ import licos.json.engine.analysis.lobby.client2server.{
   SelectVillageAnalysisEngine
 }
 import licos.json.engine.analysis.lobby.server2client.{
+  AuthorizationRequestAcceptedResponseAnalysisEngine,
+  AuthorizationRequestAnalysisEngine,
   AvatarInfoAnalysisEngine,
   LobbyAnalysisEngine,
   PingAnalysisEngine,
@@ -60,7 +68,7 @@ import scala.util.{Failure, Success, Try}
 @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
 trait LobbyParser extends LiCOSParser {
 
-  private val log: Logger = LoggerFactory.getLogger(classOf[LiCOSParser])
+  private val log: Logger = LoggerFactory.getLogger(classOf[LobbyParser])
 
   /** Tries to parse play.api.libs.json.JsValue as Ping JSON.
     *
@@ -479,6 +487,55 @@ trait LobbyParser extends LiCOSParser {
       case Failure(err: Throwable) =>
         log.error(err.getMessage)
         Left(returnError(err, jsValue, SettingsAnalysisEngine.isFromServer))
+    }
+  }
+
+  protected def parseAuthorizationRequestAccepted(
+      jsValue: JsValue
+  ): Either[JsValue, JsonAuthorizationRequestAccepted] = {
+    Try(jsValue.validate[JsonAuthorizationRequestAccepted]) match {
+      case Success(json: JsResult[JsonAuthorizationRequestAccepted]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, AuthorizationRequestAcceptedAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, AuthorizationRequestAcceptedAnalysisEngine.isFromServer))
+    }
+  }
+
+  protected def parseAuthorizationRequestAcceptedResponse(
+      jsValue: JsValue
+  ): Either[JsValue, JsonAuthorizationRequestAcceptedResponse] = {
+    Try(jsValue.validate[JsonAuthorizationRequestAcceptedResponse]) match {
+      case Success(json: JsResult[JsonAuthorizationRequestAcceptedResponse]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, AuthorizationRequestAcceptedResponseAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, AuthorizationRequestAcceptedResponseAnalysisEngine.isFromServer))
+    }
+  }
+
+  protected def parseAuthorizationRequest(jsValue: JsValue): Either[JsValue, JsonAuthorizationRequest] = {
+    Try(jsValue.validate[JsonAuthorizationRequest]) match {
+      case Success(json: JsResult[JsonAuthorizationRequest]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, AuthorizationRequestAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, AuthorizationRequestAnalysisEngine.isFromServer))
     }
   }
 }

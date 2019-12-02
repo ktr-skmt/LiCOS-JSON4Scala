@@ -14,13 +14,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * <pre>
- * Created on 2018/01/11.
- * </pre>
- *
- * @author K.Sakamoto
- */
 @Entity("resultRoles")
 public class BsonResultRole extends BsonAbstractRole {
 

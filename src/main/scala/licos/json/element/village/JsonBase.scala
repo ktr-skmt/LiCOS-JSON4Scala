@@ -19,8 +19,8 @@ final case class JsonBase(
     day:                        Int,
     phaseTimeLimit:             Int,
     phaseStartTime:             String,
-    serverTimestamp:            String,
-    clientTimestamp:            String,
+    serverTimestamp:            Option[String],
+    clientTimestamp:            Option[String],
     directionality:             String,
     intensionalDisclosureRange: String,
     extensionalDisclosureRange: Seq[JsonStatusCharacter],
@@ -38,8 +38,8 @@ final case class JsonBase(
       day:                        Int,
       phaseTimeLimit:             Int,
       phaseStartTime:             String,
-      serverTimestamp:            String,
-      clientTimestamp:            String,
+      serverTimestamp:            Option[String],
+      clientTimestamp:            Option[String],
       directionality:             String,
       intensionalDisclosureRange: String,
       extensionalDisclosureRange: JList[JsonStatusCharacter],
@@ -56,8 +56,8 @@ final case class JsonBase(
       day:                                  Int,
       phaseTimeLimit:                       Int,
       phaseStartTime:                       String,
-      serverTimestamp:                      String,
-      clientTimestamp:                      String,
+      serverTimestamp:                      Option[String],
+      clientTimestamp:                      Option[String],
       directionality:                       String,
       intensionalDisclosureRange:           String,
       extensionalDisclosureRange.asScala:   Seq[JsonStatusCharacter],
@@ -80,8 +80,8 @@ final case class JsonBase(
         day:                        Int,
         phaseTimeLimit:             Int,
         phaseStartTime:             String,
-        serverTimestamp:            String,
-        clientTimestamp:            String,
+        serverTimestamp:            Option[String],
+        clientTimestamp:            Option[String],
         directionality:             String,
         intensionalDisclosureRange: String,
         extensionalDisclosureRange: Seq[JsonStatusCharacter],
@@ -91,6 +91,7 @@ final case class JsonBase(
     }
   }
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Null"))
   override def toBson: BsonBase = {
     val bsonVotingResultSummary: JList[BsonVotingResultSummary] = {
       votingResultsSummary match {
@@ -118,8 +119,8 @@ final case class JsonBase(
       day:                                             Int,
       phaseTimeLimit:                                  Int,
       phaseStartTime:                                  String,
-      serverTimestamp:                                 String,
-      clientTimestamp:                                 String,
+      serverTimestamp.orNull:                          String,
+      clientTimestamp.orNull:                          String,
       directionality:                                  String,
       intensionalDisclosureRange:                      String,
       extensionalDisclosureRange.map(_.toBson).asJava: JList[BsonStatusCharacter],
@@ -138,8 +139,8 @@ final case class JsonBase(
       day:                        Int,
       phaseTimeLimit:             Int,
       phaseStartTime:             String,
-      serverTimestamp:            String,
-      clientTimestamp:            String,
+      serverTimestamp:            Option[String],
+      clientTimestamp:            Option[String],
       directionality:             String,
       intensionalDisclosureRange: String,
       Nil:                        Seq[JsonStatusCharacter],
@@ -163,8 +164,8 @@ object JsonBase {
       (JsPath \ "day").read[Int](TimeValidation.day) and
       (JsPath \ "phaseTimeLimit").read[Int](BaseValidation.phaseTimeLimit) and
       (JsPath \ "phaseStartTime").read[String](BaseValidation.phaseStartTime) and
-      (JsPath \ "serverTimestamp").read[String](BaseValidation.serverTimestamp) and
-      (JsPath \ "clientTimestamp").read[String](BaseValidation.clientTimestamp) and
+      (JsPath \ "serverTimestamp").readNullable[String](BaseValidation.serverTimestamp) and
+      (JsPath \ "clientTimestamp").readNullable[String](BaseValidation.clientTimestamp) and
       (JsPath \ "directionality").read[String](BaseValidation.directionality) and
       (JsPath \ "intensionalDisclosureRange").read[String](BaseValidation.intensionalDisclosureRange) and
       (JsPath \ "extensionalDisclosureRange").read[Seq[JsonStatusCharacter]] and

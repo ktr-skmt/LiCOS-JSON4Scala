@@ -9,30 +9,34 @@ import licos.json.engine.analysis.lobby.server2server.PlayedWithTokenAnalysisEng
 @SuppressWarnings(Array[String]("org.wartremover.warts.Var", "org.wartremover.warts.Overloading"))
 class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
 
-  private var pongEngine:               Option[PongAnalysisEngine]               = None
-  private var pingEngine:               Option[PingAnalysisEngine]               = None
-  private var waitingPageEngine:        Option[WaitingPageAnalysisEngine]        = None
-  private var lobbyEngine:              Option[LobbyAnalysisEngine]              = None
-  private var enterLobbyEngine:         Option[EnterLobbyAnalysisEngine]         = None
-  private var getAvatarInfoEngine:      Option[GetAvatarInfoAnalysisEngine]      = None
-  private var avatarInfoEngine:         Option[AvatarInfoAnalysisEngine]         = None
-  private var selectVillageEngine:      Option[SelectVillageAnalysisEngine]      = None
-  private var leaveWaitingPageEngine:   Option[LeaveWaitingPageAnalysisEngine]   = None
-  private var kickOutPlayerEngine:      Option[KickOutPlayerAnalysisEngine]      = None
-  private var buildVillageEngine:       Option[BuildVillageAnalysisEngine]       = None
-  private var advancedSearchEngine:     Option[AdvancedSearchAnalysisEngine]     = None
-  private var idSearchEngine:           Option[IdSearchAnalysisEngine]           = None
-  private var playEngine:               Option[PlayAnalysisEngine]               = None
-  private var playedEngine:             Option[PlayedAnalysisEngine]             = None
-  private var playedWithTokenEngine:    Option[PlayedWithTokenAnalysisEngine]    = None
-  private var readyEngine:              Option[ReadyAnalysisEngine]              = None
-  private var searchResultEngine:       Option[SearchResultAnalysisEngine]       = None
-  private var changeLangEngine:         Option[ChangeLangAnalysisEngine]         = None
-  private var changeUserEmailEngine:    Option[ChangeUserEmailAnalysisEngine]    = None
-  private var changeUserNameEngine:     Option[ChangeUserNameAnalysisEngine]     = None
-  private var changeUserPasswordEngine: Option[ChangeUserPasswordAnalysisEngine] = None
-  private var getSettingsEngine:        Option[GetSettingsAnalysisEngine]        = None
-  private var settingsEngine:           Option[SettingsAnalysisEngine]           = None
+  private var pongEngine:                 Option[PongAnalysisEngine]                 = None
+  private var pingEngine:                 Option[PingAnalysisEngine]                 = None
+  private var waitingPageEngine:          Option[WaitingPageAnalysisEngine]          = None
+  private var lobbyEngine:                Option[LobbyAnalysisEngine]                = None
+  private var enterLobbyEngine:           Option[EnterLobbyAnalysisEngine]           = None
+  private var getAvatarInfoEngine:        Option[GetAvatarInfoAnalysisEngine]        = None
+  private var avatarInfoEngine:           Option[AvatarInfoAnalysisEngine]           = None
+  private var selectVillageEngine:        Option[SelectVillageAnalysisEngine]        = None
+  private var leaveWaitingPageEngine:     Option[LeaveWaitingPageAnalysisEngine]     = None
+  private var kickOutPlayerEngine:        Option[KickOutPlayerAnalysisEngine]        = None
+  private var buildVillageEngine:         Option[BuildVillageAnalysisEngine]         = None
+  private var advancedSearchEngine:       Option[AdvancedSearchAnalysisEngine]       = None
+  private var idSearchEngine:             Option[IdSearchAnalysisEngine]             = None
+  private var playEngine:                 Option[PlayAnalysisEngine]                 = None
+  private var playedEngine:               Option[PlayedAnalysisEngine]               = None
+  private var playedWithTokenEngine:      Option[PlayedWithTokenAnalysisEngine]      = None
+  private var readyEngine:                Option[ReadyAnalysisEngine]                = None
+  private var searchResultEngine:         Option[SearchResultAnalysisEngine]         = None
+  private var changeLangEngine:           Option[ChangeLangAnalysisEngine]           = None
+  private var changeUserEmailEngine:      Option[ChangeUserEmailAnalysisEngine]      = None
+  private var changeUserNameEngine:       Option[ChangeUserNameAnalysisEngine]       = None
+  private var changeUserPasswordEngine:   Option[ChangeUserPasswordAnalysisEngine]   = None
+  private var getSettingsEngine:          Option[GetSettingsAnalysisEngine]          = None
+  private var settingsEngine:             Option[SettingsAnalysisEngine]             = None
+  private var authorizationRequestEngine: Option[AuthorizationRequestAnalysisEngine] = None
+  private var authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine] =
+    None
+  private var authorizationRequestAcceptedEngine: Option[AuthorizationRequestAcceptedAnalysisEngine] = None
 
   /** Creates a lobby processing engine.
     *
@@ -40,30 +44,33 @@ class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
     */
   override def create: LobbyProcessingEngine = {
     new LobbyProcessingEngine(
-      pongEngine:               Option[PongAnalysisEngine],
-      pingEngine:               Option[PingAnalysisEngine],
-      waitingPageEngine:        Option[WaitingPageAnalysisEngine],
-      lobbyEngine:              Option[LobbyAnalysisEngine],
-      enterLobbyEngine:         Option[EnterLobbyAnalysisEngine],
-      getAvatarInfoEngine:      Option[GetAvatarInfoAnalysisEngine],
-      avatarInfoEngine:         Option[AvatarInfoAnalysisEngine],
-      selectVillageEngine:      Option[SelectVillageAnalysisEngine],
-      leaveWaitingPageEngine:   Option[LeaveWaitingPageAnalysisEngine],
-      kickOutPlayerEngine:      Option[KickOutPlayerAnalysisEngine],
-      buildVillageEngine:       Option[BuildVillageAnalysisEngine],
-      advancedSearchEngine:     Option[AdvancedSearchAnalysisEngine],
-      idSearchEngine:           Option[IdSearchAnalysisEngine],
-      playEngine:               Option[PlayAnalysisEngine],
-      playedEngine:             Option[PlayedAnalysisEngine],
-      playedWithTokenEngine:    Option[PlayedWithTokenAnalysisEngine],
-      readyEngine:              Option[ReadyAnalysisEngine],
-      searchResultEngine:       Option[SearchResultAnalysisEngine],
-      changeLangEngine:         Option[ChangeLangAnalysisEngine],
-      changeUserEmailEngine:    Option[ChangeUserEmailAnalysisEngine],
-      changeUserNameEngine:     Option[ChangeUserNameAnalysisEngine],
-      changeUserPasswordEngine: Option[ChangeUserPasswordAnalysisEngine],
-      getSettingsEngine:        Option[GetSettingsAnalysisEngine],
-      settingsEngine:           Option[SettingsAnalysisEngine]
+      pongEngine:                                 Option[PongAnalysisEngine],
+      pingEngine:                                 Option[PingAnalysisEngine],
+      waitingPageEngine:                          Option[WaitingPageAnalysisEngine],
+      lobbyEngine:                                Option[LobbyAnalysisEngine],
+      enterLobbyEngine:                           Option[EnterLobbyAnalysisEngine],
+      getAvatarInfoEngine:                        Option[GetAvatarInfoAnalysisEngine],
+      avatarInfoEngine:                           Option[AvatarInfoAnalysisEngine],
+      selectVillageEngine:                        Option[SelectVillageAnalysisEngine],
+      leaveWaitingPageEngine:                     Option[LeaveWaitingPageAnalysisEngine],
+      kickOutPlayerEngine:                        Option[KickOutPlayerAnalysisEngine],
+      buildVillageEngine:                         Option[BuildVillageAnalysisEngine],
+      advancedSearchEngine:                       Option[AdvancedSearchAnalysisEngine],
+      idSearchEngine:                             Option[IdSearchAnalysisEngine],
+      playEngine:                                 Option[PlayAnalysisEngine],
+      playedEngine:                               Option[PlayedAnalysisEngine],
+      playedWithTokenEngine:                      Option[PlayedWithTokenAnalysisEngine],
+      readyEngine:                                Option[ReadyAnalysisEngine],
+      searchResultEngine:                         Option[SearchResultAnalysisEngine],
+      changeLangEngine:                           Option[ChangeLangAnalysisEngine],
+      changeUserEmailEngine:                      Option[ChangeUserEmailAnalysisEngine],
+      changeUserNameEngine:                       Option[ChangeUserNameAnalysisEngine],
+      changeUserPasswordEngine:                   Option[ChangeUserPasswordAnalysisEngine],
+      getSettingsEngine:                          Option[GetSettingsAnalysisEngine],
+      settingsEngine:                             Option[SettingsAnalysisEngine],
+      authorizationRequestEngine:                 Option[AuthorizationRequestAnalysisEngine],
+      authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine],
+      authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine]
     )
   }
 
@@ -186,4 +193,24 @@ class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
     this.settingsEngine = Option(settingsEngine)
     this
   }
+
+  def set(authorizationRequestEngine: AuthorizationRequestAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.authorizationRequestEngine = Option(authorizationRequestEngine)
+    this
+  }
+
+  def set(
+      authorizationRequestAcceptedResponseEngine: AuthorizationRequestAcceptedResponseAnalysisEngine
+  ): LobbyProcessingEngineFactory = {
+    this.authorizationRequestAcceptedResponseEngine = Option(authorizationRequestAcceptedResponseEngine)
+    this
+  }
+
+  def set(
+      authorizationRequestAcceptedEngine: AuthorizationRequestAcceptedAnalysisEngine
+  ): LobbyProcessingEngineFactory = {
+    this.authorizationRequestAcceptedEngine = Option(authorizationRequestAcceptedEngine)
+    this
+  }
+
 }

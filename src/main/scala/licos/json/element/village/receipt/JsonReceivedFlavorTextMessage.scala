@@ -1,7 +1,7 @@
 package licos.json.element.village.receipt
 
 import licos.json.element.Element
-import licos.json.element.village.JsonFlavorText
+import licos.json.element.village.server2client.JsonFlavorText
 import licos.json.validation.village.{AvatarValidation, TimeValidation, VillageValidation}
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
@@ -9,6 +9,11 @@ final case class JsonReceivedFlavorTextMessage(`type`: String, token: String, vi
     extends JsonReceivedMessage(`type`, token, villageId)
     with Element {
   override protected def validType: String = JsonReceivedFlavorTextMessage.`type`
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
+  def this(token: String, villageId: Long, phase: String, day: Int) = {
+    this(JsonReceivedFlavorTextMessage.`type`, token, villageId, phase, day)
+  }
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(flavorText: JsonFlavorText) = {

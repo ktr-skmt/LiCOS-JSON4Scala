@@ -5,18 +5,11 @@ import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Reference;
 import licos.bson.element.village.character.BsonRoleCharacter;
 import licos.bson.element.village.character.BsonSimpleCharacter;
-import licos.json.element.village.JsonChatFromClient;
+import licos.json.element.village.client2server.JsonChatFromClient;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 
-/**
- * <pre>
- * Created on 2018/01/11.
- * </pre>
- *
- * @author K.Sakamoto
- */
 @Entity("chatsFromClient")
 public class BsonChatFromClient extends BsonElement {
 

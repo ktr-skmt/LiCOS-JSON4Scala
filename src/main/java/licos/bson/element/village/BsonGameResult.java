@@ -5,7 +5,7 @@ import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Reference;
 import licos.bson.element.village.character.BsonResultCharacter;
 import licos.bson.element.village.role.BsonResultRole;
-import licos.json.element.village.JsonGameResult;
+import licos.json.element.village.server2client.JsonGameResult;
 import licos.json.element.village.character.JsonResultCharacter;
 import licos.json.element.village.role.JsonResultRole;
 import lombok.Getter;
@@ -16,13 +16,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * <pre>
- * Created on 2018/01/11.
- * </pre>
- *
- * @author K.Sakamoto
- */
 @Entity("gameResults")
 public class BsonGameResult extends BsonElementToJsonElement {
 

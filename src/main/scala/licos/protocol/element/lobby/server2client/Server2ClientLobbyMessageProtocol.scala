@@ -1,0 +1,5 @@
+package licos.protocol.element.lobby.server2client
+
+import licos.protocol.element.lobby.LobbyMessageProtocol
+
+trait Server2ClientLobbyMessageProtocol extends LobbyMessageProtocol

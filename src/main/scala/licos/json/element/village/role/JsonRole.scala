@@ -12,13 +12,13 @@ import org.bson.types.ObjectId
 import scala.collection.JavaConverters._
 
 final case class JsonRole(
-    `@context`:         String,
-    `@id`:              String,
-    name:               JsonName,
-    image:              String,
-    isMine:             Boolean,
-    numberOfCharacters: Int,
-    board:              Seq[JsonBoardResult]
+    `@context`:      String,
+    `@id`:           String,
+    name:            JsonName,
+    image:           String,
+    isMine:          Boolean,
+    numberOfPlayers: Int,
+    board:           Seq[JsonBoardResult]
 ) extends JsonAbstractRole(
       `@context`: String,
       `@id`:      String,
@@ -28,42 +28,42 @@ final case class JsonRole(
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(
-      `@context`:         String,
-      `@id`:              String,
-      name:               JsonName,
-      image:              String,
-      isMine:             Boolean,
-      numberOfCharacters: Int,
-      board:              JList[JsonBoardResult]
+      `@context`:      String,
+      `@id`:           String,
+      name:            JsonName,
+      image:           String,
+      isMine:          Boolean,
+      numberOfPlayers: Int,
+      board:           JList[JsonBoardResult]
   ) = {
     this(
-      `@context`:         String,
-      `@id`:              String,
-      name:               JsonName,
-      image:              String,
-      isMine:             Boolean,
-      numberOfCharacters: Int,
-      board.asScala:      Seq[JsonBoardResult]
+      `@context`:      String,
+      `@id`:           String,
+      name:            JsonName,
+      image:           String,
+      isMine:          Boolean,
+      numberOfPlayers: Int,
+      board.asScala:   Seq[JsonBoardResult]
     )
   }
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(
-      `@id`:              String,
-      name:               JsonName,
-      image:              String,
-      isMine:             Boolean,
-      numberOfCharacters: Int,
-      board:              Seq[JsonBoardResult]
+      `@id`:           String,
+      name:            JsonName,
+      image:           String,
+      isMine:          Boolean,
+      numberOfPlayers: Int,
+      board:           Seq[JsonBoardResult]
   ) = {
     this(
-      RoleContext.iri:    String,
-      `@id`:              String,
-      name:               JsonName,
-      image:              String,
-      isMine:             Boolean,
-      numberOfCharacters: Int,
-      board:              Seq[JsonBoardResult]
+      RoleContext.iri: String,
+      `@id`:           String,
+      name:            JsonName,
+      image:           String,
+      isMine:          Boolean,
+      numberOfPlayers: Int,
+      board:           Seq[JsonBoardResult]
     )
   }
 
@@ -75,7 +75,7 @@ final case class JsonRole(
       name.toBson:                BsonName,
       image:                      String,
       isMine:                     Boolean,
-      numberOfCharacters:         Int,
+      numberOfPlayers:            Int,
       board.map(_.toBson).asJava: JList[BsonBoardResult]
     )
   }
@@ -92,7 +92,7 @@ object JsonRole {
       (JsPath \ "name").read[JsonName] and
       (JsPath \ "image").read[String](RoleValidation.image) and
       (JsPath \ "isMine").read[Boolean] and
-      (JsPath \ "numberOfCharacters").read[Int](RoleValidation.numberOfCharacters) and
+      (JsPath \ "numberOfPlayers").read[Int](RoleValidation.numberOfPlayers) and
       (JsPath \ "board").read[Seq[JsonBoardResult]]
   )(JsonRole.apply _)
 

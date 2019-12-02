@@ -39,29 +39,50 @@ jobs:
           name: coverage
           command: cat /dev/null | sbt coverage
       - run:
-          name: test AvatarValidationSpec
-          command: cat /dev/null | sbt "testOnly validation.village.AvatarValidationSpec"
+          name: test json.AvatarValidationSpec
+          command: cat /dev/null | sbt "testOnly json.validation.village.AvatarValidationSpec"
       - run:
-          name: test BaseValidationSpec
-          command: cat /dev/null | sbt "testOnly validation.village.BaseValidationSpec"
+          name: test json.BaseValidationSpec
+          command: cat /dev/null | sbt "testOnly json.validation.village.BaseValidationSpec"
       - run:
-          name: test CharacterValidationSpec
-          command: cat /dev/null | sbt "testOnly validation.village.CharacterValidationSpec"
+          name: test json.CharacterValidationSpec
+          command: cat /dev/null | sbt "testOnly json.validation.village.CharacterValidationSpec"
       - run:
-          name: test RoleValidationSpec
-          command: cat /dev/null | sbt "testOnly validation.village.RoleValidationSpec"
+          name: test json.RoleValidationSpec
+          command: cat /dev/null | sbt "testOnly json.validation.village.RoleValidationSpec"
       - run:
-          name: test LobbyUnitTestSpec
-          command: cat /dev/null | sbt "testOnly engine.lobby.LobbyUnitTestSpec"
+          name: test json.AuthUnitTestSuite
+          command: cat /dev/null | sbt "testOnly json.engine.auth.AuthUnitTestSuite"
       - run:
-          name: test LobbyProcessingEngineSpec
-          command: cat /dev/null | sbt "testOnly engine.lobby.LobbyProcessingEngineSpec"
+          name: test json.AuthProcessingEngineSuite
+          command: cat /dev/null | sbt "testOnly json.engine.auth.AuthProcessingEngineSuite"
       - run:
-          name: test VillageUnitTestSpec
-          command: cat /dev/null | sbt "testOnly engine.village.VillageUnitTestSpec"
+          name: test json.LobbyUnitTestSuite
+          command: cat /dev/null | sbt "testOnly json.engine.lobby.LobbyUnitTestSuite"
       - run:
-          name: test VillageProcessingEngineSpec
-          command: cat /dev/null | sbt "testOnly engine.village.VillageProcessingEngineSpec"
+          name: test json.LobbyProcessingEngineSuite
+          command: cat /dev/null | sbt "testOnly json.engine.lobby.LobbyProcessingEngineSuite"
+      - run:
+          name: test json.VillageUnitTestSuite
+          command: cat /dev/null | sbt "testOnly json.engine.village.VillageUnitTestSuite"
+      - run:
+          name: test json.VillageProcessingEngineSuite
+          command: cat /dev/null | sbt "testOnly json.engine.village.VillageProcessingEngineSuite"
+      - run:
+          name: test json.server2logger.VillageProcessingEngineSuite
+          command: cat /dev/null | sbt "testOnly json.engine.village.server2logger.VillageProcessingEngineSuite"
+      - run:
+          name: test protocol.AuthProcessingEngineSuite
+          command: cat /dev/null | sbt "testOnly protocol.engine.auth.AuthProcessingEngineSuite"
+      - run:
+          name: test protocol.LobbyProcessingEngineSuite
+          command: cat /dev/null | sbt "testOnly protocol.engine.lobby.LobbyProcessingEngineSuite"
+      - run:
+          name: test protocol.VillageProcessingEngineSuite
+          command: cat /dev/null | sbt "testOnly protocol.engine.village.VillageProcessingEngineSuite"
+      - run:
+          name: test protocol.server2logger.VillageProcessingEngineSuite
+          command: cat /dev/null | sbt "testOnly protocol.engine.village.server2logger.VillageProcessingEngineSuite"
       - run:
           name: coverage report
           command: cat /dev/null | sbt coverageReport

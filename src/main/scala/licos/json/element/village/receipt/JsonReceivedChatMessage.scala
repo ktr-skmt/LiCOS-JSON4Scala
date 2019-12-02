@@ -1,7 +1,7 @@
 package licos.json.element.village.receipt
 
 import licos.json.element.Element
-import licos.json.element.village.JsonChatFromServer
+import licos.json.element.village.server2client.JsonChatFromServer
 import licos.json.validation.village.{AvatarValidation, BaseValidation, VillageValidation}
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
@@ -16,13 +16,24 @@ final case class JsonReceivedChatMessage(
   override protected def validType: String = JsonReceivedChatMessage.`type`
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
-  def this(chat: JsonChatFromServer) = {
+  def this(token: String, villageId: Long, serverTimestamp: String, clientTimestamp: String) = {
+    this(
+      JsonReceivedChatMessage.`type`,
+      token,
+      villageId,
+      serverTimestamp,
+      clientTimestamp
+    )
+  }
+
+  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial", "org.wartremover.warts.Overloading"))
+  def this(chat: JsonChatFromServer, clientTimestamp: String) = {
     this(
       JsonReceivedChatMessage.`type`,
       chat.base.token,
       chat.base.village.id,
-      chat.base.serverTimestamp,
-      chat.base.clientTimestamp
+      chat.base.serverTimestamp.get,
+      clientTimestamp
     )
   }
 }

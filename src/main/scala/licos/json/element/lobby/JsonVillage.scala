@@ -62,7 +62,7 @@ object JsonPlayerSetting {
   import play.api.libs.functional.syntax._
 
   implicit val jsonReads: Reads[JsonPlayerSetting] = (
-    (JsPath \ "number").read[Int](VillageValidation.totalNumberOfCharacters) and
+    (JsPath \ "number").read[Int](VillageValidation.totalNumberOfPlayers) and
       (JsPath \ "current").read[Int](PlayerSettingValidation.current) and
       (JsPath \ "robot").read[JsonRobot] and
       (JsPath \ "human").read[JsonHuman]

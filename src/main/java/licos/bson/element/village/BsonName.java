@@ -7,13 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 
-/**
- * <pre>
- * Created on 2018/01/10.
- * </pre>
- *
- * @author K.Sakamoto
- */
 @Entity("names")
 public class BsonName extends BsonElement {
 
