@@ -1,9 +1,7 @@
 package licos.json.element.village
 
-import licos.bson.element.village.BsonChatSettings
 import licos.json.validation.village.{ChatSettingsValidation, ChatValidation}
 import licos.util.{LiCOSOnline, WerewolfWorld}
-import org.bson.types.ObjectId
 
 final case class JsonChatSettings(
     `@context`:                   String,
@@ -22,15 +20,6 @@ final case class JsonChatSettings(
     )
   }
 
-  override def toBson: BsonChatSettings = {
-    new BsonChatSettings(
-      new ObjectId(),
-      `@context`:                   String,
-      `@id`:                        String,
-      maxNumberOfChatMessages:      Int,
-      maxLengthOfUnicodeCodePoints: Int
-    )
-  }
 }
 
 object JsonChatSettings {

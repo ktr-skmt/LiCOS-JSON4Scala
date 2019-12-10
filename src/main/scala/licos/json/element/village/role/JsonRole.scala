@@ -2,12 +2,9 @@ package licos.json.element.village.role
 
 import java.util.{List => JList}
 
-import licos.bson.element.village.{BsonBoardResult, BsonName}
-import licos.bson.element.village.role.BsonRole
 import licos.json.element.village.iri.RoleContext
 import licos.json.element.village.{JsonBoardResult, JsonName}
 import licos.json.validation.village.RoleValidation
-import org.bson.types.ObjectId
 
 import scala.collection.JavaConverters._
 
@@ -67,18 +64,6 @@ final case class JsonRole(
     )
   }
 
-  def toBson: BsonRole = {
-    new BsonRole(
-      new ObjectId(),
-      `@context`:                 String,
-      `@id`:                      String,
-      name.toBson:                BsonName,
-      image:                      String,
-      isMine:                     Boolean,
-      numberOfPlayers:            Int,
-      board.map(_.toBson).asJava: JList[BsonBoardResult]
-    )
-  }
 }
 
 object JsonRole {

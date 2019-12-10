@@ -6,6 +6,15 @@ import licos.protocol.element.village.part.NameProtocol
 
 object Data2Knowledge {
 
+  def architectureOpt(label: String): Option[Architecture] = {
+    label match {
+      case HumanArchitecture.label               => Some(HumanArchitecture)
+      case FullyAutomatedRobotArchitecture.label => Some(FullyAutomatedRobotArchitecture)
+      case SemiAutomatedRobotArchitecture.label  => Some(SemiAutomatedRobotArchitecture)
+      case _                                     => None
+    }
+  }
+
   def polarityMarkOpt(label: String): Option[PolarityMark] = {
     label match {
       case QuestionMark.label => Some(QuestionMark)

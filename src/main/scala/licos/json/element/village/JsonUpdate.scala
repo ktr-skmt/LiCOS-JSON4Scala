@@ -1,19 +1,8 @@
 package licos.json.element.village
 
-import licos.bson.element.village.BsonUpdate
 import licos.json.validation.village.TimeValidation
-import org.bson.types.ObjectId
 
-final case class JsonUpdate(`@id`: String, phase: String, day: Int) extends JsonElement {
-  override def toBson: BsonUpdate = {
-    new BsonUpdate(
-      new ObjectId(),
-      `@id`: String,
-      phase: String,
-      day:   Int
-    )
-  }
-}
+final case class JsonUpdate(`@id`: String, phase: String, day: Int) extends JsonElement
 
 object JsonUpdate {
 

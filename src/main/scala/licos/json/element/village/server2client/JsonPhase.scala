@@ -2,14 +2,10 @@ package licos.json.element.village.server2client
 
 import java.util.{List => JList}
 
-import licos.bson.element.village.character.BsonCharacter
-import licos.bson.element.village.role.BsonRole
-import licos.bson.element.village.{BsonBase, BsonPhase}
 import licos.json.element.Element
 import licos.json.element.village.character.JsonCharacter
 import licos.json.element.village.role.JsonRole
 import licos.json.element.village.{JsonBase, JsonElement}
-import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
@@ -52,15 +48,6 @@ final case class JsonPhase private (base: JsonBase, sub: JsonSubPhase) extends J
 
   def role: Seq[JsonRole] = sub.role.sortWith { (r1: JsonRole, r2: JsonRole) =>
     r1.name.en < r2.name.en
-  }
-
-  override def toBson: BsonPhase = {
-    new BsonPhase(
-      new ObjectId(),
-      base.toBson:                    BsonBase,
-      character.map(_.toBson).asJava: JList[BsonCharacter],
-      role.map(_.toBson).asJava:      JList[BsonRole]
-    )
   }
 
   def exceptExtensionalDisclosureRange: JsonPhase = {

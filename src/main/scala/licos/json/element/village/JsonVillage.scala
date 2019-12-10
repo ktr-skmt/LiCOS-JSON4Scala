@@ -1,10 +1,8 @@
 package licos.json.element.village
 
-import licos.bson.element.village.BsonVillage
 import licos.json.element.village.iri.VillageContext
 import licos.json.validation.village.VillageValidation
 import licos.util.LiCOSOnline
-import org.bson.types.ObjectId
 
 final case class JsonVillage(
     `@context`:           String,
@@ -29,18 +27,6 @@ final case class JsonVillage(
     )
   }
 
-  override def toBson: BsonVillage = {
-    new BsonVillage(
-      new ObjectId(),
-      `@context`:           String,
-      `@id`:                String,
-      id:                   Long,
-      name:                 String,
-      totalNumberOfPlayers: Int,
-      language:             String,
-      chatSettings.toBson
-    )
-  }
 }
 
 object JsonVillage {

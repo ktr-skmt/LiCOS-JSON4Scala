@@ -1,9 +1,7 @@
 package licos.json.element.village
 
-import licos.bson.element.village.BsonAvatar
 import licos.json.element.village.iri.AvatarContext
 import licos.json.validation.village.AvatarValidation
-import org.bson.types.ObjectId
 
 final case class JsonAvatar(`@context`: String, `@id`: String, token: String, name: String, image: String)
     extends JsonElement {
@@ -19,16 +17,6 @@ final case class JsonAvatar(`@context`: String, `@id`: String, token: String, na
     )
   }
 
-  override def toBson: BsonAvatar = {
-    new BsonAvatar(
-      new ObjectId(),
-      `@context`: String,
-      `@id`:      String,
-      token:      String,
-      name:       String,
-      image:      String
-    )
-  }
 }
 
 object JsonAvatar {

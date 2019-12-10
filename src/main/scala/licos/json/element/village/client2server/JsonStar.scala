@@ -1,12 +1,9 @@
 package licos.json.element.village.client2server
 
-import licos.bson.element.village.character.BsonRoleCharacter
-import licos.bson.element.village.{BsonBase, BsonStar, BsonStarInfo}
 import licos.json.element.Element
 import licos.json.element.village.character.JsonRoleCharacter
 import licos.json.element.village.{JsonBase, JsonElement}
 import licos.json.validation.village.{AvatarValidation, BaseValidation, StarValidation}
-import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
@@ -21,14 +18,6 @@ final case class JsonStar(base: JsonBase, sub: JsonSubStar) extends JsonElement 
 
   def star: JsonStarInfo = sub.star
 
-  override def toBson: BsonStar = {
-    new BsonStar(
-      new ObjectId(),
-      base.toBson:            BsonBase,
-      sub.myCharacter.toBson: BsonRoleCharacter,
-      sub.star.toBson:        BsonStarInfo
-    )
-  }
 }
 
 object JsonStar {
@@ -52,20 +41,7 @@ final case class JsonStarInfo(
     serverTimestamp: String,
     clientTimestamp: String,
     isMarked:        Boolean
-) extends JsonElement {
-
-  override def toBson: BsonStarInfo = {
-    new BsonStarInfo(
-      new ObjectId(),
-      `@context`:      String,
-      `@id`:           String,
-      token:           String,
-      serverTimestamp: String,
-      clientTimestamp: String,
-      isMarked:        Boolean
-    )
-  }
-}
+) extends JsonElement
 
 object JsonStarInfo {
 

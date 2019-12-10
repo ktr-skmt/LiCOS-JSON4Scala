@@ -7,7 +7,7 @@ import licos.json.element.village.character.{JsonResultCharacter, JsonSimpleChar
 import licos.json.element.village.iri.{Contexts, SystemMessage}
 import licos.json.element.village.role.JsonResultRole
 import licos.json.element.village.server2client.JsonGameResult
-import licos.knowledge.{Character, Data2Knowledge, Outcome, PublicChannel, Role, ServerToClient, Status}
+import licos.knowledge.{Architecture, Character, Data2Knowledge, Outcome, PublicChannel, Role, ServerToClient, Status}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
 import licos.protocol.element.village.part.character.{
   ResultCharacterProtocol,
@@ -137,14 +137,15 @@ object GameResultProtocol {
         json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
           val characterOpt: Option[Character] =
             Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
-          val roleOpt:   Option[Role]   = village.cast.parse(jsonStatusCharacter.role.name.en)
-          val statusOpt: Option[Status] = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
-          if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty) {
+          val roleOpt:       Option[Role]         = village.cast.parse(jsonStatusCharacter.role.name.en)
+          val statusOpt:     Option[Status]       = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
+          val playerTypeOpt: Option[Architecture] = Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType)
+          if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty && playerTypeOpt.nonEmpty) {
             statusCharacterBuffer += StatusCharacterProtocol(
               characterOpt.get,
               roleOpt.get,
               statusOpt.get,
-              jsonStatusCharacter.isHumanPlayer,
+              playerTypeOpt.get,
               village.id,
               village.language
             )

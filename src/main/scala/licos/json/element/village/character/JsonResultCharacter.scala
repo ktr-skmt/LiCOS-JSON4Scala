@@ -1,13 +1,9 @@
 package licos.json.element.village.character
 
-import licos.bson.element.village.{BsonAvatar, BsonName}
-import licos.bson.element.village.character.BsonResultCharacter
-import licos.bson.element.village.role.BsonSimpleRole
 import licos.json.element.village.iri.CharacterContext
 import licos.json.element.village.role.JsonSimpleRole
 import licos.json.element.village.{JsonAvatar, JsonName}
 import licos.json.validation.village.CharacterValidation
-import org.bson.types.ObjectId
 
 final case class JsonResultCharacter(
     `@context`: String,
@@ -51,22 +47,6 @@ final case class JsonResultCharacter(
       status:               String,
       result:               String,
       avatar:               JsonAvatar
-    )
-  }
-
-  override def toBson: BsonResultCharacter = {
-    new BsonResultCharacter(
-      new ObjectId(),
-      `@context`:    String,
-      `@id`:         String,
-      id:            Int,
-      name.toBson:   BsonName,
-      image:         String,
-      isMine:        Boolean,
-      role.toBson:   BsonSimpleRole,
-      status:        String,
-      result:        String,
-      avatar.toBson: BsonAvatar
     )
   }
 }

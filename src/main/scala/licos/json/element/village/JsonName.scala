@@ -1,8 +1,5 @@
 package licos.json.element.village
 
-import licos.bson.element.village.BsonName
-import org.bson.types.ObjectId
-
 final case class JsonName(
     en:   String,
     ar:   Option[String],
@@ -52,24 +49,6 @@ final case class JsonName(
     )
   }
 
-  override def toBson: BsonName = {
-    new BsonName(
-      new ObjectId(),
-      en:                 String,
-      ar.getOrElse(en):   String,
-      de.getOrElse(en):   String,
-      es.getOrElse(en):   String,
-      it.getOrElse(en):   String,
-      fr.getOrElse(en):   String,
-      ja.getOrElse(en):   String,
-      pt.getOrElse(en):   String,
-      ru.getOrElse(en):   String,
-      uk.getOrElse(en):   String,
-      vi.getOrElse(en):   String,
-      zhCN.getOrElse(en): String,
-      zhTW.getOrElse(en): String
-    )
-  }
 }
 
 object JsonName {

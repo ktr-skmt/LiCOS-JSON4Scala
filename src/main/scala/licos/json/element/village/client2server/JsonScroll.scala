@@ -1,12 +1,9 @@
 package licos.json.element.village.client2server
 
-import licos.bson.element.village.character.BsonRoleCharacter
-import licos.bson.element.village.{BsonBase, BsonScroll}
 import licos.json.element.Element
 import licos.json.element.village.character.JsonRoleCharacter
 import licos.json.element.village.{JsonBase, JsonElement}
 import licos.json.validation.village.ScrollValidation
-import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath}
 
@@ -39,17 +36,6 @@ final case class JsonScroll private (base: JsonBase, sub: JsonSubScroll) extends
   def scrollHeight: Int               = sub.scrollHeight
   def offsetHeight: Int               = sub.offsetHeight
 
-  override def toBson: BsonScroll = {
-    new BsonScroll(
-      new ObjectId(),
-      base.toBson:        BsonBase,
-      myCharacter.toBson: BsonRoleCharacter,
-      nodeId:             String,
-      scrollTop:          Int,
-      scrollHeight:       Int,
-      offsetHeight:       Int
-    )
-  }
 }
 
 object JsonScroll {

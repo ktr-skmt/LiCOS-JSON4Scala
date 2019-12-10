@@ -1,9 +1,7 @@
 package licos.json.element.village
 
-import licos.bson.element.village.{BsonAvatar, BsonBase, BsonChatText, BsonOnymousAudienceChat}
 import licos.json.element.Element
 import licos.json.validation.village.ChatValidation
-import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath}
 
@@ -38,17 +36,6 @@ final case class JsonOnymousAudienceChat(base: JsonBase, sub: JsonSubOnymousAudi
   def maxLengthOfUnicodeCodePoints: Int          = sub.maxLengthOfUnicodeCodePoints
   def isFromServer:                 Boolean      = sub.isFromServer
 
-  override def toBson: BsonOnymousAudienceChat = {
-    new BsonOnymousAudienceChat(
-      new ObjectId(),
-      base.toBson:                  BsonBase,
-      avatar.toBson:                BsonAvatar,
-      isMine:                       Boolean,
-      text.toBson:                  BsonChatText,
-      maxLengthOfUnicodeCodePoints: Int,
-      isFromServer:                 Boolean
-    )
-  }
 }
 
 object JsonOnymousAudienceChat {

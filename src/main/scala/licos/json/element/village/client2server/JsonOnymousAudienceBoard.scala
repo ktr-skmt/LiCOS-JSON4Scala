@@ -1,14 +1,10 @@
 package licos.json.element.village.client2server
 
-import licos.bson.element.village.character.BsonSimpleCharacter
-import licos.bson.element.village.role.BsonSimpleRole
-import licos.bson.element.village.{BsonAvatar, BsonBase, BsonOnymousAudienceBoard}
 import licos.json.element.Element
 import licos.json.element.village.character.JsonSimpleCharacter
 import licos.json.element.village.role.JsonSimpleRole
 import licos.json.element.village.{JsonAvatar, JsonBase, JsonElement}
 import licos.json.validation.village.BoardValidation
-import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath}
 
@@ -39,17 +35,6 @@ final case class JsonOnymousAudienceBoard private (base: JsonBase, sub: JsonSubO
   def character:  JsonSimpleCharacter = sub.character
   def role:       JsonSimpleRole      = sub.role
   def prediction: String              = sub.prediction
-
-  override def toBson: BsonOnymousAudienceBoard = {
-    new BsonOnymousAudienceBoard(
-      new ObjectId(),
-      base.toBson:      BsonBase,
-      avatar.toBson:    BsonAvatar,
-      character.toBson: BsonSimpleCharacter,
-      role.toBson:      BsonSimpleRole,
-      prediction:       String
-    )
-  }
 }
 
 object JsonOnymousAudienceBoard {

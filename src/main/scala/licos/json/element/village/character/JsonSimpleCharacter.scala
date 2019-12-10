@@ -1,11 +1,8 @@
 package licos.json.element.village.character
 
-import licos.bson.element.village.BsonName
-import licos.bson.element.village.character.BsonSimpleCharacter
 import licos.json.element.village.{JsonName, JsonVotingResultDetail, JsonVotingResultSummary}
 import licos.json.element.village.iri.CharacterContext
 import licos.json.validation.village.CharacterValidation
-import org.bson.types.ObjectId
 
 final case class JsonSimpleCharacter(`@context`: String, `@id`: String, id: Int, name: JsonName, image: String)
     extends JsonAbstractCharacter(
@@ -24,17 +21,6 @@ final case class JsonSimpleCharacter(`@context`: String, `@id`: String, id: Int,
       id:                   Int,
       name:                 JsonName,
       image:                String
-    )
-  }
-
-  override def toBson: BsonSimpleCharacter = {
-    new BsonSimpleCharacter(
-      new ObjectId(),
-      `@context`:  String,
-      `@id`:       String,
-      id:          Int,
-      name.toBson: BsonName,
-      image:       String
     )
   }
 

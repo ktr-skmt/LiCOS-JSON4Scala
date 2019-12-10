@@ -2,11 +2,8 @@ package licos.json.element.village
 
 import java.util.{List => JList}
 
-import licos.bson.element.village.character.BsonStatusCharacter
-import licos.bson.element.village.{BsonBase, BsonVillage, BsonVotingResultDetail, BsonVotingResultSummary}
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.validation.village.{AvatarValidation, BaseValidation, TimeValidation}
-import org.bson.types.ObjectId
 
 import scala.collection.JavaConverters._
 
@@ -89,44 +86,6 @@ final case class JsonBase(
         votingResultsDetails:       Option[Seq[JsonVotingResultDetail]]
       )
     }
-  }
-
-  @SuppressWarnings(Array[String]("org.wartremover.warts.Null"))
-  override def toBson: BsonBase = {
-    val bsonVotingResultSummary: JList[BsonVotingResultSummary] = {
-      votingResultsSummary match {
-        case Some(summaries: Seq[JsonVotingResultSummary]) =>
-          summaries.map(_.toBson).asJava
-        case None =>
-          new java.util.LinkedList[BsonVotingResultSummary]()
-      }
-    }
-    val bsonVotingResultDetail: JList[BsonVotingResultDetail] = {
-      votingResultsDetails match {
-        case Some(details: Seq[JsonVotingResultDetail]) =>
-          details.map(_.toBson).asJava
-        case None =>
-          new java.util.LinkedList[BsonVotingResultDetail]()
-      }
-    }
-    new BsonBase(
-      new ObjectId(),
-      `@context`.asJava:                               JList[String],
-      `@id`:                                           String,
-      village.toBson:                                  BsonVillage,
-      token:                                           String,
-      phase:                                           String,
-      day:                                             Int,
-      phaseTimeLimit:                                  Int,
-      phaseStartTime:                                  String,
-      serverTimestamp.orNull:                          String,
-      clientTimestamp.orNull:                          String,
-      directionality:                                  String,
-      intensionalDisclosureRange:                      String,
-      extensionalDisclosureRange.map(_.toBson).asJava: JList[BsonStatusCharacter],
-      bsonVotingResultSummary:                         JList[BsonVotingResultSummary],
-      bsonVotingResultDetail:                          JList[BsonVotingResultDetail]
-    )
   }
 
   def exceptExtensionalDisclosureRange: JsonBase = {

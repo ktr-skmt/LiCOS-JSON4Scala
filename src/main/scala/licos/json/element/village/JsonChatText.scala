@@ -1,18 +1,8 @@
 package licos.json.element.village
 
-import licos.bson.element.village.BsonChatText
 import licos.json.validation.village.ChatValidation
-import org.bson.types.ObjectId
 
-final case class JsonChatText(`@value`: String, `@language`: String) extends JsonElement {
-  override def toBson: BsonChatText = {
-    new BsonChatText(
-      new ObjectId(),
-      `@value`:    String,
-      `@language`: String
-    )
-  }
-}
+final case class JsonChatText(`@value`: String, `@language`: String) extends JsonElement
 
 object JsonChatText {
 

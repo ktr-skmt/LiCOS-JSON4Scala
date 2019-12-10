@@ -1,9 +1,7 @@
 package licos.json.element.village.client2server
 
-import licos.bson.element.village.{BsonAvatar, BsonBase, BsonOnymousAudienceScroll}
 import licos.json.element.Element
 import licos.json.element.village.{JsonAvatar, JsonBase, JsonElement}
-import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath}
 
@@ -30,18 +28,6 @@ final case class JsonOnymousAudienceScroll private (base: JsonBase, sub: JsonSub
   def scrollTop:    Int        = sub.scrollTop
   def scrollHeight: Int        = sub.scrollHeight
   def offsetHeight: Int        = sub.offsetHeight
-
-  override def toBson: BsonOnymousAudienceScroll = {
-    new BsonOnymousAudienceScroll(
-      new ObjectId(),
-      base.toBson:   BsonBase,
-      avatar.toBson: BsonAvatar,
-      nodeId:        String,
-      scrollTop:     Int,
-      scrollHeight:  Int,
-      offsetHeight:  Int
-    )
-  }
 }
 
 object JsonOnymousAudienceScroll {

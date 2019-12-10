@@ -1,23 +1,19 @@
 package licos.json.element.village.character
 
-import licos.bson.element.village.BsonName
-import licos.bson.element.village.character.BsonStatusCharacter
-import licos.bson.element.village.role.BsonSimpleRole
 import licos.json.element.village.iri.CharacterContext
 import licos.json.element.village.role.JsonSimpleRole
 import licos.json.element.village.JsonName
-import licos.json.validation.village.CharacterValidation
-import org.bson.types.ObjectId
+import licos.json.validation.village.{ArchitectureValidation, CharacterValidation}
 
 final case class JsonStatusCharacter(
-    `@context`:    String,
-    `@id`:         String,
-    id:            Int,
-    name:          JsonName,
-    image:         String,
-    role:          JsonSimpleRole,
-    status:        String,
-    isHumanPlayer: Boolean
+    `@context`: String,
+    `@id`:      String,
+    id:         Int,
+    name:       JsonName,
+    image:      String,
+    role:       JsonSimpleRole,
+    status:     String,
+    playerType: String
 ) extends JsonAbstractCharacter(
       `@context`: String,
       `@id`:      String,
@@ -28,13 +24,13 @@ final case class JsonStatusCharacter(
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(
-      `@id`:         String,
-      id:            Int,
-      name:          JsonName,
-      image:         String,
-      role:          JsonSimpleRole,
-      status:        String,
-      isHumanPlayer: Boolean
+      `@id`:      String,
+      id:         Int,
+      name:       JsonName,
+      image:      String,
+      role:       JsonSimpleRole,
+      status:     String,
+      playerType: String
   ) = {
     this(
       CharacterContext.iri: String,
@@ -44,21 +40,7 @@ final case class JsonStatusCharacter(
       image:                String,
       role:                 JsonSimpleRole,
       status:               String,
-      isHumanPlayer:        Boolean
-    )
-  }
-
-  override def toBson: BsonStatusCharacter = {
-    new BsonStatusCharacter(
-      new ObjectId(),
-      `@context`:    String,
-      `@id`:         String,
-      id:            Int,
-      name.toBson:   BsonName,
-      image:         String,
-      role.toBson:   BsonSimpleRole,
-      status:        String,
-      isHumanPlayer: Boolean
+      playerType:           String
     )
   }
 }
@@ -76,7 +58,7 @@ object JsonStatusCharacter {
       (JsPath \ "image").read[String](CharacterValidation.image) and
       (JsPath \ "role").read[JsonSimpleRole] and
       (JsPath \ "status").read[String](CharacterValidation.status) and
-      (JsPath \ "isHumanPlayer").read[Boolean]
+      (JsPath \ "playerType").read[String](ArchitectureValidation.playerType)
   )(JsonStatusCharacter.apply _)
 
   implicit val jsonWrites: OWrites[JsonStatusCharacter] = Json.writes[JsonStatusCharacter]

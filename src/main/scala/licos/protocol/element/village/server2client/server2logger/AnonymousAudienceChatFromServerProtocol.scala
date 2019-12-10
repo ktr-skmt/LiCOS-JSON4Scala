@@ -4,7 +4,7 @@ import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.JsonAnonymousAudienceChat
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{ChatMessage, Contexts}
-import licos.knowledge.{AnonymousAudienceChannel, Character, Data2Knowledge, Role, ServerToClient, Status}
+import licos.knowledge.{AnonymousAudienceChannel, Architecture, Character, Data2Knowledge, Role, ServerToClient, Status}
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, ChatTextProtocol, VillageProtocol}
 import licos.util.TimestampGenerator
@@ -89,14 +89,15 @@ object AnonymousAudienceChatFromServerProtocol {
           json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
             val characterOpt: Option[Character] =
               Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
-            val roleOpt:   Option[Role]   = village.cast.parse(jsonStatusCharacter.role.name.en)
-            val statusOpt: Option[Status] = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
-            if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty) {
+            val roleOpt:       Option[Role]         = village.cast.parse(jsonStatusCharacter.role.name.en)
+            val statusOpt:     Option[Status]       = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
+            val playerTypeOpt: Option[Architecture] = Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType)
+            if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty && playerTypeOpt.nonEmpty) {
               statusCharacterBuffer += StatusCharacterProtocol(
                 characterOpt.get,
                 roleOpt.get,
                 statusOpt.get,
-                jsonStatusCharacter.isHumanPlayer,
+                playerTypeOpt.get,
                 village.id,
                 village.language
               )

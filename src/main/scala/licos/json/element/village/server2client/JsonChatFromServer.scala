@@ -1,12 +1,9 @@
 package licos.json.element.village.server2client
 
-import licos.bson.element.village.character.BsonSimpleCharacter
-import licos.bson.element.village.{BsonBase, BsonChatFromServer, BsonChatText}
 import licos.json.element.Element
 import licos.json.element.village.character.JsonSimpleCharacter
 import licos.json.element.village.{JsonBase, JsonChatText, JsonElement}
 import licos.json.validation.village.ChatValidation
-import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath}
 
@@ -94,21 +91,6 @@ final case class JsonChatFromServer private (base: JsonBase, sub: JsonSubChatFro
     )
   }
 
-  override def toBson: BsonChatFromServer = {
-    new BsonChatFromServer(
-      new ObjectId(),
-      base.toBson:                  BsonBase,
-      character.toBson:             BsonSimpleCharacter,
-      isMine:                       Boolean,
-      id:                           Int,
-      counter:                      Int,
-      maxNumberOfChatMessages:      Int,
-      interval:                     Int,
-      text.toBson:                  BsonChatText,
-      maxLengthOfUnicodeCodePoints: Int,
-      isOver:                       Boolean
-    )
-  }
 }
 
 object JsonChatFromServer {

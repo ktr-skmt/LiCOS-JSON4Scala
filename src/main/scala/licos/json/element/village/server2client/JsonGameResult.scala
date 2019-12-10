@@ -2,14 +2,10 @@ package licos.json.element.village.server2client
 
 import java.util.{List => JList}
 
-import licos.bson.element.village.character.BsonResultCharacter
-import licos.bson.element.village.role.BsonResultRole
-import licos.bson.element.village.{BsonBase, BsonGameResult}
 import licos.json.element.Element
 import licos.json.element.village.character.JsonResultCharacter
 import licos.json.element.village.role.JsonResultRole
 import licos.json.element.village.{JsonBase, JsonElement}
-import org.bson.types.ObjectId
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath}
 
@@ -54,14 +50,6 @@ final case class JsonGameResult private (base: JsonBase, sub: JsonSubGameResult)
     r1.name.en < r2.name.en
   }
 
-  override def toBson: BsonGameResult = {
-    new BsonGameResult(
-      new ObjectId(),
-      base.toBson:                    BsonBase,
-      character.map(_.toBson).asJava: JList[BsonResultCharacter],
-      role.map(_.toBson).asJava:      JList[BsonResultRole]
-    )
-  }
 }
 
 object JsonGameResult {

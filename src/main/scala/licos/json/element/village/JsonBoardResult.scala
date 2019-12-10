@@ -1,10 +1,7 @@
 package licos.json.element.village
 
-import licos.bson.element.village.character.BsonSimpleCharacter
-import licos.bson.element.village.BsonBoardResult
 import licos.json.element.village.character.JsonSimpleCharacter
 import licos.json.validation.village.{BoardResultValidation, TimeValidation}
-import org.bson.types.ObjectId
 
 final case class JsonBoardResult(
     `@context`: String,
@@ -13,20 +10,7 @@ final case class JsonBoardResult(
     polarity:   String,
     phase:      String,
     day:        Int
-) extends JsonElement {
-
-  override def toBson: BsonBoardResult = {
-    new BsonBoardResult(
-      new ObjectId(),
-      `@context`:       String,
-      `@id`:            String,
-      character.toBson: BsonSimpleCharacter,
-      polarity:         String,
-      phase:            String,
-      day:              Int
-    )
-  }
-}
+) extends JsonElement
 
 object JsonBoardResult {
 

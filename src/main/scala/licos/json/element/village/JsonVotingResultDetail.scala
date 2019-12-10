@@ -1,26 +1,13 @@
 package licos.json.element.village
 
-import licos.bson.element.village.BsonVotingResultDetail
-import licos.bson.element.village.character.BsonSimpleCharacter
 import licos.json.element.village.character.JsonSimpleCharacter
 import licos.json.validation.village.VotingResultValidation
-import org.bson.types.ObjectId
 
 final case class JsonVotingResultDetail(
     `@id`:           String,
     sourceCharacter: JsonSimpleCharacter,
     targetCharacter: JsonSimpleCharacter
-) extends JsonElement {
-
-  override def toBson: BsonVotingResultDetail = {
-    new BsonVotingResultDetail(
-      new ObjectId(),
-      `@id`:                  String,
-      sourceCharacter.toBson: BsonSimpleCharacter,
-      targetCharacter.toBson: BsonSimpleCharacter
-    )
-  }
-}
+) extends JsonElement
 
 object JsonVotingResultDetail {
 

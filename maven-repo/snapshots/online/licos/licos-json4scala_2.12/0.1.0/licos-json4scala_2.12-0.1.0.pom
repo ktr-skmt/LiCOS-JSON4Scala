@@ -47,16 +47,6 @@
             <version>2.7.4</version>
         </dependency>
         <dependency>
-            <groupId>dev.morphia.morphia</groupId>
-            <artifactId>core</artifactId>
-            <version>1.5.8-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
-        </dependency>
-        <dependency>
             <groupId>org.scalatestplus.play</groupId>
             <artifactId>scalatestplus-play_2.12</artifactId>
             <version>3.1.2</version>
