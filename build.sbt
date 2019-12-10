@@ -13,7 +13,7 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 
 coverageEnabled := true
 
-lazy val javaVersion: String = "1.8"
+lazy val javaVersion: String = "8"
 
 lazy val wartremoverSettings = Seq(
   wartremoverWarnings in (Compile, compile) ++= Warts.allBut(Wart.Throw)
@@ -37,7 +37,7 @@ lazy val commonSettings = Seq(
     "-unchecked",
     "-Xlint",
     "-Ypartial-unification",
-    s"-target:jvm-$javaVersion"
+    s"-target:$javaVersion"
   )
 } ++ {
   javacOptions ++= Seq(
