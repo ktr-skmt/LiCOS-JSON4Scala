@@ -1,3 +1,5 @@
+dist: trusty
+
 # configuration for build badge
 language: scala
 
