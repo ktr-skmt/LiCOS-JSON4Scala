@@ -37,7 +37,7 @@ lazy val commonSettings = Seq(
     "-unchecked",
     "-Xlint",
     "-Ypartial-unification",
-    s"-target:$javaVersion"
+    s"-target:jvm-$javaVersion"
   )
 } ++ {
   javacOptions ++= Seq(
