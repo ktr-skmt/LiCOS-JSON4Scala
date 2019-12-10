@@ -68,11 +68,157 @@
         <a title="This is the documentation for the LiCOS's JSON library for Scala." href="../../../../../../index.html"><span class="name">root</span></a>
       </span>
       
-      <p class="shortcomment cmt">This is the documentation for the LiCOS's JSON library for Scala.</p><div class="fullcomment"><div class="comment cmt"><p>This is the documentation for the LiCOS's JSON library for Scala.</p><h4> Package structure </h4><p>Notable packages includes:</p><ul><li><a href="../../../../../json/engine/index.html" class="extype" name="licos.json.engine">licos.json.engine</a> and its sub-packages contain LiCOS's JSON framework.<ul><li><a href="../../../../../json/engine/BOX.html" class="extype" name="licos.json.engine.BOX"><code>BOX</code></a> is the container that manages information to give to analysis engines.</li><li><a href="../../../../../json/engine/processing/index.html" class="extype" name="licos.json.engine.processing"><code>licos.json.processing</code></a> contains LiCOS's JSON processing engines.<ul><li><a href="../../../../../json/engine/processing/LobbyProcessingEngine.html" class="extype" name="licos.json.engine.processing.LobbyProcessingEngine"><code>LobbyProcessingEngine</code></a></li><li><a href="../../../../../json/engine/processing/VillageProcessingEngine.html" class="extype" name="licos.json.engine.processing.VillageProcessingEngine"><code>VillageProcessingEngine</code></a></li></ul></li><li><a href="../../../../../json/engine/analysis/index.html" class="extype" name="licos.json.engine.analysis"><code>licos.json.engine.analysis</code></a> and its sub-packages contain LiCOS's JSON analysis engines.<ul><li><a href="../../../../../json/engine/analysis/lobby/index.html" class="extype" name="licos.json.engine.analysis.lobby"><code>licos.json.engine.analysis.lobby</code></a> contains LiCOS's JSON analysis engines for lobby such as
+      <p class="shortcomment cmt">This is the documentation for the LiCOS's JSON library for Scala.</p><div class="fullcomment"><div class="comment cmt"><p>This is the documentation for the LiCOS's JSON library for Scala.</p><h4> Package structure </h4><p>Notable packages includes:</p><h5> Protocol API </h5><ul><li><a href="../../../../engine/index.html" class="extype" name="licos.protocol.engine">licos.protocol.engine</a> and its sub-packages contain LiCOS's Protocol framework.<ul><li><a href="../../../../engine/BOX.html" class="extype" name="licos.protocol.engine.BOX"><code>BOX</code></a> is the container that manages information to give to analysis engines.<ul><li><a href="../../../../engine/processing/auth/AuthBOX.html" class="extype" name="licos.protocol.engine.processing.auth.AuthBOX"><code>AuthBOX</code></a> is the container that manages information to give analysis engines for authentication and authorization.</li><li><a href="../../../../engine/processing/lobby/LobbyBOX.html" class="extype" name="licos.protocol.engine.processing.lobby.LobbyBOX"><code>LobbyBOX</code></a> is the container that manages information to give analysis engines for lobby.</li><li><a href="../../../../engine/processing/village/VillageBOX.html" class="extype" name="licos.protocol.engine.processing.village.VillageBOX"><code>VillageBOX</code></a> is the container that manages information to give analysis engines for village.</li></ul></li><li><a href="../../../../engine/processing/index.html" class="extype" name="licos.protocol.engine.processing"><code>licos.protocol.processing</code></a> contains LiCOS's protocol processing engines.<ul><li><a href="../../../../engine/processing/auth/AuthProcessingEngine.html" class="extype" name="licos.protocol.engine.processing.auth.AuthProcessingEngine"><code>AuthProcessingEngine</code></a></li><li><a href="../../../../engine/processing/lobby/LobbyProcessingEngine.html" class="extype" name="licos.protocol.engine.processing.lobby.LobbyProcessingEngine"><code>LobbyProcessingEngine</code></a></li><li><a href="../../../../engine/processing/village/VillageProcessingEngine.html" class="extype" name="licos.protocol.engine.processing.village.VillageProcessingEngine"><code>VillageProcessingEngine</code></a></li></ul></li><li><a href="../../../../engine/analysis/index.html" class="extype" name="licos.protocol.engine.analysis"><code>licos.protocol.engine.analysis</code></a> and its sub-packages contain LiCOS's protocol analysis engines.<ul><li><a href="../../../../engine/analysis/auth/index.html" class="extype" name="licos.protocol.engine.analysis.auth"><code>licos.protocol.engine.analysis.auth</code></a> contains LiCOS's protocol analysis engines for authentication and authorization such as
+        <a href="../../../../engine/analysis/auth/robot2server/AuthenticationAndAuthorizationRequestAnalysisEngine.html" class="extype" name="licos.protocol.engine.analysis.auth.robot2server.AuthenticationAndAuthorizationRequestAnalysisEngine"><code>AuthenticationAndAuthorizationRequestAnalysisEngine</code></a>.</li><li><a href="../../../../engine/analysis/lobby/index.html" class="extype" name="licos.protocol.engine.analysis.lobby"><code>licos.protocol.engine.analysis.lobby</code></a> contains LiCOS's protocol analysis engines for lobby such as
+        <a href="../../../../engine/analysis/lobby/client2server/AdvancedSearchAnalysisEngine.html" class="extype" name="licos.protocol.engine.analysis.lobby.client2server.AdvancedSearchAnalysisEngine"><code>AdvancedSearchAnalysisEngine</code></a>.</li><li><a href="../../../../engine/analysis/village/index.html" class="extype" name="licos.protocol.engine.analysis.village"><code>licos.protocol.engine.analysis.village</code></a> contains LiCOS's protocol analysis engines for village such as
+        <a href="../../../../engine/analysis/village/client2server/BoardAnalysisEngine.html" class="extype" name="licos.protocol.engine.analysis.village.client2server.BoardAnalysisEngine"><code>BoardAnalysisEngine</code></a>.</li></ul></li></ul></li><li><a href="../../../auth/index.html" class="extype" name="licos.protocol.element.auth"><code>licos.protocol.element.auth</code></a> contains LiCOS's protocol entities for authentication and authorization such as
+    <a href="../../../auth/robot2server/AuthenticationAndAuthorizationRequestProtocol.html" class="extype" name="licos.protocol.element.auth.robot2server.AuthenticationAndAuthorizationRequestProtocol"><code>AuthenticationAndAuthorizationRequestProtocol</code></a>.</li><li><a href="../../../lobby/index.html" class="extype" name="licos.protocol.element.lobby"><code>licos.protocol.element.lobby</code></a> contains LiCOS's protocol entities for lobby such as
+    <a href="../../../lobby/client2server/AdvancedSearchProtocol.html" class="extype" name="licos.protocol.element.lobby.client2server.AdvancedSearchProtocol"><code>AdvancedSearchProtocol</code></a>.</li><li><a href="../../index.html" class="extype" name="licos.protocol.element.village"><code>licos.protocol.element.village</code></a> contains LiCOS's protocol entities for village such as
+    <a href="../AvatarProtocol.html" class="extype" name="licos.protocol.element.village.part.AvatarProtocol"><code>AvatarProtocol</code></a>.</li></ul><h5> JSON API (lower-level API) </h5><ul><li><a href="../../../../../json/engine/index.html" class="extype" name="licos.json.engine">licos.json.engine</a> and its sub-packages contain LiCOS's JSON framework.<ul><li><a href="../../../../../json/engine/BOX.html" class="extype" name="licos.json.engine.BOX"><code>BOX</code></a> is the container that manages information to give to analysis engines.</li><li><a href="../../../../../json/engine/processing/index.html" class="extype" name="licos.json.engine.processing"><code>licos.json.processing</code></a> contains LiCOS's JSON processing engines.<ul><li><a href="../../../../../json/engine/processing/AuthProcessingEngine.html" class="extype" name="licos.json.engine.processing.AuthProcessingEngine"><code>AuthProcessingEngine</code></a></li><li><a href="../../../../../json/engine/processing/LobbyProcessingEngine.html" class="extype" name="licos.json.engine.processing.LobbyProcessingEngine"><code>LobbyProcessingEngine</code></a></li><li><a href="../../../../../json/engine/processing/VillageProcessingEngine.html" class="extype" name="licos.json.engine.processing.VillageProcessingEngine"><code>VillageProcessingEngine</code></a></li></ul></li><li><a href="../../../../../json/engine/analysis/index.html" class="extype" name="licos.json.engine.analysis"><code>licos.json.engine.analysis</code></a> and its sub-packages contain LiCOS's JSON analysis engines.<ul><li><a href="../../../../../json/engine/analysis/auth/index.html" class="extype" name="licos.json.engine.analysis.auth"><code>licos.json.engine.analysis.auth</code></a> contains LiCOS's JSON analysis engines for authentication and authorization such as
+        <a href="../../../../../json/engine/analysis/auth/robot2server/AuthenticationAndAuthorizationRequestAnalysisEngine.html" class="extype" name="licos.json.engine.analysis.auth.robot2server.AuthenticationAndAuthorizationRequestAnalysisEngine"><code>AuthenticationAndAuthorizationRequestAnalysisEngine</code></a>.</li><li><a href="../../../../../json/engine/analysis/lobby/index.html" class="extype" name="licos.json.engine.analysis.lobby"><code>licos.json.engine.analysis.lobby</code></a> contains LiCOS's JSON analysis engines for lobby such as
         <a href="../../../../../json/engine/analysis/lobby/client2server/AdvancedSearchAnalysisEngine.html" class="extype" name="licos.json.engine.analysis.lobby.client2server.AdvancedSearchAnalysisEngine"><code>AdvancedSearchAnalysisEngine</code></a>.</li><li><a href="../../../../../json/engine/analysis/village/index.html" class="extype" name="licos.json.engine.analysis.village"><code>licos.json.engine.analysis.village</code></a> contains LiCOS's JSON analysis engines for village such as
-        <a href="../../../../../json/engine/analysis/village/client2server/BoardAnalysisEngine.html" class="extype" name="licos.json.engine.analysis.village.client2server.BoardAnalysisEngine"><code>BoardAnalysisEngine</code></a>.</li></ul></li></ul></li><li><a href="../../../../../json/element/lobby/index.html" class="extype" name="licos.json.element.lobby"><code>licos.json.element.lobby</code></a> contains LiCOS's JSON entities for lobby such as
+        <a href="../../../../../json/engine/analysis/village/client2server/BoardAnalysisEngine.html" class="extype" name="licos.json.engine.analysis.village.client2server.BoardAnalysisEngine"><code>BoardAnalysisEngine</code></a>.</li></ul></li></ul></li><li><a href="../../../../../json/element/auth/index.html" class="extype" name="licos.json.element.auth"><code>licos.json.element.auth</code></a> contains LiCOS's JSON entities for authentication and authorization such as
+    <a href="../../../../../json/element/auth/robot2server/JsonAuthenticationAndAuthorizationRequest.html" class="extype" name="licos.json.element.auth.robot2server.JsonAuthenticationAndAuthorizationRequest"><code>JsonAuthenticationAndAuthorizationRequest</code></a>.</li><li><a href="../../../../../json/element/lobby/index.html" class="extype" name="licos.json.element.lobby"><code>licos.json.element.lobby</code></a> contains LiCOS's JSON entities for lobby such as
     <a href="../../../../../json/element/lobby/client2server/JsonAdvancedSearch.html" class="extype" name="licos.json.element.lobby.client2server.JsonAdvancedSearch"><code>JsonAdvancedSearch</code></a>.</li><li><a href="../../../../../json/element/village/index.html" class="extype" name="licos.json.element.village"><code>licos.json.element.village</code></a> contains LiCOS's JSON entities for village such as
-    <a href="../../../../../json/element/village/JsonAvatar.html" class="extype" name="licos.json.element.village.JsonAvatar"><code>JsonAvatar</code></a>.</li></ul><h4> How to use </h4><pre><span class="cmt">//TODO: Define the contractor as you like.</span>
+    <a href="../../../../../json/element/village/JsonAvatar.html" class="extype" name="licos.json.element.village.JsonAvatar"><code>JsonAvatar</code></a>.</li></ul><h4> How to use </h4><h5> Protocol API </h5><p>See src/test/scala/sample/ProtocolVillageMessageRunner.scala</p><pre><span class="cmt">//TODO: Define the contractor as you like.</span>
+<span class="kw">class</span> VillageBox(villageInfoFromLobby: VillageInfoFromLobby,
+                 intParameter: <span class="std">Int</span>,
+                 stringParameter: <span class="std">String</span>) <span class="kw">extends</span> VillageBOX(villageInfoFromLobby)
+
+<span class="kw">class</span> FlavorTextAE <span class="kw">extends</span> FlavorTextAnalysisEngine {
+  <span class="kw">override</span> <span class="kw">def</span> process(box: VillageBOX, flavorTextProtocol: FlavorTextProtocol): Try[VillageMessageProtocol] = {
+    box <span class="kw">match</span> {
+      <span class="kw">case</span> x: VillageBox <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Right(...)
+      <span class="kw">case</span> _ <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Left(...)
+    }
+  }
+}
+
+<span class="kw">class</span> ChatFromServerAE <span class="kw">extends</span> ChatAnalysisEngine {
+  <span class="kw">override</span> <span class="kw">def</span> process(box: VillageBOX, chatFromServerProtocol: ChatFromServerProtocol): Try[VillageMessageProtocol] = {
+    box <span class="kw">match</span> {
+      <span class="kw">case</span> x: VillageBox <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Right(...)
+      <span class="kw">case</span> _ <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Left(...)
+    }
+  }
+}
+
+<span class="kw">class</span> FirstMorningPhaseAE <span class="kw">extends</span> FirstMorningPhaseAnalysisEngine {
+  <span class="kw">override</span> <span class="kw">def</span> process(box: VillageBOX, firstMorningPhaseProtocol: FirstMorningPhaseProtocol): Try[VillageMessageProtocol] = {
+    box <span class="kw">match</span> {
+      <span class="kw">case</span> x: VillageBox <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Right(...)
+      <span class="kw">case</span> _ <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Left(...)
+    }
+  }
+}
+
+<span class="kw">class</span> MorningPhaseAE <span class="kw">extends</span> MorningPhaseAnalysisEngine {
+  <span class="kw">override</span> <span class="kw">def</span> process(box: VillageBOX, morningPhaseProtocol: MorningPhaseProtocol): Try[VillageMessageProtocol] = {
+    box <span class="kw">match</span> {
+      <span class="kw">case</span> x: VillageBox <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Right(...)
+      <span class="kw">case</span> _ <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Left(...)
+    }
+  }
+}
+
+<span class="kw">class</span> NoonPhaseAE <span class="kw">extends</span> NoonPhaseAnalysisEngine {
+  <span class="kw">override</span> <span class="kw">def</span> process(box: VillageBOX, noonPhaseProtocol: NoonPhaseProtocol): Try[VillageMessageProtocol] = {
+    box <span class="kw">match</span> {
+      <span class="kw">case</span> x: VillageBox <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Right(...)
+      <span class="kw">case</span> _ <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Left(...)
+    }
+  }
+}
+
+<span class="kw">class</span> NightPhaseAE <span class="kw">extends</span> NightPhaseAnalysisEngine {
+  <span class="kw">override</span> <span class="kw">def</span> process(box: VillageBOX, nightPhaseProtocol: NightPhaseProtocol): Try[VillageMessageProtocol] = {
+    box <span class="kw">match</span> {
+      <span class="kw">case</span> x: VillageBox <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Right(...)
+      <span class="kw">case</span> _ <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Left(...)
+    }
+  }
+}
+
+<span class="kw">class</span> GameResultAE <span class="kw">extends</span> GameResultAnalysisEngine {
+  <span class="kw">override</span> <span class="kw">def</span> process(box: VillageBOX, gameResultProtocol: GameResultProtocol): Try[VillageMessageProtocol] = {
+    box <span class="kw">match</span> {
+      <span class="kw">case</span> x: VillageBox <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Right(...)
+      <span class="kw">case</span> _ <span class="kw">=&gt;</span>
+      <span class="cmt">//TODO: Write here.</span>
+        Left(...)
+    }
+  }
+}
+
+<span class="kw">object</span> Runner <span class="kw">extends</span> <span class="std">App</span> {
+
+  <span class="kw">private</span> <span class="kw">val</span> processingEngineFactory: VillageProcessingEngineFactory =
+    SpecificProcessingEngineFactory.create(VillagePE)
+    .asInstanceOf[VillageProcessingEngineFactory]
+    .set(<span class="kw">new</span> ChatFromServerAE())
+    .set(<span class="kw">new</span> FlavorTextAE())
+    .set(<span class="kw">new</span> FirstMorningPhaseAE())
+    .set(<span class="kw">new</span> MorningPhaseAE())
+    .set(<span class="kw">new</span> NoonPhaseAE())
+    .set(<span class="kw">new</span> NightPhaseAE())
+    .set(<span class="kw">new</span> GameResultAE())
+
+  <span class="kw">private</span> <span class="kw">val</span> processingEngine: VillageProcessingEngine = processingEngineFactory.create
+
+  <span class="kw">private</span> <span class="kw">val</span> villageInfoFromLobby = VillageInfoFromLobby(
+    HumanPlayerLobby,
+    HostPlayer(
+      <span class="num">1</span>L,
+      <span class="lit">"Anonymous"</span>,
+      isAnonymous = <span class="kw">true</span>,
+      HumanArchitecture
+    ),
+    Cast.playerNumRoleNumMap(<span class="num">15</span>)(<span class="lit">"A"</span>),
+    <span class="num">1</span>,
+    RandomAvatarSetting,
+    <span class="num">15</span>,
+    <span class="std">None</span>,
+    <span class="lit">"Christopher"</span>,
+    <span class="kw">new</span> URL(<span class="lit">"https://werewolf.world/image/0.3/character_icons/50x50/a_50x50.png"</span>)
+  )
+
+  <span class="kw">private</span> <span class="kw">val</span> anExampleOfBOX: VillageBOX = <span class="kw">new</span> VillageBox(villageInfoFromLobby)
+
+  processingEngine.process(anExampleOfBOX, aJSONExampleOfTheLiCOSProtocol) <span class="kw">match</span> {
+    <span class="kw">case</span> Success(protocol: VillageMessageProtocol) <span class="kw">=&gt;</span>
+      protocol.toJsonOpt foreach { json: JsValue <span class="kw">=&gt;</span>
+        System.err.println(Json.prettyPrint(json))
+      }
+    <span class="kw">case</span> Failure(exception: Throwable) <span class="kw">=&gt;</span>
+      System.err.println(exception.getMessage)
+  }
+}</pre><h5> JSON API </h5><p>See src/test/scala/sample/JsonVillageMessageRunner.scala</p><pre><span class="cmt">//TODO: Define the contractor as you like.</span>
 <span class="kw">class</span> VillageBox(intParameter: <span class="std">Int</span>, stringParameter: <span class="std">String</span>) <span class="kw">extends</span> BOX
 
 <span class="kw">class</span> ChatFromServerAE <span class="kw">extends</span> ChatAnalysisEngine {

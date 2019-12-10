@@ -4,22 +4,204 @@ This is the documentation for the LiCOS's JSON library for Scala.
 
 Notable packages includes:
 
+=== Protocol API ===
+  - [[licos.protocol.engine]] and its sub-packages contain LiCOS's Protocol framework.
+    - [[licos.protocol.engine.BOX `BOX`]] is the container that manages information to give to analysis engines.
+      - [[licos.protocol.engine.processing.auth.AuthBOX `AuthBOX`]] is the container that manages information to give analysis engines for authentication and authorization.
+      - [[licos.protocol.engine.processing.lobby.LobbyBOX `LobbyBOX`]] is the container that manages information to give analysis engines for lobby.
+      - [[licos.protocol.engine.processing.village.VillageBOX `VillageBOX`]] is the container that manages information to give analysis engines for village.
+    - [[licos.protocol.engine.processing `licos.protocol.processing`]] contains LiCOS's protocol processing engines.
+      - [[licos.protocol.engine.processing.auth.AuthProcessingEngine `AuthProcessingEngine`]]
+      - [[licos.protocol.engine.processing.lobby.LobbyProcessingEngine `LobbyProcessingEngine`]]
+      - [[licos.protocol.engine.processing.village.VillageProcessingEngine `VillageProcessingEngine`]]
+    - [[licos.protocol.engine.analysis `licos.protocol.engine.analysis`]] and its sub-packages contain LiCOS's protocol analysis engines.
+      - [[licos.protocol.engine.analysis.auth `licos.protocol.engine.analysis.auth`]] contains LiCOS's protocol analysis engines for authentication and authorization such as
+        [[licos.protocol.engine.analysis.auth.robot2server.AuthenticationAndAuthorizationRequestAnalysisEngine `AuthenticationAndAuthorizationRequestAnalysisEngine`]].
+      - [[licos.protocol.engine.analysis.lobby `licos.protocol.engine.analysis.lobby`]] contains LiCOS's protocol analysis engines for lobby such as
+        [[licos.protocol.engine.analysis.lobby.client2server.AdvancedSearchAnalysisEngine `AdvancedSearchAnalysisEngine`]].
+      - [[licos.protocol.engine.analysis.village `licos.protocol.engine.analysis.village`]] contains LiCOS's protocol analysis engines for village such as
+        [[licos.protocol.engine.analysis.village.client2server.BoardAnalysisEngine `BoardAnalysisEngine`]].
+  - [[licos.protocol.element.auth `licos.protocol.element.auth`]] contains LiCOS's protocol entities for authentication and authorization such as
+    [[licos.protocol.element.auth.robot2server.AuthenticationAndAuthorizationRequestProtocol `AuthenticationAndAuthorizationRequestProtocol`]].
+  - [[licos.protocol.element.lobby `licos.protocol.element.lobby`]] contains LiCOS's protocol entities for lobby such as
+    [[licos.protocol.element.lobby.client2server.AdvancedSearchProtocol `AdvancedSearchProtocol`]].
+  - [[licos.protocol.element.village `licos.protocol.element.village`]] contains LiCOS's protocol entities for village such as
+    [[licos.protocol.element.village.part.AvatarProtocol `AvatarProtocol`]].
+
+
+=== JSON API (lower-level API) ===
   - [[licos.json.engine]] and its sub-packages contain LiCOS's JSON framework.
     - [[licos.json.engine.BOX `BOX`]] is the container that manages information to give to analysis engines.
     - [[licos.json.engine.processing `licos.json.processing`]] contains LiCOS's JSON processing engines.
+      - [[licos.json.engine.processing.AuthProcessingEngine `AuthProcessingEngine`]]
       - [[licos.json.engine.processing.LobbyProcessingEngine `LobbyProcessingEngine`]]
       - [[licos.json.engine.processing.VillageProcessingEngine `VillageProcessingEngine`]]
     - [[licos.json.engine.analysis `licos.json.engine.analysis`]] and its sub-packages contain LiCOS's JSON analysis engines.
+      - [[licos.json.engine.analysis.auth `licos.json.engine.analysis.auth`]] contains LiCOS's JSON analysis engines for authentication and authorization such as
+        [[licos.json.engine.analysis.auth.robot2server.AuthenticationAndAuthorizationRequestAnalysisEngine `AuthenticationAndAuthorizationRequestAnalysisEngine`]].
       - [[licos.json.engine.analysis.lobby `licos.json.engine.analysis.lobby`]] contains LiCOS's JSON analysis engines for lobby such as
         [[licos.json.engine.analysis.lobby.client2server.AdvancedSearchAnalysisEngine `AdvancedSearchAnalysisEngine`]].
       - [[licos.json.engine.analysis.village `licos.json.engine.analysis.village`]] contains LiCOS's JSON analysis engines for village such as
         [[licos.json.engine.analysis.village.client2server.BoardAnalysisEngine `BoardAnalysisEngine`]].
+  - [[licos.json.element.auth `licos.json.element.auth`]] contains LiCOS's JSON entities for authentication and authorization such as
+    [[licos.json.element.auth.robot2server.JsonAuthenticationAndAuthorizationRequest `JsonAuthenticationAndAuthorizationRequest`]].
   - [[licos.json.element.lobby `licos.json.element.lobby`]] contains LiCOS's JSON entities for lobby such as
     [[licos.json.element.lobby.client2server.JsonAdvancedSearch `JsonAdvancedSearch`]].
   - [[licos.json.element.village `licos.json.element.village`]] contains LiCOS's JSON entities for village such as
     [[licos.json.element.village.JsonAvatar `JsonAvatar`]].
 
 == How to use ==
+
+=== Protocol API ===
+
+See src/test/scala/sample/ProtocolVillageMessageRunner.scala
+
+{{{
+//TODO: Define the contractor as you like.
+class VillageBox(villageInfoFromLobby: VillageInfoFromLobby,
+                 intParameter: Int,
+                 stringParameter: String) extends VillageBOX(villageInfoFromLobby)
+
+class FlavorTextAE extends FlavorTextAnalysisEngine {
+  override def process(box: VillageBOX, flavorTextProtocol: FlavorTextProtocol): Try[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
+    }
+  }
+}
+
+class ChatFromServerAE extends ChatAnalysisEngine {
+  override def process(box: VillageBOX, chatFromServerProtocol: ChatFromServerProtocol): Try[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
+    }
+  }
+}
+
+class FirstMorningPhaseAE extends FirstMorningPhaseAnalysisEngine {
+  override def process(box: VillageBOX, firstMorningPhaseProtocol: FirstMorningPhaseProtocol): Try[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
+    }
+  }
+}
+
+class MorningPhaseAE extends MorningPhaseAnalysisEngine {
+  override def process(box: VillageBOX, morningPhaseProtocol: MorningPhaseProtocol): Try[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
+    }
+  }
+}
+
+class NoonPhaseAE extends NoonPhaseAnalysisEngine {
+  override def process(box: VillageBOX, noonPhaseProtocol: NoonPhaseProtocol): Try[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
+    }
+  }
+}
+
+class NightPhaseAE extends NightPhaseAnalysisEngine {
+  override def process(box: VillageBOX, nightPhaseProtocol: NightPhaseProtocol): Try[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
+    }
+  }
+}
+
+class GameResultAE extends GameResultAnalysisEngine {
+  override def process(box: VillageBOX, gameResultProtocol: GameResultProtocol): Try[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+        Right(...)
+      case _ =>
+      //TODO: Write here.
+        Left(...)
+    }
+  }
+}
+
+object Runner extends App {
+
+  private val processingEngineFactory: VillageProcessingEngineFactory =
+    SpecificProcessingEngineFactory.create(VillagePE)
+    .asInstanceOf[VillageProcessingEngineFactory]
+    .set(new ChatFromServerAE())
+    .set(new FlavorTextAE())
+    .set(new FirstMorningPhaseAE())
+    .set(new MorningPhaseAE())
+    .set(new NoonPhaseAE())
+    .set(new NightPhaseAE())
+    .set(new GameResultAE())
+
+  private val processingEngine: VillageProcessingEngine = processingEngineFactory.create
+
+  private val villageInfoFromLobby = VillageInfoFromLobby(
+    HumanPlayerLobby,
+    HostPlayer(
+      1L,
+      "Anonymous",
+      isAnonymous = true,
+      HumanArchitecture
+    ),
+    Cast.playerNumRoleNumMap(15)("A"),
+    1,
+    RandomAvatarSetting,
+    15,
+    None,
+    "Christopher",
+    new URL("https://werewolf.world/image/0.3/character_icons/50x50/a_50x50.png")
+  )
+
+  private val anExampleOfBOX: VillageBOX = new VillageBox(villageInfoFromLobby)
+
+  processingEngine.process(anExampleOfBOX, aJSONExampleOfTheLiCOSProtocol) match {
+    case Success(protocol: VillageMessageProtocol) =>
+      protocol.toJsonOpt foreach { json: JsValue =>
+        System.err.println(Json.prettyPrint(json))
+      }
+    case Failure(exception: Throwable) =>
+      System.err.println(exception.getMessage)
+  }
+}
+
+}}}
+
+=== JSON API ===
+
+See src/test/scala/sample/JsonVillageMessageRunner.scala
 
 {{{
 //TODO: Define the contractor as you like.
