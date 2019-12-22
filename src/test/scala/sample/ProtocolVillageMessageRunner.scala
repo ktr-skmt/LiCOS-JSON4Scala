@@ -3,6 +3,7 @@ package sample
 import java.net.URL
 
 import licos.entity.{HostPlayer, VillageInfoFromLobby}
+import licos.json2protocol.village.Json2VillageMessageProtocol
 import licos.knowledge.{Cast, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.engine.processing.village.{VillageBOX, VillageProcessingEngine, VillageProcessingEngineFactory}
@@ -19,13 +20,13 @@ object ProtocolVillageMessageRunner extends App {
 
   private val processingEngine: VillageProcessingEngine = processingEngineFactory.create
   // set analysis engines
-  private val aJSONExampleOfTheLiCOSProtocol: String = {
+  private val aJSONExampleOfTheLiCOSProtocol: JsValue = {
     val source: BufferedSource = Source.fromURL(
       "https://raw.githubusercontent.com/ktr-skmt/werewolfworld/gh-pages/village/example/0.3/server2client/firstMorning.jsonld"
     )
     val json: String = source.getLines().mkString("\n")
     source.close()
-    json
+    Json.parse(json)
   }
 
   private val hostPlayer = HostPlayer(
@@ -48,12 +49,18 @@ object ProtocolVillageMessageRunner extends App {
 
   val anExampleOfBOX: VillageBOX = new VillageBox(villageInfoFromLobby)
 
-  processingEngine.process(anExampleOfBOX, aJSONExampleOfTheLiCOSProtocol) match {
-    case Success(protocol: VillageMessageProtocol) =>
-      protocol.toJsonOpt foreach { json: JsValue =>
-        System.err.println(Json.prettyPrint(json))
+  Json2VillageMessageProtocol.toProtocolOpt(aJSONExampleOfTheLiCOSProtocol, villageInfoFromLobby) match {
+    case Some(protocol: VillageMessageProtocol) =>
+      processingEngine.process(anExampleOfBOX, protocol) match {
+        case Success(protocol: VillageMessageProtocol) =>
+          protocol.toJsonOpt foreach { json: JsValue =>
+            System.err.println(Json.prettyPrint(json))
+          }
+        case Failure(exception: Throwable) =>
+          System.err.println(exception.getMessage)
       }
-    case Failure(exception: Throwable) =>
-      System.err.println(exception.getMessage)
+    case _ =>
+      System.err.println("No protocol")
   }
+
 }

@@ -1,10 +1,6 @@
 package licos.protocol.engine.processing.lobby
 
 import com.typesafe.scalalogging.Logger
-import licos.json.element.lobby.client2server._
-import licos.json.element.lobby.server2client._
-import licos.json.element.lobby.server2server.JsonPlayedWithToken
-import licos.json.flow.{FlowController, LobbyFlowController}
 import licos.protocol.element.lobby.LobbyMessageProtocol
 import licos.protocol.element.lobby.client2server._
 import licos.protocol.element.lobby.server2client._
@@ -13,7 +9,6 @@ import licos.protocol.engine.analysis.lobby.client2server._
 import licos.protocol.engine.analysis.lobby.server2client._
 import licos.protocol.engine.analysis.lobby.server2server.PlayedWithTokenAnalysisEngine
 import licos.protocol.engine.processing.{JSON2ProtocolException, NoEngineException, ProcessingEngine}
-import play.api.libs.json.{JsValue, Json}
 
 import scala.util.{Failure, Try}
 
@@ -46,374 +41,208 @@ class LobbyProcessingEngine(
     authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine],
     authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine]
 ) extends ProcessingEngine {
-  override protected val flowController: FlowController = new LobbyFlowController()
 
   private final val logger = Logger[LobbyProcessingEngine]
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing"))
-  def process(box: LobbyBOX, msg: String): Try[LobbyMessageProtocol] = {
-
-    val jsValue: JsValue = Json.parse(msg)
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing", "org.wartremover.warts.Overloading"))
+  def process(box: LobbyBOX, msg: LobbyMessageProtocol): Try[LobbyMessageProtocol] = {
 
     def log(label: String): Unit = {
       val format: String = "process %s"
       logger.info(format.format(label))
     }
 
-    flowController.flow(jsValue) match {
-      case Right(json: JsonPong) =>
-        log("JsonPong")
+    msg match {
+      case protocol: PongProtocol =>
         pongEngine match {
           case Some(engine) =>
-            log("PongAnalysisEngine")
-            PongProtocol.read(json) match {
-              case Some(protocol) =>
-                log("PongProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(PongAnalysisEngine.name))
-            }
+            log(PongAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(PongAnalysisEngine.name))
         }
-      case Right(json: JsonPing) =>
-        log("JsonPing")
+      case protocol: PingProtocol =>
         pingEngine match {
           case Some(engine) =>
-            log("PingAnalysisEngine")
-            PingProtocol.read(json) match {
-              case Some(protocol) =>
-                log("PingProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(PingAnalysisEngine.name))
-            }
+            log(PingAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(PingAnalysisEngine.name))
         }
-      case Right(json: JsonWaitingPage) =>
-        log("JsonWaitingPage")
+      case protocol: WaitingPageProtocol =>
         waitingPageEngine match {
           case Some(engine) =>
-            log("WaitingPageAnalysisEngine")
-            WaitingPageProtocol.read(json) match {
-              case Some(protocol) =>
-                log("WaitingPageProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(WaitingPageAnalysisEngine.name))
-            }
+            log(WaitingPageAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(WaitingPageAnalysisEngine.name))
         }
-      case Right(json: JsonLobby) =>
-        log("JsonLobby")
+      case protocol: LobbyProtocol =>
         lobbyEngine match {
           case Some(engine) =>
-            log("LobbyAnalysisEngine")
-            LobbyProtocol.read(json) match {
-              case Some(protocol) =>
-                log("LobbyProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(LobbyAnalysisEngine.name))
-            }
+            log(LobbyAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(LobbyAnalysisEngine.name))
         }
-      case Right(json: JsonEnterLobby) =>
-        log("JsonEnterLobby")
+      case protocol: EnterLobbyProtocol =>
         enterLobbyEngine match {
           case Some(engine) =>
-            log("EnterLobbyAnalysisEngine")
-            EnterLobbyProtocol.read(json) match {
-              case Some(protocol) =>
-                log("EnterLobbyProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(EnterLobbyAnalysisEngine.name))
-            }
+            log(EnterLobbyAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(EnterLobbyAnalysisEngine.name))
         }
-      case Right(json: JsonGetAvatarInfo) =>
-        log("JsonGetAvatarInfo")
+      case protocol: GetAvatarInfoProtocol =>
         getAvatarInfoEngine match {
           case Some(engine) =>
-            log("GetAvatarInfoAnalysisEngine")
-            GetAvatarInfoProtocol.read(json) match {
-              case Some(protocol) =>
-                log("GetAvatarInfoProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(GetAvatarInfoAnalysisEngine.name))
-            }
+            log(GetAvatarInfoAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(GetAvatarInfoAnalysisEngine.name))
         }
-      case Right(json: JsonAvatarInfo) =>
-        log("JsonAvatarInfo")
+      case protocol: AvatarInfoProtocol =>
         avatarInfoEngine match {
           case Some(engine) =>
-            log("AvatarInfoAnalysisEngine")
-            AvatarInfoProtocol.read(json) match {
-              case Some(protocol) =>
-                log("AvatarInfoProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(AvatarInfoAnalysisEngine.name))
-            }
+            log(AvatarInfoAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(AvatarInfoAnalysisEngine.name))
         }
-      case Right(json: JsonSelectVillage) =>
-        log("JsonSelectVillage")
+      case protocol: SelectVillageProtocol =>
         selectVillageEngine match {
           case Some(engine) =>
-            log("SelectVillageAnalysisEngine")
-            SelectVillageProtocol.read(json) match {
-              case Some(protocol) =>
-                log("SelectVillageProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(SelectVillageAnalysisEngine.name))
-            }
+            log(SelectVillageAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(SelectVillageAnalysisEngine.name))
         }
-      case Right(json: JsonLeaveWaitingPage) =>
-        log("JsonLeaveWaitingPage")
+      case protocol: LeaveWaitingPageProtocol =>
         leaveWaitingPageEngine match {
           case Some(engine) =>
-            log("LeaveWaitingPageAnalysisEngine")
-            LeaveWaitingPageProtocol.read(json) match {
-              case Some(protocol) =>
-                log("LeaveWaitingPageProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(LeaveWaitingPageAnalysisEngine.name))
-            }
+            log(LeaveWaitingPageAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(LeaveWaitingPageAnalysisEngine.name))
         }
-      case Right(json: JsonKickOutPlayer) =>
-        log("JsonKickOutPlayer")
+      case protocol: KickOutPlayerProtocol =>
         kickOutPlayerEngine match {
           case Some(engine) =>
-            log("KickOutPlayerAnalysisEngine")
-            KickOutPlayerProtocol.read(json) match {
-              case Some(protocol) =>
-                log("KickOutPlayerProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(KickOutPlayerAnalysisEngine.name))
-            }
+            log(KickOutPlayerAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(KickOutPlayerAnalysisEngine.name))
         }
-      case Right(json: JsonBuildVillage) =>
-        log("JsonBuildVillage")
+      case protocol: BuildVillageProtocol =>
         buildVillageEngine match {
           case Some(engine) =>
-            log("BuildVillageAnalysisEngine")
-            BuildVillageProtocol.read(json) match {
-              case Some(protocol) =>
-                log("BuildVillageProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(BuildVillageAnalysisEngine.name))
-            }
+            log(BuildVillageAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(BuildVillageAnalysisEngine.name))
         }
-      case Right(json: JsonAdvancedSearch) =>
-        log("JsonAdvancedSearch")
+      case protocol: AdvancedSearchProtocol =>
         advancedSearchEngine match {
           case Some(engine) =>
-            log("AdvancedSearchAnalysisEngine")
-            AdvancedSearchProtocol.read(json) match {
-              case Some(protocol) =>
-                log("AdvancedSearchProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(AdvancedSearchAnalysisEngine.name))
-            }
+            log(AdvancedSearchAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(AdvancedSearchAnalysisEngine.name))
         }
-      case Right(json: JsonIdSearch) =>
-        log("JsonIdSearch")
+      case protocol: IdSearchProtocol =>
         idSearchEngine match {
           case Some(engine) =>
-            log("IdSearchAnalysisEngine")
-            IdSearchProtocol.read(json) match {
-              case Some(protocol) =>
-                log("IdSearchProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(IdSearchAnalysisEngine.name))
-            }
+            log(IdSearchAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(IdSearchAnalysisEngine.name))
         }
-      case Right(json: JsonPlay) =>
-        log("JsonPlay")
+      case protocol: PlayProtocol =>
         playEngine match {
           case Some(engine) =>
-            log("PlayAnalysisEngine")
-            PlayProtocol.read(json) match {
-              case Some(protocol) =>
-                log("PlayProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(PlayAnalysisEngine.name))
-            }
+            log(PlayAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(PlayAnalysisEngine.name))
         }
-      case Right(json: JsonPlayed) =>
-        log("JsonPlayed")
+      case protocol: PlayedProtocol =>
         playedEngine match {
           case Some(engine) =>
-            log("PlayedAnalysisEngine")
-            PlayedProtocol.read(json) match {
-              case Some(protocol) =>
-                log("PlayedProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(PlayedAnalysisEngine.name))
-            }
+            log(PlayedAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(PlayedAnalysisEngine.name))
         }
-      case Right(json: JsonPlayedWithToken) =>
-        log("JsonPlayedWithToken")
+      case protocol: PlayedWithTokenProtocol =>
         playedWithTokenEngine match {
           case Some(engine) =>
-            log("PlayedWithTokenAnalysisEngine")
-            PlayedWithTokenProtocol.read(json) match {
-              case Some(protocol) =>
-                log("PlayedWithTokenProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(PlayedWithTokenAnalysisEngine.name))
-            }
+            log(PlayedWithTokenAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(PlayedWithTokenAnalysisEngine.name))
         }
-      case Right(json: JsonReady) =>
-        log("JsonReady")
+      case protocol: ReadyProtocol =>
         readyEngine match {
           case Some(engine) =>
-            log("ReadyAnalysisEngine")
-            ReadyProtocol.read(json) match {
-              case Some(protocol) =>
-                log("ReadyProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(ReadyAnalysisEngine.name))
-            }
+            log(ReadyAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(ReadyAnalysisEngine.name))
         }
-      case Right(json: JsonSearchResult) =>
-        log("JsonSearchResult")
+      case protocol: SearchResultProtocol =>
         searchResultEngine match {
           case Some(engine) =>
-            log("SearchResultAnalysisEngine")
-            SearchResultProtocol.read(json) match {
-              case Some(protocol) =>
-                log("SearchResultProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(SearchResultAnalysisEngine.name))
-            }
+            log(SearchResultAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(SearchResultAnalysisEngine.name))
         }
-      case Right(json: JsonChangeLang) =>
-        log("JsonChangeLang")
+      case protocol: ChangeLangProtocol =>
         changeLangEngine match {
           case Some(engine) =>
-            log("ChangeLangAnalysisEngine")
-            ChangeLangProtocol.read(json) match {
-              case Some(protocol) =>
-                log("ChangeLangProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(ChangeLangAnalysisEngine.name))
-            }
+            log(ChangeLangAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(ChangeLangAnalysisEngine.name))
         }
-      case Right(json: JsonChangeUserEmail) =>
-        log("JsonChangeUserEmail")
+      case protocol: ChangeUserEmailProtocol =>
         changeUserEmailEngine match {
           case Some(engine) =>
-            log("ChangeUserEmailAnalysisEngine")
-            ChangeUserEmailProtocol.read(json) match {
-              case Some(protocol) =>
-                log("ChangeUserEmailProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(ChangeUserEmailAnalysisEngine.name))
-            }
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(ChangeUserEmailAnalysisEngine.name))
         }
-      case Right(json: JsonChangeUserName) =>
-        log("JsonChangeUserName")
+      case protocol: ChangeUserNameProtocol =>
         changeUserNameEngine match {
           case Some(engine) =>
-            log("ChangeUserNameAnalysisEngine")
-            ChangeUserNameProtocol.read(json) match {
-              case Some(protocol) =>
-                log("ChangeUserNameProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(ChangeUserNameAnalysisEngine.name))
-            }
+            log(ChangeUserNameAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(ChangeUserNameAnalysisEngine.name))
         }
-      case Right(json: JsonChangeUserPassword) =>
-        log("JsonChangeUserPassword")
+      case protocol: ChangeUserPasswordProtocol =>
         changeUserPasswordEngine match {
           case Some(engine) =>
-            log("ChangeUserPasswordAnalysisEngine")
-            ChangeUserPasswordProtocol.read(json) match {
-              case Some(protocol) =>
-                log("ChangeUserPasswordProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(ChangeUserPasswordAnalysisEngine.name))
-            }
+            log(ChangeUserPasswordAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(ChangeUserPasswordAnalysisEngine.name))
         }
-      case Right(json: JsonGetSettings) =>
-        log("JsonGetSettings")
+      case protocol: GetSettingsProtocol =>
         getSettingsEngine match {
           case Some(engine) =>
-            log("GetSettingsAnalysisEngine")
-            GetSettingsProtocol.read(json) match {
-              case Some(protocol) =>
-                log("GetSettingsProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(GetSettingsAnalysisEngine.name))
-            }
+            log(GetSettingsAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(GetSettingsAnalysisEngine.name))
         }
-      case Right(json: JsonSettings) =>
-        log("JsonSettings")
+      case protocol: SettingsProtocol =>
         settingsEngine match {
           case Some(engine) =>
-            log("SettingsAnalysisEngine")
-            SettingsProtocol.read(json) match {
-              case Some(protocol) =>
-                log("SettingsProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(SettingsAnalysisEngine.name))
-            }
+            log(SettingsAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(SettingsAnalysisEngine.name))
         }
-      case Right(json: JsonAuthorizationRequest) =>
-        log("JsonAuthorizationRequest")
+      case protocol: AuthorizationRequestProtocol =>
         authorizationRequestEngine match {
           case Some(engine) =>
-            log("AuthorizationRequestAnalysisEngine")
-            AuthorizationRequestProtocol.read(json) match {
-              case Some(protocol) =>
-                log("AuthorizationRequestProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(AuthorizationRequestAnalysisEngine.name))
-            }
+            log(AuthorizationRequestAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(AuthorizationRequestAnalysisEngine.name))
         }
-      case Right(json: JsonAuthorizationRequestAcceptedResponse) =>
-        log("JsonAuthorizationRequestAcceptedResponse")
+      case protocol: AuthorizationRequestAcceptedResponseProtocol =>
         authorizationRequestAcceptedResponseEngine match {
           case Some(engine) =>
-            log("AuthorizationRequestAcceptedResponseAnalysisEngine")
-            AuthorizationRequestAcceptedResponseProtocol.read(json) match {
-              case Some(protocol) =>
-                log("AuthorizationRequestAcceptedResponseProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(AuthorizationRequestAcceptedResponseAnalysisEngine.name))
-            }
+            log(AuthorizationRequestAcceptedResponseAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(AuthorizationRequestAcceptedResponseAnalysisEngine.name))
         }
-      case Right(json: JsonAuthorizationRequestAccepted) =>
-        log("JsonAuthorizationRequestAccepted")
+      case protocol: AuthorizationRequestAcceptedProtocol =>
         authorizationRequestAcceptedEngine match {
           case Some(engine) =>
-            log("AuthorizationRequestAcceptedAnalysisEngine")
-            AuthorizationRequestAcceptedProtocol.read(json) match {
-              case Some(protocol) =>
-                log("AuthorizationRequestAcceptedProtocol")
-                engine.process(box, protocol)
-              case None => Failure(new JSON2ProtocolException(AuthorizationRequestAcceptedAnalysisEngine.name))
-            }
+            log(AuthorizationRequestAcceptedAnalysisEngine.name)
+            engine.process(box, protocol)
           case None => Failure(new NoEngineException(AuthorizationRequestAcceptedAnalysisEngine.name))
         }
       case _ =>
-        Failure(new NoEngineException("AnalysisEngine"))
+        Failure(new JSON2ProtocolException("No protocol"))
     }
   }
 }

@@ -1,8 +1,5 @@
 package licos.entity
 
-import java.sql.Timestamp
-import java.util.UUID
-
 import licos.knowledge.{Alive, Character, Morning, Night, Noon, Outcome, Phase, Role, Status}
 
 sealed abstract class AvatarInVillage()
@@ -49,14 +46,6 @@ final case class PlayerInVillage(character: Character, role: Role) extends Avata
   def getUpdateDay: Int = updateDay
 }
 
-final case class OnymousAudienceInVillage(
-    id:        Long,
-    token:     UUID,
-    createdAt: Timestamp,
-    updatedAt: Timestamp,
-    name:      String,
-    image:     String,
-    isPrimary: Boolean
-) extends AvatarInVillage()
+final case class OnymousAudienceInVillage() extends AvatarInVillage()
 
 final case class AnonymousAudienceInVillage() extends AvatarInVillage()

@@ -1,7 +1,7 @@
 package licos.entity
 
 import java.net.URL
-import java.sql.Timestamp
+import java.time.OffsetDateTime
 import java.util.UUID
 
 import licos.knowledge.Architecture
@@ -9,8 +9,8 @@ import licos.knowledge.Architecture
 final case class ServerOnly(
     id:           Long,
     token:        UUID,
-    createdAt:    Timestamp,
-    updatedAt:    Timestamp,
+    createdAt:    OffsetDateTime,
+    updatedAt:    OffsetDateTime,
     name:         String,
     image:        URL,
     isPrimary:    Boolean,
