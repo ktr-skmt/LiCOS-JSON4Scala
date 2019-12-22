@@ -10,16 +10,19 @@ import licos.protocol.engine.processing.village.{VillageBOX, VillageProcessingEn
 import licos.protocol.engine.processing.{SpecificProcessingEngineFactory, VillagePE}
 import play.api.libs.json.{JsValue, Json}
 import protocol.engine.village.VillageBox
+import protocol.engine.village.analysis.server2client.FirstMorningPhaseAE
 
 import scala.io.{BufferedSource, Source}
 import scala.util.{Failure, Success}
 
 object ProtocolVillageMessageRunner extends App {
-  private val processingEngineFactory: VillageProcessingEngineFactory =
-    SpecificProcessingEngineFactory.create(VillagePE).asInstanceOf[VillageProcessingEngineFactory]
+  private val processingEngineFactory: VillageProcessingEngineFactory = SpecificProcessingEngineFactory
+    .create(VillagePE)
+    .asInstanceOf[VillageProcessingEngineFactory]
+    .set(new FirstMorningPhaseAE())
 
   private val processingEngine: VillageProcessingEngine = processingEngineFactory.create
-  // set analysis engines
+
   private val aJSONExampleOfTheLiCOSProtocol: JsValue = {
     val source: BufferedSource = Source.fromURL(
       "https://raw.githubusercontent.com/ktr-skmt/werewolfworld/gh-pages/village/example/0.3/server2client/firstMorning.jsonld"

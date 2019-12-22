@@ -14,6 +14,7 @@ Notable packages includes:
       - [[licos.protocol.engine.processing.auth.AuthProcessingEngine `AuthProcessingEngine`]]
       - [[licos.protocol.engine.processing.lobby.LobbyProcessingEngine `LobbyProcessingEngine`]]
       - [[licos.protocol.engine.processing.village.VillageProcessingEngine `VillageProcessingEngine`]]
+      - [[licos.protocol.engine.processing.village.server2logger.VillageProcessingEngine4Logger `VillageProcessingEngine4Logger`]]
     - [[licos.protocol.engine.analysis `licos.protocol.engine.analysis`]] and its sub-packages contain LiCOS's protocol analysis engines.
       - [[licos.protocol.engine.analysis.auth `licos.protocol.engine.analysis.auth`]] contains LiCOS's protocol analysis engines for authentication and authorization such as
         [[licos.protocol.engine.analysis.auth.robot2server.AuthenticationAndAuthorizationRequestAnalysisEngine `AuthenticationAndAuthorizationRequestAnalysisEngine`]].
@@ -28,6 +29,20 @@ Notable packages includes:
   - [[licos.protocol.element.village `licos.protocol.element.village`]] contains LiCOS's protocol entities for village such as
     [[licos.protocol.element.village.part.AvatarProtocol `AvatarProtocol`]].
 
+=== Async Protocol API ===
+  - [[licos.protocol.engine.async]] and its sub-packages contain LiCOS's Async Protocol framework.
+  - [[licos.protocol.engine.async.processing `licos.protocol.processing`]] contains LiCOS's async protocol processing engines.
+    - [[licos.protocol.engine.async.processing.auth.AuthProcessingEngine `AuthProcessingEngine`]]
+    - [[licos.protocol.engine.async.processing.lobby.LobbyProcessingEngine `LobbyProcessingEngine`]]
+    - [[licos.protocol.engine.async.processing.village.VillageProcessingEngine `VillageProcessingEngine`]]
+    - [[licos.protocol.engine.async.processing.village.server2logger.VillageProcessingEngine4Logger `VillageProcessingEngine4Logger`]]
+  - [[licos.protocol.engine.async.analysis `licos.protocol.engine.analysis`]] and its sub-packages contain LiCOS's async protocol analysis engines.
+    - [[licos.protocol.engine.async.analysis.auth `licos.protocol.engine.analysis.auth`]] contains LiCOS's async protocol analysis engines for authentication and authorization such as
+      [[licos.protocol.engine.async.analysis.auth.robot2server.AuthenticationAndAuthorizationRequestAnalysisEngine `AuthenticationAndAuthorizationRequestAnalysisEngine`]].
+    - [[licos.protocol.engine.async.analysis.lobby `licos.protocol.engine.analysis.lobby`]] contains LiCOS's async protocol analysis engines for lobby such as
+      [[licos.protocol.engine.async.analysis.lobby.client2server.AdvancedSearchAnalysisEngine `AdvancedSearchAnalysisEngine`]].
+    - [[licos.protocol.engine.async.analysis.village `licos.protocol.engine.analysis.village`]] contains LiCOS's async protocol analysis engines for village such as
+      [[licos.protocol.engine.async.analysis.village.client2server.BoardAnalysisEngine `BoardAnalysisEngine`]].
 
 === JSON API (lower-level API) ===
   - [[licos.json.engine]] and its sub-packages contain LiCOS's JSON framework.
@@ -54,7 +69,7 @@ Notable packages includes:
 
 === Protocol API ===
 
-See src/test/scala/sample/ProtocolVillageMessageRunner.scala
+See [src/test/scala/sample/ProtocolVillageMessageRunner.scala](https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/scala/sample/ProtocolVillageMessageRunner.scala)
 
 {{{
 //TODO: Define the contractor as you like.
@@ -199,9 +214,13 @@ object Runner extends App {
 
 }}}
 
+=== Async Protocol API ===
+
+See [src/test/scala/sample/AsyncProtocolVillageMessageRunner.scala](https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/scala/sample/AsyncProtocolVillageMessageRunner.scala)
+
 === JSON API ===
 
-See src/test/scala/sample/JsonVillageMessageRunner.scala
+See [src/test/scala/sample/JsonVillageMessageRunner.scala](https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/scala/sample/JsonVillageMessageRunner.scala)
 
 {{{
 //TODO: Define the contractor as you like.
