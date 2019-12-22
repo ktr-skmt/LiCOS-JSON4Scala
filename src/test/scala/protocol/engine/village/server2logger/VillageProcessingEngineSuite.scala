@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets
 import com.typesafe.scalalogging.Logger
 import licos.entity.{HostPlayer, VillageInfoFromLobby}
 import licos.json.parser.VillageParser
+import licos.json2protocol.village.server2logger.Json2VillageMessageProtocol
 import licos.knowledge.{Cast, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.engine.processing.{SpecificProcessingEngineFactory, VillagePE4Logger}
@@ -16,6 +17,7 @@ import licos.protocol.engine.processing.village.server2logger.{
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit
+import play.api.libs.json.Json
 import protocol.element.VillageMessageTestProtocol
 import protocol.engine.VillageExample
 import protocol.engine.village.VillageBox
@@ -79,27 +81,36 @@ class VillageProcessingEngineSuite extends AssertionsForJUnit with VillageParser
     log.debug(msg)
 
     val box = new VillageBox(villageInfoFromLobby)
-    processingEngine.process(box, msg) match {
-      case Success(protocol: VillageMessageProtocol) =>
-        protocol match {
-          case p: VillageMessageTestProtocol =>
-            assert(p.text == jsonType)
-          case _ =>
+
+    Json2VillageMessageProtocol.toProtocolOpt(Json.parse(msg), villageInfoFromLobby) match {
+      case Some(protocol: VillageMessageProtocol) =>
+        processingEngine.process(box, protocol) match {
+          case Success(protocol: VillageMessageProtocol) =>
+            protocol match {
+              case p: VillageMessageTestProtocol =>
+                assert(p.text == jsonType)
+              case _ =>
+                fail(
+                  Seq[String](
+                    "No VillageMessageTestProtocol"
+                  ).mkString("\n")
+                )
+            }
+          case Failure(error: Throwable) =>
             fail(
               Seq[String](
-                "No AuthMessageTestProtocol"
+                "No response is generated.",
+                error.getMessage,
+                msg
               ).mkString("\n")
             )
         }
-      case Failure(error: Throwable) =>
+      case _ =>
         fail(
           Seq[String](
-            "No response is generated.",
-            error.getMessage,
-            msg
+            "No protocol"
           ).mkString("\n")
         )
     }
-
   }
 }

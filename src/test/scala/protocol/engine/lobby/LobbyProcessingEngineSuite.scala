@@ -4,12 +4,14 @@ import java.nio.charset.StandardCharsets
 
 import com.typesafe.scalalogging.Logger
 import licos.json.parser.LobbyParser
+import licos.json2protocol.lobby.Json2LobbyMessageProtocol
 import licos.protocol.element.lobby.LobbyMessageProtocol
 import licos.protocol.engine.processing.lobby.{LobbyProcessingEngine, LobbyProcessingEngineFactory}
 import licos.protocol.engine.processing.{LobbyPE, SpecificProcessingEngineFactory}
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit
+import play.api.libs.json.Json
 import protocol.element.LobbyMessageTestProtocol
 import protocol.engine.LobbyExample
 import protocol.engine.lobby.analysis.client2server.{
@@ -162,24 +164,33 @@ class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyParser {
     val msg: String = source.getLines.mkString("\n")
     source.close()
     log.debug(msg)
-    processingEngine.process(new LobbyBox(), msg) match {
-      case Success(protocol: LobbyMessageProtocol) =>
-        protocol match {
-          case p: LobbyMessageTestProtocol =>
-            assert(p.text == jsonType)
-          case _ =>
+    Json2LobbyMessageProtocol.toProtocolOpt(Json.parse(msg)) match {
+      case Some(protocol: LobbyMessageProtocol) =>
+        processingEngine.process(new LobbyBox(), protocol) match {
+          case Success(protocol: LobbyMessageProtocol) =>
+            protocol match {
+              case p: LobbyMessageTestProtocol =>
+                assert(p.text == jsonType)
+              case _ =>
+                fail(
+                  Seq[String](
+                    "No LobbyMessageTestProtocol"
+                  ).mkString("\n")
+                )
+            }
+          case Failure(error: Throwable) =>
             fail(
               Seq[String](
-                "No AuthMessageTestProtocol"
+                "No response is generated.",
+                error.getMessage,
+                msg
               ).mkString("\n")
             )
         }
-      case Failure(error: Throwable) =>
+      case _ =>
         fail(
           Seq[String](
-            "No response is generated.",
-            error.getMessage,
-            msg
+            "No protocol"
           ).mkString("\n")
         )
     }

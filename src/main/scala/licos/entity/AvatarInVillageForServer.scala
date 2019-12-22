@@ -1,6 +1,7 @@
 package licos.entity
 
-import java.sql.Timestamp
+import java.net.URL
+import java.time.OffsetDateTime
 import java.util.UUID
 
 import licos.knowledge.{
@@ -136,10 +137,10 @@ final case class PlayerInVillageForServer(character: Character, role: Role, only
 final case class OnymousAudienceInVillageForServer(
     id:        Long,
     token:     UUID,
-    createdAt: Timestamp,
-    updatedAt: Timestamp,
+    createdAt: OffsetDateTime,
+    updatedAt: OffsetDateTime,
     name:      String,
-    image:     String,
+    image:     URL,
     isPrimary: Boolean
 ) extends AvatarInVillageForServer()
 
