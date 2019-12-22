@@ -69,7 +69,7 @@ Notable packages includes:
 
 === Protocol API ===
 
-@see <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/scala/sample/ProtocolVillageMessageRunner.scala" target="_blank">src/test/scala/sample/ProtocolVillageMessageRunner.scala</a>
+See <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/scala/sample/ProtocolVillageMessageRunner.scala" target="_blank">src/test/scala/sample/ProtocolVillageMessageRunner.scala</a>
 
 {{{
 //TODO: Define the contractor as you like.
@@ -216,11 +216,11 @@ object Runner extends App {
 
 === Async Protocol API ===
 
-@see <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/scala/sample/AsyncProtocolVillageMessageRunner.scala" target="_blank">src/test/scala/sample/AsyncProtocolVillageMessageRunner.scala</a>
+See <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/scala/sample/AsyncProtocolVillageMessageRunner.scala" target="_blank">src/test/scala/sample/AsyncProtocolVillageMessageRunner.scala</a>
 
 === JSON API ===
 
-@see <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/scala/sample/JsonVillageMessageRunner.scala" target="_blank">src/test/scala/sample/JsonVillageMessageRunner.scala</a>
+See <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/scala/sample/JsonVillageMessageRunner.scala" target="_blank">src/test/scala/sample/JsonVillageMessageRunner.scala</a>
 
 {{{
 //TODO: Define the contractor as you like.
