@@ -125,3 +125,7 @@ lazy val json = (project in file(".")).
       )
     }
   )
+
+json / Test / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.ScalaLibrary
+json / Test / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat
+
