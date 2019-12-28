@@ -10,59 +10,59 @@ Notable packages includes:
       - [[licos.protocol.engine.processing.auth.AuthBOX `AuthBOX`]] is the container that manages information to give analysis engines for authentication and authorization.
       - [[licos.protocol.engine.processing.lobby.LobbyBOX `LobbyBOX`]] is the container that manages information to give analysis engines for lobby.
       - [[licos.protocol.engine.processing.village.VillageBOX `VillageBOX`]] is the container that manages information to give analysis engines for village.
-    - [[licos.protocol.engine.processing `licos.protocol.processing`]] contains LiCOS's protocol processing engines.
+    - [[licos.protocol.engine.processing]] contains LiCOS's protocol processing engines.
       - [[licos.protocol.engine.processing.auth.AuthProcessingEngine `AuthProcessingEngine`]]
       - [[licos.protocol.engine.processing.lobby.LobbyProcessingEngine `LobbyProcessingEngine`]]
       - [[licos.protocol.engine.processing.village.VillageProcessingEngine `VillageProcessingEngine`]]
       - [[licos.protocol.engine.processing.village.server2logger.VillageProcessingEngine4Logger `VillageProcessingEngine4Logger`]]
-    - [[licos.protocol.engine.analysis `licos.protocol.engine.analysis`]] and its sub-packages contain LiCOS's protocol analysis engines.
-      - [[licos.protocol.engine.analysis.auth `licos.protocol.engine.analysis.auth`]] contains LiCOS's protocol analysis engines for authentication and authorization such as
+    - [[licos.protocol.engine.analysis]] and its sub-packages contain LiCOS's protocol analysis engines.
+      - [[licos.protocol.engine.analysis.auth]] contains LiCOS's protocol analysis engines for authentication and authorization such as
         [[licos.protocol.engine.analysis.auth.robot2server.AuthenticationAndAuthorizationRequestAnalysisEngine `AuthenticationAndAuthorizationRequestAnalysisEngine`]].
-      - [[licos.protocol.engine.analysis.lobby `licos.protocol.engine.analysis.lobby`]] contains LiCOS's protocol analysis engines for lobby such as
+      - [[licos.protocol.engine.analysis.lobby]] contains LiCOS's protocol analysis engines for lobby such as
         [[licos.protocol.engine.analysis.lobby.client2server.AdvancedSearchAnalysisEngine `AdvancedSearchAnalysisEngine`]].
-      - [[licos.protocol.engine.analysis.village `licos.protocol.engine.analysis.village`]] contains LiCOS's protocol analysis engines for village such as
+      - [[licos.protocol.engine.analysis.village]] contains LiCOS's protocol analysis engines for village such as
         [[licos.protocol.engine.analysis.village.client2server.BoardAnalysisEngine `BoardAnalysisEngine`]].
-  - [[licos.protocol.element.auth `licos.protocol.element.auth`]] contains LiCOS's protocol entities for authentication and authorization such as
+  - [[licos.protocol.element.auth]] contains LiCOS's protocol entities for authentication and authorization such as
     [[licos.protocol.element.auth.robot2server.AuthenticationAndAuthorizationRequestProtocol `AuthenticationAndAuthorizationRequestProtocol`]].
-  - [[licos.protocol.element.lobby `licos.protocol.element.lobby`]] contains LiCOS's protocol entities for lobby such as
+  - [[licos.protocol.element.lobby]] contains LiCOS's protocol entities for lobby such as
     [[licos.protocol.element.lobby.client2server.AdvancedSearchProtocol `AdvancedSearchProtocol`]].
-  - [[licos.protocol.element.village `licos.protocol.element.village`]] contains LiCOS's protocol entities for village such as
+  - [[licos.protocol.element.village]] contains LiCOS's protocol entities for village such as
     [[licos.protocol.element.village.part.AvatarProtocol `AvatarProtocol`]].
 
 === Async Protocol API ===
   - [[licos.protocol.engine.async]] and its sub-packages contain LiCOS's Async Protocol framework.
-  - [[licos.protocol.engine.async.processing `licos.protocol.processing`]] contains LiCOS's async protocol processing engines.
+  - [[licos.protocol.engine.async.processing]] contains LiCOS's async protocol processing engines.
     - [[licos.protocol.engine.async.processing.auth.AuthProcessingEngine `AuthProcessingEngine`]]
     - [[licos.protocol.engine.async.processing.lobby.LobbyProcessingEngine `LobbyProcessingEngine`]]
     - [[licos.protocol.engine.async.processing.village.VillageProcessingEngine `VillageProcessingEngine`]]
     - [[licos.protocol.engine.async.processing.village.server2logger.VillageProcessingEngine4Logger `VillageProcessingEngine4Logger`]]
-  - [[licos.protocol.engine.async.analysis `licos.protocol.engine.analysis`]] and its sub-packages contain LiCOS's async protocol analysis engines.
-    - [[licos.protocol.engine.async.analysis.auth `licos.protocol.engine.analysis.auth`]] contains LiCOS's async protocol analysis engines for authentication and authorization such as
+  - [[licos.protocol.engine.async.analysis]] and its sub-packages contain LiCOS's async protocol analysis engines.
+    - [[licos.protocol.engine.async.analysis.auth]] contains LiCOS's async protocol analysis engines for authentication and authorization such as
       [[licos.protocol.engine.async.analysis.auth.robot2server.AuthenticationAndAuthorizationRequestAnalysisEngine `AuthenticationAndAuthorizationRequestAnalysisEngine`]].
-    - [[licos.protocol.engine.async.analysis.lobby `licos.protocol.engine.analysis.lobby`]] contains LiCOS's async protocol analysis engines for lobby such as
+    - [[licos.protocol.engine.async.analysis.lobby]] contains LiCOS's async protocol analysis engines for lobby such as
       [[licos.protocol.engine.async.analysis.lobby.client2server.AdvancedSearchAnalysisEngine `AdvancedSearchAnalysisEngine`]].
-    - [[licos.protocol.engine.async.analysis.village `licos.protocol.engine.analysis.village`]] contains LiCOS's async protocol analysis engines for village such as
+    - [[licos.protocol.engine.async.analysis.village]] contains LiCOS's async protocol analysis engines for village such as
       [[licos.protocol.engine.async.analysis.village.client2server.BoardAnalysisEngine `BoardAnalysisEngine`]].
 
 === JSON API (lower-level API) ===
   - [[licos.json.engine]] and its sub-packages contain LiCOS's JSON framework.
     - [[licos.json.engine.BOX `BOX`]] is the container that manages information to give to analysis engines.
-    - [[licos.json.engine.processing `licos.json.processing`]] contains LiCOS's JSON processing engines.
+    - [[licos.json.engine.processing]] contains LiCOS's JSON processing engines.
       - [[licos.json.engine.processing.AuthProcessingEngine `AuthProcessingEngine`]]
       - [[licos.json.engine.processing.LobbyProcessingEngine `LobbyProcessingEngine`]]
       - [[licos.json.engine.processing.VillageProcessingEngine `VillageProcessingEngine`]]
-    - [[licos.json.engine.analysis `licos.json.engine.analysis`]] and its sub-packages contain LiCOS's JSON analysis engines.
-      - [[licos.json.engine.analysis.auth `licos.json.engine.analysis.auth`]] contains LiCOS's JSON analysis engines for authentication and authorization such as
+    - [[licos.json.engine.analysis]] and its sub-packages contain LiCOS's JSON analysis engines.
+      - [[licos.json.engine.analysis.auth]] contains LiCOS's JSON analysis engines for authentication and authorization such as
         [[licos.json.engine.analysis.auth.robot2server.AuthenticationAndAuthorizationRequestAnalysisEngine `AuthenticationAndAuthorizationRequestAnalysisEngine`]].
-      - [[licos.json.engine.analysis.lobby `licos.json.engine.analysis.lobby`]] contains LiCOS's JSON analysis engines for lobby such as
+      - [[licos.json.engine.analysis.lobby]] contains LiCOS's JSON analysis engines for lobby such as
         [[licos.json.engine.analysis.lobby.client2server.AdvancedSearchAnalysisEngine `AdvancedSearchAnalysisEngine`]].
-      - [[licos.json.engine.analysis.village `licos.json.engine.analysis.village`]] contains LiCOS's JSON analysis engines for village such as
+      - [[licos.json.engine.analysis.village]] contains LiCOS's JSON analysis engines for village such as
         [[licos.json.engine.analysis.village.client2server.BoardAnalysisEngine `BoardAnalysisEngine`]].
-  - [[licos.json.element.auth `licos.json.element.auth`]] contains LiCOS's JSON entities for authentication and authorization such as
+  - [[licos.json.element.auth]] contains LiCOS's JSON entities for authentication and authorization such as
     [[licos.json.element.auth.robot2server.JsonAuthenticationAndAuthorizationRequest `JsonAuthenticationAndAuthorizationRequest`]].
-  - [[licos.json.element.lobby `licos.json.element.lobby`]] contains LiCOS's JSON entities for lobby such as
+  - [[licos.json.element.lobby]] contains LiCOS's JSON entities for lobby such as
     [[licos.json.element.lobby.client2server.JsonAdvancedSearch `JsonAdvancedSearch`]].
-  - [[licos.json.element.village `licos.json.element.village`]] contains LiCOS's JSON entities for village such as
+  - [[licos.json.element.village]] contains LiCOS's JSON entities for village such as
     [[licos.json.element.village.JsonAvatar `JsonAvatar`]].
 
 == How to use ==
