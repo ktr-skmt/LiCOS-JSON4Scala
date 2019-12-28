@@ -5,13 +5,13 @@ import java.util.UUID
 import licos.json.element.lobby.client2server.JsonPong
 import play.api.libs.json.{JsValue, Json}
 
-final case class PongProtocol(token: UUID, id: String) extends Client2ServerLobbyMessageProtocol {
+final case class PongProtocol(token: UUID, id: UUID) extends Client2ServerLobbyMessageProtocol {
 
   private val json: Option[JsonPong] = {
     Some(
       new JsonPong(
         token.toString,
-        id
+        id.toString
       )
     )
   }
@@ -30,7 +30,7 @@ object PongProtocol {
     Some(
       PongProtocol(
         UUID.fromString(jsonPong.token),
-        jsonPong.id
+        UUID.fromString(jsonPong.id)
       )
     )
   }

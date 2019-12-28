@@ -73,11 +73,11 @@ See <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/s
 
 {{{
 //TODO: Define the contractor as you like.
-class VillageBox(villageInfoFromLobby: VillageInfoFromLobby,
-                 intParameter: Int,
-                 stringParameter: String) extends VillageBOX(villageInfoFromLobby)
+final class VillageBox(villageInfoFromLobby: VillageInfoFromLobby,
+                       intParameter: Int,
+                       stringParameter: String) extends VillageBOX(villageInfoFromLobby)
 
-class FlavorTextAE extends FlavorTextAnalysisEngine {
+final class FlavorTextAE extends FlavorTextAnalysisEngine {
   override def process(box: VillageBOX, flavorTextProtocol: FlavorTextProtocol): Try[VillageMessageProtocol] = {
     box match {
       case x: VillageBox =>
@@ -90,7 +90,7 @@ class FlavorTextAE extends FlavorTextAnalysisEngine {
   }
 }
 
-class ChatFromServerAE extends ChatAnalysisEngine {
+final class ChatFromServerAE extends ChatAnalysisEngine {
   override def process(box: VillageBOX, chatFromServerProtocol: ChatFromServerProtocol): Try[VillageMessageProtocol] = {
     box match {
       case x: VillageBox =>
@@ -103,7 +103,7 @@ class ChatFromServerAE extends ChatAnalysisEngine {
   }
 }
 
-class FirstMorningPhaseAE extends FirstMorningPhaseAnalysisEngine {
+final class FirstMorningPhaseAE extends FirstMorningPhaseAnalysisEngine {
   override def process(box: VillageBOX, firstMorningPhaseProtocol: FirstMorningPhaseProtocol): Try[VillageMessageProtocol] = {
     box match {
       case x: VillageBox =>
@@ -116,7 +116,7 @@ class FirstMorningPhaseAE extends FirstMorningPhaseAnalysisEngine {
   }
 }
 
-class MorningPhaseAE extends MorningPhaseAnalysisEngine {
+final class MorningPhaseAE extends MorningPhaseAnalysisEngine {
   override def process(box: VillageBOX, morningPhaseProtocol: MorningPhaseProtocol): Try[VillageMessageProtocol] = {
     box match {
       case x: VillageBox =>
@@ -129,7 +129,7 @@ class MorningPhaseAE extends MorningPhaseAnalysisEngine {
   }
 }
 
-class NoonPhaseAE extends NoonPhaseAnalysisEngine {
+final class NoonPhaseAE extends NoonPhaseAnalysisEngine {
   override def process(box: VillageBOX, noonPhaseProtocol: NoonPhaseProtocol): Try[VillageMessageProtocol] = {
     box match {
       case x: VillageBox =>
@@ -142,7 +142,7 @@ class NoonPhaseAE extends NoonPhaseAnalysisEngine {
   }
 }
 
-class NightPhaseAE extends NightPhaseAnalysisEngine {
+final class NightPhaseAE extends NightPhaseAnalysisEngine {
   override def process(box: VillageBOX, nightPhaseProtocol: NightPhaseProtocol): Try[VillageMessageProtocol] = {
     box match {
       case x: VillageBox =>
@@ -155,7 +155,7 @@ class NightPhaseAE extends NightPhaseAnalysisEngine {
   }
 }
 
-class GameResultAE extends GameResultAnalysisEngine {
+final class GameResultAE extends GameResultAnalysisEngine {
   override def process(box: VillageBOX, gameResultProtocol: GameResultProtocol): Try[VillageMessageProtocol] = {
     box match {
       case x: VillageBox =>
@@ -218,15 +218,150 @@ object Runner extends App {
 
 See <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/scala/sample/AsyncProtocolVillageMessageRunner.scala" target="_blank">src/test/scala/sample/AsyncProtocolVillageMessageRunner.scala</a>
 
+{{{
+//TODO: Define the contractor as you like.
+final class VillageBox(villageInfoFromLobby: VillageInfoFromLobby,
+                       intParameter: Int,
+                       stringParameter: String) extends VillageBOX(villageInfoFromLobby)
+
+final class FlavorTextAE extends FlavorTextAnalysisEngine {
+  override def process(box: VillageBOX, flavorTextProtocol: FlavorTextProtocol): Future[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+      case _ => Future.failed(new VillageBOXNotFoundException())
+    }
+  }
+}
+
+final class ChatFromServerAE extends ChatAnalysisEngine {
+  override def process(box: VillageBOX, chatFromServerProtocol: ChatFromServerProtocol): Future[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+      case _ => Future.failed(new VillageBOXNotFoundException())
+    }
+  }
+}
+
+final class FirstMorningPhaseAE extends FirstMorningPhaseAnalysisEngine {
+  override def process(box: VillageBOX, firstMorningPhaseProtocol: FirstMorningPhaseProtocol): Future[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+      case _ => Future.failed(new VillageBOXNotFoundException())
+    }
+  }
+}
+
+final class MorningPhaseAE extends MorningPhaseAnalysisEngine {
+  override def process(box: VillageBOX, morningPhaseProtocol: MorningPhaseProtocol): Future[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+      case _ => Future.failed(new VillageBOXNotFoundException())
+    }
+  }
+}
+
+final class NoonPhaseAE extends NoonPhaseAnalysisEngine {
+  override def process(box: VillageBOX, noonPhaseProtocol: NoonPhaseProtocol): Future[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+      case _ => Future.failed(new VillageBOXNotFoundException())
+    }
+  }
+}
+
+final class NightPhaseAE extends NightPhaseAnalysisEngine {
+  override def process(box: VillageBOX, nightPhaseProtocol: NightPhaseProtocol): Future[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+      case _ => Future.failed(new VillageBOXNotFoundException())
+    }
+  }
+}
+
+final class GameResultAE extends GameResultAnalysisEngine {
+  override def process(box: VillageBOX, gameResultProtocol: GameResultProtocol): Future[VillageMessageProtocol] = {
+    box match {
+      case x: VillageBox =>
+      //TODO: Write here.
+      case _ => Future.failed(new VillageBOXNotFoundException())
+    }
+  }
+}
+
+object Runner extends App {
+
+  private val processingEngineFactory: VillageProcessingEngineFactory =
+    SpecificProcessingEngineFactory.create(VillagePE)
+    .asInstanceOf[VillageProcessingEngineFactory]
+    .set(new ChatFromServerAE())
+    .set(new FlavorTextAE())
+    .set(new FirstMorningPhaseAE())
+    .set(new MorningPhaseAE())
+    .set(new NoonPhaseAE())
+    .set(new NightPhaseAE())
+    .set(new GameResultAE())
+
+  private val processingEngine: VillageProcessingEngine = processingEngineFactory.create
+
+  private val villageInfoFromLobby = VillageInfoFromLobby(
+    HumanPlayerLobby,
+    HostPlayer(
+      1L,
+      "Anonymous",
+      isAnonymous = true,
+      HumanArchitecture
+    ),
+    Cast.playerNumRoleNumMap(15)("A"),
+    1,
+    RandomAvatarSetting,
+    15,
+    None,
+    "Christopher",
+    new URL("https://werewolf.world/image/0.3/character_icons/50x50/a_50x50.png")
+  )
+
+  private val anExampleOfBOX: VillageBOX = new VillageBox(villageInfoFromLobby)
+
+  import scala.concurrent.ExceptionContext.Implicits.global
+
+  Json2VillageMessageProtocol.toProtocolOpt(aJSONExampleOfTheLiCOSProtocol, villageInfoFromLobby) match {
+    case Some(protocol: VillageMessageProtocol) =>
+      Await.ready(
+        processingEngine
+          .process(anExampleOfBOX, protocol)
+          .map { messageProtocol: VillageMessageProtocol =>
+            messageProtocol.toJsonOpt.foreach { json: JsValue =>
+              System.err.println(Json.prettyPrint(json))
+            }
+          }
+          .recover {
+            case error: Throwable =>
+              System.err.println(error.getMessage)
+          },
+        Duration.Inf
+      )
+    case _ =>
+      System.err.println("No protocol")
+  }
+}
+
+}}}
+
 === JSON API ===
 
 See <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/scala/sample/JsonVillageMessageRunner.scala" target="_blank">src/test/scala/sample/JsonVillageMessageRunner.scala</a>
 
 {{{
 //TODO: Define the contractor as you like.
-class VillageBox(intParameter: Int, stringParameter: String) extends BOX
+final class VillageBox(intParameter: Int, stringParameter: String) extends BOX
 
-class ChatFromServerAE extends ChatAnalysisEngine {
+final class ChatFromServerAE extends ChatAnalysisEngine {
   override def process(box: BOX, chatFromServer: JsonChatFromServer): Either[JsValue, JsValue] = {
     box match {
       case x: VillageBox =>
@@ -239,7 +374,7 @@ class ChatFromServerAE extends ChatAnalysisEngine {
   }
 }
 
-class ErrorFromServerAE extends licos.json.engine.analysis.village.server2client.ErrorAnalysisEngine {
+final class ErrorFromServerAE extends licos.json.engine.analysis.village.server2client.ErrorAnalysisEngine {
   override def process(box: BOX, error: JsonError): Either[JsValue, JsValue] = {
     box match {
       case x: VillageBox =>
@@ -252,7 +387,7 @@ class ErrorFromServerAE extends licos.json.engine.analysis.village.server2client
   }
 }
 
-class FlavorTextAE extends FlavorTextAnalysisEngine {
+final class FlavorTextAE extends FlavorTextAnalysisEngine {
   override def process(box: BOX, flavorText: JsonFlavorText): Either[JsValue, JsValue] = {
     box match {
       case x: VillageBox =>
@@ -265,7 +400,7 @@ class FlavorTextAE extends FlavorTextAnalysisEngine {
   }
 }
 
-class GameResultAE extends GameResultAnalysisEngine {
+final class GameResultAE extends GameResultAnalysisEngine {
   override def process(box: BOX, gameResult: JsonGameResult): Either[JsValue, JsValue] = {
     box match {
       case x: VillageBox =>
@@ -278,7 +413,7 @@ class GameResultAE extends GameResultAnalysisEngine {
   }
 }
 
-class PhaseAE extends PhaseAnalysisEngine {
+final class PhaseAE extends PhaseAnalysisEngine {
   override def process(box: BOX, phase: JsonPhase): Either[JsValue, JsValue] = {
     box match {
       case x: VillageBox =>
@@ -291,7 +426,7 @@ class PhaseAE extends PhaseAnalysisEngine {
   }
 }
 
-class NextGameInvitationAE extends NextGameInvitationAnalysisEngine {
+final class NextGameInvitationAE extends NextGameInvitationAnalysisEngine {
   override def process(box: BOX,
                        nextGameInvitation: JsonNextGameInvitation): Either[JsValue, JsValue] = {
     box match {
@@ -305,7 +440,7 @@ class NextGameInvitationAE extends NextGameInvitationAnalysisEngine {
   }
 }
 
-class NextGameInvitationIsClosedAE extends NextGameInvitationIsClosedAnalysisEngine {
+final class NextGameInvitationIsClosedAE extends NextGameInvitationIsClosedAnalysisEngine {
 
   override def process(box: BOX,
                        nextGameInvitationIsClosed: JsonNextGameInvitationIsClosed): Either[JsValue, JsValue] = {

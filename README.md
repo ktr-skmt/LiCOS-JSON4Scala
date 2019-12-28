@@ -9,7 +9,7 @@
 
 ### The latest version
 
-https://ktr-skmt.github.io/LiCOS-JSON4Scala/0.2.5/api/index.html
+https://ktr-skmt.github.io/LiCOS-JSON4Scala/0.2.6/api/index.html
 
 ### Old versions
 
@@ -24,7 +24,7 @@ resolvers += "LiCOS-JSON4Scala-snapshots-repository" at "https://github.com/ktr-
 ```
 
 ```scala
-libraryDependences += "online.licos" % "licos-json4scala_2.12" % "0.2.5"
+libraryDependences += "online.licos" % "licos-json4scala_2.12" % "0.2.6"
 ```
 
 ### Gradle
@@ -39,7 +39,7 @@ repositories {
 
 ```javascript
 dependencies {
-    compile group: 'online.licos', name: 'licos-json4scala_2.12', version: '0.2.5'
+    compile group: 'online.licos', name: 'licos-json4scala_2.12', version: '0.2.6'
 }
 ```
 
@@ -56,7 +56,7 @@ dependencies {
 <dependency>
   <groupId>online.licos</groupId>
   <artifactId>licos-json4scala_2.12</artifactId>
-  <version>0.2.5</version>
+  <version>0.2.6</version>
 </dependency>
 ```
 
@@ -74,5 +74,5 @@ dependencies {
 ```
 
 ```xml
-<dependency org="online.licos" name="licos-json4scala_2.12" rev="0.2.5"/>
+<dependency org="online.licos" name="licos-json4scala_2.12" rev="0.2.6"/>
 ```
