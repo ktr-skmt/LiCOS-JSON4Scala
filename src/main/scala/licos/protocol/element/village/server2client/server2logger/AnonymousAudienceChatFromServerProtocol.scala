@@ -4,15 +4,12 @@ import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.JsonAnonymousAudienceChat
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{ChatMessage, Contexts}
-import licos.knowledge.{AnonymousAudienceChannel, Architecture, Character, Data2Knowledge, Role, ServerToClient, Status}
+import licos.knowledge.{AnonymousAudienceChannel, Data2Knowledge, ServerToClient}
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, ChatTextProtocol, VillageProtocol}
 import licos.util.TimestampGenerator
 import play.api.libs.json.{JsValue, Json}
 
-import scala.collection.mutable.ListBuffer
-
-@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class AnonymousAudienceChatFromServerProtocol(
     village:                    VillageInfo,
     isMine:                     Boolean,
@@ -42,7 +39,7 @@ final case class AnonymousAudienceChatFromServerProtocol(
           village.day,
           village.phaseTimeLimit,
           village.phaseStartTime,
-          Option(TimestampGenerator.now),
+          Some(TimestampGenerator.now),
           None,
           ServerToClient,
           AnonymousAudienceChannel,
@@ -61,59 +58,44 @@ final case class AnonymousAudienceChatFromServerProtocol(
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonAnonymousAudienceChat =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object AnonymousAudienceChatFromServerProtocol {
 
-  @SuppressWarnings(
-    Array[String](
-      "org.wartremover.warts.Any",
-      "org.wartremover.warts.OptionPartial",
-      "org.wartremover.warts.MutableDataStructures"
-    )
-  )
   def read(
       json:                 JsonAnonymousAudienceChat,
       villageInfoFromLobby: VillageInfoFromLobby
   ): Option[AnonymousAudienceChatFromServerProtocol] = {
     if (json.isFromServer) {
-      VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
-        case Some(village: VillageInfo) =>
-          val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]
-          json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
-            val characterOpt: Option[Character] =
-              Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
-            val roleOpt:       Option[Role]         = village.cast.parse(jsonStatusCharacter.role.name.en)
-            val statusOpt:     Option[Status]       = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
-            val playerTypeOpt: Option[Architecture] = Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType)
-            if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty && playerTypeOpt.nonEmpty) {
-              statusCharacterBuffer += StatusCharacterProtocol(
-                characterOpt.get,
-                roleOpt.get,
-                statusOpt.get,
-                playerTypeOpt.get,
-                village.id,
-                village.language
-              )
+      VillageInfoFactory
+        .create(villageInfoFromLobby, json.base)
+        .map { village: VillageInfo =>
+          AnonymousAudienceChatFromServerProtocol(
+            village,
+            json.isMine,
+            json.text.`@value`,
+            json.base.extensionalDisclosureRange.flatMap { jsonStatusCharacter: JsonStatusCharacter =>
+              for {
+                character  <- Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id).toList
+                role       <- village.cast.parse(jsonStatusCharacter.role.name.en).toList
+                status     <- Data2Knowledge.statusOpt(jsonStatusCharacter.status).toList
+                playerType <- Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType).toList
+              } yield {
+                StatusCharacterProtocol(
+                  character,
+                  role,
+                  status,
+                  playerType,
+                  village.id,
+                  village.language
+                )
+              }
             }
-          }
-
-          Some(
-            AnonymousAudienceChatFromServerProtocol(
-              village,
-              json.isMine,
-              json.text.`@value`,
-              statusCharacterBuffer.result
-            )
           )
-        case None => None
-      }
+        }
     } else {
       None
     }

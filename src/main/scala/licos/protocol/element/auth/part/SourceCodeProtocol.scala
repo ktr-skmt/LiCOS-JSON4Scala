@@ -1,29 +1,17 @@
 package licos.protocol.element.auth.part
 
-import licos.json.element.auth.robot2server
-import licos.json.element.auth.robot2server.{JsonProgrammingLanguage, JsonSourceCode}
+import licos.json.element.auth.robot2server.JsonSourceCode
 
-import scala.collection.mutable.ListBuffer
-
-@SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
 final case class SourceCodeProtocol(
     timestamp:           String,
     programmingLanguage: Seq[ProgrammingLanguageProtocol],
     url:                 String
 ) {
   val json: Option[JsonSourceCode] = {
-
-    val buffer = ListBuffer.empty[JsonProgrammingLanguage]
-    programmingLanguage foreach { pl: ProgrammingLanguageProtocol =>
-      pl.json foreach { jsonProgrammingLanguage: JsonProgrammingLanguage =>
-        buffer += jsonProgrammingLanguage
-      }
-    }
-
     Some(
-      robot2server.JsonSourceCode(
+      JsonSourceCode(
         timestamp,
-        buffer.result,
+        programmingLanguage.flatMap(_.json.toList),
         url
       )
     )
@@ -32,19 +20,13 @@ final case class SourceCodeProtocol(
 
 object SourceCodeProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
   def read(json: JsonSourceCode): Option[SourceCodeProtocol] = {
-
-    val buffer = ListBuffer.empty[ProgrammingLanguageProtocol]
-    json.programmingLanguage foreach { pl: JsonProgrammingLanguage =>
-      ProgrammingLanguageProtocol.read(pl) foreach { plp: ProgrammingLanguageProtocol =>
-        buffer += plp
-      }
-    }
     Some(
       SourceCodeProtocol(
         json.timestamp,
-        buffer.result,
+        json.programmingLanguage.flatMap { j =>
+          ProgrammingLanguageProtocol.read(j).toList
+        },
         json.url
       )
     )

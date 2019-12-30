@@ -44,7 +44,7 @@ Notable packages includes:
     - [[licos.protocol.engine.async.analysis.village]] contains LiCOS's async protocol analysis engines for village such as
       [[licos.protocol.engine.async.analysis.village.client2server.BoardAnalysisEngine `BoardAnalysisEngine`]].
 
-=== JSON API (lower-level API) ===
+=== JSON API (low-level API) ===
   - [[licos.json.engine]] and its sub-packages contain LiCOS's JSON framework.
     - [[licos.json.engine.BOX `BOX`]] is the container that manages information to give to analysis engines.
     - [[licos.json.engine.processing]] contains LiCOS's JSON processing engines.

@@ -17,12 +17,9 @@ final case class OnymousAudienceChatFromClientProtocol(
     server2logger.OnymousAudienceChatFromClientProtocol(village, text, myAvatarName, myAvatarImage, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonOnymousAudienceChat =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object OnymousAudienceChatFromClientProtocol {
@@ -32,18 +29,16 @@ object OnymousAudienceChatFromClientProtocol {
       villageInfoFromLobby: VillageInfoFromLobby
   ): Option[OnymousAudienceChatFromClientProtocol] = {
     if (!json.isFromServer) {
-      VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
-        case Some(village: VillageInfo) =>
-          Some(
-            OnymousAudienceChatFromClientProtocol(
-              village,
-              json.text.`@value`,
-              json.avatar.name,
-              new URL(json.avatar.image)
-            )
+      VillageInfoFactory
+        .create(villageInfoFromLobby, json.base)
+        .map { village: VillageInfo =>
+          OnymousAudienceChatFromClientProtocol(
+            village,
+            json.text.`@value`,
+            json.avatar.name,
+            new URL(json.avatar.image)
           )
-        case None => None
-      }
+        }
     } else {
       None
     }

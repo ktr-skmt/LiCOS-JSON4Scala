@@ -19,32 +19,23 @@ final case class LeaveWaitingPageProtocol(token: UUID, villageId: Long, lobby: L
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonLeaveWaitingPage =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object LeaveWaitingPageProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonLeaveWaitingPage): Option[LeaveWaitingPageProtocol] = {
-
-    val lobbyOpt: Option[Lobby] = Data2Knowledge.lobbyOpt(json.lobby)
-
-    if (lobbyOpt.nonEmpty) {
-      Some(
+    Data2Knowledge
+      .lobbyOpt(json.lobby)
+      .map { lobby: Lobby =>
         LeaveWaitingPageProtocol(
           UUID.fromString(json.token),
           json.villageId,
-          lobbyOpt.get
+          lobby
         )
-      )
-    } else {
-      None
-    }
+      }
   }
 
 }

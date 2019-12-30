@@ -16,10 +16,8 @@ final case class AuthorizationRequestResponseProtocol(accessToken: UUID, respons
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonAuthorizationRequestResponse =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
 }
 

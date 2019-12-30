@@ -16,12 +16,9 @@ final case class SelectVillageProtocol(token: UUID, villageId: Long) extends Cli
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonSelectVillage =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object SelectVillageProtocol {

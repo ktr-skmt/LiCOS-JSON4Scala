@@ -14,10 +14,8 @@ final case class AuthorizationRequestProtocol(accessToken: UUID) extends Server2
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonAuthorizationRequest =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
 }
 

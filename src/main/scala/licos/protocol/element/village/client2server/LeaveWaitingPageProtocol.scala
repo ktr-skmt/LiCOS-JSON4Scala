@@ -19,17 +19,15 @@ final case class LeaveWaitingPageProtocol(token: UUID, villageId: Long, lobby: L
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonLeaveWaitingPage =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
 }
 
 object LeaveWaitingPageProtocol {
 
   def read(json: JsonLeaveWaitingPage): Option[LeaveWaitingPageProtocol] = {
-    Data2Knowledge.lobbyOpt(json.lobby) map { lobby: Lobby =>
+    Data2Knowledge.lobbyOpt(json.lobby).map { lobby: Lobby =>
       new LeaveWaitingPageProtocol(UUID.fromString(json.token), json.villageId, lobby)
     }
   }

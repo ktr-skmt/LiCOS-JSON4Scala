@@ -18,32 +18,23 @@ final case class EnterLobbyProtocol(token: UUID, lobby: Lobby, page: Int) extend
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonEnterLobby =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object EnterLobbyProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonEnterLobby): Option[EnterLobbyProtocol] = {
-
-    val lobbyOpt: Option[Lobby] = Data2Knowledge.lobbyOpt(json.lobby)
-
-    if (lobbyOpt.nonEmpty) {
-      Some(
+    Data2Knowledge
+      .lobbyOpt(json.lobby)
+      .map { lobby: Lobby =>
         EnterLobbyProtocol(
           UUID.fromString(json.token),
-          lobbyOpt.get,
+          lobby,
           json.page
         )
-      )
-    } else {
-      None
-    }
+      }
   }
 
 }

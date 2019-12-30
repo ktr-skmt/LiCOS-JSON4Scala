@@ -19,40 +19,32 @@ final case class ScrollProtocol(
     server2logger.ScrollProtocol(village, nodeId, scrollTop, scrollHeight, offsetHeight, myCharacter, myRole, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonScroll =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object ScrollProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonScroll, villageInfoFromLobby: VillageInfoFromLobby): Option[ScrollProtocol] = {
-    VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
-      case Some(village: VillageInfo) =>
-        val myCharacterOpt: Option[Character] =
-          Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-        val myRoleOpt: Option[Role] = village.cast.parse(json.myCharacter.role.name.en)
-        if (myCharacterOpt.nonEmpty && myRoleOpt.nonEmpty) {
-          Some(
-            ScrollProtocol(
-              village,
-              json.nodeId,
-              json.scrollTop,
-              json.scrollHeight,
-              json.offsetHeight,
-              myCharacterOpt.get,
-              myRoleOpt.get
-            )
+    VillageInfoFactory
+      .create(villageInfoFromLobby, json.base)
+      .flatMap { village: VillageInfo =>
+        for {
+          myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
+          myRole      <- village.cast.parse(json.myCharacter.role.name.en)
+        } yield {
+          ScrollProtocol(
+            village,
+            json.nodeId,
+            json.scrollTop,
+            json.scrollHeight,
+            json.offsetHeight,
+            myCharacter,
+            myRole
           )
-        } else {
-          None
         }
-      case None => None
-    }
+      }
   }
 
 }

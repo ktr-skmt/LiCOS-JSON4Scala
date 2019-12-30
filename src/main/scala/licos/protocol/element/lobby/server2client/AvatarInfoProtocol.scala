@@ -20,12 +20,9 @@ final case class AvatarInfoProtocol(token: UUID, name: String, image: URL, lang:
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonAvatarInfo =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object AvatarInfoProtocol {

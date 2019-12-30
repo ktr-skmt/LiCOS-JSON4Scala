@@ -9,12 +9,9 @@ final case class GetSettingsProtocol() extends Client2ServerLobbyMessageProtocol
     Some(new JsonGetSettings())
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonGetSettings =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object GetSettingsProtocol {

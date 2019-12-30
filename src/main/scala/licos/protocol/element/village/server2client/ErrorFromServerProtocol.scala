@@ -37,7 +37,7 @@ final case class ErrorFromServerProtocol(
           village.day,
           village.phaseTimeLimit,
           village.phaseStartTime,
-          Option(TimestampGenerator.now),
+          Some(TimestampGenerator.now),
           None,
           ServerToClient,
           PrivateChannel,
@@ -53,38 +53,27 @@ final case class ErrorFromServerProtocol(
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonError =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object ErrorFromServerProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonError, villageInfoFromLobby: VillageInfoFromLobby): Option[ErrorFromServerProtocol] = {
     if (json.isFromServer) {
-      VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
-        case Some(village: VillageInfo) =>
-          val content:     NameProtocol     = Data2Knowledge.name(json.content)
-          val severityOpt: Option[Severity] = Data2Knowledge.severityOpt(json.severity)
-
-          if (severityOpt.nonEmpty) {
-            Some(
-              ErrorFromServerProtocol(
-                village,
-                content,
-                severityOpt.get,
-                json.source
-              )
+      VillageInfoFactory
+        .create(villageInfoFromLobby, json.base)
+        .flatMap { village: VillageInfo =>
+          Data2Knowledge.severityOpt(json.severity).map { severity: Severity =>
+            ErrorFromServerProtocol(
+              village,
+              Data2Knowledge.name(json.content),
+              severity,
+              json.source
             )
-          } else {
-            None
           }
-        case None => None
-      }
+        }
     } else {
       None
     }

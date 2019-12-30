@@ -7,7 +7,6 @@ import licos.json.element.lobby.client2server.JsonBuildVillage
 import licos.json.element.lobby.{JsonHostPlayer, JsonHuman, JsonPlayerSetting, JsonRobot, JsonRoleSetting}
 import play.api.libs.json.{JsValue, Json}
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class BuildVillageProtocol(village: VillageInfoFromLobby, token: UUID, villageName: String)
     extends Client2ServerVillageMessageProtocol {
 
@@ -51,10 +50,8 @@ final case class BuildVillageProtocol(village: VillageInfoFromLobby, token: UUID
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonBuildVillage =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
 }
 

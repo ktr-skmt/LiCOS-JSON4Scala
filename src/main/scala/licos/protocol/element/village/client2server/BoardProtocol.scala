@@ -18,58 +18,35 @@ final case class BoardProtocol(
     server2logger.BoardProtocol(village, character, role, prediction, myCharacter, myRole, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonBoard =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object BoardProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonBoard, villageInfoFromLobby: VillageInfoFromLobby): Option[BoardProtocol] = {
-
-    VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
-      case Some(village: VillageInfo) =>
-        val predictionOpt: Option[PolarityMark] = Data2Knowledge.polarityMarkOpt(json.prediction)
-        val characterOpt:  Option[Character]    = Data2Knowledge.characterOpt(json.character.name.en, json.character.id)
-        val numberOfPlayers: Int = {
-          json.role.name.en.toLowerCase match {
-            case "villager"    => village.cast.villager.numberOfPlayers
-            case "werewolf"    => village.cast.werewolf.numberOfPlayers
-            case "seer"        => village.cast.seer.numberOfPlayers
-            case "medium"      => village.cast.medium.numberOfPlayers
-            case "hunter"      => village.cast.hunter.numberOfPlayers
-            case "mason"       => village.cast.mason.numberOfPlayers
-            case "madman"      => village.cast.madman.numberOfPlayers
-            case "werehamster" => village.cast.werehamster.numberOfPlayers
-            case "master"      => village.cast.master.numberOfPlayers
-            case _             => 0
-          }
-        }
-        val roleOpt: Option[Role] = Data2Knowledge.roleOpt(json.role.name.en, numberOfPlayers)
-        val myCharacterOpt: Option[Character] =
-          Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-        val myRoleOpt: Option[Role] = village.cast.parse(json.myCharacter.role.name.en)
-        if (predictionOpt.nonEmpty && characterOpt.nonEmpty && roleOpt.nonEmpty && myCharacterOpt.nonEmpty && myRoleOpt.nonEmpty) {
-
-          Some(
-            BoardProtocol(
-              village,
-              characterOpt.get,
-              roleOpt.get,
-              predictionOpt.get,
-              myCharacterOpt.get,
-              myRoleOpt.get
-            )
+    VillageInfoFactory
+      .create(villageInfoFromLobby, json.base)
+      .flatMap { village: VillageInfo =>
+        for {
+          prediction <- Data2Knowledge.polarityMarkOpt(json.prediction)
+          character  <- Data2Knowledge.characterOpt(json.character.name.en, json.character.id)
+          role <- Data2Knowledge
+            .roleOpt(json.role.name.en, village.cast.parse(json.role.name.en).map(_.numberOfPlayers).getOrElse(0))
+          myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
+          myRole      <- village.cast.parse(json.myCharacter.role.name.en)
+        } yield {
+          BoardProtocol(
+            village,
+            character,
+            role,
+            prediction,
+            myCharacter,
+            myRole
           )
-        } else {
-          None
         }
-      case None => None
-    }
+      }
   }
 
 }

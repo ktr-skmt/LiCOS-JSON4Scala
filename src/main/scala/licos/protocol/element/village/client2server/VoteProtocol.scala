@@ -12,38 +12,30 @@ final case class VoteProtocol(village: VillageInfo, character: Character, myChar
     server2logger.VoteProtocol(village, character, myCharacter, myRole, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonVote =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object VoteProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonVote, villageInfoFromLobby: VillageInfoFromLobby): Option[VoteProtocol] = {
-    VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
-      case Some(village: VillageInfo) =>
-        val characterOpt: Option[Character] = Data2Knowledge.characterOpt(json.character.name.en, json.character.id)
-        val myCharacterOpt: Option[Character] =
-          Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-        val myRoleOpt: Option[Role] = village.cast.parse(json.myCharacter.role.name.en)
-        if (characterOpt.nonEmpty && myCharacterOpt.nonEmpty && myRoleOpt.nonEmpty) {
-          Some(
-            VoteProtocol(
-              village,
-              characterOpt.get,
-              myCharacterOpt.get,
-              myRoleOpt.get
-            )
+    VillageInfoFactory
+      .create(villageInfoFromLobby, json.base)
+      .flatMap { village: VillageInfo =>
+        for {
+          character   <- Data2Knowledge.characterOpt(json.character.name.en, json.character.id)
+          myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
+          myRole      <- village.cast.parse(json.myCharacter.role.name.en)
+        } yield {
+          VoteProtocol(
+            village,
+            character,
+            myCharacter,
+            myRole
           )
-        } else {
-          None
         }
-      case None => None
-    }
+      }
   }
 
 }

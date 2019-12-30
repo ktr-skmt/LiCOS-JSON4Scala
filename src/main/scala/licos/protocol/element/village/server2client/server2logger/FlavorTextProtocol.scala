@@ -4,15 +4,12 @@ import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{Contexts, FlavorTextMessage}
 import licos.json.element.village.server2client.{JsonChatFromServer, JsonFlavorText}
-import licos.knowledge.{Architecture, Character, Data2Knowledge, PublicChannel, Role, ServerToClient, Status}
+import licos.knowledge.{Data2Knowledge, PublicChannel, ServerToClient}
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
 import licos.util.TimestampGenerator
 import play.api.libs.json.{JsValue, Json}
 
-import scala.collection.mutable.ListBuffer
-
-@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class FlavorTextProtocol(
     village:                    VillageInfo,
     flavorText:                 Seq[licos.protocol.element.village.server2client.ChatFromServerProtocol],
@@ -41,7 +38,7 @@ final case class FlavorTextProtocol(
           village.day,
           village.phaseTimeLimit,
           village.phaseStartTime,
-          Option(TimestampGenerator.now),
+          Some(TimestampGenerator.now),
           None,
           ServerToClient,
           PublicChannel,
@@ -54,60 +51,43 @@ final case class FlavorTextProtocol(
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonFlavorText =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object FlavorTextProtocol {
 
-  @SuppressWarnings(
-    Array[String](
-      "org.wartremover.warts.Any",
-      "org.wartremover.warts.OptionPartial",
-      "org.wartremover.warts.MutableDataStructures"
-    )
-  )
   def read(json: JsonFlavorText, villageInfoFromLobby: VillageInfoFromLobby): Option[FlavorTextProtocol] = {
-    VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
-      case Some(village: VillageInfo) =>
-        val chatBuffer = ListBuffer.empty[licos.protocol.element.village.server2client.ChatFromServerProtocol]
-        json.flavorText foreach { jsonChatFromServer: JsonChatFromServer =>
-          licos.protocol.element.village.server2client.ChatFromServerProtocol
-            .read(jsonChatFromServer, villageInfoFromLobby) foreach chatBuffer.+=
-        }
-
-        val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]
-        json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
-          val characterOpt: Option[Character] =
-            Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
-          val roleOpt:       Option[Role]         = village.cast.parse(jsonStatusCharacter.role.name.en)
-          val statusOpt:     Option[Status]       = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
-          val playerTypeOpt: Option[Architecture] = Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType)
-          if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty && playerTypeOpt.nonEmpty) {
-            statusCharacterBuffer += StatusCharacterProtocol(
-              characterOpt.get,
-              roleOpt.get,
-              statusOpt.get,
-              playerTypeOpt.get,
-              village.id,
-              village.language
-            )
+    VillageInfoFactory
+      .create(villageInfoFromLobby, json.base)
+      .map { village: VillageInfo =>
+        FlavorTextProtocol(
+          village,
+          json.flavorText.flatMap { jsonChatFromServer: JsonChatFromServer =>
+            licos.protocol.element.village.server2client.ChatFromServerProtocol
+              .read(jsonChatFromServer, villageInfoFromLobby)
+              .toList
+          },
+          json.base.extensionalDisclosureRange.flatMap { jsonStatusCharacter: JsonStatusCharacter =>
+            for {
+              character  <- Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id).toList
+              role       <- village.cast.parse(jsonStatusCharacter.role.name.en).toList
+              status     <- Data2Knowledge.statusOpt(jsonStatusCharacter.status).toList
+              playerType <- Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType).toList
+            } yield {
+              StatusCharacterProtocol(
+                character,
+                role,
+                status,
+                playerType,
+                village.id,
+                village.language
+              )
+            }
           }
-        }
-
-        Some(
-          FlavorTextProtocol(
-            village,
-            chatBuffer.result,
-            statusCharacterBuffer.result
-          )
         )
-      case None => None
-    }
+      }
   }
 
 }

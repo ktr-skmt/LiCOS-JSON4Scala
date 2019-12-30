@@ -6,35 +6,21 @@ import licos.json.element.lobby.client2server.{JsonKickOutPlayer, JsonPlayerToke
 import licos.protocol.element.lobby.part.PlayerTokenInKickOutPlayerProtocol
 import play.api.libs.json.{JsValue, Json}
 
-import scala.collection.mutable.ListBuffer
-
-@SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
 final case class KickOutPlayerProtocol(token: UUID, players: Seq[PlayerTokenInKickOutPlayerProtocol])
     extends Client2ServerLobbyMessageProtocol {
 
   private val json: Option[JsonKickOutPlayer] = {
-
-    val buffer = ListBuffer.empty[JsonPlayerTokenInKickOutPlayer]
-    players foreach { player: PlayerTokenInKickOutPlayerProtocol =>
-      player.json foreach { json: JsonPlayerTokenInKickOutPlayer =>
-        buffer += json
-      }
-    }
-
     Some(
       new JsonKickOutPlayer(
         token.toString,
-        buffer.result
+        players.flatMap(_.json.toList)
       )
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonKickOutPlayer =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object KickOutPlayerProtocol {
@@ -43,7 +29,7 @@ object KickOutPlayerProtocol {
     Some(
       KickOutPlayerProtocol(
         UUID.fromString(json.token),
-        json.players map { player: JsonPlayerTokenInKickOutPlayer =>
+        json.players.map { player: JsonPlayerTokenInKickOutPlayer =>
           PlayerTokenInKickOutPlayerProtocol(UUID.fromString(player.token))
         }
       )
