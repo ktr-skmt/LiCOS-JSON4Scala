@@ -71,7 +71,7 @@ import play.api.libs.json.{JsValue, Json}
   * @param authorizationRequestAcceptedEngine the analysis engine for Authorization-request-accepted JSON
   * @author Kotaro Sakamoto
   */
-class LobbyProcessingEngine(
+final class LobbyProcessingEngine(
     pongEngine:                                 Option[PongAnalysisEngine],
     pingEngine:                                 Option[PingAnalysisEngine],
     waitingPageEngine:                          Option[WaitingPageAnalysisEngine],

@@ -1,5 +1,6 @@
 package protocol.engine.auth
 
+import java.net.URL
 import java.nio.charset.StandardCharsets
 
 import com.typesafe.scalalogging.Logger
@@ -32,9 +33,9 @@ object AuthProcessingEngineSuite {
 }
 
 @RunWith(classOf[Theories])
-class AuthProcessingEngineSuite extends AssertionsForJUnit with AuthParser {
+final class AuthProcessingEngineSuite extends AssertionsForJUnit with AuthParser {
 
-  private final val log: Logger = Logger[AuthProcessingEngineSuite]
+  private val log: Logger = Logger[AuthProcessingEngineSuite]
 
   private val processingEngineFactory: AuthProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(AuthPE)
@@ -48,9 +49,9 @@ class AuthProcessingEngineSuite extends AssertionsForJUnit with AuthParser {
   @Theory
   def process(jsonExample: AuthExample): Unit = {
     val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
+    val url:            URL    = jsonExample.path
     implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-    log.info(url)
+    log.info(url.toString)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()

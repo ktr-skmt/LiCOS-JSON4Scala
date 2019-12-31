@@ -14,7 +14,7 @@ import licos.protocol.engine.processing.{JSON2ProtocolException, NoEngineExcepti
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class LobbyProcessingEngine(
+final class LobbyProcessingEngine(
     pongEngine:                                 Option[PongAnalysisEngine],
     pingEngine:                                 Option[PingAnalysisEngine],
     waitingPageEngine:                          Option[WaitingPageAnalysisEngine],

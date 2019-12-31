@@ -18,7 +18,7 @@ import licos.protocol.engine.processing.{JSON2ProtocolException, NoEngineExcepti
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class AuthProcessingEngine(
+final class AuthProcessingEngine(
     authenticationAndAuthorizationRequestEngine: Option[AuthenticationAndAuthorizationRequestAnalysisEngine],
     authenticationRequestResponseEngine:         Option[AuthenticationRequestResponseAnalysisEngine],
     authorizationRequestResponseEngine:          Option[AuthorizationRequestResponseAnalysisEngine]

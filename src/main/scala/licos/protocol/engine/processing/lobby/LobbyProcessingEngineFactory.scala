@@ -6,7 +6,7 @@ import licos.protocol.engine.analysis.lobby.server2server.PlayedWithTokenAnalysi
 import licos.protocol.engine.processing.ProcessingEngineFactory
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading", "org.wartremover.warts.Var"))
-class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
+final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var pongAnalysisEngine:                 Option[PongAnalysisEngine]                 = None
   private var pingAnalysisEngine:                 Option[PingAnalysisEngine]                 = None
   private var waitingPageAnalysisEngine:          Option[WaitingPageAnalysisEngine]          = None

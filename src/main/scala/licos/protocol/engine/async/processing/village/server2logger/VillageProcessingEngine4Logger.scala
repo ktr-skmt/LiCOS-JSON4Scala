@@ -35,7 +35,7 @@ import licos.protocol.engine.processing.{JSON2ProtocolException, NoEngineExcepti
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class VillageProcessingEngine4Logger(
+final class VillageProcessingEngine4Logger(
     anonymousAudienceChatFromClientAnalysisEngine: Option[AnonymousAudienceChatFromClientAnalysisEngine],
     boardAnalysisEngine:                           Option[BoardAnalysisEngine],
     chatFromClientAnalysisEngine:                  Option[ChatFromClientAnalysisEngine],
@@ -59,7 +59,7 @@ class VillageProcessingEngine4Logger(
     postMortemDiscussionAnalysisEngine:            Option[PostMortemDiscussionAnalysisEngine]
 ) extends ProcessingEngine {
 
-  private final val logger: Logger = Logger[VillageProcessingEngine4Logger]
+  private val logger: Logger = Logger[VillageProcessingEngine4Logger]
 
   @SuppressWarnings(
     Array[String](

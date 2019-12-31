@@ -5,7 +5,7 @@ import licos.protocol.engine.async.analysis.village.server2client.server2logger.
 import licos.protocol.engine.async.processing.ProcessingEngineFactory
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading", "org.wartremover.warts.Var"))
-class VillageProcessingEngineFactory4Logger extends ProcessingEngineFactory {
+final class VillageProcessingEngineFactory4Logger extends ProcessingEngineFactory {
 
   private var anonymousAudienceChatFromClientAnalysisEngine: Option[AnonymousAudienceChatFromClientAnalysisEngine] =
     None

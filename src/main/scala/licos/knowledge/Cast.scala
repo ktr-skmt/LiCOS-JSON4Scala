@@ -1,8 +1,6 @@
 package licos.knowledge
 
-import scala.util.control.Breaks
-
-class Cast(
+final class Cast(
     val master:      MasterRole,
     val villager:    VillagerRole,
     val seer:        SeerRole,
@@ -27,20 +25,7 @@ class Cast(
 
   def allRoles: Seq[Role] = Seq[Role](master, villager, seer, medium, hunter, mason, madman, werewolf, werehamster)
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.Var"))
-  def parse(roleLabel: String): Option[Role] = {
-    var retOpt = Option.empty[Role]
-    val breaks = new Breaks()
-    breaks.breakable {
-      allRoles foreach { role: Role =>
-        if (role.name.en.equalsIgnoreCase(roleLabel)) {
-          retOpt = Option(role)
-          breaks.break
-        }
-      }
-    }
-    retOpt
-  }
+  def parse(roleLabel: String): Option[Role] = allRoles.find(_.name.en.equalsIgnoreCase(roleLabel))
 }
 
 object Cast {

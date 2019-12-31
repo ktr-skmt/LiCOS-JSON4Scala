@@ -8,7 +8,7 @@ import licos.protocol.engine.async.analysis.auth.server2robot.{
 import licos.protocol.engine.async.processing.ProcessingEngineFactory
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading", "org.wartremover.warts.Var"))
-class AuthProcessingEngineFactory extends ProcessingEngineFactory {
+final class AuthProcessingEngineFactory extends ProcessingEngineFactory {
   private var authenticationAndAuthorizationRequestEngine: Option[AuthenticationAndAuthorizationRequestAnalysisEngine] =
     None
   private var authenticationRequestResponseEngine: Option[AuthenticationRequestResponseAnalysisEngine] = None

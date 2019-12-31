@@ -39,9 +39,9 @@ object VillageProcessingEngineSuite {
 }
 
 @RunWith(classOf[Theories])
-class VillageProcessingEngineSuite extends AssertionsForJUnit with VillageParser {
+final class VillageProcessingEngineSuite extends AssertionsForJUnit with VillageParser {
 
-  private final val log: Logger = Logger[VillageProcessingEngineSuite]
+  private val log: Logger = Logger[VillageProcessingEngineSuite]
 
   private val processingEngineFactory: VillageProcessingEngineFactory4Logger = SpecificProcessingEngineFactory
     .create(VillagePE4Logger)
@@ -72,9 +72,9 @@ class VillageProcessingEngineSuite extends AssertionsForJUnit with VillageParser
       new URL("https://werewolf.world/image/0.3/character_icons/50x50/a_50x50.png")
     )
     val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
+    val url:            URL    = jsonExample.path
     implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-    log.info(url)
+    log.info(url.toString)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()

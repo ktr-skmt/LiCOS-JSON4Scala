@@ -1,9 +1,11 @@
 package protocol.engine
 
+import java.net.URL
+
 abstract class AuthExample(filePath: String) {
   private val baseUrl: String = "https://raw.githubusercontent.com/ktr-skmt/werewolfworld/gh-pages/auth/example/0.3/"
 
-  val path: String = baseUrl.concat(filePath)
+  val path: URL = new URL(baseUrl.concat(filePath))
 
   val `type`: String
 }
