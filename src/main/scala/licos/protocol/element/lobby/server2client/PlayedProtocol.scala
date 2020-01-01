@@ -15,12 +15,9 @@ final case class PlayedProtocol(lang: Locale) extends Server2ClientLobbyMessageP
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonPlayed =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object PlayedProtocol {

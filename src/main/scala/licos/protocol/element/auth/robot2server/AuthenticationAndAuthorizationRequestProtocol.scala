@@ -7,7 +7,6 @@ import licos.protocol.element.auth.AuthMessageProtocol
 import licos.protocol.element.auth.part.SourceCodeProtocol
 import play.api.libs.json.{JsValue, Json}
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class AuthenticationAndAuthorizationRequestProtocol(
     userEmail:    String,
     userPassword: String,
@@ -17,51 +16,36 @@ final case class AuthenticationAndAuthorizationRequestProtocol(
 ) extends AuthMessageProtocol {
 
   val json: Option[JsonAuthenticationAndAuthorizationRequest] = {
-
-    val jsonSourceCode: Option[JsonSourceCode] = sourceCode.json
-
-    if (jsonSourceCode.nonEmpty) {
-      Some(
-        new JsonAuthenticationAndAuthorizationRequest(
-          userEmail,
-          userPassword,
-          robotVersion,
-          accessToken.toString,
-          jsonSourceCode.get
-        )
+    sourceCode.json.map { jsonSourceCode: JsonSourceCode =>
+      new JsonAuthenticationAndAuthorizationRequest(
+        userEmail,
+        userPassword,
+        robotVersion,
+        accessToken.toString,
+        jsonSourceCode
       )
-    } else {
-      None
     }
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonAuthenticationAndAuthorizationRequest =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j: JsonAuthenticationAndAuthorizationRequest =>
+    Json.toJson(j)
   }
 }
 
 object AuthenticationAndAuthorizationRequestProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonAuthenticationAndAuthorizationRequest): Option[AuthenticationAndAuthorizationRequestProtocol] = {
-
-    val sourceCode: Option[SourceCodeProtocol] = SourceCodeProtocol.read(json.sourceCode)
-
-    if (sourceCode.nonEmpty) {
-      Some(
+    SourceCodeProtocol
+      .read(json.sourceCode)
+      .map { sourceCode: SourceCodeProtocol =>
         AuthenticationAndAuthorizationRequestProtocol(
           json.userEmail,
           json.userPassword,
           json.robotVersion,
           UUID.fromString(json.accessToken),
-          sourceCode.get
+          sourceCode
         )
-      )
-    } else {
-      None
-    }
+      }
   }
 
 }

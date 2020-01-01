@@ -4,15 +4,12 @@ import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonScroll
 import licos.json.element.village.iri.{Contexts, ScrollMessage}
-import licos.knowledge.{Architecture, Character, ClientToServer, Data2Knowledge, PrivateChannel, Role, Status}
+import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role}
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
 import licos.util.TimestampGenerator
 import play.api.libs.json.{JsValue, Json}
 
-import scala.collection.mutable.ListBuffer
-
-@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class ScrollProtocol(
     village:                    VillageInfo,
     nodeId:                     String,
@@ -47,7 +44,7 @@ final case class ScrollProtocol(
           village.phaseTimeLimit,
           village.phaseStartTime,
           None,
-          Option(TimestampGenerator.now),
+          Some(TimestampGenerator.now),
           ClientToServer,
           PrivateChannel,
           extensionalDisclosureRange,
@@ -68,68 +65,49 @@ final case class ScrollProtocol(
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonScroll =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object ScrollProtocol {
 
-  @SuppressWarnings(
-    Array[String](
-      "org.wartremover.warts.Any",
-      "org.wartremover.warts.MutableDataStructures",
-      "org.wartremover.warts.OptionPartial"
-    )
-  )
   def read(json: JsonScroll, villageInfoFromLobby: VillageInfoFromLobby): Option[ScrollProtocol] = {
-    VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
-      case Some(village: VillageInfo) =>
-        val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]
-        json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
-          val characterOpt: Option[Character] =
-            Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
-          val roleOpt:       Option[Role]         = village.cast.parse(jsonStatusCharacter.role.name.en)
-          val statusOpt:     Option[Status]       = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
-          val playerTypeOpt: Option[Architecture] = Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType)
-          if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty && playerTypeOpt.nonEmpty) {
-            statusCharacterBuffer += StatusCharacterProtocol(
-              characterOpt.get,
-              roleOpt.get,
-              statusOpt.get,
-              playerTypeOpt.get,
-              village.id,
-              village.language
-            )
-          }
-        }
-
-        val myCharacterOpt: Option[Character] =
-          Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-        val myRoleOpt: Option[Role] = village.cast.parse(json.myCharacter.role.name.en)
-
-        if (myCharacterOpt.nonEmpty && myRoleOpt.nonEmpty) {
-
-          Some(
-            ScrollProtocol(
-              village,
-              json.nodeId,
-              json.scrollTop,
-              json.scrollHeight,
-              json.offsetHeight,
-              myCharacterOpt.get,
-              myRoleOpt.get,
-              statusCharacterBuffer.result
-            )
+    VillageInfoFactory
+      .create(villageInfoFromLobby, json.base)
+      .flatMap { village: VillageInfo =>
+        for {
+          myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
+          myRole      <- village.cast.parse(json.myCharacter.role.name.en)
+        } yield {
+          ScrollProtocol(
+            village,
+            json.nodeId,
+            json.scrollTop,
+            json.scrollHeight,
+            json.offsetHeight,
+            myCharacter,
+            myRole,
+            json.base.extensionalDisclosureRange.flatMap { jsonStatusCharacter: JsonStatusCharacter =>
+              for {
+                character  <- Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id).toList
+                role       <- village.cast.parse(jsonStatusCharacter.role.name.en).toList
+                status     <- Data2Knowledge.statusOpt(jsonStatusCharacter.status).toList
+                playerType <- Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType).toList
+              } yield {
+                StatusCharacterProtocol(
+                  character,
+                  role,
+                  status,
+                  playerType,
+                  village.id,
+                  village.language
+                )
+              }
+            }
           )
-        } else {
-          None
         }
-      case None => None
-    }
+      }
   }
 
 }

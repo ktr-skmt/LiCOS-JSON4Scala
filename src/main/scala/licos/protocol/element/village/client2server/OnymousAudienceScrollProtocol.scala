@@ -31,12 +31,9 @@ final case class OnymousAudienceScrollProtocol(
       .json
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonOnymousAudienceScroll =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object OnymousAudienceScrollProtocol {
@@ -45,21 +42,18 @@ object OnymousAudienceScrollProtocol {
       json:                 JsonOnymousAudienceScroll,
       villageInfoFromLobby: VillageInfoFromLobby
   ): Option[OnymousAudienceScrollProtocol] = {
-    VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
-      case Some(village: VillageInfo) =>
-        Some(
-          OnymousAudienceScrollProtocol(
-            village,
-            json.nodeId,
-            json.scrollTop,
-            json.scrollHeight,
-            json.offsetHeight,
-            json.avatar.name,
-            new URL(json.avatar.image)
-          )
+    VillageInfoFactory
+      .create(villageInfoFromLobby, json.base)
+      .map { village: VillageInfo =>
+        OnymousAudienceScrollProtocol(
+          village,
+          json.nodeId,
+          json.scrollTop,
+          json.scrollHeight,
+          json.offsetHeight,
+          json.avatar.name,
+          new URL(json.avatar.image)
         )
-      case None => None
-    }
+      }
   }
-
 }

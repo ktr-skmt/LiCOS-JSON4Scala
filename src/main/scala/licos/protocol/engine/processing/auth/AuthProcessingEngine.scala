@@ -16,13 +16,13 @@ import licos.protocol.engine.processing.{JSON2ProtocolException, NoEngineExcepti
 
 import scala.util.{Failure, Try}
 
-class AuthProcessingEngine(
+final class AuthProcessingEngine(
     authenticationAndAuthorizationRequestEngine: Option[AuthenticationAndAuthorizationRequestAnalysisEngine],
     authenticationRequestResponseEngine:         Option[AuthenticationRequestResponseAnalysisEngine],
     authorizationRequestResponseEngine:          Option[AuthorizationRequestResponseAnalysisEngine]
 ) extends ProcessingEngine {
 
-  private final val logger = Logger[AuthProcessingEngine]
+  private val logger = Logger[AuthProcessingEngine]
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing", "org.wartremover.warts.Overloading"))
   def process(box: AuthBOX, msg: AuthMessageProtocol): Try[AuthMessageProtocol] = {

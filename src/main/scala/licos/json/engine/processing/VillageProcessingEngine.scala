@@ -55,7 +55,7 @@ import play.api.libs.json.{JsValue, Json}
   * @param errorFromServerEngine the analysis engine for Error-from-server JSON.
   * @author Kotaro Sakamoto
   */
-class VillageProcessingEngine(
+final class VillageProcessingEngine(
     readyEngine:                           Option[ReadyAnalysisEngine],
     receivedChatMessageEngine:             Option[ReceivedChatMessageAnalysisEngine],
     receivedSystemMessageEngine:           Option[ReceivedSystemMessageAnalysisEngine],

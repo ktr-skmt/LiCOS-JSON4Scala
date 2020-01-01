@@ -19,41 +19,32 @@ final case class ChatFromClientProtocol(
     server2logger.ChatFromClientProtocol(village, channel, text, isOver, myCharacter, myRole, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonChatFromClient =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object ChatFromClientProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonChatFromClient, villageInfoFromLobby: VillageInfoFromLobby): Option[ChatFromClientProtocol] = {
-    VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
-      case Some(village: VillageInfo) =>
-        val channelOpt: Option[PlayerChatChannel] =
-          Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)
-        val myCharacterOpt: Option[Character] =
-          Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-        val myRoleOpt: Option[Role] = village.cast.parse(json.myCharacter.role.name.en)
-        if (channelOpt.nonEmpty && myCharacterOpt.nonEmpty && myRoleOpt.nonEmpty) {
-          Some(
-            ChatFromClientProtocol(
-              village,
-              channelOpt.get,
-              json.text.`@value`,
-              json.isOver,
-              myCharacterOpt.get,
-              myRoleOpt.get
-            )
+    VillageInfoFactory
+      .create(villageInfoFromLobby, json.base)
+      .flatMap { village: VillageInfo =>
+        for {
+          channel     <- Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)
+          myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
+          myRole      <- village.cast.parse(json.myCharacter.role.name.en)
+        } yield {
+          ChatFromClientProtocol(
+            village,
+            channel,
+            json.text.`@value`,
+            json.isOver,
+            myCharacter,
+            myRole
           )
-        } else {
-          None
         }
-      case None => None
-    }
+      }
   }
 
 }

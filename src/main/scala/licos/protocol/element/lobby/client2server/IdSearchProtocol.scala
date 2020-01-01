@@ -19,32 +19,23 @@ final case class IdSearchProtocol(token: UUID, lobby: Lobby, idForSearching: Int
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonIdSearch =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object IdSearchProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonIdSearch): Option[IdSearchProtocol] = {
-
-    val lobbyOpt: Option[Lobby] = Data2Knowledge.lobbyOpt(json.lobby)
-
-    if (lobbyOpt.nonEmpty) {
-      Some(
+    Data2Knowledge
+      .lobbyOpt(json.lobby)
+      .map { lobby: Lobby =>
         IdSearchProtocol(
           UUID.fromString(json.token),
-          lobbyOpt.get,
+          lobby,
           json.idForSearching
         )
-      )
-    } else {
-      None
-    }
+      }
   }
 
 }

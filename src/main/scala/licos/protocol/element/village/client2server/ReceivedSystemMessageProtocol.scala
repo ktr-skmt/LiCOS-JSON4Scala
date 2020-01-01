@@ -13,18 +13,15 @@ final case class ReceivedSystemMessageProtocol(token: UUID, villageId: Long, pha
     Some(new JsonReceivedSystemMessage(token.toString, villageId, phase.label, day))
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonReceivedSystemMessage =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object ReceivedSystemMessageProtocol {
 
   def read(json: JsonReceivedSystemMessage): Option[ReceivedSystemMessageProtocol] = {
-    Data2Knowledge.phaseOpt(json.phase) map { phase: Phase =>
+    Data2Knowledge.phaseOpt(json.phase).map { phase: Phase =>
       ReceivedSystemMessageProtocol(UUID.fromString(json.token), json.villageId, phase, json.day)
     }
   }

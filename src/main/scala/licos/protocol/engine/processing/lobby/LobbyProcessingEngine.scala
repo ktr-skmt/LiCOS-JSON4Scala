@@ -12,7 +12,7 @@ import licos.protocol.engine.processing.{JSON2ProtocolException, NoEngineExcepti
 
 import scala.util.{Failure, Try}
 
-class LobbyProcessingEngine(
+final class LobbyProcessingEngine(
     pongEngine:                                 Option[PongAnalysisEngine],
     pingEngine:                                 Option[PingAnalysisEngine],
     waitingPageEngine:                          Option[WaitingPageAnalysisEngine],
@@ -42,7 +42,7 @@ class LobbyProcessingEngine(
     authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine]
 ) extends ProcessingEngine {
 
-  private final val logger = Logger[LobbyProcessingEngine]
+  private val logger = Logger[LobbyProcessingEngine]
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Nothing", "org.wartremover.warts.Overloading"))
   def process(box: LobbyBOX, msg: LobbyMessageProtocol): Try[LobbyMessageProtocol] = {

@@ -17,38 +17,28 @@ final case class ErrorFromClientProtocol(
     server2logger.ErrorFromClientProtocol(village, content, severity, source, Nil).json
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonError =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object ErrorFromClientProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonError, villageInfoFromLobby: VillageInfoFromLobby): Option[ErrorFromClientProtocol] = {
-    VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
-      case Some(village: VillageInfo) =>
-        val content = Data2Knowledge.name(json.content)
-
-        val severityOpt: Option[Severity] = Data2Knowledge.severityOpt(json.severity)
-
-        if (severityOpt.nonEmpty) {
-          Some(
+    VillageInfoFactory
+      .create(villageInfoFromLobby, json.base)
+      .flatMap { village: VillageInfo =>
+        Data2Knowledge
+          .severityOpt(json.severity)
+          .map { severity: Severity =>
             ErrorFromClientProtocol(
               village,
-              content,
-              severityOpt.get,
+              Data2Knowledge.name(json.content),
+              severity,
               json.source
             )
-          )
-        } else {
-          None
-        }
-      case None => None
-    }
+          }
+      }
   }
 
 }

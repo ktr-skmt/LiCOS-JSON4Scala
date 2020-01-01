@@ -9,7 +9,7 @@ import play.api.libs.json.JsValue
   *
   * @author Kotaro Sakamoto
   */
-class LobbyFlowController() extends FlowController with LobbyParser {
+final class LobbyFlowController() extends FlowController with LobbyParser {
 
   /** Controls the flow of parsing play.api.libs.json.JsValue for lobby.
     *

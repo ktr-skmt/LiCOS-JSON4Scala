@@ -47,6 +47,14 @@ object Data2Knowledge {
     }
   }
 
+  def pingStatusOpt(label: String): Option[PingStatus] = {
+    label match {
+      case PingDanger.label  => Some(PingDanger)
+      case PingWarning.label => Some(PingWarning)
+      case PingSafe.label    => Some(PingSafe)
+    }
+  }
+
   def outcomeOpt(label: String): Option[Outcome] = {
     label match {
       case Victory.label => Some(Victory)

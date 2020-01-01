@@ -1,5 +1,6 @@
 package protocol.engine.lobby
 
+import java.net.URL
 import java.nio.charset.StandardCharsets
 
 import com.typesafe.scalalogging.Logger
@@ -117,9 +118,9 @@ object LobbyProcessingEngineSuite {
 }
 
 @RunWith(classOf[Theories])
-class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyParser {
+final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyParser {
 
-  private final val log: Logger = Logger[LobbyProcessingEngineSuite]
+  private val log: Logger = Logger[LobbyProcessingEngineSuite]
 
   private val processingEngineFactory: LobbyProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(LobbyPE)
@@ -157,9 +158,9 @@ class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyParser {
   @Theory
   def process(jsonExample: LobbyExample): Unit = {
     val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
+    val url:            URL    = jsonExample.path
     implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-    log.info(url)
+    log.info(url.toString)
     val source = Source.fromURL(url)
     val msg: String = source.getLines.mkString("\n")
     source.close()

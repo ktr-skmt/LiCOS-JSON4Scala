@@ -1,67 +1,40 @@
 package licos.protocol.element.lobby.server2client
 
-import licos.json.element.lobby.JsonVillage
 import licos.json.element.lobby.server2client.JsonLobby
 import licos.knowledge.{Data2Knowledge, Lobby}
 import licos.protocol.element.lobby.part.{ErrorProtocol, VillageProtocol}
 import play.api.libs.json.{JsValue, Json}
 
-import scala.collection.mutable.ListBuffer
-
-@SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures"))
 final case class LobbyProtocol(lobby: Lobby, villages: Seq[VillageProtocol], error: Option[ErrorProtocol])
     extends Server2ClientLobbyMessageProtocol {
 
   private val json: Option[JsonLobby] = {
-    val villageBuffer = ListBuffer.empty[JsonVillage]
-    villages foreach { village: VillageProtocol =>
-      village.json foreach { jsonVillage: JsonVillage =>
-        villageBuffer += jsonVillage
-      }
-    }
-
     Some(
       new JsonLobby(
         lobby.label,
-        villageBuffer.result,
+        villages.flatMap(_.json.toList),
         error.flatMap(_.json)
       )
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonLobby =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object LobbyProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.MutableDataStructures", "org.wartremover.warts.OptionPartial"))
   def read(json: JsonLobby): Option[LobbyProtocol] = {
-
-    val lobbyOpt: Option[Lobby] = Data2Knowledge.lobbyOpt(json.lobby)
-
-    val villageBuffer = ListBuffer.empty[VillageProtocol]
-    json.villages foreach { village: JsonVillage =>
-      VillageProtocol.read(village) foreach { village: VillageProtocol =>
-        villageBuffer += village
-      }
-    }
-
-    if (lobbyOpt.nonEmpty) {
-      Some(
+    Data2Knowledge
+      .lobbyOpt(json.lobby)
+      .map { lobby: Lobby =>
         LobbyProtocol(
-          lobbyOpt.get,
-          villageBuffer.result,
+          lobby,
+          json.villages.flatMap(j => VillageProtocol.read(j).toList),
           json.error.flatMap(ErrorProtocol.read)
         )
-      )
-    } else {
-      None
-    }
+      }
   }
 
 }

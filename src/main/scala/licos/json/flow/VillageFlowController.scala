@@ -9,7 +9,7 @@ import play.api.libs.json.JsValue
   *
   * @author Kotaro Sakamoto
   */
-class VillageFlowController extends FlowController with VillageParser {
+final class VillageFlowController extends FlowController with VillageParser {
 
   /** Controls the flow of parsing play.api.libs.json.JsValue for village.
     *

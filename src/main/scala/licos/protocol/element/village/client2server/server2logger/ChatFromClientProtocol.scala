@@ -4,7 +4,7 @@ import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonChatFromClient
 import licos.json.element.village.iri.{ChatMessage, Contexts}
-import licos.knowledge.{Architecture, Character, ClientToServer, Data2Knowledge, Role, Status}
+import licos.knowledge.{Character, ClientToServer, Data2Knowledge, Role}
 import licos.protocol.PlayerChatChannel
 import licos.protocol.element.village.part.character.{
   RoleCharacterProtocol,
@@ -15,9 +15,6 @@ import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, 
 import licos.util.{LiCOSOnline, TimestampGenerator}
 import play.api.libs.json.{JsValue, Json}
 
-import scala.collection.mutable.ListBuffer
-
-@SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
 final case class ChatFromClientProtocol(
     village:                    VillageInfo,
     channel:                    PlayerChatChannel,
@@ -51,7 +48,7 @@ final case class ChatFromClientProtocol(
           village.phaseTimeLimit,
           village.phaseStartTime,
           None,
-          Option(TimestampGenerator.now),
+          Some(TimestampGenerator.now),
           ClientToServer,
           channel.channel,
           extensionalDisclosureRange,
@@ -80,70 +77,49 @@ final case class ChatFromClientProtocol(
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonChatFromClient =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object ChatFromClientProtocol {
 
-  @SuppressWarnings(
-    Array[String](
-      "org.wartremover.warts.Any",
-      "org.wartremover.warts.MutableDataStructures",
-      "org.wartremover.warts.OptionPartial"
-    )
-  )
   def read(json: JsonChatFromClient, villageInfoFromLobby: VillageInfoFromLobby): Option[ChatFromClientProtocol] = {
-
-    VillageInfoFactory.create(villageInfoFromLobby, json.base) match {
-      case Some(village: VillageInfo) =>
-        val channelOpt: Option[PlayerChatChannel] =
-          Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)
-        val myCharacterOpt: Option[Character] =
-          Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-        val myRoleOpt: Option[Role] = village.cast.parse(json.myCharacter.role.name.en)
-
-        if (channelOpt.nonEmpty && myCharacterOpt.nonEmpty && myRoleOpt.nonEmpty) {
-
-          val statusCharacterBuffer = ListBuffer.empty[StatusCharacterProtocol]
-          json.base.extensionalDisclosureRange foreach { jsonStatusCharacter: JsonStatusCharacter =>
-            val characterOpt: Option[Character] =
-              Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id)
-            val roleOpt:       Option[Role]         = village.cast.parse(jsonStatusCharacter.role.name.en)
-            val statusOpt:     Option[Status]       = Data2Knowledge.statusOpt(jsonStatusCharacter.status)
-            val playerTypeOpt: Option[Architecture] = Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType)
-            if (characterOpt.nonEmpty && roleOpt.nonEmpty && statusOpt.nonEmpty && playerTypeOpt.nonEmpty) {
-              statusCharacterBuffer += StatusCharacterProtocol(
-                characterOpt.get,
-                roleOpt.get,
-                statusOpt.get,
-                playerTypeOpt.get,
-                village.id,
-                village.language
-              )
+    VillageInfoFactory
+      .create(villageInfoFromLobby, json.base)
+      .flatMap { village: VillageInfo =>
+        for {
+          channel     <- Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)
+          myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
+          myRole      <- village.cast.parse(json.myCharacter.role.name.en)
+        } yield {
+          ChatFromClientProtocol(
+            village,
+            channel,
+            json.text.`@value`,
+            json.isOver,
+            myCharacter,
+            myRole,
+            json.base.extensionalDisclosureRange.flatMap { jsonStatusCharacter: JsonStatusCharacter =>
+              for {
+                character  <- Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id).toList
+                role       <- village.cast.parse(jsonStatusCharacter.role.name.en).toList
+                status     <- Data2Knowledge.statusOpt(jsonStatusCharacter.status).toList
+                playerType <- Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType).toList
+              } yield {
+                StatusCharacterProtocol(
+                  character,
+                  role,
+                  status,
+                  playerType,
+                  village.id,
+                  village.language
+                )
+              }
             }
-          }
-
-          Some(
-            ChatFromClientProtocol(
-              village,
-              channelOpt.get,
-              json.text.`@value`,
-              json.isOver,
-              myCharacterOpt.get,
-              myRoleOpt.get,
-              statusCharacterBuffer.result
-            )
           )
-        } else {
-          None
         }
-      case None => None
-    }
+      }
   }
 
 }

@@ -33,35 +33,28 @@ final case class AdvancedSearchProtocol(
     )
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonAdvancedSearch =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
 }
 
 object AdvancedSearchProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonAdvancedSearch): Option[AdvancedSearchProtocol] = {
-    val lobbyOpt:         Option[Lobby]         = Data2Knowledge.lobbyOpt(json.lobby)
-    val avatarSettingOpt: Option[AvatarSetting] = Data2Knowledge.avatarSettingOpt(json.avatar)
-    if (lobbyOpt.nonEmpty && avatarSettingOpt.nonEmpty) {
-      Some(
-        AdvancedSearchProtocol(
-          UUID.fromString(json.token),
-          lobbyOpt.get,
-          json.villageName,
-          json.hostName,
-          json.minimum,
-          json.maximum,
-          avatarSettingOpt.get,
-          json.comment
-        )
+    for {
+      lobby         <- Data2Knowledge.lobbyOpt(json.lobby)
+      avatarSetting <- Data2Knowledge.avatarSettingOpt(json.avatar)
+    } yield {
+      AdvancedSearchProtocol(
+        UUID.fromString(json.token),
+        lobby,
+        json.villageName,
+        json.hostName,
+        json.minimum,
+        json.maximum,
+        avatarSetting,
+        json.comment
       )
-    } else {
-      None
     }
   }
-
 }

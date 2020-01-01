@@ -13,7 +13,7 @@ import licos.json.engine.analysis.auth.server2robot.{
 import licos.json.flow.AuthFlowController
 import play.api.libs.json.{JsValue, Json}
 
-class AuthProcessingEngine(
+final class AuthProcessingEngine(
     authenticationAndAuthorizationRequestEngine: Option[AuthenticationAndAuthorizationRequestAnalysisEngine],
     authenticationRequestResponseEngine:         Option[AuthenticationRequestResponseAnalysisEngine],
     authorizationRequestResponseEngine:          Option[AuthorizationRequestResponseAnalysisEngine]

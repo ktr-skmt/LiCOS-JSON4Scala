@@ -13,18 +13,15 @@ final case class ReceivedFlavorTextMessageProtocol(token: UUID, villageId: Long,
     Some(new JsonReceivedFlavorTextMessage(token.toString, villageId, phase.label, day))
   }
 
-  override def toJsonOpt: Option[JsValue] = {
-    json map { j: JsonReceivedFlavorTextMessage =>
-      Json.toJson(j)
-    }
+  override def toJsonOpt: Option[JsValue] = json.map { j =>
+    Json.toJson(j)
   }
-
 }
 
 object ReceivedFlavorTextMessageProtocol {
 
   def read(json: JsonReceivedFlavorTextMessage): Option[ReceivedFlavorTextMessageProtocol] = {
-    Data2Knowledge.phaseOpt(json.phase) map { phase: Phase =>
+    Data2Knowledge.phaseOpt(json.phase).map { phase: Phase =>
       ReceivedFlavorTextMessageProtocol(UUID.fromString(json.token), json.villageId, phase, json.day)
     }
   }

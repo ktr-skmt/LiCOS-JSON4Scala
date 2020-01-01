@@ -23,24 +23,17 @@ final case class ErrorProtocol(content: NameProtocol, severity: Severity, source
 
 object ErrorProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonSubError): Option[ErrorProtocol] = {
-
-    val content:  NameProtocol     = Data2Knowledge.name(json.content)
-    val severity: Option[Severity] = Data2Knowledge.severityOpt(json.severity)
-
-    if (severity.nonEmpty) {
-      Some(
+    Data2Knowledge
+      .severityOpt(json.severity)
+      .map { severity: Severity =>
         ErrorProtocol(
-          content,
-          severity.get,
+          Data2Knowledge.name(json.content),
+          severity,
           json.source,
           json.isFromServer
         )
-      )
-    } else {
-      None
-    }
+      }
   }
 
 }
