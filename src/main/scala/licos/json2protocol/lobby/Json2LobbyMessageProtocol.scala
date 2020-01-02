@@ -1,13 +1,73 @@
 package licos.json2protocol.lobby
 
-import licos.json.element.lobby.client2server.{JsonAdvancedSearch, JsonAuthorizationRequestAccepted, JsonBuildVillage, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLeaveWaitingPage, JsonPlay, JsonPong, JsonReady, JsonRenewAvatarToken, JsonSelectVillage}
-import licos.json.element.lobby.server2client.{JsonAuthorizationRequest, JsonAuthorizationRequestAcceptedResponse, JsonAvatarInfo, JsonGetAvatarInfo, JsonLobby, JsonNewAvatarToken, JsonPing, JsonPlayed, JsonSearchResult, JsonSettings, JsonWaitingPage}
+import licos.json.element.lobby.client2server.{
+  JsonAdvancedSearch,
+  JsonAuthorizationRequestAccepted,
+  JsonBuildVillage,
+  JsonChangeLang,
+  JsonChangeUserEmail,
+  JsonChangeUserName,
+  JsonChangeUserPassword,
+  JsonEnterLobby,
+  JsonGetSettings,
+  JsonIdSearch,
+  JsonKickOutPlayer,
+  JsonLeaveWaitingPage,
+  JsonPlay,
+  JsonPong,
+  JsonReady,
+  JsonRenewAvatarToken,
+  JsonSelectVillage
+}
+import licos.json.element.lobby.server2client.{
+  JsonAuthorizationRequest,
+  JsonAuthorizationRequestAcceptedResponse,
+  JsonAvatarInfo,
+  JsonGetAvatarInfo,
+  JsonLobby,
+  JsonNewAvatarToken,
+  JsonPing,
+  JsonPlayed,
+  JsonSearchResult,
+  JsonSettings,
+  JsonWaitingPage
+}
 import licos.json.element.lobby.server2server.JsonPlayedWithToken
 import licos.json.flow.{FlowController, LobbyFlowController}
 import licos.json2protocol.Json2Protocol
 import licos.protocol.element.Protocol
-import licos.protocol.element.lobby.client2server.{AdvancedSearchProtocol, AuthorizationRequestAcceptedProtocol, BuildVillageProtocol, ChangeLangProtocol, ChangeUserEmailProtocol, ChangeUserNameProtocol, ChangeUserPasswordProtocol, EnterLobbyProtocol, GetAvatarInfoProtocol, GetSettingsProtocol, IdSearchProtocol, KickOutPlayerProtocol, LeaveWaitingPageProtocol, PlayProtocol, PongProtocol, ReadyProtocol, RenewAvatarTokenProtocol, SelectVillageProtocol}
-import licos.protocol.element.lobby.server2client.{AuthorizationRequestAcceptedResponseProtocol, AuthorizationRequestProtocol, AvatarInfoProtocol, LobbyProtocol, NewAvatarTokenProtocol, PingProtocol, PlayedProtocol, SearchResultProtocol, SettingsProtocol, WaitingPageProtocol}
+import licos.protocol.element.lobby.client2server.{
+  AdvancedSearchProtocol,
+  AuthorizationRequestAcceptedProtocol,
+  BuildVillageProtocol,
+  ChangeLangProtocol,
+  ChangeUserEmailProtocol,
+  ChangeUserNameProtocol,
+  ChangeUserPasswordProtocol,
+  EnterLobbyProtocol,
+  GetAvatarInfoProtocol,
+  GetSettingsProtocol,
+  IdSearchProtocol,
+  KickOutPlayerProtocol,
+  LeaveWaitingPageProtocol,
+  PlayProtocol,
+  PongProtocol,
+  ReadyProtocol,
+  RenewAvatarTokenProtocol,
+  SelectVillageProtocol
+}
+import licos.protocol.element.lobby.server2client.{
+  AuthorizationRequestAcceptedResponseProtocol,
+  AuthorizationRequestProtocol,
+  AvatarInfoProtocol,
+  LobbyProtocol,
+  NewAvatarTokenProtocol,
+  PingProtocol,
+  PlayedProtocol,
+  SearchResultProtocol,
+  SettingsProtocol,
+  WaitingPageProtocol
+}
 import licos.protocol.element.lobby.server2server.PlayedWithTokenProtocol
 import play.api.libs.json.JsValue
 

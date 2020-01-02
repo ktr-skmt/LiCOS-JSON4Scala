@@ -15,7 +15,7 @@ final class ReadyAE extends ReadyAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(Ready.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(Ready.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

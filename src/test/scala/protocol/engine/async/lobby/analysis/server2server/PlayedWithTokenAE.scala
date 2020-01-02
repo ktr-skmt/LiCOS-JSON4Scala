@@ -15,7 +15,7 @@ final class PlayedWithTokenAE extends PlayedWithTokenAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(PlayedWithToken.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(PlayedWithToken.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

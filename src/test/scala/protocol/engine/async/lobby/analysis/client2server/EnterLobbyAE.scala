@@ -15,7 +15,7 @@ final class EnterLobbyAE extends EnterLobbyAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(EnterLobby.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(EnterLobby.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

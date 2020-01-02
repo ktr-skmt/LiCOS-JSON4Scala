@@ -15,7 +15,7 @@ final class GetSettingsAE extends GetSettingsAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(GetSettings.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(GetSettings.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

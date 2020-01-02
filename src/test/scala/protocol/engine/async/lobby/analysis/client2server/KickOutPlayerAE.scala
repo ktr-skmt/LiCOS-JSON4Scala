@@ -15,7 +15,7 @@ final class KickOutPlayerAE extends KickOutPlayerAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(KickOutPlayer.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(KickOutPlayer.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

@@ -10,7 +10,8 @@ import scala.concurrent.{ExecutionContext, Future}
 trait NewAvatarTokenAnalysisEngine extends LobbyMessageAnalysisEngine {
   @SuppressWarnings(Array[String]("org.wartremover.warts.ImplicitParameter"))
   def process(box: LobbyBOX, newAvatarTokenProtocol: NewAvatarTokenProtocol)(
-      implicit ec: ExecutionContext): Future[LobbyMessageProtocol]
+      implicit ec: ExecutionContext
+  ): Future[LobbyMessageProtocol]
 }
 
 object NewAvatarTokenAnalysisEngine {

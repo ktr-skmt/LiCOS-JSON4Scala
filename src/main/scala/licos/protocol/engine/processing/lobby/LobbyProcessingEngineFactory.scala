@@ -33,7 +33,7 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var settingsAnalysisEngine:             Option[SettingsAnalysisEngine]             = None
   private var authorizationRequestAnalysisEngine: Option[AuthorizationRequestAnalysisEngine] = None
   private var authorizationRequestAcceptedResponseAnalysisEngine
-    : Option[AuthorizationRequestAcceptedResponseAnalysisEngine] = None
+      : Option[AuthorizationRequestAcceptedResponseAnalysisEngine] = None
   private var authorizationRequestAcceptedAnalysisEngine: Option[AuthorizationRequestAcceptedAnalysisEngine] = None
   private var renewAvatarTokenAnalysisEngine:             Option[RenewAvatarTokenAnalysisEngine]             = None
   private var newAvatarTokenAnalysisEngine:               Option[NewAvatarTokenAnalysisEngine]               = None

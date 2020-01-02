@@ -16,7 +16,7 @@ final class ChangeUserPasswordAE extends ChangeUserPasswordAnalysisEngine {
       changeUserPasswordProtocol: ChangeUserPasswordProtocol
   )(implicit ec:                  ExecutionContext): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(ChangeUserPassword.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(ChangeUserPassword.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

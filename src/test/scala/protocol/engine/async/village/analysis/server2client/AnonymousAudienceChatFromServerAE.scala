@@ -16,7 +16,7 @@ final class AnonymousAudienceChatFromServerAE extends AnonymousAudienceChatFromS
       anonymousAudienceChatFromServer: AnonymousAudienceChatFromServerProtocol
   )(implicit ec:                       ExecutionContext): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(AnonymousAudienceChatFromServer.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(AnonymousAudienceChatFromServer.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

@@ -7,6 +7,7 @@ import json.engine.LobbyExample
 import json.element.JsonTest
 import json.engine.lobby.analysis.client2server.{
   AdvancedSearchAE,
+  AuthorizationRequestAcceptedAE,
   BuildVillageAE,
   ChangeLangAE,
   ChangeUserEmailAE,
@@ -21,11 +22,15 @@ import json.engine.lobby.analysis.client2server.{
   PlayAE,
   PongAE,
   ReadyAE,
+  RenewAvatarTokenAE,
   SelectVillageAE
 }
 import json.engine.lobby.analysis.server2client.{
+  AuthorizationRequestAE,
+  AuthorizationRequestAcceptedResponseAE,
   AvatarInfoAE,
   LobbyAE,
+  NewAvatarTokenAE,
   PingAE,
   PlayedAE,
   SearchResultAE,
@@ -35,6 +40,7 @@ import json.engine.lobby.analysis.server2client.{
 import json.engine.lobby.analysis.server2server.PlayedWithTokenAE
 import json.engine.lobby.example.client2server.{
   AdvancedSearch,
+  AuthorizationRequestAccepted,
   BuildVillage,
   ChangeLang,
   ChangeUserEmail,
@@ -49,9 +55,21 @@ import json.engine.lobby.example.client2server.{
   Play,
   Pong,
   Ready,
+  RenewAvatarToken,
   SelectVillage
 }
-import json.engine.lobby.example.server2client.{AvatarInfo, Lobby, Ping, Played, SearchResult, Settings, WaitingPage}
+import json.engine.lobby.example.server2client.{
+  AuthorizationRequest,
+  AuthorizationRequestAcceptedResponse,
+  AvatarInfo,
+  Lobby,
+  NewAvatarToken,
+  Ping,
+  Played,
+  SearchResult,
+  Settings,
+  WaitingPage
+}
 import json.engine.lobby.example.server2server.PlayedWithToken
 import licos.json.engine.processing.{
   LobbyPE,
@@ -95,14 +113,19 @@ object LobbyProcessingEngineSuite {
     Played("played.json"),
     PlayedWithToken("playedWithToken.json"),
     SearchResult("searchResult.json"),
-    WaitingPage("waitingPageForHumanPlayer.json")
+    WaitingPage("waitingPageForHumanPlayer.json"),
+    AuthorizationRequestAccepted("authorizationRequestAccepted.json"),
+    AuthorizationRequest("authorizationRequest.json"),
+    AuthorizationRequestAcceptedResponse("authorizationRequestAcceptedResponse.json"),
+    RenewAvatarToken("renewAvatarToken.json"),
+    NewAvatarToken("newAvatarToken.json")
   )
 }
 
 @RunWith(classOf[Theories])
-class LobbyProcessingEngineSuite extends AssertionsForJUnit {
+final class LobbyProcessingEngineSuite extends AssertionsForJUnit {
 
-  private final val log: Logger = Logger[LobbyProcessingEngineSuite]
+  private val log: Logger = Logger[LobbyProcessingEngineSuite]
 
   private val processingEngineFactory: LobbyProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(LobbyPE)
@@ -131,6 +154,11 @@ class LobbyProcessingEngineSuite extends AssertionsForJUnit {
     .set(new ChangeUserPasswordAE())
     .set(new GetSettingsAE())
     .set(new SettingsAE())
+    .set(new AuthorizationRequestAcceptedAE())
+    .set(new AuthorizationRequestAE())
+    .set(new AuthorizationRequestAcceptedResponseAE())
+    .set(new RenewAvatarTokenAE())
+    .set(new NewAvatarTokenAE())
 
   private val processingEngine: LobbyProcessingEngine = processingEngineFactory.create
 

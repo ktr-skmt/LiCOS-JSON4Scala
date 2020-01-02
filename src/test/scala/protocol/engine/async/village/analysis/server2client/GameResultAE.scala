@@ -15,7 +15,7 @@ final class GameResultAE extends GameResultAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(GameResult.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(GameResult.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

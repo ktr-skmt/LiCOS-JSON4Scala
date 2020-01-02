@@ -3,7 +3,7 @@ package licos.json.element.lobby.server2client
 import licos.json.element.lobby.TypeSystem
 import licos.json.validation.village.AvatarValidation
 
-final case class JsonNewAvatarToken (`type`: String, token: String) extends TypeSystem(`type`) {
+final case class JsonNewAvatarToken(`type`: String, token: String) extends TypeSystem(`type`) {
 
   override protected def validType: String = JsonNewAvatarToken.`type`
 
@@ -25,7 +25,7 @@ object JsonNewAvatarToken {
   implicit val jsonReads: Reads[JsonNewAvatarToken] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "token").read[String](AvatarValidation.token)
-    )(JsonNewAvatarToken.apply _)
+  )(JsonNewAvatarToken.apply _)
 
   implicit val jsonWrites: OWrites[JsonNewAvatarToken] = Json.writes[JsonNewAvatarToken]
 }

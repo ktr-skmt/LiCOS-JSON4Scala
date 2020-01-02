@@ -9,7 +9,7 @@
 
 ### The latest version
 
-https://ktr-skmt.github.io/LiCOS-JSON4Scala/0.2.8/api/index.html
+https://ktr-skmt.github.io/LiCOS-JSON4Scala/0.3.0/api/index.html
 
 ### Old versions
 

@@ -15,7 +15,7 @@ final class ErrorFromClientAE extends ErrorFromClientAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(ErrorFromClient.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(ErrorFromClient.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

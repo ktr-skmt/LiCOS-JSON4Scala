@@ -32,6 +32,7 @@ import protocol.engine.async.lobby.analysis.client2server.{
   PlayAE,
   PongAE,
   ReadyAE,
+  RenewAvatarTokenAE,
   SelectVillageAE
 }
 import protocol.engine.async.lobby.analysis.server2client.{
@@ -39,6 +40,7 @@ import protocol.engine.async.lobby.analysis.server2client.{
   AuthorizationRequestAcceptedResponseAE,
   AvatarInfoAE,
   LobbyAE,
+  NewAvatarTokenAE,
   PingAE,
   PlayedAE,
   SearchResultAE,
@@ -64,6 +66,7 @@ import protocol.engine.lobby.example.client2server.{
   Play,
   Pong,
   Ready,
+  RenewAvatarToken,
   SelectVillage
 }
 import protocol.engine.lobby.example.server2client.{
@@ -71,6 +74,7 @@ import protocol.engine.lobby.example.server2client.{
   AuthorizationRequestAcceptedResponse,
   AvatarInfo,
   Lobby,
+  NewAvatarToken,
   Ping,
   Played,
   SearchResult,
@@ -115,7 +119,9 @@ object LobbyProcessingEngineSuite {
     Settings("settings.json"),
     WaitingPage("waitingPageForHumanPlayer.json"),
     PlayedWithToken("playedWithToken.json"),
-    AuthorizationRequestAccepted("authorizationRequestAccepted.json")
+    AuthorizationRequestAccepted("authorizationRequestAccepted.json"),
+    RenewAvatarToken("renewAvatarToken.json"),
+    NewAvatarToken("newAvatarToken.json")
   )
 }
 
@@ -154,6 +160,8 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyPars
     .set(new AuthorizationRequestAE())
     .set(new AuthorizationRequestAcceptedResponseAE())
     .set(new AuthorizationRequestAcceptedAE())
+    .set(new RenewAvatarTokenAE())
+    .set(new NewAvatarTokenAE())
 
   private val processingEngine: LobbyProcessingEngine = processingEngineFactory.create
 

@@ -1,10 +1,64 @@
 package licos.json.parser
 
-import licos.json.element.lobby.client2server.{JsonAdvancedSearch, JsonAuthorizationRequestAccepted, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonPlay, JsonPong, JsonRenewAvatarToken, JsonSelectVillage}
-import licos.json.element.lobby.server2client.{JsonAuthorizationRequest, JsonAuthorizationRequestAcceptedResponse, JsonAvatarInfo, JsonGetAvatarInfo, JsonLobby, JsonNewAvatarToken, JsonPing, JsonPlayed, JsonSearchResult, JsonSettings, JsonWaitingPage}
+import licos.json.element.lobby.client2server.{
+  JsonAdvancedSearch,
+  JsonAuthorizationRequestAccepted,
+  JsonChangeLang,
+  JsonChangeUserEmail,
+  JsonChangeUserName,
+  JsonChangeUserPassword,
+  JsonEnterLobby,
+  JsonGetSettings,
+  JsonIdSearch,
+  JsonKickOutPlayer,
+  JsonPlay,
+  JsonPong,
+  JsonRenewAvatarToken,
+  JsonSelectVillage
+}
+import licos.json.element.lobby.server2client.{
+  JsonAuthorizationRequest,
+  JsonAuthorizationRequestAcceptedResponse,
+  JsonAvatarInfo,
+  JsonGetAvatarInfo,
+  JsonLobby,
+  JsonNewAvatarToken,
+  JsonPing,
+  JsonPlayed,
+  JsonSearchResult,
+  JsonSettings,
+  JsonWaitingPage
+}
 import licos.json.element.lobby.server2server.JsonPlayedWithToken
-import licos.json.engine.analysis.lobby.client2server.{AdvancedSearchAnalysisEngine, AuthorizationRequestAcceptedAnalysisEngine, ChangeLangAnalysisEngine, ChangeUserEmailAnalysisEngine, ChangeUserNameAnalysisEngine, ChangeUserPasswordAnalysisEngine, EnterLobbyAnalysisEngine, GetAvatarInfoAnalysisEngine, GetSettingsAnalysisEngine, IdSearchAnalysisEngine, KickOutPlayerAnalysisEngine, PlayAnalysisEngine, PongAnalysisEngine, RenewAvatarTokenAnalysisEngine, SelectVillageAnalysisEngine}
-import licos.json.engine.analysis.lobby.server2client.{AuthorizationRequestAcceptedResponseAnalysisEngine, AuthorizationRequestAnalysisEngine, AvatarInfoAnalysisEngine, LobbyAnalysisEngine, NewAvatarTokenAnalysisEngine, PingAnalysisEngine, PlayedAnalysisEngine, SearchResultAnalysisEngine, SettingsAnalysisEngine, WaitingPageAnalysisEngine}
+import licos.json.engine.analysis.lobby.client2server.{
+  AdvancedSearchAnalysisEngine,
+  AuthorizationRequestAcceptedAnalysisEngine,
+  ChangeLangAnalysisEngine,
+  ChangeUserEmailAnalysisEngine,
+  ChangeUserNameAnalysisEngine,
+  ChangeUserPasswordAnalysisEngine,
+  EnterLobbyAnalysisEngine,
+  GetAvatarInfoAnalysisEngine,
+  GetSettingsAnalysisEngine,
+  IdSearchAnalysisEngine,
+  KickOutPlayerAnalysisEngine,
+  PlayAnalysisEngine,
+  PongAnalysisEngine,
+  RenewAvatarTokenAnalysisEngine,
+  SelectVillageAnalysisEngine
+}
+import licos.json.engine.analysis.lobby.server2client.{
+  AuthorizationRequestAcceptedResponseAnalysisEngine,
+  AuthorizationRequestAnalysisEngine,
+  AvatarInfoAnalysisEngine,
+  LobbyAnalysisEngine,
+  NewAvatarTokenAnalysisEngine,
+  PingAnalysisEngine,
+  PlayedAnalysisEngine,
+  SearchResultAnalysisEngine,
+  SettingsAnalysisEngine,
+  WaitingPageAnalysisEngine
+}
 import licos.json.engine.analysis.lobby.server2server.PlayedWithTokenAnalysisEngine
 import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue, Json}

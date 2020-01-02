@@ -16,7 +16,7 @@ final class NextGameInvitationIsClosedAE extends NextGameInvitationIsClosedAnaly
       nextGameInvitationIsClosed: NextGameInvitationIsClosedProtocol
   )(implicit ec:                  ExecutionContext): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(NextGameInvitationIsClosed.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(NextGameInvitationIsClosed.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

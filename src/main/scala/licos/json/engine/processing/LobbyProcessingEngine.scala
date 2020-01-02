@@ -1,8 +1,38 @@
 package licos.json.engine.processing
 
 import com.typesafe.scalalogging.Logger
-import licos.json.element.lobby.client2server.{JsonAdvancedSearch, JsonAuthorizationRequestAccepted, JsonBuildVillage, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLeaveWaitingPage, JsonPlay, JsonPong, JsonReady, JsonRenewAvatarToken, JsonSelectVillage}
-import licos.json.element.lobby.server2client.{JsonAuthorizationRequest, JsonAuthorizationRequestAcceptedResponse, JsonAvatarInfo, JsonGetAvatarInfo, JsonLobby, JsonNewAvatarToken, JsonPing, JsonPlayed, JsonSearchResult, JsonSettings, JsonWaitingPage}
+import licos.json.element.lobby.client2server.{
+  JsonAdvancedSearch,
+  JsonAuthorizationRequestAccepted,
+  JsonBuildVillage,
+  JsonChangeLang,
+  JsonChangeUserEmail,
+  JsonChangeUserName,
+  JsonChangeUserPassword,
+  JsonEnterLobby,
+  JsonGetSettings,
+  JsonIdSearch,
+  JsonKickOutPlayer,
+  JsonLeaveWaitingPage,
+  JsonPlay,
+  JsonPong,
+  JsonReady,
+  JsonRenewAvatarToken,
+  JsonSelectVillage
+}
+import licos.json.element.lobby.server2client.{
+  JsonAuthorizationRequest,
+  JsonAuthorizationRequestAcceptedResponse,
+  JsonAvatarInfo,
+  JsonGetAvatarInfo,
+  JsonLobby,
+  JsonNewAvatarToken,
+  JsonPing,
+  JsonPlayed,
+  JsonSearchResult,
+  JsonSettings,
+  JsonWaitingPage
+}
 import licos.json.element.lobby.server2server.JsonPlayedWithToken
 import licos.json.element.village.{JsonName, JsonSubError}
 import licos.json.engine.BOX

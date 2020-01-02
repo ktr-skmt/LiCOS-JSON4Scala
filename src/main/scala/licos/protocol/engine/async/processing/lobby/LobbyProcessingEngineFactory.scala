@@ -35,8 +35,8 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var authorizationRequestAcceptedResponseAnalysisEngine
       : Option[AuthorizationRequestAcceptedResponseAnalysisEngine] = None
   private var authorizationRequestAcceptedAnalysisEngine: Option[AuthorizationRequestAcceptedAnalysisEngine] = None
-  private var renewAvatarTokenAnalysisEngine: Option[RenewAvatarTokenAnalysisEngine] = None
-  private var newAvatarTokenAnalysisEngine: Option[NewAvatarTokenAnalysisEngine] = None
+  private var renewAvatarTokenAnalysisEngine:             Option[RenewAvatarTokenAnalysisEngine]             = None
+  private var newAvatarTokenAnalysisEngine:               Option[NewAvatarTokenAnalysisEngine]               = None
 
   override def create: LobbyProcessingEngine = {
     new LobbyProcessingEngine(

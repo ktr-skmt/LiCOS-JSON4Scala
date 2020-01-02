@@ -15,7 +15,7 @@ final class AdvancedSearchAE extends AdvancedSearchAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(AdvancedSearch.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(AdvancedSearch.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

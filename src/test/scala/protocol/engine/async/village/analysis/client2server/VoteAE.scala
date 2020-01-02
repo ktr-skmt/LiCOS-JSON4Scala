@@ -15,7 +15,7 @@ final class VoteAE extends VoteAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(Vote.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(Vote.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

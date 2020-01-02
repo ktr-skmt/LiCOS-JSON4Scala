@@ -15,7 +15,7 @@ final class ChangeUserNameAE extends ChangeUserNameAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(ChangeUserName.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(ChangeUserName.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

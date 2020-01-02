@@ -15,7 +15,7 @@ final class NightPhaseAE extends NightPhaseAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(NightPhase.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(NightPhase.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

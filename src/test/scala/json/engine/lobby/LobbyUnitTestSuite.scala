@@ -38,9 +38,9 @@ object LobbyUnitTestSuite {
 }
 
 @RunWith(classOf[Theories])
-class LobbyUnitTestSuite extends AssertionsForJUnit with LobbyUnitTestParser {
+final class LobbyUnitTestSuite extends AssertionsForJUnit with LobbyUnitTestParser {
 
-  private final val log: Logger = Logger[LobbyUnitTestSuite]
+  private val log: Logger = Logger[LobbyUnitTestSuite]
 
   @Theory
   def process(jsonExample: LobbyUnitTestExample): Unit = {

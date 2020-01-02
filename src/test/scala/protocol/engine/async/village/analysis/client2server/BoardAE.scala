@@ -15,7 +15,7 @@ final class BoardAE extends BoardAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(Board.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(Board.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

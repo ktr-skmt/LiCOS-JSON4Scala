@@ -15,7 +15,7 @@ final class PongAE extends PongAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(Pong.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(Pong.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

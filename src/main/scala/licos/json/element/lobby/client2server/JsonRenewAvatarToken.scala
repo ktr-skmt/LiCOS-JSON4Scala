@@ -25,7 +25,7 @@ object JsonRenewAvatarToken {
   implicit val jsonReads: Reads[JsonRenewAvatarToken] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "token").read[String](AvatarValidation.token)
-    )(JsonRenewAvatarToken.apply _)
+  )(JsonRenewAvatarToken.apply _)
 
   implicit val jsonWrites: OWrites[JsonRenewAvatarToken] = Json.writes[JsonRenewAvatarToken]
 }

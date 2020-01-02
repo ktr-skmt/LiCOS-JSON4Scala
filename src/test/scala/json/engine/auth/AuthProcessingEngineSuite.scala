@@ -35,9 +35,9 @@ object AuthProcessingEngineSuite {
 }
 
 @RunWith(classOf[Theories])
-class AuthProcessingEngineSuite extends AssertionsForJUnit with AuthParser {
+final class AuthProcessingEngineSuite extends AssertionsForJUnit with AuthParser {
 
-  private final val log: Logger = Logger[AuthProcessingEngineSuite]
+  private val log: Logger = Logger[AuthProcessingEngineSuite]
 
   private val processingEngineFactory: AuthProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(AuthPE)

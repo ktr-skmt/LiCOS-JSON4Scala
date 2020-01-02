@@ -15,7 +15,7 @@ final class ChangeLangAE extends ChangeLangAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(ChangeLang.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(ChangeLang.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }
