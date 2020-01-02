@@ -1,60 +1,10 @@
 package licos.json.parser
 
-import licos.json.element.lobby.client2server.{
-  JsonAdvancedSearch,
-  JsonAuthorizationRequestAccepted,
-  JsonChangeLang,
-  JsonChangeUserEmail,
-  JsonChangeUserName,
-  JsonChangeUserPassword,
-  JsonEnterLobby,
-  JsonGetSettings,
-  JsonIdSearch,
-  JsonKickOutPlayer,
-  JsonPlay,
-  JsonPong,
-  JsonSelectVillage
-}
-import licos.json.element.lobby.server2client.{
-  JsonAuthorizationRequest,
-  JsonAuthorizationRequestAcceptedResponse,
-  JsonAvatarInfo,
-  JsonGetAvatarInfo,
-  JsonLobby,
-  JsonPing,
-  JsonPlayed,
-  JsonSearchResult,
-  JsonSettings,
-  JsonWaitingPage
-}
+import licos.json.element.lobby.client2server.{JsonAdvancedSearch, JsonAuthorizationRequestAccepted, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonPlay, JsonPong, JsonRenewAvatarToken, JsonSelectVillage}
+import licos.json.element.lobby.server2client.{JsonAuthorizationRequest, JsonAuthorizationRequestAcceptedResponse, JsonAvatarInfo, JsonGetAvatarInfo, JsonLobby, JsonNewAvatarToken, JsonPing, JsonPlayed, JsonSearchResult, JsonSettings, JsonWaitingPage}
 import licos.json.element.lobby.server2server.JsonPlayedWithToken
-import licos.json.engine.analysis.lobby.client2server.{
-  AdvancedSearchAnalysisEngine,
-  AuthorizationRequestAcceptedAnalysisEngine,
-  ChangeLangAnalysisEngine,
-  ChangeUserEmailAnalysisEngine,
-  ChangeUserNameAnalysisEngine,
-  ChangeUserPasswordAnalysisEngine,
-  EnterLobbyAnalysisEngine,
-  GetAvatarInfoAnalysisEngine,
-  GetSettingsAnalysisEngine,
-  IdSearchAnalysisEngine,
-  KickOutPlayerAnalysisEngine,
-  PlayAnalysisEngine,
-  PongAnalysisEngine,
-  SelectVillageAnalysisEngine
-}
-import licos.json.engine.analysis.lobby.server2client.{
-  AuthorizationRequestAcceptedResponseAnalysisEngine,
-  AuthorizationRequestAnalysisEngine,
-  AvatarInfoAnalysisEngine,
-  LobbyAnalysisEngine,
-  PingAnalysisEngine,
-  PlayedAnalysisEngine,
-  SearchResultAnalysisEngine,
-  SettingsAnalysisEngine,
-  WaitingPageAnalysisEngine
-}
+import licos.json.engine.analysis.lobby.client2server.{AdvancedSearchAnalysisEngine, AuthorizationRequestAcceptedAnalysisEngine, ChangeLangAnalysisEngine, ChangeUserEmailAnalysisEngine, ChangeUserNameAnalysisEngine, ChangeUserPasswordAnalysisEngine, EnterLobbyAnalysisEngine, GetAvatarInfoAnalysisEngine, GetSettingsAnalysisEngine, IdSearchAnalysisEngine, KickOutPlayerAnalysisEngine, PlayAnalysisEngine, PongAnalysisEngine, RenewAvatarTokenAnalysisEngine, SelectVillageAnalysisEngine}
+import licos.json.engine.analysis.lobby.server2client.{AuthorizationRequestAcceptedResponseAnalysisEngine, AuthorizationRequestAnalysisEngine, AvatarInfoAnalysisEngine, LobbyAnalysisEngine, NewAvatarTokenAnalysisEngine, PingAnalysisEngine, PlayedAnalysisEngine, SearchResultAnalysisEngine, SettingsAnalysisEngine, WaitingPageAnalysisEngine}
 import licos.json.engine.analysis.lobby.server2server.PlayedWithTokenAnalysisEngine
 import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue, Json}
@@ -470,9 +420,9 @@ trait LobbyParser extends LiCOSParser {
     }
   }
 
-  /** Tries to parse play.api.libs.json.JsValue as Settings JSON
+  /** Tries to parse play.api.libs.json.JsValue as Settings JSON.
     *
-    * @param jsValue a play.api.libs.json.JsValue to parse
+    * @param jsValue a play.api.libs.json.JsValue to parse.
     * @return either Settings JSON.
     */
   protected def parseSettings(jsValue: JsValue): Either[JsValue, JsonSettings] = {
@@ -490,6 +440,11 @@ trait LobbyParser extends LiCOSParser {
     }
   }
 
+  /** Tries to parse play.api.libs.json.JsValue as Authorization-request-accepted JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Authorization-request-accepted JSON.
+    */
   protected def parseAuthorizationRequestAccepted(
       jsValue: JsValue
   ): Either[JsValue, JsonAuthorizationRequestAccepted] = {
@@ -507,6 +462,11 @@ trait LobbyParser extends LiCOSParser {
     }
   }
 
+  /** Tries to parse play.api.libs.json.JsValue as Authorization-request-accepted-response JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Authorization-request-accepted-response JSON.
+    */
   protected def parseAuthorizationRequestAcceptedResponse(
       jsValue: JsValue
   ): Either[JsValue, JsonAuthorizationRequestAcceptedResponse] = {
@@ -524,6 +484,11 @@ trait LobbyParser extends LiCOSParser {
     }
   }
 
+  /** Tries to parse play.api.libs.json.JsValue as Authorization-request JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Authorization-request JSON.
+    */
   protected def parseAuthorizationRequest(jsValue: JsValue): Either[JsValue, JsonAuthorizationRequest] = {
     Try(jsValue.validate[JsonAuthorizationRequest]) match {
       case Success(json: JsResult[JsonAuthorizationRequest]) =>
@@ -536,6 +501,46 @@ trait LobbyParser extends LiCOSParser {
       case Failure(err: Throwable) =>
         log.error(err.getMessage)
         Left(returnError(err, jsValue, AuthorizationRequestAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Renew-avatar-token JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Renew-avatar-token JSON.
+    */
+  protected def parseRenewAvatarToken(jsValue: JsValue): Either[JsValue, JsonRenewAvatarToken] = {
+    Try(jsValue.validate[JsonRenewAvatarToken]) match {
+      case Success(json: JsResult[JsonRenewAvatarToken]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, RenewAvatarTokenAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, RenewAvatarTokenAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as New-avatar-token JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either New-avatar-token JSON.
+    */
+  protected def parseNewAvatarToken(jsValue: JsValue): Either[JsValue, JsonNewAvatarToken] = {
+    Try(jsValue.validate[JsonNewAvatarToken]) match {
+      case Success(json: JsResult[JsonNewAvatarToken]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, NewAvatarTokenAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, NewAvatarTokenAnalysisEngine.isFromServer))
     }
   }
 }

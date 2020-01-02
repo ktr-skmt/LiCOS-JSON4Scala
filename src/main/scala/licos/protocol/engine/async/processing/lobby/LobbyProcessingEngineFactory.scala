@@ -35,6 +35,8 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var authorizationRequestAcceptedResponseAnalysisEngine
       : Option[AuthorizationRequestAcceptedResponseAnalysisEngine] = None
   private var authorizationRequestAcceptedAnalysisEngine: Option[AuthorizationRequestAcceptedAnalysisEngine] = None
+  private var renewAvatarTokenAnalysisEngine: Option[RenewAvatarTokenAnalysisEngine] = None
+  private var newAvatarTokenAnalysisEngine: Option[NewAvatarTokenAnalysisEngine] = None
 
   override def create: LobbyProcessingEngine = {
     new LobbyProcessingEngine(
@@ -64,7 +66,9 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       settingsAnalysisEngine,
       authorizationRequestAnalysisEngine,
       authorizationRequestAcceptedResponseAnalysisEngine,
-      authorizationRequestAcceptedAnalysisEngine
+      authorizationRequestAcceptedAnalysisEngine,
+      renewAvatarTokenAnalysisEngine,
+      newAvatarTokenAnalysisEngine
     )
   }
 
@@ -204,6 +208,16 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       authorizationRequestAcceptedAnalysisEngine: AuthorizationRequestAcceptedAnalysisEngine
   ): LobbyProcessingEngineFactory = {
     this.authorizationRequestAcceptedAnalysisEngine = Option(authorizationRequestAcceptedAnalysisEngine)
+    this
+  }
+
+  def set(renewAvatarTokenAnalysisEngine: RenewAvatarTokenAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.renewAvatarTokenAnalysisEngine = Option(renewAvatarTokenAnalysisEngine)
+    this
+  }
+
+  def set(newAvatarTokenAnalysisEngine: NewAvatarTokenAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.newAvatarTokenAnalysisEngine = Option(newAvatarTokenAnalysisEngine)
     this
   }
 }

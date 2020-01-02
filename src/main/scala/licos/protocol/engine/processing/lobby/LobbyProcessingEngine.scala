@@ -39,7 +39,9 @@ final class LobbyProcessingEngine(
     settingsEngine:                             Option[SettingsAnalysisEngine],
     authorizationRequestEngine:                 Option[AuthorizationRequestAnalysisEngine],
     authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine],
-    authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine]
+    authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine],
+    renewAvatarTokenAnalysisEngine:             Option[RenewAvatarTokenAnalysisEngine],
+    newAvatarTokenAnalysisEngine:               Option[NewAvatarTokenAnalysisEngine]
 ) extends ProcessingEngine {
 
   private val logger = Logger[LobbyProcessingEngine]
@@ -240,6 +242,20 @@ final class LobbyProcessingEngine(
             log(AuthorizationRequestAcceptedAnalysisEngine.name)
             engine.process(box, protocol)
           case None => Failure(new NoEngineException(AuthorizationRequestAcceptedAnalysisEngine.name))
+        }
+      case protocol: RenewAvatarTokenProtocol =>
+        renewAvatarTokenAnalysisEngine match {
+          case Some(engine) =>
+            log(RenewAvatarTokenAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(RenewAvatarTokenAnalysisEngine.name))
+        }
+      case protocol: NewAvatarTokenProtocol =>
+        newAvatarTokenAnalysisEngine match {
+          case Some(engine) =>
+            log(NewAvatarTokenAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(NewAvatarTokenAnalysisEngine.name))
         }
       case _ =>
         Failure(new JSON2ProtocolException("No protocol"))

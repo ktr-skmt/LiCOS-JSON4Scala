@@ -37,6 +37,8 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine] =
     None
   private var authorizationRequestAcceptedEngine: Option[AuthorizationRequestAcceptedAnalysisEngine] = None
+  private var renewAvatarTokenEngine:             Option[RenewAvatarTokenAnalysisEngine]             = None
+  private var newAvatarTokenEngine:               Option[NewAvatarTokenAnalysisEngine]               = None
 
   /** Creates a lobby processing engine.
     *
@@ -70,7 +72,9 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       settingsEngine:                             Option[SettingsAnalysisEngine],
       authorizationRequestEngine:                 Option[AuthorizationRequestAnalysisEngine],
       authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine],
-      authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine]
+      authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine],
+      renewAvatarTokenEngine:                     Option[RenewAvatarTokenAnalysisEngine],
+      newAvatarTokenEngine:                       Option[NewAvatarTokenAnalysisEngine]
     )
   }
 
@@ -210,6 +214,16 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       authorizationRequestAcceptedEngine: AuthorizationRequestAcceptedAnalysisEngine
   ): LobbyProcessingEngineFactory = {
     this.authorizationRequestAcceptedEngine = Option(authorizationRequestAcceptedEngine)
+    this
+  }
+
+  def set(renewAvatarTokenEngine: RenewAvatarTokenAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.renewAvatarTokenEngine = Option(renewAvatarTokenEngine)
+    this
+  }
+
+  def set(newAvatarTokenEngine: NewAvatarTokenAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.newAvatarTokenEngine = Option(newAvatarTokenEngine)
     this
   }
 

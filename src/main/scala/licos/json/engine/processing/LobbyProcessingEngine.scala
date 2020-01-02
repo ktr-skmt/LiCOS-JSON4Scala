@@ -1,36 +1,8 @@
 package licos.json.engine.processing
 
 import com.typesafe.scalalogging.Logger
-import licos.json.element.lobby.client2server.{
-  JsonAdvancedSearch,
-  JsonAuthorizationRequestAccepted,
-  JsonBuildVillage,
-  JsonChangeLang,
-  JsonChangeUserEmail,
-  JsonChangeUserName,
-  JsonChangeUserPassword,
-  JsonEnterLobby,
-  JsonGetSettings,
-  JsonIdSearch,
-  JsonKickOutPlayer,
-  JsonLeaveWaitingPage,
-  JsonPlay,
-  JsonPong,
-  JsonReady,
-  JsonSelectVillage
-}
-import licos.json.element.lobby.server2client.{
-  JsonAuthorizationRequest,
-  JsonAuthorizationRequestAcceptedResponse,
-  JsonAvatarInfo,
-  JsonGetAvatarInfo,
-  JsonLobby,
-  JsonPing,
-  JsonPlayed,
-  JsonSearchResult,
-  JsonSettings,
-  JsonWaitingPage
-}
+import licos.json.element.lobby.client2server.{JsonAdvancedSearch, JsonAuthorizationRequestAccepted, JsonBuildVillage, JsonChangeLang, JsonChangeUserEmail, JsonChangeUserName, JsonChangeUserPassword, JsonEnterLobby, JsonGetSettings, JsonIdSearch, JsonKickOutPlayer, JsonLeaveWaitingPage, JsonPlay, JsonPong, JsonReady, JsonRenewAvatarToken, JsonSelectVillage}
+import licos.json.element.lobby.server2client.{JsonAuthorizationRequest, JsonAuthorizationRequestAcceptedResponse, JsonAvatarInfo, JsonGetAvatarInfo, JsonLobby, JsonNewAvatarToken, JsonPing, JsonPlayed, JsonSearchResult, JsonSettings, JsonWaitingPage}
 import licos.json.element.lobby.server2server.JsonPlayedWithToken
 import licos.json.element.village.{JsonName, JsonSubError}
 import licos.json.engine.BOX
@@ -69,6 +41,8 @@ import play.api.libs.json.{JsValue, Json}
   * @param authorizationRequestEngine the analysis engine for Authorization-request JSON
   * @param authorizationRequestAcceptedResponseEngine the analysis engine for Authorization-request-accepted-response JSON
   * @param authorizationRequestAcceptedEngine the analysis engine for Authorization-request-accepted JSON
+  * @param renewAvatarTokenAnalysisEngine the analysis engine for Renew-avatar-token JSON
+  * @param newAvatarTokenAnalysisEngine the analysis engine for New-avatar-token JSON
   * @author Kotaro Sakamoto
   */
 final class LobbyProcessingEngine(
@@ -98,7 +72,9 @@ final class LobbyProcessingEngine(
     settingsEngine:                             Option[SettingsAnalysisEngine],
     authorizationRequestEngine:                 Option[AuthorizationRequestAnalysisEngine],
     authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine],
-    authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine]
+    authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine],
+    renewAvatarTokenAnalysisEngine:             Option[RenewAvatarTokenAnalysisEngine],
+    newAvatarTokenAnalysisEngine:               Option[NewAvatarTokenAnalysisEngine]
 ) extends ProcessingEngine {
 
   override protected val flowController = new LobbyFlowController()
@@ -378,6 +354,7 @@ final class LobbyProcessingEngine(
             noAnalysisEngine(AuthorizationRequestAnalysisEngine.name, AuthorizationRequestAnalysisEngine.isFromServer)
         }
       case Right(authorizationRequestAcceptedResponse: JsonAuthorizationRequestAcceptedResponse) =>
+        log("JsonAuthorizationRequestAcceptedResponse")
         authorizationRequestAcceptedResponseEngine match {
           case Some(engine) =>
             engine.process(box, authorizationRequestAcceptedResponse)
@@ -388,6 +365,7 @@ final class LobbyProcessingEngine(
             )
         }
       case Right(authorizationRequestAccepted: JsonAuthorizationRequestAccepted) =>
+        log("JsonAuthorizationRequestAccepted")
         authorizationRequestAcceptedEngine match {
           case Some(engine) =>
             engine.process(box, authorizationRequestAccepted)
@@ -395,6 +373,28 @@ final class LobbyProcessingEngine(
             noAnalysisEngine(
               AuthorizationRequestAcceptedAnalysisEngine.name,
               AuthorizationRequestAcceptedAnalysisEngine.isFromServer
+            )
+        }
+      case Right(renewAvatarToken: JsonRenewAvatarToken) =>
+        log("JsonRenewAvatarToken")
+        renewAvatarTokenAnalysisEngine match {
+          case Some(engine) =>
+            engine.process(box, renewAvatarToken)
+          case None =>
+            noAnalysisEngine(
+              RenewAvatarTokenAnalysisEngine.name,
+              RenewAvatarTokenAnalysisEngine.isFromServer
+            )
+        }
+      case Right(newAvatarToken: JsonNewAvatarToken) =>
+        log("JsonNewAvatarToken")
+        newAvatarTokenAnalysisEngine match {
+          case Some(engine) =>
+            engine.process(box, newAvatarToken)
+          case None =>
+            noAnalysisEngine(
+              NewAvatarTokenAnalysisEngine.name,
+              NewAvatarTokenAnalysisEngine.isFromServer
             )
         }
       case _ =>
