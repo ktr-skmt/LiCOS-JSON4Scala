@@ -7,7 +7,7 @@ import com.typesafe.scalalogging.Logger
 import licos.entity.{HostPlayer, VillageInfoFromLobby}
 import licos.json.parser.VillageParser
 import licos.json2protocol.village.server2logger.Json2VillageMessageProtocol
-import licos.knowledge.{Cast, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
+import licos.knowledge.{Composition, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.engine.async.processing.{SpecificProcessingEngineFactory, VillagePE4Logger}
 import licos.protocol.engine.async.processing.village.server2logger.{
@@ -64,7 +64,7 @@ final class VillageProcessingEngineSuite extends AssertionsForJUnit with Village
     val villageInfoFromLobby = VillageInfoFromLobby(
       HumanPlayerLobby,
       hostPlayer,
-      Cast.playerNumRoleNumMap(15)("A"),
+      Composition.playerNumRoleNumMap(15)("A"),
       1,
       RandomAvatarSetting,
       15,

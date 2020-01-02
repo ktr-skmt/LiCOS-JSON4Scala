@@ -30,7 +30,7 @@ final case class ScrollProtocol(
           VillageProtocol(
             village.id,
             village.name,
-            village.cast.totalNumberOfPlayers,
+            village.composition.totalNumberOfPlayers,
             village.language,
             ChatSettingsProtocol(
               village.id,
@@ -78,7 +78,7 @@ object ScrollProtocol {
       .flatMap { village: VillageInfo =>
         for {
           myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-          myRole      <- village.cast.parse(json.myCharacter.role.name.en)
+          myRole      <- village.composition.parse(json.myCharacter.role.name.en)
         } yield {
           ScrollProtocol(
             village,
@@ -91,7 +91,7 @@ object ScrollProtocol {
             json.base.extensionalDisclosureRange.flatMap { jsonStatusCharacter: JsonStatusCharacter =>
               for {
                 character  <- Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id).toList
-                role       <- village.cast.parse(jsonStatusCharacter.role.name.en).toList
+                role       <- village.composition.parse(jsonStatusCharacter.role.name.en).toList
                 status     <- Data2Knowledge.statusOpt(jsonStatusCharacter.status).toList
                 playerType <- Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType).toList
               } yield {

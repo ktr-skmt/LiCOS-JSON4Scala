@@ -3,7 +3,7 @@ package licos.entity
 import java.time.OffsetDateTime
 import java.util.{Locale, UUID}
 
-import licos.knowledge.{AvatarSetting, Cast, Lobby, Phase}
+import licos.knowledge.{AvatarSetting, Composition, Lobby, Phase}
 import licos.protocol.element.village.part.VillageProtocol
 
 import scala.concurrent.duration.FiniteDuration
@@ -24,7 +24,7 @@ final case class VillageInfo(
   def maxNumberOfChatMessages:      Int    = village.chatSettings.maxNumberOfChatMessages
   def maxLengthOfUnicodeCodePoints: Int    = village.chatSettings.maxLengthOfUnicodeCodePoints
 
-  def cast:                    Cast           = villageInfoFromLobby.cast
+  def composition:             Composition    = villageInfoFromLobby.composition
   def comment:                 Option[String] = villageInfoFromLobby.comment
   def hostPlayer:              HostPlayer     = villageInfoFromLobby.hostPlayer
   def idForSearching:          Int            = villageInfoFromLobby.idForSearching

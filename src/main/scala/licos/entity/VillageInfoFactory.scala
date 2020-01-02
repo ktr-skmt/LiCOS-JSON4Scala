@@ -12,7 +12,7 @@ import scala.concurrent.duration._
 object VillageInfoFactory {
   def create(villageInfoFromLobby: VillageInfoFromLobby, jsonBase: JsonBase): Option[VillageInfo] = {
 
-    Data2Knowledge.phaseOpt(jsonBase.phase) map { phase: Phase =>
+    Data2Knowledge.phaseOpt(jsonBase.phase).map { phase: Phase =>
       VillageInfo(
         villageInfoFromLobby,
         VillageProtocol(

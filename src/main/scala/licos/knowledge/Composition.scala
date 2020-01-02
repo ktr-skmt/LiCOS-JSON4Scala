@@ -1,6 +1,6 @@
 package licos.knowledge
 
-final class Cast(
+final class Composition(
     val master:      MasterRole,
     val villager:    VillagerRole,
     val seer:        SeerRole,
@@ -10,7 +10,7 @@ final class Cast(
     val madman:      MadmanRole,
     val werewolf:    WerewolfRole,
     val werehamster: WerehamsterRole
-) extends Serializable {
+) {
 
   def totalNumberOfPlayers: Int = {
     villager.numberOfPlayers +
@@ -28,7 +28,7 @@ final class Cast(
   def parse(roleLabel: String): Option[Role] = allRoles.find(_.name.en.equalsIgnoreCase(roleLabel))
 }
 
-object Cast {
+object Composition {
   def apply(
       master:      MasterRole,
       villager:    VillagerRole,
@@ -39,12 +39,12 @@ object Cast {
       madman:      MadmanRole,
       werewolf:    WerewolfRole,
       werehamster: WerehamsterRole
-  ): Cast = {
-    new Cast(master, villager, seer, medium, hunter, mason, madman, werewolf, werehamster)
+  ): Composition = {
+    new Composition(master, villager, seer, medium, hunter, mason, madman, werewolf, werehamster)
   }
-  val playerNumRoleNumMap: Map[Int, Map[String, Cast]] = Map[Int, Map[String, Cast]](
-    0 -> Map[String, Cast](
-      "A" -> Cast(
+  val playerNumRoleNumMap: Map[Int, Map[String, Composition]] = Map[Int, Map[String, Composition]](
+    0 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(0),
         SeerRole(0),
@@ -56,8 +56,8 @@ object Cast {
         WerehamsterRole(0)
       )
     ),
-    1 -> Map[String, Cast](
-      "villager" -> Cast(
+    1 -> Map[String, Composition](
+      "villager" -> Composition(
         MasterRole(1),
         VillagerRole(1),
         SeerRole(0),
@@ -68,7 +68,7 @@ object Cast {
         WerewolfRole(0),
         WerehamsterRole(0)
       ),
-      "seer" -> Cast(
+      "seer" -> Composition(
         MasterRole(1),
         VillagerRole(0),
         SeerRole(1),
@@ -79,7 +79,7 @@ object Cast {
         WerewolfRole(0),
         WerehamsterRole(0)
       ),
-      "medium" -> Cast(
+      "medium" -> Composition(
         MasterRole(1),
         VillagerRole(0),
         SeerRole(0),
@@ -90,7 +90,7 @@ object Cast {
         WerewolfRole(0),
         WerehamsterRole(0)
       ),
-      "hunter" -> Cast(
+      "hunter" -> Composition(
         MasterRole(1),
         VillagerRole(0),
         SeerRole(0),
@@ -101,7 +101,7 @@ object Cast {
         WerewolfRole(0),
         WerehamsterRole(0)
       ),
-      "mason" -> Cast(
+      "mason" -> Composition(
         MasterRole(1),
         VillagerRole(0),
         SeerRole(0),
@@ -112,7 +112,7 @@ object Cast {
         WerewolfRole(0),
         WerehamsterRole(0)
       ),
-      "madman" -> Cast(
+      "madman" -> Composition(
         MasterRole(1),
         VillagerRole(0),
         SeerRole(0),
@@ -123,7 +123,7 @@ object Cast {
         WerewolfRole(0),
         WerehamsterRole(0)
       ),
-      "werewolf" -> Cast(
+      "werewolf" -> Composition(
         MasterRole(1),
         VillagerRole(0),
         SeerRole(0),
@@ -134,7 +134,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(0)
       ),
-      "werehamster" -> Cast(
+      "werehamster" -> Composition(
         MasterRole(1),
         VillagerRole(0),
         SeerRole(0),
@@ -146,8 +146,8 @@ object Cast {
         WerehamsterRole(0)
       )
     ),
-    2 -> Map[String, Cast](
-      "A" -> Cast(
+    2 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(2),
         SeerRole(0),
@@ -158,7 +158,7 @@ object Cast {
         WerewolfRole(0),
         WerehamsterRole(0)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(1),
         SeerRole(0),
@@ -169,7 +169,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(0)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(0),
         SeerRole(0),
@@ -181,8 +181,8 @@ object Cast {
         WerehamsterRole(0)
       )
     ),
-    3 -> Map[String, Cast](
-      "A" -> Cast(
+    3 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(2),
         SeerRole(0),
@@ -193,7 +193,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(0)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(1),
         SeerRole(1),
@@ -204,7 +204,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(0)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(0),
         SeerRole(1),
@@ -216,8 +216,8 @@ object Cast {
         WerehamsterRole(0)
       )
     ),
-    4 -> Map[String, Cast](
-      "A" -> Cast(
+    4 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(3),
         SeerRole(0),
@@ -228,7 +228,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(0)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(2),
         SeerRole(1),
@@ -239,7 +239,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(0)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(1),
         SeerRole(1),
@@ -251,8 +251,8 @@ object Cast {
         WerehamsterRole(0)
       )
     ),
-    5 -> Map[String, Cast](
-      "A" -> Cast(
+    5 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(3),
         SeerRole(1),
@@ -263,7 +263,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(0)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(2),
         SeerRole(1),
@@ -274,7 +274,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(1)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(1),
         SeerRole(1),
@@ -286,8 +286,8 @@ object Cast {
         WerehamsterRole(0)
       )
     ),
-    6 -> Map[String, Cast](
-      "A" -> Cast(
+    6 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(4),
         SeerRole(1),
@@ -298,7 +298,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(0)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(3),
         SeerRole(1),
@@ -309,7 +309,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(1)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(0),
         SeerRole(1),
@@ -321,8 +321,8 @@ object Cast {
         WerehamsterRole(0)
       )
     ),
-    7 -> Map[String, Cast](
-      "A" -> Cast(
+    7 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(5),
         SeerRole(1),
@@ -333,7 +333,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(0)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(4),
         SeerRole(1),
@@ -344,7 +344,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(1)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(2),
         SeerRole(1),
@@ -356,8 +356,8 @@ object Cast {
         WerehamsterRole(0)
       )
     ),
-    8 -> Map[String, Cast](
-      "A" -> Cast(
+    8 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(6),
         SeerRole(1),
@@ -368,7 +368,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(0)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(4),
         SeerRole(1),
@@ -379,7 +379,7 @@ object Cast {
         WerewolfRole(1),
         WerehamsterRole(1)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(1),
         SeerRole(1),
@@ -391,8 +391,8 @@ object Cast {
         WerehamsterRole(0)
       )
     ),
-    9 -> Map[String, Cast](
-      "A" -> Cast(
+    9 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(5),
         SeerRole(1),
@@ -403,7 +403,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(0)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(3),
         SeerRole(1),
@@ -414,7 +414,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(1)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(3),
         SeerRole(1),
@@ -426,8 +426,8 @@ object Cast {
         WerehamsterRole(1)
       )
     ),
-    10 -> Map[String, Cast](
-      "A" -> Cast(
+    10 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(5),
         SeerRole(1),
@@ -438,7 +438,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(0)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(4),
         SeerRole(1),
@@ -449,7 +449,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(1)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(2),
         SeerRole(2),
@@ -461,8 +461,8 @@ object Cast {
         WerehamsterRole(1)
       )
     ),
-    11 -> Map[String, Cast](
-      "A" -> Cast(
+    11 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(5),
         SeerRole(1),
@@ -473,7 +473,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(0)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(4),
         SeerRole(1),
@@ -484,7 +484,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(1)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(3),
         SeerRole(2),
@@ -496,8 +496,8 @@ object Cast {
         WerehamsterRole(1)
       )
     ),
-    12 -> Map[String, Cast](
-      "A" -> Cast(
+    12 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(6),
         SeerRole(1),
@@ -508,7 +508,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(0)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(5),
         SeerRole(1),
@@ -519,7 +519,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(1)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(3),
         SeerRole(1),
@@ -531,8 +531,8 @@ object Cast {
         WerehamsterRole(1)
       )
     ),
-    13 -> Map[String, Cast](
-      "A" -> Cast(
+    13 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(5),
         SeerRole(1),
@@ -543,7 +543,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(0)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(4),
         SeerRole(1),
@@ -554,7 +554,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(1)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(3),
         SeerRole(2),
@@ -566,8 +566,8 @@ object Cast {
         WerehamsterRole(1)
       )
     ),
-    14 -> Map[String, Cast](
-      "A" -> Cast(
+    14 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(5),
         SeerRole(1),
@@ -578,7 +578,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(1)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(5),
         SeerRole(1),
@@ -589,7 +589,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(1)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(3),
         SeerRole(2),
@@ -601,8 +601,8 @@ object Cast {
         WerehamsterRole(1)
       )
     ),
-    15 -> Map[String, Cast](
-      "A" -> Cast(
+    15 -> Map[String, Composition](
+      "A" -> Composition(
         MasterRole(1),
         VillagerRole(6),
         SeerRole(1),
@@ -613,7 +613,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(1)
       ),
-      "B" -> Cast(
+      "B" -> Composition(
         MasterRole(1),
         VillagerRole(6),
         SeerRole(1),
@@ -624,7 +624,7 @@ object Cast {
         WerewolfRole(2),
         WerehamsterRole(1)
       ),
-      "C" -> Cast(
+      "C" -> Composition(
         MasterRole(1),
         VillagerRole(3),
         SeerRole(2),

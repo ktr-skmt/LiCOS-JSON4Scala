@@ -7,13 +7,13 @@ import java.util.UUID
 import licos.knowledge.Architecture
 
 final case class ServerOnly(
-    id:           Long,
-    token:        UUID,
-    createdAt:    OffsetDateTime,
-    updatedAt:    OffsetDateTime,
-    name:         String,
-    image:        URL,
-    isPrimary:    Boolean,
-    architecture: Architecture,
-    isHost:       Boolean
+    id:         Long,
+    token:      UUID,
+    createdAt:  OffsetDateTime,
+    updatedAt:  OffsetDateTime,
+    name:       String,
+    image:      URL,
+    isPrimary:  Boolean,
+    playerType: Architecture,
+    isHost:     Boolean
 )

@@ -34,7 +34,7 @@ object StarProtocol {
       .flatMap { village: VillageInfo =>
         for {
           myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-          myRole      <- village.cast.parse(json.myCharacter.role.name.en)
+          myRole      <- village.composition.parse(json.myCharacter.role.name.en)
         } yield {
           StarProtocol(
             village,

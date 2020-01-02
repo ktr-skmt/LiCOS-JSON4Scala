@@ -23,10 +23,10 @@ final case class BuildVillageProtocol(village: VillageInfoFromLobby, token: UUID
           village.hostPlayer.architecture.isHuman
         ),
         JsonPlayerSetting(
-          village.cast.totalNumberOfPlayers,
+          village.composition.totalNumberOfPlayers,
           -1,
           JsonRobot(
-            village.cast.totalNumberOfPlayers - village.maxNumberOfHumanPlayers,
+            village.composition.totalNumberOfPlayers - village.maxNumberOfHumanPlayers,
             -1
           ),
           JsonHuman(
@@ -35,14 +35,14 @@ final case class BuildVillageProtocol(village: VillageInfoFromLobby, token: UUID
           )
         ),
         JsonRoleSetting(
-          village.cast.villager.numberOfPlayers,
-          village.cast.werewolf.numberOfPlayers,
-          village.cast.seer.numberOfPlayers,
-          village.cast.medium.numberOfPlayers,
-          village.cast.madman.numberOfPlayers,
-          village.cast.hunter.numberOfPlayers,
-          village.cast.mason.numberOfPlayers,
-          village.cast.werehamster.numberOfPlayers
+          village.composition.villager.numberOfPlayers,
+          village.composition.werewolf.numberOfPlayers,
+          village.composition.seer.numberOfPlayers,
+          village.composition.medium.numberOfPlayers,
+          village.composition.madman.numberOfPlayers,
+          village.composition.hunter.numberOfPlayers,
+          village.composition.mason.numberOfPlayers,
+          village.composition.werehamster.numberOfPlayers
         ),
         village.avatarSetting.label,
         village.comment

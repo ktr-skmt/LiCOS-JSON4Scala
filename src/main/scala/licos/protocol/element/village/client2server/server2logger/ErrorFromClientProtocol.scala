@@ -27,7 +27,7 @@ final case class ErrorFromClientProtocol(
           VillageProtocol(
             village.id,
             village.name,
-            village.cast.totalNumberOfPlayers,
+            village.composition.totalNumberOfPlayers,
             village.language,
             ChatSettingsProtocol(
               village.id,
@@ -78,7 +78,7 @@ object ErrorFromClientProtocol {
               json.base.extensionalDisclosureRange.flatMap { jsonStatusCharacter: JsonStatusCharacter =>
                 for {
                   character  <- Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id).toList
-                  role       <- village.cast.parse(jsonStatusCharacter.role.name.en).toList
+                  role       <- village.composition.parse(jsonStatusCharacter.role.name.en).toList
                   status     <- Data2Knowledge.statusOpt(jsonStatusCharacter.status).toList
                   playerType <- Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType).toList
                 } yield {

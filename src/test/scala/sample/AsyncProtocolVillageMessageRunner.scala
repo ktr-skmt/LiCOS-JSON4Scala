@@ -4,7 +4,7 @@ import java.net.URL
 
 import licos.entity.{HostPlayer, VillageInfoFromLobby}
 import licos.json2protocol.village.Json2VillageMessageProtocol
-import licos.knowledge.{Cast, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
+import licos.knowledge.{Composition, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.engine.async.processing.village.{VillageProcessingEngine, VillageProcessingEngineFactory}
 import licos.protocol.engine.async.processing.{SpecificProcessingEngineFactory, VillagePE}
@@ -43,7 +43,7 @@ object AsyncProtocolVillageMessageRunner extends App {
   private val villageInfoFromLobby = VillageInfoFromLobby(
     HumanPlayerLobby,
     hostPlayer,
-    Cast.playerNumRoleNumMap(15)("A"),
+    Composition.playerNumRoleNumMap(15)("A"),
     1,
     RandomAvatarSetting,
     15,

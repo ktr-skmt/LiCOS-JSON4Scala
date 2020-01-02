@@ -31,7 +31,7 @@ final case class ChatFromServerProtocol(
           VillageProtocol(
             village.id,
             village.name,
-            village.cast.totalNumberOfPlayers,
+            village.composition.totalNumberOfPlayers,
             village.language,
             ChatSettingsProtocol(
               village.id,

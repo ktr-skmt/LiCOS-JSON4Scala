@@ -24,7 +24,7 @@ final case class ErrorFromServerProtocol(
           VillageProtocol(
             village.id,
             village.name,
-            village.cast.totalNumberOfPlayers,
+            village.composition.totalNumberOfPlayers,
             village.language,
             ChatSettingsProtocol(
               village.id,
