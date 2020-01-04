@@ -40,8 +40,17 @@ final class LobbyProcessingEngine(
     authorizationRequestEngine:                 Option[AuthorizationRequestAnalysisEngine],
     authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine],
     authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine],
-    renewAvatarTokenAnalysisEngine:             Option[RenewAvatarTokenAnalysisEngine],
-    newAvatarTokenAnalysisEngine:               Option[NewAvatarTokenAnalysisEngine]
+    renewAvatarTokenEngine:                     Option[RenewAvatarTokenAnalysisEngine],
+    newAvatarTokenEngine:                       Option[NewAvatarTokenAnalysisEngine],
+    createHumanPlayerEngine:                    Option[CreateHumanPlayerAnalysisEngine],
+    createOnymousAudienceEngine:                Option[CreateOnymousAudienceAnalysisEngine],
+    createRobotPlayerEngine:                    Option[CreateRobotPlayerAnalysisEngine],
+    deleteAvatarEngine:                         Option[DeleteAvatarAnalysisEngine],
+    runRobotPlayerInTheBackgroundEngine:        Option[RunRobotPlayerInTheBackgroundAnalysisEngine],
+    runRobotPlayerInTheForegroundEngine:        Option[RunRobotPlayerInTheForegroundAnalysisEngine],
+    selectHumanPlayerEngine:                    Option[SelectHumanPlayerAnalysisEngine],
+    selectOnymousAudienceEngine:                Option[SelectOnymousAudienceAnalysisEngine],
+    stopRobotPlayerEngine:                      Option[StopRobotPlayerAnalysisEngine]
 ) extends ProcessingEngine {
 
   private val logger = Logger[LobbyProcessingEngine]
@@ -244,18 +253,81 @@ final class LobbyProcessingEngine(
           case None => Failure(new NoEngineException(AuthorizationRequestAcceptedAnalysisEngine.name))
         }
       case protocol: RenewAvatarTokenProtocol =>
-        renewAvatarTokenAnalysisEngine match {
+        renewAvatarTokenEngine match {
           case Some(engine) =>
             log(RenewAvatarTokenAnalysisEngine.name)
             engine.process(box, protocol)
           case None => Failure(new NoEngineException(RenewAvatarTokenAnalysisEngine.name))
         }
       case protocol: NewAvatarTokenProtocol =>
-        newAvatarTokenAnalysisEngine match {
+        newAvatarTokenEngine match {
           case Some(engine) =>
             log(NewAvatarTokenAnalysisEngine.name)
             engine.process(box, protocol)
           case None => Failure(new NoEngineException(NewAvatarTokenAnalysisEngine.name))
+        }
+      case protocol: CreateHumanPlayerProtocol =>
+        createHumanPlayerEngine match {
+          case Some(engine) =>
+            log(CreateHumanPlayerAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(CreateHumanPlayerAnalysisEngine.name))
+        }
+      case protocol: CreateOnymousAudienceProtocol =>
+        createOnymousAudienceEngine match {
+          case Some(engine) =>
+            log(CreateOnymousAudienceAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(CreateOnymousAudienceAnalysisEngine.name))
+        }
+      case protocol: CreateRobotPlayerProtocol =>
+        createRobotPlayerEngine match {
+          case Some(engine) =>
+            log(CreateRobotPlayerAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(CreateRobotPlayerAnalysisEngine.name))
+        }
+      case protocol: DeleteAvatarProtocol =>
+        deleteAvatarEngine match {
+          case Some(engine) =>
+            log(DeleteAvatarAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(DeleteAvatarAnalysisEngine.name))
+        }
+      case protocol: RunRobotPlayerInTheBackgroundProtocol =>
+        runRobotPlayerInTheBackgroundEngine match {
+          case Some(engine) =>
+            log(RunRobotPlayerInTheBackgroundAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(RunRobotPlayerInTheBackgroundAnalysisEngine.name))
+        }
+      case protocol: RunRobotPlayerInTheForegroundProtocol =>
+        runRobotPlayerInTheForegroundEngine match {
+          case Some(engine) =>
+            log(RunRobotPlayerInTheForegroundAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(RunRobotPlayerInTheForegroundAnalysisEngine.name))
+        }
+      case protocol: SelectHumanPlayerProtocol =>
+        selectHumanPlayerEngine match {
+          case Some(engine) =>
+            log(SelectHumanPlayerAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(SelectHumanPlayerAnalysisEngine.name))
+        }
+      case protocol: SelectOnymousAudienceProtocol =>
+        selectOnymousAudienceEngine match {
+          case Some(engine) =>
+            log(SelectOnymousAudienceAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(SelectOnymousAudienceAnalysisEngine.name))
+        }
+      case protocol: StopRobotPlayerProtocol =>
+        stopRobotPlayerEngine match {
+          case Some(engine) =>
+            log(StopRobotPlayerAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(StopRobotPlayerAnalysisEngine.name))
         }
       case _ =>
         Failure(new JSON2ProtocolException("No protocol"))

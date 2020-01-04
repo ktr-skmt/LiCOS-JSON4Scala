@@ -42,598 +42,497 @@ object Composition {
   ): Composition = {
     new Composition(master, villager, seer, medium, hunter, mason, madman, werewolf, werehamster)
   }
-  val playerNumRoleNumMap: Map[Int, Map[String, Composition]] = Map[Int, Map[String, Composition]](
-    0 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(0),
-        SeerRole(0),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(0),
-        WerehamsterRole(0)
-      )
-    ),
-    1 -> Map[String, Composition](
-      "villager" -> Composition(
-        MasterRole(1),
-        VillagerRole(1),
-        SeerRole(0),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(0),
-        WerehamsterRole(0)
+  val support: Support = Support(
+    Map[Int, SupportedComposition](
+      2 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(2),
+          SeerRole(0),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(0),
+          WerehamsterRole(0)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(1),
+          SeerRole(0),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(0),
+          SeerRole(0),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(2),
+          WerehamsterRole(0)
+        )
       ),
-      "seer" -> Composition(
-        MasterRole(1),
-        VillagerRole(0),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(0),
-        WerehamsterRole(0)
+      3 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(2),
+          SeerRole(0),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(1),
+          SeerRole(1),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(0),
+          SeerRole(1),
+          MediumRole(0),
+          HunterRole(1),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        )
       ),
-      "medium" -> Composition(
-        MasterRole(1),
-        VillagerRole(0),
-        SeerRole(0),
-        MediumRole(1),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(0),
-        WerehamsterRole(0)
+      4 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(3),
+          SeerRole(0),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(2),
+          SeerRole(1),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(1),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        )
       ),
-      "hunter" -> Composition(
-        MasterRole(1),
-        VillagerRole(0),
-        SeerRole(0),
-        MediumRole(0),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(0),
-        WerehamsterRole(0)
+      5 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(3),
+          SeerRole(1),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(2),
+          SeerRole(1),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(1)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(1),
+          SeerRole(1),
+          MediumRole(0),
+          HunterRole(1),
+          MasonRole(0),
+          MadmanRole(1),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        )
       ),
-      "mason" -> Composition(
-        MasterRole(1),
-        VillagerRole(0),
-        SeerRole(0),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(1),
-        MadmanRole(0),
-        WerewolfRole(0),
-        WerehamsterRole(0)
+      6 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(4),
+          SeerRole(1),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(3),
+          SeerRole(1),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(1)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(0),
+          SeerRole(1),
+          MediumRole(0),
+          HunterRole(1),
+          MasonRole(0),
+          MadmanRole(3),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        )
       ),
-      "madman" -> Composition(
-        MasterRole(1),
-        VillagerRole(0),
-        SeerRole(0),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(1),
-        WerewolfRole(0),
-        WerehamsterRole(0)
+      7 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(5),
+          SeerRole(1),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(4),
+          SeerRole(1),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(1)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(2),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(0),
+          MadmanRole(1),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        )
       ),
-      "werewolf" -> Composition(
-        MasterRole(1),
-        VillagerRole(0),
-        SeerRole(0),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(0)
+      8 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(6),
+          SeerRole(1),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(1),
+          WerehamsterRole(0)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(4),
+          SeerRole(1),
+          MediumRole(0),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(1),
+          WerewolfRole(1),
+          WerehamsterRole(1)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(1),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(0),
+          MasonRole(2),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(0)
+        )
       ),
-      "werehamster" -> Composition(
-        MasterRole(1),
-        VillagerRole(0),
-        SeerRole(0),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(0),
-        WerehamsterRole(0)
-      )
-    ),
-    2 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(2),
-        SeerRole(0),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(0),
-        WerehamsterRole(0)
+      9 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(5),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(2),
+          WerehamsterRole(0)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(3),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(3),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(0),
+          MadmanRole(1),
+          WerewolfRole(1),
+          WerehamsterRole(1)
+        )
       ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(1),
-        SeerRole(0),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(0)
+      10 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(5),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(0),
+          MasonRole(0),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(0)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(4),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(0),
+          MadmanRole(0),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(2),
+          SeerRole(2),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(0),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        )
       ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(0),
-        SeerRole(0),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(2),
-        WerehamsterRole(0)
-      )
-    ),
-    3 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(2),
-        SeerRole(0),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(0)
+      11 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(5),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(0),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(0)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(4),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(0),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(3),
+          SeerRole(2),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(0),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        )
       ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(1),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(0)
+      12 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(6),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(0),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(0)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(5),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(0),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(3),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(2),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        )
       ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(0),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(0)
-      )
-    ),
-    4 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(3),
-        SeerRole(0),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(0)
+      13 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(5),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(2),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(0)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(4),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(2),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(3),
+          SeerRole(2),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(2),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        )
       ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(2),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(0)
+      14 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(5),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(2),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(5),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(2),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(3),
+          SeerRole(2),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(2),
+          MadmanRole(2),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        )
       ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(1),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(0)
-      )
-    ),
-    5 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(3),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(0)
-      ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(2),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(1)
-      ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(1),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(1),
-        WerewolfRole(1),
-        WerehamsterRole(0)
-      )
-    ),
-    6 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(4),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(0)
-      ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(3),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(1)
-      ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(0),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(3),
-        WerewolfRole(1),
-        WerehamsterRole(0)
-      )
-    ),
-    7 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(5),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(0)
-      ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(4),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(1)
-      ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(2),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(1),
-        WerewolfRole(1),
-        WerehamsterRole(0)
-      )
-    ),
-    8 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(6),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(1),
-        WerehamsterRole(0)
-      ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(4),
-        SeerRole(1),
-        MediumRole(0),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(1),
-        WerewolfRole(1),
-        WerehamsterRole(1)
-      ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(1),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(0),
-        MasonRole(2),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(0)
-      )
-    ),
-    9 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(5),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(2),
-        WerehamsterRole(0)
-      ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(3),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(3),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(1),
-        WerewolfRole(1),
-        WerehamsterRole(1)
-      )
-    ),
-    10 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(5),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(0),
-        MasonRole(0),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(0)
-      ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(4),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(0),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(2),
-        SeerRole(2),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      )
-    ),
-    11 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(5),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(0)
-      ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(4),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(3),
-        SeerRole(2),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      )
-    ),
-    12 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(6),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(0)
-      ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(5),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(0),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(3),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(2),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      )
-    ),
-    13 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(5),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(2),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(0)
-      ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(4),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(2),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(3),
-        SeerRole(2),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(2),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      )
-    ),
-    14 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(5),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(2),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(5),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(2),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(3),
-        SeerRole(2),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(2),
-        MadmanRole(2),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      )
-    ),
-    15 -> Map[String, Composition](
-      "A" -> Composition(
-        MasterRole(1),
-        VillagerRole(6),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(2),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      ),
-      "B" -> Composition(
-        MasterRole(1),
-        VillagerRole(6),
-        SeerRole(1),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(2),
-        MadmanRole(1),
-        WerewolfRole(2),
-        WerehamsterRole(1)
-      ),
-      "C" -> Composition(
-        MasterRole(1),
-        VillagerRole(3),
-        SeerRole(2),
-        MediumRole(1),
-        HunterRole(1),
-        MasonRole(2),
-        MadmanRole(2),
-        WerewolfRole(3),
-        WerehamsterRole(1)
+      15 -> SupportedComposition(
+        A = Composition(
+          MasterRole(1),
+          VillagerRole(6),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(2),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        ),
+        B = Composition(
+          MasterRole(1),
+          VillagerRole(6),
+          SeerRole(1),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(2),
+          MadmanRole(1),
+          WerewolfRole(2),
+          WerehamsterRole(1)
+        ),
+        C = Composition(
+          MasterRole(1),
+          VillagerRole(3),
+          SeerRole(2),
+          MediumRole(1),
+          HunterRole(1),
+          MasonRole(2),
+          MadmanRole(2),
+          WerewolfRole(3),
+          WerehamsterRole(1)
+        )
       )
     )
   )

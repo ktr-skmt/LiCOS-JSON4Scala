@@ -8,6 +8,10 @@ import licos.json.element.lobby.client2server.{
   JsonChangeUserEmail,
   JsonChangeUserName,
   JsonChangeUserPassword,
+  JsonCreateHumanPlayer,
+  JsonCreateOnymousAudience,
+  JsonCreateRobotPlayer,
+  JsonDeleteAvatar,
   JsonEnterLobby,
   JsonGetSettings,
   JsonIdSearch,
@@ -17,7 +21,12 @@ import licos.json.element.lobby.client2server.{
   JsonPong,
   JsonReady,
   JsonRenewAvatarToken,
-  JsonSelectVillage
+  JsonRunRobotPlayerInTheBackground,
+  JsonRunRobotPlayerInTheForeground,
+  JsonSelectHumanPlayer,
+  JsonSelectOnymousAudience,
+  JsonSelectVillage,
+  JsonStopRobotPlayer
 }
 import licos.json.element.lobby.server2client.{
   JsonAuthorizationRequest,
@@ -44,6 +53,10 @@ import licos.protocol.element.lobby.client2server.{
   ChangeUserEmailProtocol,
   ChangeUserNameProtocol,
   ChangeUserPasswordProtocol,
+  CreateHumanPlayerProtocol,
+  CreateOnymousAudienceProtocol,
+  CreateRobotPlayerProtocol,
+  DeleteAvatarProtocol,
   EnterLobbyProtocol,
   GetAvatarInfoProtocol,
   GetSettingsProtocol,
@@ -54,7 +67,12 @@ import licos.protocol.element.lobby.client2server.{
   PongProtocol,
   ReadyProtocol,
   RenewAvatarTokenProtocol,
-  SelectVillageProtocol
+  RunRobotPlayerInTheBackgroundProtocol,
+  RunRobotPlayerInTheForegroundProtocol,
+  SelectHumanPlayerProtocol,
+  SelectOnymousAudienceProtocol,
+  SelectVillageProtocol,
+  StopRobotPlayerProtocol
 }
 import licos.protocol.element.lobby.server2client.{
   AuthorizationRequestAcceptedResponseProtocol,
@@ -134,6 +152,24 @@ object Json2LobbyMessageProtocol extends Json2Protocol {
         RenewAvatarTokenProtocol.read(json)
       case Right(json: JsonNewAvatarToken) =>
         NewAvatarTokenProtocol.read(json)
+      case Right(json: JsonCreateHumanPlayer) =>
+        CreateHumanPlayerProtocol.read(json)
+      case Right(json: JsonCreateOnymousAudience) =>
+        CreateOnymousAudienceProtocol.read(json)
+      case Right(json: JsonCreateRobotPlayer) =>
+        CreateRobotPlayerProtocol.read(json)
+      case Right(json: JsonDeleteAvatar) =>
+        DeleteAvatarProtocol.read(json)
+      case Right(json: JsonRunRobotPlayerInTheBackground) =>
+        RunRobotPlayerInTheBackgroundProtocol.read(json)
+      case Right(json: JsonRunRobotPlayerInTheForeground) =>
+        RunRobotPlayerInTheForegroundProtocol.read(json)
+      case Right(json: JsonSelectHumanPlayer) =>
+        SelectHumanPlayerProtocol.read(json)
+      case Right(json: JsonSelectOnymousAudience) =>
+        SelectOnymousAudienceProtocol.read(json)
+      case Right(json: JsonStopRobotPlayer) =>
+        StopRobotPlayerProtocol.read(json)
       case _ => None
     }
   }

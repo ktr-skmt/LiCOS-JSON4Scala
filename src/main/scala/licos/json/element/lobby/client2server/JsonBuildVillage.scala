@@ -1,11 +1,9 @@
 package licos.json.element.lobby.client2server
 
-import licos.json.element.Element
 import licos.json.element.lobby.{JsonHostPlayer, JsonPlayerSetting, JsonRoleSetting, TypeSystem}
 import licos.json.validation.lobby.{BuildVillageValidation, IdSearchValidation}
 import licos.json.validation.village.{AvatarValidation, VillageValidation}
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonBuildVillage(
     `type`:         String,
     token:          String,
@@ -17,8 +15,7 @@ final case class JsonBuildVillage(
     roleSetting:    JsonRoleSetting,
     avatar:         String,
     comment:        Option[String]
-) extends TypeSystem(`type`)
-    with Element {
+) extends TypeSystem(`type`) {
   override protected def validType: String = JsonBuildVillage.`type`
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))

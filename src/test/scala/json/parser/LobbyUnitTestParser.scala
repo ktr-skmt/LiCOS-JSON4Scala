@@ -1,6 +1,6 @@
 package json.parser
 
-import licos.json.element.lobby.client2server.JsonPlayerTokenInKickOutPlayer
+import licos.json.element.lobby.client2server.{JsonPlayerTokenInKickOutPlayer, JsonSupport, JsonSupportedComposition}
 import licos.json.element.lobby.server2client.{JsonPingResult, JsonPlayerInWaitingPage}
 import licos.json.element.lobby.{JsonHostPlayer, JsonHuman, JsonPlayerSetting, JsonRobot, JsonRoleSetting}
 import org.slf4j.{Logger, LoggerFactory}
@@ -120,6 +120,36 @@ trait LobbyUnitTestParser {
   def parseRoleSetting(jsValue: JsValue): Option[JsonRoleSetting] = {
     Try(jsValue.validate[JsonRoleSetting]) match {
       case Success(json: JsResult[JsonRoleSetting]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            logger.debug(e.toString)
+            None
+        }
+      case Failure(err: Throwable) =>
+        logger.error(err.getMessage)
+        None
+    }
+  }
+
+  def parseSupport(jsValue: JsValue): Option[JsonSupport] = {
+    Try(jsValue.validate[JsonSupport]) match {
+      case Success(json: JsResult[JsonSupport]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            logger.debug(e.toString)
+            None
+        }
+      case Failure(err: Throwable) =>
+        logger.error(err.getMessage)
+        None
+    }
+  }
+
+  def parseSupportedComposition(jsValue: JsValue): Option[JsonSupportedComposition] = {
+    Try(jsValue.validate[JsonSupportedComposition]) match {
+      case Success(json: JsResult[JsonSupportedComposition]) =>
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>

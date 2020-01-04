@@ -3,7 +3,6 @@ package licos.json.element.lobby.server2client
 import licos.json.element.lobby.TypeSystem
 import licos.json.validation.village.VillageValidation
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonPlayed(`type`: String, lang: String) extends TypeSystem(`type`) {
   override protected def validType: String = JsonPlayed.`type`
 

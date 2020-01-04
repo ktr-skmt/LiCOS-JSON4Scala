@@ -41,7 +41,7 @@ object ProtocolVillageMessageRunner extends App {
   private val villageInfoFromLobby = VillageInfoFromLobby(
     HumanPlayerLobby,
     hostPlayer,
-    Composition.playerNumRoleNumMap(15)("A"),
+    Composition.support.`for`(15).A,
     1,
     RandomAvatarSetting,
     15,

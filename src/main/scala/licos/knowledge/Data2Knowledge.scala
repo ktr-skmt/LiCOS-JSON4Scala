@@ -165,4 +165,11 @@ object Data2Knowledge {
     }
   }
 
+  def automationTypeOpt(label: String): Option[AutomationType] = {
+    label match {
+      case FullyAutomated.label => Some(FullyAutomated)
+      case SemiAutomated.label  => Some(SemiAutomated)
+      case _                    => None
+    }
+  }
 }

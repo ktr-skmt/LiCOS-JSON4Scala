@@ -4,7 +4,6 @@ import licos.json.element.lobby.{JsonVillage, TypeSystem}
 import licos.json.element.village.JsonSubError
 import licos.json.validation.village.AvatarValidation
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonWaitingPage(
     `type`:  String,
     village: JsonVillage,

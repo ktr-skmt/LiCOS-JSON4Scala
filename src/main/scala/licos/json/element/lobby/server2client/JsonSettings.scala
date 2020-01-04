@@ -4,7 +4,6 @@ import licos.json.element.lobby.TypeSystem
 import licos.json.validation.lobby.UserValidation
 import licos.json.validation.village.VillageValidation
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonSettings(`type`: String, userName: String, userEmail: String, lang: String)
     extends TypeSystem(`type`) {
   override protected def validType: String = JsonSettings.`type`

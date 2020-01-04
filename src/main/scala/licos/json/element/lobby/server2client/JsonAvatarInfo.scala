@@ -3,7 +3,6 @@ package licos.json.element.lobby.server2client
 import licos.json.element.lobby.TypeSystem
 import licos.json.validation.village.{AvatarValidation, VillageValidation}
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonAvatarInfo(`type`: String, token: String, name: String, image: String, lang: String)
     extends TypeSystem(`type`) {
 

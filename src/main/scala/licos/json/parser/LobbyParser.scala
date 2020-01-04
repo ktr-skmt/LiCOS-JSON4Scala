@@ -7,6 +7,10 @@ import licos.json.element.lobby.client2server.{
   JsonChangeUserEmail,
   JsonChangeUserName,
   JsonChangeUserPassword,
+  JsonCreateHumanPlayer,
+  JsonCreateOnymousAudience,
+  JsonCreateRobotPlayer,
+  JsonDeleteAvatar,
   JsonEnterLobby,
   JsonGetSettings,
   JsonIdSearch,
@@ -14,7 +18,12 @@ import licos.json.element.lobby.client2server.{
   JsonPlay,
   JsonPong,
   JsonRenewAvatarToken,
-  JsonSelectVillage
+  JsonRunRobotPlayerInTheBackground,
+  JsonRunRobotPlayerInTheForeground,
+  JsonSelectHumanPlayer,
+  JsonSelectOnymousAudience,
+  JsonSelectVillage,
+  JsonStopRobotPlayer
 }
 import licos.json.element.lobby.server2client.{
   JsonAuthorizationRequest,
@@ -37,6 +46,10 @@ import licos.json.engine.analysis.lobby.client2server.{
   ChangeUserEmailAnalysisEngine,
   ChangeUserNameAnalysisEngine,
   ChangeUserPasswordAnalysisEngine,
+  CreateHumanPlayerAnalysisEngine,
+  CreateOnymousAudienceAnalysisEngine,
+  CreateRobotPlayerAnalysisEngine,
+  DeleteAvatarAnalysisEngine,
   EnterLobbyAnalysisEngine,
   GetAvatarInfoAnalysisEngine,
   GetSettingsAnalysisEngine,
@@ -45,7 +58,12 @@ import licos.json.engine.analysis.lobby.client2server.{
   PlayAnalysisEngine,
   PongAnalysisEngine,
   RenewAvatarTokenAnalysisEngine,
-  SelectVillageAnalysisEngine
+  RunRobotPlayerInTheBackgroundAnalysisEngine,
+  RunRobotPlayerInTheForegroundAnalysisEngine,
+  SelectHumanPlayerAnalysisEngine,
+  SelectOnymousAudienceAnalysisEngine,
+  SelectVillageAnalysisEngine,
+  StopRobotPlayerAnalysisEngine
 }
 import licos.json.engine.analysis.lobby.server2client.{
   AuthorizationRequestAcceptedResponseAnalysisEngine,
@@ -595,6 +613,190 @@ trait LobbyParser extends LiCOSParser {
       case Failure(err: Throwable) =>
         log.error(err.getMessage)
         Left(returnError(err, jsValue, NewAvatarTokenAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Create-human-player JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Create-human-player JSON.
+    */
+  protected def parseCreateHumanPlayer(jsValue: JsValue): Either[JsValue, JsonCreateHumanPlayer] = {
+    Try(jsValue.validate[JsonCreateHumanPlayer]) match {
+      case Success(json: JsResult[JsonCreateHumanPlayer]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, CreateHumanPlayerAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, CreateHumanPlayerAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Create-onymous-audience JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Create-onymous-audience JSON.
+    */
+  protected def parseCreateOnymousAudience(jsValue: JsValue): Either[JsValue, JsonCreateOnymousAudience] = {
+    Try(jsValue.validate[JsonCreateOnymousAudience]) match {
+      case Success(json: JsResult[JsonCreateOnymousAudience]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, CreateOnymousAudienceAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, CreateOnymousAudienceAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Create-robot-player JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Create-robot-player JSON.
+    */
+  protected def parseCreateRobotPlayer(jsValue: JsValue): Either[JsValue, JsonCreateRobotPlayer] = {
+    Try(jsValue.validate[JsonCreateRobotPlayer]) match {
+      case Success(json: JsResult[JsonCreateRobotPlayer]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, CreateRobotPlayerAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, CreateRobotPlayerAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Delete-avatar JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Delete-avatar JSON.
+    */
+  protected def parseDeleteAvatar(jsValue: JsValue): Either[JsValue, JsonDeleteAvatar] = {
+    Try(jsValue.validate[JsonDeleteAvatar]) match {
+      case Success(json: JsResult[JsonDeleteAvatar]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, DeleteAvatarAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, DeleteAvatarAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Run-robot-player-in-the-background JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Run-robot-player-in-the-background JSON.
+    */
+  protected def parseRunRobotPlayerInTheBackground(
+      jsValue: JsValue
+  ): Either[JsValue, JsonRunRobotPlayerInTheBackground] = {
+    Try(jsValue.validate[JsonRunRobotPlayerInTheBackground]) match {
+      case Success(json: JsResult[JsonRunRobotPlayerInTheBackground]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, RunRobotPlayerInTheBackgroundAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, RunRobotPlayerInTheBackgroundAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Run-robot-player-in-the-foreground JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Run-robot-player-in-the-foreground JSON.
+    */
+  protected def parseRunRobotPlayerInTheForeground(
+      jsValue: JsValue
+  ): Either[JsValue, JsonRunRobotPlayerInTheForeground] = {
+    Try(jsValue.validate[JsonRunRobotPlayerInTheForeground]) match {
+      case Success(json: JsResult[JsonRunRobotPlayerInTheForeground]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, RunRobotPlayerInTheForegroundAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, RunRobotPlayerInTheForegroundAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Select-human-player JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Select-human-player JSON.
+    */
+  protected def parseSelectHumanPlayer(jsValue: JsValue): Either[JsValue, JsonSelectHumanPlayer] = {
+    Try(jsValue.validate[JsonSelectHumanPlayer]) match {
+      case Success(json: JsResult[JsonSelectHumanPlayer]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, SelectHumanPlayerAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, SelectHumanPlayerAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Select-onymous-audience JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Select-onymous-audience JSON.
+    */
+  protected def parseSelectOnymousAudience(jsValue: JsValue): Either[JsValue, JsonSelectOnymousAudience] = {
+    Try(jsValue.validate[JsonSelectOnymousAudience]) match {
+      case Success(json: JsResult[JsonSelectOnymousAudience]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, SelectOnymousAudienceAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, SelectOnymousAudienceAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Stop-robot-player JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Stop-robot-player JSON.
+    */
+  protected def parseStopRobotPlayer(jsValue: JsValue): Either[JsValue, JsonStopRobotPlayer] = {
+    Try(jsValue.validate[JsonStopRobotPlayer]) match {
+      case Success(json: JsResult[JsonStopRobotPlayer]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, StopRobotPlayerAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, StopRobotPlayerAnalysisEngine.isFromServer))
     }
   }
 }

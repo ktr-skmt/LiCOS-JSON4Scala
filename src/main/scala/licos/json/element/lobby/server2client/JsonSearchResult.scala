@@ -3,7 +3,6 @@ package licos.json.element.lobby.server2client
 import licos.json.element.lobby.{JsonVillage, TypeSystem}
 import licos.json.element.village.JsonSubError
 
-@SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
 final case class JsonSearchResult(`type`: String, villages: Seq[JsonVillage], error: Option[JsonSubError])
     extends TypeSystem(`type`) {
 

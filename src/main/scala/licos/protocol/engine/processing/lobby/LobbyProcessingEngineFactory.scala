@@ -34,9 +34,18 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var authorizationRequestAnalysisEngine: Option[AuthorizationRequestAnalysisEngine] = None
   private var authorizationRequestAcceptedResponseAnalysisEngine
       : Option[AuthorizationRequestAcceptedResponseAnalysisEngine] = None
-  private var authorizationRequestAcceptedAnalysisEngine: Option[AuthorizationRequestAcceptedAnalysisEngine] = None
-  private var renewAvatarTokenAnalysisEngine:             Option[RenewAvatarTokenAnalysisEngine]             = None
-  private var newAvatarTokenAnalysisEngine:               Option[NewAvatarTokenAnalysisEngine]               = None
+  private var authorizationRequestAcceptedAnalysisEngine: Option[AuthorizationRequestAcceptedAnalysisEngine]  = None
+  private var renewAvatarTokenAnalysisEngine:             Option[RenewAvatarTokenAnalysisEngine]              = None
+  private var newAvatarTokenAnalysisEngine:               Option[NewAvatarTokenAnalysisEngine]                = None
+  private var createHumanPlayerEngine:                    Option[CreateHumanPlayerAnalysisEngine]             = None
+  private var createOnymousEngine:                        Option[CreateOnymousAudienceAnalysisEngine]         = None
+  private var createRobotPlayerEngine:                    Option[CreateRobotPlayerAnalysisEngine]             = None
+  private var deleteAvatarEngine:                         Option[DeleteAvatarAnalysisEngine]                  = None
+  private var runRobotPlayerInTheBackgroundEngine:        Option[RunRobotPlayerInTheBackgroundAnalysisEngine] = None
+  private var runRobotPlayerInTheForegroundEngine:        Option[RunRobotPlayerInTheForegroundAnalysisEngine] = None
+  private var selectHumanPlayerEngine:                    Option[SelectHumanPlayerAnalysisEngine]             = None
+  private var selectOnymousAudienceEngine:                Option[SelectOnymousAudienceAnalysisEngine]         = None
+  private var stopRobotPlayerEngine:                      Option[StopRobotPlayerAnalysisEngine]               = None
 
   override def create: LobbyProcessingEngine = {
     new LobbyProcessingEngine(
@@ -68,7 +77,16 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       authorizationRequestAcceptedResponseAnalysisEngine,
       authorizationRequestAcceptedAnalysisEngine,
       renewAvatarTokenAnalysisEngine,
-      newAvatarTokenAnalysisEngine
+      newAvatarTokenAnalysisEngine,
+      createHumanPlayerEngine,
+      createOnymousEngine,
+      createRobotPlayerEngine,
+      deleteAvatarEngine,
+      runRobotPlayerInTheBackgroundEngine,
+      runRobotPlayerInTheForegroundEngine,
+      selectHumanPlayerEngine,
+      selectOnymousAudienceEngine,
+      stopRobotPlayerEngine
     )
   }
 
@@ -220,6 +238,55 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
 
   def set(newAvatarTokenAnalysisEngine: NewAvatarTokenAnalysisEngine): LobbyProcessingEngineFactory = {
     this.newAvatarTokenAnalysisEngine = Option(newAvatarTokenAnalysisEngine)
+    this
+  }
+
+  def set(createHumanPlayerAnalysisEngine: CreateHumanPlayerAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.createHumanPlayerEngine = Option(createHumanPlayerAnalysisEngine)
+    this
+  }
+
+  def set(createOnymousAudienceAnalysisEngine: CreateOnymousAudienceAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.createOnymousEngine = Option(createOnymousAudienceAnalysisEngine)
+    this
+  }
+
+  def set(createRobotPlayerAnalysisEngine: CreateRobotPlayerAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.createRobotPlayerEngine = Option(createRobotPlayerAnalysisEngine)
+    this
+  }
+
+  def set(deleteAvatarAnalysisEngine: DeleteAvatarAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.deleteAvatarEngine = Option(deleteAvatarAnalysisEngine)
+    this
+  }
+
+  def set(
+      runRobotPlayerInTheBackgroundAnalysisEngine: RunRobotPlayerInTheBackgroundAnalysisEngine
+  ): LobbyProcessingEngineFactory = {
+    this.runRobotPlayerInTheBackgroundEngine = Option(runRobotPlayerInTheBackgroundAnalysisEngine)
+    this
+  }
+
+  def set(
+      runRobotPlayerInTheForegroundAnalysisEngine: RunRobotPlayerInTheForegroundAnalysisEngine
+  ): LobbyProcessingEngineFactory = {
+    this.runRobotPlayerInTheForegroundEngine = Option(runRobotPlayerInTheForegroundAnalysisEngine)
+    this
+  }
+
+  def set(selectHumanPlayerAnalysisEngine: SelectHumanPlayerAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.selectHumanPlayerEngine = Option(selectHumanPlayerAnalysisEngine)
+    this
+  }
+
+  def set(selectOnymousAudienceAnalysisEngine: SelectOnymousAudienceAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.selectOnymousAudienceEngine = Option(selectOnymousAudienceAnalysisEngine)
+    this
+  }
+
+  def set(stopRobotPlayerAnalysisEngine: StopRobotPlayerAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.stopRobotPlayerEngine = Option(stopRobotPlayerAnalysisEngine)
     this
   }
 }

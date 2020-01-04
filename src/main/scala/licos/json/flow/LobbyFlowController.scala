@@ -46,7 +46,25 @@ final class LobbyFlowController() extends FlowController with LobbyParser {
                                                       parseAuthorizationRequestAcceptedResponse(jsValue) >>> {
                                                         parseRenewAvatarToken(jsValue) >>> {
                                                           parseNewAvatarToken(jsValue) >>> {
-                                                            parsePlayedWithToken(jsValue)
+                                                            parseCreateHumanPlayer(jsValue) >>> {
+                                                              parseCreateOnymousAudience(jsValue) >>> {
+                                                                parseCreateRobotPlayer(jsValue) >>> {
+                                                                  parseDeleteAvatar(jsValue) >>> {
+                                                                    parseRunRobotPlayerInTheBackground(jsValue) >>> {
+                                                                      parseRunRobotPlayerInTheForeground(jsValue) >>> {
+                                                                        parseSelectHumanPlayer(jsValue) >>> {
+                                                                          parseSelectOnymousAudience(jsValue) >>> {
+                                                                            parseStopRobotPlayer(jsValue) >>> {
+                                                                              parsePlayedWithToken(jsValue)
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
                                                           }
                                                         }
                                                       }

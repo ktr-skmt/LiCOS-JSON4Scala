@@ -1,13 +1,11 @@
 package licos.json.element.lobby.server2client
 
-import licos.json.element.Element
 import licos.json.element.lobby.TypeSystem
 import licos.json.validation.auth.ResponseValidation
 import licos.json.validation.village.AvatarValidation
 
 final case class JsonAuthorizationRequestAcceptedResponse(`type`: String, accessToken: String, response: String)
-    extends TypeSystem(`type`)
-    with Element {
+    extends TypeSystem(`type`) {
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(accessToken: String, response: String) = {

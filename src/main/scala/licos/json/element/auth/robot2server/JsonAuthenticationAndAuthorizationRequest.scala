@@ -1,6 +1,5 @@
 package licos.json.element.auth.robot2server
 
-import licos.json.element.Element
 import licos.json.element.lobby.TypeSystem
 import licos.json.validation.village.{AvatarValidation, BaseValidation}
 
@@ -11,8 +10,7 @@ final case class JsonAuthenticationAndAuthorizationRequest(
     robotVersion: String,
     accessToken:  String,
     sourceCode:   JsonSourceCode
-) extends TypeSystem(`type`)
-    with Element {
+) extends TypeSystem(`type`) {
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(
