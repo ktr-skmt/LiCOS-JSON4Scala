@@ -52,6 +52,7 @@ object Data2Knowledge {
       case PingDanger.label  => Some(PingDanger)
       case PingWarning.label => Some(PingWarning)
       case PingSafe.label    => Some(PingSafe)
+      case _                 => None
     }
   }
 
