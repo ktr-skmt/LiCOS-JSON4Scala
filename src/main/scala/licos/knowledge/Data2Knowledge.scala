@@ -128,8 +128,8 @@ object Data2Knowledge {
   }
 
   def characterOpt(name: String, id: Int): Option[Character] = {
-    val retOpt: Option[Character] = {
-      java.lang.Character.toLowerCase(name.head) match {
+    name.headOption.flatMap { head: Char =>
+      java.lang.Character.toLowerCase(head) match {
         case 'a' => Some(Adil())
         case 'b' => Some(Borya())
         case 'c' => Some(Chacha())
@@ -151,10 +151,9 @@ object Data2Knowledge {
         case 'u' => Some(Uma())
         case 'v' => Some(Valeria())
         case 'y' => Some(Yihan())
-        case _   => None
+        case _   => Option.empty[Character]
       }
-    }
-    retOpt.map(_.setId(id))
+    }.map(_.setId(id))
   }
 
   def avatarSettingOpt(label: String): Option[AvatarSetting] = {
