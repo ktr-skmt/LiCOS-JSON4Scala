@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class ChangeLangProtocol(lang: Locale) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonChangeLang] = {
+  private lazy val json: Option[JsonChangeLang] = {
     Some(
       new JsonChangeLang(
         lang.getLanguage

@@ -9,7 +9,7 @@ import play.api.libs.json.{JsValue, Json}
 final case class IdSearchProtocol(token: UUID, lobby: Lobby, idForSearching: Int)
     extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonIdSearch] = {
+  private lazy val json: Option[JsonIdSearch] = {
     Some(
       new JsonIdSearch(
         token.toString,

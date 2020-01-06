@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 final case class FlavorTextProtocol(village: VillageInfo, flavorText: Seq[ChatFromServerProtocol])
     extends Server2ClientVillageMessageProtocol {
 
-  private val json: Option[JsonFlavorText] = {
+  private lazy val json: Option[JsonFlavorText] = {
     server2logger.FlavorTextProtocol(village, flavorText, Nil).json
   }
 

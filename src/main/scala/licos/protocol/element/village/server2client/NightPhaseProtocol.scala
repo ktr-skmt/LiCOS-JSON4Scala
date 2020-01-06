@@ -14,7 +14,7 @@ import play.api.libs.json.{JsValue, Json}
 final case class NightPhaseProtocol(village: VillageInfo, character: Seq[CharacterProtocol], role: Seq[RoleProtocol])
     extends Server2ClientVillageMessageProtocol {
 
-  private val json: Option[JsonPhase] = {
+  private lazy val json: Option[JsonPhase] = {
     server2logger.NightPhaseProtocol(village, character, role, Nil).json
   }
 
@@ -87,7 +87,7 @@ object NightPhaseProtocol {
           )
         }
     } else {
-      None
+      Option.empty[NightPhaseProtocol]
     }
   }
 

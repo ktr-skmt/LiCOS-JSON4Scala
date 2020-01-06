@@ -22,7 +22,7 @@ final case class ChatFromServerProtocol(
     isOver:    Boolean
 ) extends Server2ClientVillageMessageProtocol {
 
-  val json: Option[JsonChatFromServer] = {
+  lazy val json: Option[JsonChatFromServer] = {
     Some(
       new JsonChatFromServer(
         BaseProtocol(

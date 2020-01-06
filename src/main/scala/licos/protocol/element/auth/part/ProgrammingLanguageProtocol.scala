@@ -4,7 +4,7 @@ import licos.json.element.auth.robot2server.JsonProgrammingLanguage
 
 final case class ProgrammingLanguageProtocol(name: String, version: String) {
 
-  val json: Option[JsonProgrammingLanguage] = {
+  lazy val json: Option[JsonProgrammingLanguage] = {
     Some(
       JsonProgrammingLanguage(
         name,

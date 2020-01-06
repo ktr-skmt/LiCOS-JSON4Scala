@@ -15,7 +15,7 @@ import licos.json.element.village.server2client.{JsonChatFromServer, JsonFlavorT
 import licos.json.flow.{FlowController, VillageFlowController}
 import licos.json2protocol.Json2Protocol
 import licos.knowledge.{Morning, Night, Noon, PostMortemDiscussion}
-import licos.protocol.element.Protocol
+import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.element.village.client2server.server2logger.{
   AnonymousAudienceChatFromClientProtocol,
   BoardProtocol,
@@ -46,7 +46,7 @@ import play.api.libs.json.JsValue
 object Json2VillageMessageProtocol extends Json2Protocol {
   override protected val flowController: FlowController = new VillageFlowController()
 
-  def toProtocolOpt(json: JsValue, villageInfoFromLobby: VillageInfoFromLobby): Option[Protocol] = {
+  def toProtocolOpt(json: JsValue, villageInfoFromLobby: VillageInfoFromLobby): Option[VillageMessageProtocol] = {
     flowController.flow(json) match {
       case Right(json: JsonAnonymousAudienceChat) =>
         if (json.isFromServer) {
@@ -97,13 +97,15 @@ object Json2VillageMessageProtocol extends Json2Protocol {
             NightPhaseProtocol.read(json, villageInfoFromLobby)
           case PostMortemDiscussion.label =>
             PostMortemDiscussionProtocol.read(json, villageInfoFromLobby)
-          case _ => None
+          case _ =>
+            Option.empty[VillageMessageProtocol]
         }
       case Right(json: JsonFlavorText) =>
         FlavorTextProtocol.read(json, villageInfoFromLobby)
       case Right(json: JsonGameResult) =>
         GameResultProtocol.read(json, villageInfoFromLobby)
-      case _ => None
+      case _ =>
+        Option.empty[VillageMessageProtocol]
     }
   }
 }

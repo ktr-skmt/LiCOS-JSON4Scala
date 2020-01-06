@@ -17,7 +17,7 @@ final case class AnonymousAudienceChatFromServerProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  val json: Option[JsonAnonymousAudienceChat] = {
+  lazy val json: Option[JsonAnonymousAudienceChat] = {
     Some(
       new JsonAnonymousAudienceChat(
         BaseProtocol(
@@ -97,7 +97,7 @@ object AnonymousAudienceChatFromServerProtocol {
           )
         }
     } else {
-      None
+      Option.empty[AnonymousAudienceChatFromServerProtocol]
     }
   }
 

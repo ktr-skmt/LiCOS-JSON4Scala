@@ -1,17 +1,20 @@
 package licos.json.element.lobby.client2server
 
 import licos.json.element.lobby.TypeSystem
-import licos.json.validation.village.AvatarValidation
+import licos.json.validation.village.{AvatarValidation, VillageValidation}
 
-final case class JsonCreateOnymousAudience(`type`: String, name: String) extends TypeSystem(`type`) {
+final case class JsonCreateOnymousAudience(`type`: String, name: String, image: String, lang: String)
+    extends TypeSystem(`type`) {
 
   override protected def validType: String = JsonCreateOnymousAudience.`type`
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
-  def this(name: String) = {
+  def this(name: String, image: String, lang: String) = {
     this(
       JsonCreateOnymousAudience.`type`,
-      name
+      name,
+      image,
+      lang
     )
   }
 }
@@ -26,7 +29,9 @@ object JsonCreateOnymousAudience {
 
   implicit val jsonReads: Reads[JsonCreateOnymousAudience] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
-      (JsPath \ "name").read[String](AvatarValidation.name)
+      (JsPath \ "name").read[String](AvatarValidation.name) and
+      (JsPath \ "image").read[String](AvatarValidation.image) and
+      (JsPath \ "lang").read[String](VillageValidation.language)
   )(JsonCreateOnymousAudience.apply _)
 
   implicit val jsonWrites: OWrites[JsonCreateOnymousAudience] = Json.writes[JsonCreateOnymousAudience]

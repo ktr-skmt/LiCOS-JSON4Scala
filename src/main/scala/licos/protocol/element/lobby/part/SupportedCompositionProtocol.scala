@@ -10,7 +10,7 @@ final case class SupportedCompositionProtocol(
     isSupportedForC: Boolean
 ) {
 
-  val json: Option[JsonSupportedComposition] = {
+  lazy val json: Option[JsonSupportedComposition] = {
     Some(
       JsonSupportedComposition(
         isSupportedForA,

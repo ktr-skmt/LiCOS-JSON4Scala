@@ -34,7 +34,7 @@ final case class MorningPhaseProtocol(
     votingResultsDetail:        Seq[VotingResultDetailProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  val json: Option[JsonPhase] = {
+  lazy val json: Option[JsonPhase] = {
     Some(
       new JsonPhase(
         BaseProtocol(

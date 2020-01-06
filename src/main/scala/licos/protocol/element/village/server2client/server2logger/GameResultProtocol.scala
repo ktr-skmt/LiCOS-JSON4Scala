@@ -25,7 +25,7 @@ final case class GameResultProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  val json: Option[JsonGameResult] = {
+  lazy val json: Option[JsonGameResult] = {
     Some(
       new JsonGameResult(
         BaseProtocol(

@@ -33,10 +33,13 @@ import licos.json.element.lobby.server2client.{
   JsonAuthorizationRequestAcceptedResponse,
   JsonAvatarInfo,
   JsonGetAvatarInfo,
+  JsonHumanPlayerSelectionPage,
   JsonLobby,
   JsonNewAvatarToken,
+  JsonOnymousAudienceSelectionPage,
   JsonPing,
   JsonPlayed,
+  JsonRobotPlayerSelectionPage,
   JsonSearchResult,
   JsonSettings,
   JsonWaitingPage
@@ -44,7 +47,7 @@ import licos.json.element.lobby.server2client.{
 import licos.json.element.lobby.server2server.JsonPlayedWithToken
 import licos.json.flow.{FlowController, LobbyFlowController}
 import licos.json2protocol.Json2Protocol
-import licos.protocol.element.Protocol
+import licos.protocol.element.lobby.LobbyMessageProtocol
 import licos.protocol.element.lobby.client2server.{
   AdvancedSearchProtocol,
   AuthorizationRequestAcceptedProtocol,
@@ -78,10 +81,13 @@ import licos.protocol.element.lobby.server2client.{
   AuthorizationRequestAcceptedResponseProtocol,
   AuthorizationRequestProtocol,
   AvatarInfoProtocol,
+  HumanPlayerSelectionPageProtocol,
   LobbyProtocol,
   NewAvatarTokenProtocol,
+  OnymousAudienceSelectionPageProtocol,
   PingProtocol,
   PlayedProtocol,
+  RobotPlayerSelectionPageProtocol,
   SearchResultProtocol,
   SettingsProtocol,
   WaitingPageProtocol
@@ -92,7 +98,7 @@ import play.api.libs.json.JsValue
 object Json2LobbyMessageProtocol extends Json2Protocol {
   override protected val flowController: FlowController = new LobbyFlowController()
 
-  def toProtocolOpt(json: JsValue): Option[Protocol] = {
+  def toProtocolOpt(json: JsValue): Option[LobbyMessageProtocol] = {
     flowController.flow(json) match {
       case Right(json: JsonPong) =>
         PongProtocol.read(json)
@@ -170,7 +176,14 @@ object Json2LobbyMessageProtocol extends Json2Protocol {
         SelectOnymousAudienceProtocol.read(json)
       case Right(json: JsonStopRobotPlayer) =>
         StopRobotPlayerProtocol.read(json)
-      case _ => None
+      case Right(json: JsonHumanPlayerSelectionPage) =>
+        HumanPlayerSelectionPageProtocol.read(json)
+      case Right(json: JsonOnymousAudienceSelectionPage) =>
+        OnymousAudienceSelectionPageProtocol.read(json)
+      case Right(json: JsonRobotPlayerSelectionPage) =>
+        RobotPlayerSelectionPageProtocol.read(json)
+      case _ =>
+        Option.empty[LobbyMessageProtocol]
     }
   }
 }

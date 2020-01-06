@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class GetAvatarInfoProtocol(token: UUID) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonGetAvatarInfo] = {
+  private lazy val json: Option[JsonGetAvatarInfo] = {
     Some(
       new JsonGetAvatarInfo(
         token.toString

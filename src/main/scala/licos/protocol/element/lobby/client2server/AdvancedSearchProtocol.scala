@@ -17,7 +17,7 @@ final case class AdvancedSearchProtocol(
     comment:       Option[String]
 ) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonAdvancedSearch] = {
+  private lazy val json: Option[JsonAdvancedSearch] = {
     Some(
       JsonAdvancedSearch(
         JsonAdvancedSearch.`type`,

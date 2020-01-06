@@ -5,7 +5,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class ChangeUserNameProtocol(userName: String) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonChangeUserName] = {
+  private lazy val json: Option[JsonChangeUserName] = {
     Some(
       new JsonChangeUserName(
         userName

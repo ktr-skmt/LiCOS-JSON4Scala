@@ -16,7 +16,7 @@ final case class FlavorTextProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  val json: Option[JsonFlavorText] = {
+  lazy val json: Option[JsonFlavorText] = {
     Some(
       new JsonFlavorText(
         BaseProtocol(

@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class StopRobotPlayerProtocol(token: UUID) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonStopRobotPlayer] = {
+  private lazy val json: Option[JsonStopRobotPlayer] = {
     Some(
       new JsonStopRobotPlayer(
         token.toString

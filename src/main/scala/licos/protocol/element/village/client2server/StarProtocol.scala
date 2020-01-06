@@ -16,7 +16,7 @@ final case class StarProtocol(
     myRole:          Role
 ) extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonStar] = {
+  private lazy val json: Option[JsonStar] = {
     server2logger.StarProtocol(village, serverTimestamp, clientTimestamp, isMarked, myCharacter, myRole, Nil).json
   }
 
@@ -27,7 +27,6 @@ final case class StarProtocol(
 
 object StarProtocol {
 
-  @SuppressWarnings(Array[String]("org.wartremover.warts.OptionPartial"))
   def read(json: JsonStar, villageInfoFromLobby: VillageInfoFromLobby): Option[StarProtocol] = {
     VillageInfoFactory
       .create(villageInfoFromLobby, json.base)

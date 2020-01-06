@@ -8,7 +8,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class EnterLobbyProtocol(token: UUID, lobby: Lobby, page: Int) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonEnterLobby] = {
+  private lazy val json: Option[JsonEnterLobby] = {
     Some(
       new JsonEnterLobby(
         token.toString,

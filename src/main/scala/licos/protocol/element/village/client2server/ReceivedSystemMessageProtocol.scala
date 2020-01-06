@@ -9,7 +9,7 @@ import play.api.libs.json.{JsValue, Json}
 final case class ReceivedSystemMessageProtocol(token: UUID, villageId: Long, phase: Phase, day: Int)
     extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonReceivedSystemMessage] = {
+  private lazy val json: Option[JsonReceivedSystemMessage] = {
     Some(new JsonReceivedSystemMessage(token.toString, villageId, phase.label, day))
   }
 

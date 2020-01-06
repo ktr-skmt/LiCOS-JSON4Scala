@@ -1,7 +1,12 @@
 package json.parser
 
 import licos.json.element.lobby.client2server.{JsonPlayerTokenInKickOutPlayer, JsonSupport, JsonSupportedComposition}
-import licos.json.element.lobby.server2client.{JsonPingResult, JsonPlayerInWaitingPage}
+import licos.json.element.lobby.server2client.{
+  JsonPingResult,
+  JsonPlayerInWaitingPage,
+  JsonRobotPlayerInfo,
+  JsonSubAvatarInfo
+}
 import licos.json.element.lobby.{JsonHostPlayer, JsonHuman, JsonPlayerSetting, JsonRobot, JsonRoleSetting}
 import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue}
@@ -150,6 +155,36 @@ trait LobbyUnitTestParser {
   def parseSupportedComposition(jsValue: JsValue): Option[JsonSupportedComposition] = {
     Try(jsValue.validate[JsonSupportedComposition]) match {
       case Success(json: JsResult[JsonSupportedComposition]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            logger.debug(e.toString)
+            None
+        }
+      case Failure(err: Throwable) =>
+        logger.error(err.getMessage)
+        None
+    }
+  }
+
+  def parseSubAvatarInfo(jsValue: JsValue): Option[JsonSubAvatarInfo] = {
+    Try(jsValue.validate[JsonSubAvatarInfo]) match {
+      case Success(json: JsResult[JsonSubAvatarInfo]) =>
+        json match {
+          case JsSuccess(j, _) => Option(j)
+          case e: JsError =>
+            logger.debug(e.toString)
+            None
+        }
+      case Failure(err: Throwable) =>
+        logger.error(err.getMessage)
+        None
+    }
+  }
+
+  def parseRobotPlayerInfo(jsValue: JsValue): Option[JsonRobotPlayerInfo] = {
+    Try(jsValue.validate[JsonRobotPlayerInfo]) match {
+      case Success(json: JsResult[JsonRobotPlayerInfo]) =>
         json match {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>

@@ -25,7 +25,7 @@ final case class BoardProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  val json: Option[JsonBoard] = {
+  lazy val json: Option[JsonBoard] = {
     Some(
       new JsonBoard(
         BaseProtocol(

@@ -55,7 +55,15 @@ final class LobbyFlowController() extends FlowController with LobbyParser {
                                                                         parseSelectHumanPlayer(jsValue) >>> {
                                                                           parseSelectOnymousAudience(jsValue) >>> {
                                                                             parseStopRobotPlayer(jsValue) >>> {
-                                                                              parsePlayedWithToken(jsValue)
+                                                                              parseHumanPlayerSelectionPage(jsValue) >>> {
+                                                                                parseOnymousAudienceSelectionPage(
+                                                                                  jsValue
+                                                                                ) >>> {
+                                                                                  parseRobotPlayerSelectionPage(jsValue) >>> {
+                                                                                    parsePlayedWithToken(jsValue)
+                                                                                  }
+                                                                                }
+                                                                              }
                                                                             }
                                                                           }
                                                                         }

@@ -8,7 +8,7 @@ import play.api.libs.json.{JsValue, Json}
 final case class SettingsProtocol(userName: String, userEmail: String, lang: Locale)
     extends Server2ClientLobbyMessageProtocol {
 
-  private val json: Option[JsonSettings] = {
+  private lazy val json: Option[JsonSettings] = {
     Some(
       new JsonSettings(
         userName,

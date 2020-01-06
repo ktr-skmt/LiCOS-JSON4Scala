@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 final case class SearchResultProtocol(villages: Seq[VillageProtocol], error: Option[ErrorProtocol])
     extends Server2ClientLobbyMessageProtocol {
 
-  private val json: Option[JsonSearchResult] = {
+  private lazy val json: Option[JsonSearchResult] = {
     Some(
       new JsonSearchResult(
         villages.flatMap(_.json.toList),

@@ -4,7 +4,7 @@ import licos.json.element.lobby.JsonRobot
 
 final case class RobotProtocol(min: Int, current: Int) {
 
-  val json: Option[JsonRobot] = {
+  lazy val json: Option[JsonRobot] = {
     Some(
       JsonRobot(
         min,

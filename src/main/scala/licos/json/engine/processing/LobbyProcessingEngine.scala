@@ -34,10 +34,13 @@ import licos.json.element.lobby.server2client.{
   JsonAuthorizationRequestAcceptedResponse,
   JsonAvatarInfo,
   JsonGetAvatarInfo,
+  JsonHumanPlayerSelectionPage,
   JsonLobby,
   JsonNewAvatarToken,
+  JsonOnymousAudienceSelectionPage,
   JsonPing,
   JsonPlayed,
+  JsonRobotPlayerSelectionPage,
   JsonSearchResult,
   JsonSettings,
   JsonWaitingPage
@@ -91,6 +94,9 @@ import play.api.libs.json.{JsValue, Json}
   * @param selectHumanPlayerEngine the analysis engine for Select-human-player JSON
   * @param selectOnymousAudienceEngine the analysis engine for Select-onymous-audience JSON
   * @param stopRobotPlayerEngine the analysis engine for Stop-robot-player JSON
+  * @param humanPlayerSelectionPageEngine the analysis engine for Human-player-selection-page JSON
+  * @param onymousAudienceSelectionPageEngine the analysis engine for Onymous-audience-selection-page JSON
+  * @param robotPlayerSelectionPageEngine the analysis engine for Robot-player-selection-page JSON
   * @author Kotaro Sakamoto
   */
 final class LobbyProcessingEngine(
@@ -131,12 +137,15 @@ final class LobbyProcessingEngine(
     runRobotPlayerInTheForegroundEngine:        Option[RunRobotPlayerInTheForegroundAnalysisEngine],
     selectHumanPlayerEngine:                    Option[SelectHumanPlayerAnalysisEngine],
     selectOnymousAudienceEngine:                Option[SelectOnymousAudienceAnalysisEngine],
-    stopRobotPlayerEngine:                      Option[StopRobotPlayerAnalysisEngine]
+    stopRobotPlayerEngine:                      Option[StopRobotPlayerAnalysisEngine],
+    humanPlayerSelectionPageEngine:             Option[HumanPlayerSelectionPageAnalysisEngine],
+    onymousAudienceSelectionPageEngine:         Option[OnymousAudienceSelectionPageAnalysisEngine],
+    robotPlayerSelectionPageEngine:             Option[RobotPlayerSelectionPageAnalysisEngine]
 ) extends ProcessingEngine {
 
   override protected val flowController = new LobbyFlowController()
 
-  private final val logger = Logger[LobbyProcessingEngine]
+  private val logger = Logger[LobbyProcessingEngine]
 
   /** Returns a play.api.libs.json.JsValue response from a JSON message.
     *
@@ -160,18 +169,18 @@ final class LobbyProcessingEngine(
           new JsonSubError(
             new JsonName(
               en = s"No $name is set. Please set it to the processing engine.",
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String]
             ),
             "warning",
             "Nothing",
@@ -188,18 +197,18 @@ final class LobbyProcessingEngine(
           new JsonSubError(
             new JsonName(
               en = "LobbyProcessingEngine returns nothing",
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String]
             ),
             "warning",
             jsValue.toString,
@@ -551,6 +560,39 @@ final class LobbyProcessingEngine(
             noAnalysisEngine(
               StopRobotPlayerAnalysisEngine.name,
               StopRobotPlayerAnalysisEngine.isFromServer
+            )
+        }
+      case Right(humanPlayerSelectionPage: JsonHumanPlayerSelectionPage) =>
+        log("JsonHumanPlayerSelectionPage")
+        humanPlayerSelectionPageEngine match {
+          case Some(engine) =>
+            engine.process(box, humanPlayerSelectionPage)
+          case None =>
+            noAnalysisEngine(
+              HumanPlayerSelectionPageAnalysisEngine.name,
+              HumanPlayerSelectionPageAnalysisEngine.isFromServer
+            )
+        }
+      case Right(onymousAudienceSelectionPage: JsonOnymousAudienceSelectionPage) =>
+        log("JsonOnymousAudienceSelectionPage")
+        onymousAudienceSelectionPageEngine match {
+          case Some(engine) =>
+            engine.process(box, onymousAudienceSelectionPage)
+          case None =>
+            noAnalysisEngine(
+              OnymousAudienceSelectionPageAnalysisEngine.name,
+              OnymousAudienceSelectionPageAnalysisEngine.isFromServer
+            )
+        }
+      case Right(robotPlayerSelectionPage: JsonRobotPlayerSelectionPage) =>
+        log("JsonRobotPlayerSelectionPage")
+        robotPlayerSelectionPageEngine match {
+          case Some(engine) =>
+            engine.process(box, robotPlayerSelectionPage)
+          case None =>
+            noAnalysisEngine(
+              RobotPlayerSelectionPageAnalysisEngine.name,
+              RobotPlayerSelectionPageAnalysisEngine.isFromServer
             )
         }
       case _ =>

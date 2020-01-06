@@ -17,7 +17,7 @@ final case class SupportProtocol(
     `15`: SupportedCompositionProtocol
 ) {
 
-  val json: Option[JsonSupport] = {
+  lazy val json: Option[JsonSupport] = {
     for {
       json4  <- `4`.json
       json5  <- `5`.json

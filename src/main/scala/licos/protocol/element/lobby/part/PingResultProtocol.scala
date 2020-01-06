@@ -7,7 +7,7 @@ import licos.knowledge.{Data2Knowledge, PingStatus}
 
 final case class PingResultProtocol(token: UUID, ping: String, status: PingStatus) {
 
-  val json: Option[JsonPingResult] = {
+  lazy val json: Option[JsonPingResult] = {
     Some(
       JsonPingResult(
         token.toString,

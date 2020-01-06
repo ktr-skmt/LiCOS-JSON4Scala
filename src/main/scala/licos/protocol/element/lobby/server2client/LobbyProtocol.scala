@@ -8,7 +8,7 @@ import play.api.libs.json.{JsValue, Json}
 final case class LobbyProtocol(lobby: Lobby, villages: Seq[VillageProtocol], error: Option[ErrorProtocol])
     extends Server2ClientLobbyMessageProtocol {
 
-  private val json: Option[JsonLobby] = {
+  private lazy val json: Option[JsonLobby] = {
     Some(
       new JsonLobby(
         lobby.label,

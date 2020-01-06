@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class PlayedProtocol(lang: Locale) extends Server2ClientLobbyMessageProtocol {
 
-  val json: Option[JsonPlayed] = {
+  lazy val json: Option[JsonPlayed] = {
     Some(
       new JsonPlayed(
         lang.getLanguage

@@ -22,7 +22,7 @@ final case class VoteProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  val json: Option[JsonVote] = {
+  lazy val json: Option[JsonVote] = {
     Some(
       new JsonVote(
         BaseProtocol(

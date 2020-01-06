@@ -14,7 +14,7 @@ final case class VillageProtocol(
     comment:        Option[String]
 ) {
 
-  val json: Option[JsonVillage] = {
+  lazy val json: Option[JsonVillage] = {
     for {
       jsonHostPlayer    <- hostPlayer.json
       jsonPlayerSetting <- playerSetting.json

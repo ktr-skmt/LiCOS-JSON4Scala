@@ -48,6 +48,9 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var selectHumanPlayerEngine:             Option[SelectHumanPlayerAnalysisEngine]             = None
   private var selectOnymousAudienceEngine:         Option[SelectOnymousAudienceAnalysisEngine]         = None
   private var stopRobotPlayerEngine:               Option[StopRobotPlayerAnalysisEngine]               = None
+  private var humanPlayerSelectionPageEngine:      Option[HumanPlayerSelectionPageAnalysisEngine]      = None
+  private var onymousAudienceSelectionPageEngine:  Option[OnymousAudienceSelectionPageAnalysisEngine]  = None
+  private var robotPlayerSelectionPageEngine:      Option[RobotPlayerSelectionPageAnalysisEngine]      = None
 
   /** Creates a lobby processing engine.
     *
@@ -92,7 +95,10 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       runRobotPlayerInTheForegroundEngine:        Option[RunRobotPlayerInTheForegroundAnalysisEngine],
       selectHumanPlayerEngine:                    Option[SelectHumanPlayerAnalysisEngine],
       selectOnymousAudienceEngine:                Option[SelectOnymousAudienceAnalysisEngine],
-      stopRobotPlayerEngine:                      Option[StopRobotPlayerAnalysisEngine]
+      stopRobotPlayerEngine:                      Option[StopRobotPlayerAnalysisEngine],
+      humanPlayerSelectionPageEngine:             Option[HumanPlayerSelectionPageAnalysisEngine],
+      onymousAudienceSelectionPageEngine:         Option[OnymousAudienceSelectionPageAnalysisEngine],
+      robotPlayerSelectionPageEngine:             Option[RobotPlayerSelectionPageAnalysisEngine]
     )
   }
 
@@ -291,6 +297,27 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
 
   def set(stopRobotPlayerEngine: StopRobotPlayerAnalysisEngine): LobbyProcessingEngineFactory = {
     this.stopRobotPlayerEngine = Option(stopRobotPlayerEngine)
+    this
+  }
+
+  def set(
+      humanPlayerSelectionPageAnalysisEngine: HumanPlayerSelectionPageAnalysisEngine
+  ): LobbyProcessingEngineFactory = {
+    this.humanPlayerSelectionPageEngine = Option(humanPlayerSelectionPageAnalysisEngine)
+    this
+  }
+
+  def set(
+      onymousAudienceSelectionPageAnalysisEngine: OnymousAudienceSelectionPageAnalysisEngine
+  ): LobbyProcessingEngineFactory = {
+    this.onymousAudienceSelectionPageEngine = Option(onymousAudienceSelectionPageAnalysisEngine)
+    this
+  }
+
+  def set(
+      robotPlayerSelectionPageAnalysisEngine: RobotPlayerSelectionPageAnalysisEngine
+  ): LobbyProcessingEngineFactory = {
+    this.robotPlayerSelectionPageEngine = Option(robotPlayerSelectionPageAnalysisEngine)
     this
   }
 }

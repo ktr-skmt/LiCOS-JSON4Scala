@@ -10,7 +10,7 @@ import play.api.libs.json.{JsValue, Json}
 final case class BuildVillageProtocol(village: VillageInfoFromLobby, token: UUID, villageName: String)
     extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonBuildVillage] = {
+  private lazy val json: Option[JsonBuildVillage] = {
     Some(
       new JsonBuildVillage(
         token.toString,

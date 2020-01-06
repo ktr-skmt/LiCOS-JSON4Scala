@@ -11,7 +11,7 @@ final case class WaitingPageProtocol(
     error:   Option[ErrorProtocol]
 ) extends Server2ClientLobbyMessageProtocol {
 
-  private val json: Option[JsonWaitingPage] = {
+  private lazy val json: Option[JsonWaitingPage] = {
     village.json.map { jsonVillage: JsonVillage =>
       new JsonWaitingPage(
         jsonVillage,

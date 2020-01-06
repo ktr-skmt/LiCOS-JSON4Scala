@@ -1,14 +1,20 @@
 package licos.protocol.element.lobby.client2server
 
+import java.net.URL
+import java.util.Locale
+
 import licos.json.element.lobby.client2server.JsonCreateOnymousAudience
 import play.api.libs.json.{JsValue, Json}
 
-final case class CreateOnymousAudienceProtocol(name: String) extends Client2ServerLobbyMessageProtocol {
+final case class CreateOnymousAudienceProtocol(name: String, image: URL, lang: Locale)
+    extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonCreateOnymousAudience] = {
+  private lazy val json: Option[JsonCreateOnymousAudience] = {
     Some(
       new JsonCreateOnymousAudience(
-        name
+        name,
+        image.toString,
+        lang.getLanguage
       )
     )
   }
@@ -23,7 +29,9 @@ object CreateOnymousAudienceProtocol {
   def read(json: JsonCreateOnymousAudience): Option[CreateOnymousAudienceProtocol] = {
     Some(
       CreateOnymousAudienceProtocol(
-        json.name
+        json.name,
+        new URL(json.image),
+        new Locale(json.lang)
       )
     )
   }

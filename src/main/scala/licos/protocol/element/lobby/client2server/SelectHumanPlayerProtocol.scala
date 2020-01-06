@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class SelectHumanPlayerProtocol(token: UUID) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonSelectHumanPlayer] = {
+  private lazy val json: Option[JsonSelectHumanPlayer] = {
     Some(
       new JsonSelectHumanPlayer(
         token.toString

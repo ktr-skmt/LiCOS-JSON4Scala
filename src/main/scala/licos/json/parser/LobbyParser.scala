@@ -30,10 +30,13 @@ import licos.json.element.lobby.server2client.{
   JsonAuthorizationRequestAcceptedResponse,
   JsonAvatarInfo,
   JsonGetAvatarInfo,
+  JsonHumanPlayerSelectionPage,
   JsonLobby,
   JsonNewAvatarToken,
+  JsonOnymousAudienceSelectionPage,
   JsonPing,
   JsonPlayed,
+  JsonRobotPlayerSelectionPage,
   JsonSearchResult,
   JsonSettings,
   JsonWaitingPage
@@ -69,10 +72,13 @@ import licos.json.engine.analysis.lobby.server2client.{
   AuthorizationRequestAcceptedResponseAnalysisEngine,
   AuthorizationRequestAnalysisEngine,
   AvatarInfoAnalysisEngine,
+  HumanPlayerSelectionPageAnalysisEngine,
   LobbyAnalysisEngine,
   NewAvatarTokenAnalysisEngine,
+  OnymousAudienceSelectionPageAnalysisEngine,
   PingAnalysisEngine,
   PlayedAnalysisEngine,
+  RobotPlayerSelectionPageAnalysisEngine,
   SearchResultAnalysisEngine,
   SettingsAnalysisEngine,
   WaitingPageAnalysisEngine
@@ -797,6 +803,68 @@ trait LobbyParser extends LiCOSParser {
       case Failure(err: Throwable) =>
         log.error(err.getMessage)
         Left(returnError(err, jsValue, StopRobotPlayerAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Human-player-selection-page JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Human-player-selection-page JSON.
+    */
+  protected def parseHumanPlayerSelectionPage(jsValue: JsValue): Either[JsValue, JsonHumanPlayerSelectionPage] = {
+    Try(jsValue.validate[JsonHumanPlayerSelectionPage]) match {
+      case Success(json: JsResult[JsonHumanPlayerSelectionPage]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, HumanPlayerSelectionPageAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, HumanPlayerSelectionPageAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Onymous-audience-selection-page JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Onymous-audience-selection-page JSON.
+    */
+  protected def parseOnymousAudienceSelectionPage(
+      jsValue: JsValue
+  ): Either[JsValue, JsonOnymousAudienceSelectionPage] = {
+    Try(jsValue.validate[JsonOnymousAudienceSelectionPage]) match {
+      case Success(json: JsResult[JsonOnymousAudienceSelectionPage]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, OnymousAudienceSelectionPageAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, OnymousAudienceSelectionPageAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Robot-player-selection-page JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Robot-player-selection-page JSON.
+    */
+  protected def parseRobotPlayerSelectionPage(jsValue: JsValue): Either[JsValue, JsonRobotPlayerSelectionPage] = {
+    Try(jsValue.validate[JsonRobotPlayerSelectionPage]) match {
+      case Success(json: JsResult[JsonRobotPlayerSelectionPage]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, RobotPlayerSelectionPageAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, RobotPlayerSelectionPageAnalysisEngine.isFromServer))
     }
   }
 }

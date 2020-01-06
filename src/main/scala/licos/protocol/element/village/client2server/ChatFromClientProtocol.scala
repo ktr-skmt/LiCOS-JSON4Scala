@@ -15,7 +15,7 @@ final case class ChatFromClientProtocol(
     myRole:      Role
 ) extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonChatFromClient] = {
+  private lazy val json: Option[JsonChatFromClient] = {
     server2logger.ChatFromClientProtocol(village, channel, text, isOver, myCharacter, myRole, Nil).json
   }
 

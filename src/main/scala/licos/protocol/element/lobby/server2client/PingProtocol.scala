@@ -8,7 +8,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class PingProtocol(id: UUID, results: Seq[PingResultProtocol]) extends Server2ClientLobbyMessageProtocol {
 
-  private val json: Option[JsonPing] = {
+  private lazy val json: Option[JsonPing] = {
     Some(
       new JsonPing(
         id.toString,

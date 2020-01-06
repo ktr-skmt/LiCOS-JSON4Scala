@@ -15,7 +15,7 @@ final case class ScrollProtocol(
     myRole:       Role
 ) extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonScroll] = {
+  private lazy val json: Option[JsonScroll] = {
     server2logger.ScrollProtocol(village, nodeId, scrollTop, scrollHeight, offsetHeight, myCharacter, myRole, Nil).json
   }
 

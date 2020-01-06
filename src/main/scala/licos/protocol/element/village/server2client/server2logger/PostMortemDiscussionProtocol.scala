@@ -33,7 +33,8 @@ final case class PostMortemDiscussionProtocol(
     votingResultsSummary:       Seq[VotingResultSummaryProtocol],
     votingResultsDetail:        Seq[VotingResultDetailProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
-  val json: Option[JsonPhase] = {
+
+  lazy val json: Option[JsonPhase] = {
     Some(
       new JsonPhase(
         BaseProtocol(
@@ -208,7 +209,7 @@ object PostMortemDiscussionProtocol {
           )
         }
     } else {
-      None
+      Option.empty[PostMortemDiscussionProtocol]
     }
   }
 }

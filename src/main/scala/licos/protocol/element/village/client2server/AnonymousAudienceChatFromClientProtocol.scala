@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 final case class AnonymousAudienceChatFromClientProtocol(village: VillageInfo, text: String)
     extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonAnonymousAudienceChat] = {
+  private lazy val json: Option[JsonAnonymousAudienceChat] = {
     server2logger.AnonymousAudienceChatFromClientProtocol(village, text, Nil).json
   }
 
@@ -32,7 +32,7 @@ object AnonymousAudienceChatFromClientProtocol {
           )
         }
     } else {
-      None
+      Option.empty[AnonymousAudienceChatFromClientProtocol]
     }
   }
 

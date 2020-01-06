@@ -16,7 +16,7 @@ final case class OnymousAudienceBoardProtocol(
     myAvatarImage: URL
 ) extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonOnymousAudienceBoard] = {
+  private lazy val json: Option[JsonOnymousAudienceBoard] = {
     server2logger
       .OnymousAudienceBoardProtocol(village, character, role, prediction, myAvatarName, myAvatarImage, Nil)
       .json

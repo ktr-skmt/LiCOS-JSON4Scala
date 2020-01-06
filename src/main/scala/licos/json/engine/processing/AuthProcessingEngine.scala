@@ -21,7 +21,7 @@ final class AuthProcessingEngine(
 
   override protected val flowController = new AuthFlowController()
 
-  private final val logger = Logger[LobbyProcessingEngine]
+  private val logger = Logger[LobbyProcessingEngine]
 
   override def process(box: BOX, msg: String): Either[JsValue, JsValue] = {
 
@@ -39,18 +39,18 @@ final class AuthProcessingEngine(
           new JsonSubError(
             new JsonName(
               en = s"No $name is set. Please set it to the processing engine.",
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String]
             ),
             "warning",
             "Nothing",
@@ -67,18 +67,18 @@ final class AuthProcessingEngine(
           new JsonSubError(
             new JsonName(
               en = "AuthProcessingEngine returns nothing",
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String]
             ),
             "warning",
             jsValue.toString,

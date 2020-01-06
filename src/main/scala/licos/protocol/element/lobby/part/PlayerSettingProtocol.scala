@@ -4,7 +4,7 @@ import licos.json.element.lobby.JsonPlayerSetting
 
 final case class PlayerSettingProtocol(number: Int, current: Int, robot: RobotProtocol, human: HumanProtocol) {
 
-  val json: Option[JsonPlayerSetting] = {
+  lazy val json: Option[JsonPlayerSetting] = {
     for {
       jsonRobot <- robot.json
       jsonHuman <- human.json

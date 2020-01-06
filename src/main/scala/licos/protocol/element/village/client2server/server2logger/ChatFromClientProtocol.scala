@@ -25,7 +25,7 @@ final case class ChatFromClientProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  val json: Option[JsonChatFromClient] = {
+  lazy val json: Option[JsonChatFromClient] = {
     Some(
       new JsonChatFromClient(
         BaseProtocol(

@@ -12,7 +12,9 @@ import json.engine.lobby.unitTestExample.{
   PlayerSetting,
   PlayerTokenInKickOutPlayer,
   Robot,
+  RobotPlayerInfo,
   RoleSetting,
+  SubAvatarInfo,
   Support,
   SupportedComposition
 }
@@ -37,7 +39,9 @@ object LobbyUnitTestSuite {
     RoleSetting("roleSetting.json"),
     PlayerSetting("playerSetting.json"),
     SupportedComposition("supportedComposition.json"),
-    Support("support.json")
+    Support("support.json"),
+    SubAvatarInfo("subAvatarInfo.json"),
+    RobotPlayerInfo("robotPlayerInfo.json")
   )
 }
 
@@ -79,6 +83,10 @@ final class LobbyUnitTestSuite extends AssertionsForJUnit with LobbyUnitTestPars
         assert(parseSupportedComposition(json).nonEmpty)
       case "unitTest/Support" =>
         assert(parseSupport(json).nonEmpty)
+      case "unitTest/SubAvatarInfo" =>
+        assert(parseSubAvatarInfo(json).nonEmpty)
+      case "unitTest/RobotPlayerInfo" =>
+        assert(parseRobotPlayerInfo(json).nonEmpty)
       case _ =>
         fail("no json type")
     }

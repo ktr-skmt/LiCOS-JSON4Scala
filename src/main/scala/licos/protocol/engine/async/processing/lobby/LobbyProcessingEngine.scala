@@ -52,7 +52,10 @@ final class LobbyProcessingEngine(
     runRobotPlayerInTheForegroundEngine:        Option[RunRobotPlayerInTheForegroundAnalysisEngine],
     selectHumanPlayerEngine:                    Option[SelectHumanPlayerAnalysisEngine],
     selectOnymousAudienceEngine:                Option[SelectOnymousAudienceAnalysisEngine],
-    stopRobotPlayerEngine:                      Option[StopRobotPlayerAnalysisEngine]
+    stopRobotPlayerEngine:                      Option[StopRobotPlayerAnalysisEngine],
+    humanPlayerSelectionPageEngine:             Option[HumanPlayerSelectionPageAnalysisEngine],
+    onymousAudienceSelectionPageEngine:         Option[OnymousAudienceSelectionPageAnalysisEngine],
+    robotPlayerSelectionPageEngine:             Option[RobotPlayerSelectionPageAnalysisEngine]
 ) extends ProcessingEngine {
 
   private final val logger = Logger[LobbyProcessingEngine]
@@ -336,6 +339,27 @@ final class LobbyProcessingEngine(
             log(StopRobotPlayerAnalysisEngine.name)
             engine.process(box, protocol)
           case None => Future.failed(new NoEngineException(StopRobotPlayerAnalysisEngine.name))
+        }
+      case protocol: HumanPlayerSelectionPageProtocol =>
+        humanPlayerSelectionPageEngine match {
+          case Some(engine) =>
+            log(HumanPlayerSelectionPageAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Future.failed(new NoEngineException(HumanPlayerSelectionPageAnalysisEngine.name))
+        }
+      case protocol: OnymousAudienceSelectionPageProtocol =>
+        onymousAudienceSelectionPageEngine match {
+          case Some(engine) =>
+            log(OnymousAudienceSelectionPageAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Future.failed(new NoEngineException(OnymousAudienceSelectionPageAnalysisEngine.name))
+        }
+      case protocol: RobotPlayerSelectionPageProtocol =>
+        robotPlayerSelectionPageEngine match {
+          case Some(engine) =>
+            log(RobotPlayerSelectionPageAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Future.failed(new NoEngineException(RobotPlayerSelectionPageAnalysisEngine.name))
         }
       case _ =>
         Future.failed(new JSON2ProtocolException("No protocol"))

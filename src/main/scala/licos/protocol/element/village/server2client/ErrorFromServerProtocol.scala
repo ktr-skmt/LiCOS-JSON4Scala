@@ -15,7 +15,7 @@ final case class ErrorFromServerProtocol(
     source:   String
 ) extends Server2ClientVillageMessageProtocol {
 
-  private val json: Option[JsonError] = {
+  private lazy val json: Option[JsonError] = {
     Some(
       new JsonError(
         BaseProtocol(
@@ -75,7 +75,7 @@ object ErrorFromServerProtocol {
           }
         }
     } else {
-      None
+      Option.empty[ErrorFromServerProtocol]
     }
   }
 

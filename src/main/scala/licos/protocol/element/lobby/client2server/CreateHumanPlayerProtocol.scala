@@ -1,14 +1,20 @@
 package licos.protocol.element.lobby.client2server
 
+import java.net.URL
+import java.util.Locale
+
 import licos.json.element.lobby.client2server.JsonCreateHumanPlayer
 import play.api.libs.json.{JsValue, Json}
 
-final case class CreateHumanPlayerProtocol(name: String) extends Client2ServerLobbyMessageProtocol {
+final case class CreateHumanPlayerProtocol(name: String, image: URL, lang: Locale)
+    extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonCreateHumanPlayer] = {
+  private lazy val json: Option[JsonCreateHumanPlayer] = {
     Some(
       new JsonCreateHumanPlayer(
-        name
+        name,
+        image.toString,
+        lang.getLanguage
       )
     )
   }
@@ -23,7 +29,9 @@ object CreateHumanPlayerProtocol {
   def read(json: JsonCreateHumanPlayer): Option[CreateHumanPlayerProtocol] = {
     Some(
       CreateHumanPlayerProtocol(
-        json.name
+        json.name,
+        new URL(json.image),
+        new Locale(json.lang)
       )
     )
   }

@@ -24,7 +24,8 @@ object Json2AuthMessageProtocol extends Json2Protocol {
         AuthenticationRequestResponseProtocol.read(json)
       case Right(json: JsonAuthorizationRequestResponse) =>
         AuthorizationRequestResponseProtocol.read(json)
-      case _ => None
+      case _ =>
+        Option.empty[AuthMessageProtocol]
     }
   }
 }

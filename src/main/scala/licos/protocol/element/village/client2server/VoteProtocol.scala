@@ -8,7 +8,7 @@ import play.api.libs.json.{JsValue, Json}
 final case class VoteProtocol(village: VillageInfo, character: Character, myCharacter: Character, myRole: Role)
     extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonVote] = {
+  private lazy val json: Option[JsonVote] = {
     server2logger.VoteProtocol(village, character, myCharacter, myRole, Nil).json
   }
 

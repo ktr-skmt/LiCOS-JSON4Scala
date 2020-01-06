@@ -15,7 +15,7 @@ final case class StarInfoProtocol(
     isMarked:        Boolean
 ) {
 
-  val json: JsonStarInfo = {
+  lazy val json: JsonStarInfo = {
     JsonStarInfo(
       StarContext.iri,
       LiCOSOnline.state(villageId, "star"),

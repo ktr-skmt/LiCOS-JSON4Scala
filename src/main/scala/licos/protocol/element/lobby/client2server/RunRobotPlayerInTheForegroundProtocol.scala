@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class RunRobotPlayerInTheForegroundProtocol(token: UUID) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonRunRobotPlayerInTheForeground] = {
+  private lazy val json: Option[JsonRunRobotPlayerInTheForeground] = {
     Some(
       new JsonRunRobotPlayerInTheForeground(
         token.toString

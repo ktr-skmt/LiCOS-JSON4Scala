@@ -10,7 +10,7 @@ import licos.util.LiCOSOnline
 
 final case class RoleCharacterProtocol(character: Character, role: Role, villageId: Long, language: Locale) {
 
-  val json: JsonRoleCharacter = {
+  lazy val json: JsonRoleCharacter = {
     val `@id`: String = LiCOSOnline.state(villageId, "/myCharacter")
     JsonRoleCharacter(
       CharacterContext.iri,

@@ -26,7 +26,7 @@ final case class FirstMorningPhaseProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  val json: Option[JsonPhase] = {
+  lazy val json: Option[JsonPhase] = {
     Some(
       new JsonPhase(
         BaseProtocol(
@@ -150,7 +150,7 @@ object FirstMorningPhaseProtocol {
           )
         }
     } else {
-      None
+      Option.empty[FirstMorningPhaseProtocol]
     }
   }
 

@@ -7,7 +7,7 @@ import licos.protocol.element.auth.AuthMessageProtocol
 import play.api.libs.json.{JsValue, Json}
 
 final case class AuthorizationRequestResponseProtocol(accessToken: UUID, response: String) extends AuthMessageProtocol {
-  private val json: Option[JsonAuthorizationRequestResponse] = {
+  private lazy val json: Option[JsonAuthorizationRequestResponse] = {
     Some(
       new JsonAuthorizationRequestResponse(
         accessToken.toString,

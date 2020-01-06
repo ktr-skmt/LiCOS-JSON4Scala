@@ -4,7 +4,7 @@ import licos.json.element.lobby.JsonHostPlayer
 
 final case class HostPlayerProtocol(name: String, isAnonymous: Boolean, isHuman: Boolean) {
 
-  val json: Option[JsonHostPlayer] = {
+  lazy val json: Option[JsonHostPlayer] = {
     Some(
       JsonHostPlayer(
         name,

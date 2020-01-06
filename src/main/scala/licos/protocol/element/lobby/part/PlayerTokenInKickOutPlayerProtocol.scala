@@ -6,7 +6,7 @@ import licos.json.element.lobby.client2server.JsonPlayerTokenInKickOutPlayer
 
 final case class PlayerTokenInKickOutPlayerProtocol(token: UUID) {
 
-  val json: Option[JsonPlayerTokenInKickOutPlayer] = {
+  lazy val json: Option[JsonPlayerTokenInKickOutPlayer] = {
     Some(
       JsonPlayerTokenInKickOutPlayer(
         token.toString

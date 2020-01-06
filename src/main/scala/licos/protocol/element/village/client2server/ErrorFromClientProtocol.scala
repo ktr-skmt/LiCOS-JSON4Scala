@@ -13,7 +13,7 @@ final case class ErrorFromClientProtocol(
     source:   String
 ) extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonError] = {
+  private lazy val json: Option[JsonError] = {
     server2logger.ErrorFromClientProtocol(village, content, severity, source, Nil).json
   }
 

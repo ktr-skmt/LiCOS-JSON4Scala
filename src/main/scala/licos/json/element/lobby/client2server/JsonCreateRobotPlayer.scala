@@ -1,16 +1,21 @@
 package licos.json.element.lobby.client2server
 
 import licos.json.element.lobby.TypeSystem
-import licos.json.validation.lobby.CreateRobotPlayerValidation
-import licos.json.validation.village.AvatarValidation
+import licos.json.validation.village.{AvatarValidation, VillageValidation}
 
-final case class JsonCreateRobotPlayer(`type`: String, name: String, automationType: String, support: JsonSupport)
-    extends TypeSystem(`type`) {
+final case class JsonCreateRobotPlayer(
+    `type`:           String,
+    name:             String,
+    image:            String,
+    lang:             String,
+    isFullyAutomated: Boolean,
+    support:          JsonSupport
+) extends TypeSystem(`type`) {
   override protected def validType: String = JsonCreateRobotPlayer.`type`
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
-  def this(name: String, automationType: String, support: JsonSupport) = {
-    this(JsonCreateRobotPlayer.`type`, name, automationType, support)
+  def this(name: String, image: String, lang: String, isFullyAutomated: Boolean, support: JsonSupport) = {
+    this(JsonCreateRobotPlayer.`type`, name, image, lang, isFullyAutomated, support)
   }
 }
 
@@ -25,7 +30,9 @@ object JsonCreateRobotPlayer {
   implicit val jsonReads: Reads[JsonCreateRobotPlayer] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "name").read[String](AvatarValidation.name) and
-      (JsPath \ "automationType").read[String](CreateRobotPlayerValidation.automationType) and
+      (JsPath \ "image").read[String](AvatarValidation.image) and
+      (JsPath \ "lang").read[String](VillageValidation.language) and
+      (JsPath \ "isFullyAutomated").read[Boolean] and
       (JsPath \ "support").read[JsonSupport]
   )(JsonCreateRobotPlayer.apply _)
 

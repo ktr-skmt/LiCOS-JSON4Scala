@@ -50,7 +50,10 @@ final class LobbyProcessingEngine(
     runRobotPlayerInTheForegroundEngine:        Option[RunRobotPlayerInTheForegroundAnalysisEngine],
     selectHumanPlayerEngine:                    Option[SelectHumanPlayerAnalysisEngine],
     selectOnymousAudienceEngine:                Option[SelectOnymousAudienceAnalysisEngine],
-    stopRobotPlayerEngine:                      Option[StopRobotPlayerAnalysisEngine]
+    stopRobotPlayerEngine:                      Option[StopRobotPlayerAnalysisEngine],
+    humanPlayerSelectionPageEngine:             Option[HumanPlayerSelectionPageAnalysisEngine],
+    onymousAudienceSelectionPageEngine:         Option[OnymousAudienceSelectionPageAnalysisEngine],
+    robotPlayerSelectionPageEngine:             Option[RobotPlayerSelectionPageAnalysisEngine]
 ) extends ProcessingEngine {
 
   private val logger = Logger[LobbyProcessingEngine]
@@ -328,6 +331,13 @@ final class LobbyProcessingEngine(
             log(StopRobotPlayerAnalysisEngine.name)
             engine.process(box, protocol)
           case None => Failure(new NoEngineException(StopRobotPlayerAnalysisEngine.name))
+        }
+      case protocol: HumanPlayerSelectionPageProtocol =>
+        humanPlayerSelectionPageEngine match {
+          case Some(engine) =>
+            log(HumanPlayerSelectionPageAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(HumanPlayerSelectionPageAnalysisEngine.name))
         }
       case _ =>
         Failure(new JSON2ProtocolException("No protocol"))

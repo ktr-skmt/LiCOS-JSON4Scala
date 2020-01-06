@@ -14,7 +14,7 @@ final case class BoardProtocol(
     myRole:      Role
 ) extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonBoard] = {
+  private lazy val json: Option[JsonBoard] = {
     server2logger.BoardProtocol(village, character, role, prediction, myCharacter, myRole, Nil).json
   }
 

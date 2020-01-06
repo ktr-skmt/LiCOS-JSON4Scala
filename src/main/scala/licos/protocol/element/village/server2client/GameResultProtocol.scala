@@ -17,7 +17,7 @@ final case class GameResultProtocol(
     role:      Seq[ResultRoleProtocol]
 ) extends Server2ClientVillageMessageProtocol {
 
-  private val json: Option[JsonGameResult] = {
+  private lazy val json: Option[JsonGameResult] = {
     server2logger.GameResultProtocol(village, character, role, Nil).json
   }
 

@@ -5,7 +5,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class ChangeUserPasswordProtocol(userPassword: String) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonChangeUserPassword] = {
+  private lazy val json: Option[JsonChangeUserPassword] = {
     Some(
       new JsonChangeUserPassword(
         userPassword

@@ -9,7 +9,7 @@ final case class ChatSettingsProtocol(
     maxNumberOfChatMessages:      Int,
     maxLengthOfUnicodeCodePoints: Int
 ) {
-  val json: JsonChatSettings =
+  lazy val json: JsonChatSettings =
     JsonChatSettings(
       ChatSettingsContext.iri,
       LiCOSOnline.state(villageId, "chatSettings"),

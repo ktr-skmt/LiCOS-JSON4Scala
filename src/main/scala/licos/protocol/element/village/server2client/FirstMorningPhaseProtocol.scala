@@ -17,7 +17,7 @@ final case class FirstMorningPhaseProtocol(
     role:      Seq[RoleProtocol]
 ) extends Server2ClientVillageMessageProtocol {
 
-  private val json: Option[JsonPhase] = {
+  private lazy val json: Option[JsonPhase] = {
     server2logger.FirstMorningPhaseProtocol(village, character, role, Nil).json
   }
 
@@ -90,7 +90,7 @@ object FirstMorningPhaseProtocol {
           )
         }
     } else {
-      None
+      Option.empty[FirstMorningPhaseProtocol]
     }
   }
 

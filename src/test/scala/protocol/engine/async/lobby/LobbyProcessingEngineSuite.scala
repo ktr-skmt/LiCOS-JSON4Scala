@@ -48,10 +48,13 @@ import protocol.engine.async.lobby.analysis.server2client.{
   AuthorizationRequestAE,
   AuthorizationRequestAcceptedResponseAE,
   AvatarInfoAE,
+  HumanPlayerSelectionPageAE,
   LobbyAE,
   NewAvatarTokenAE,
+  OnymousAudienceSelectionPageAE,
   PingAE,
   PlayedAE,
+  RobotPlayerSelectionPageAE,
   SearchResultAE,
   SettingsAE,
   WaitingPageAE
@@ -91,10 +94,13 @@ import protocol.engine.lobby.example.server2client.{
   AuthorizationRequest,
   AuthorizationRequestAcceptedResponse,
   AvatarInfo,
+  HumanPlayerSelectionPage,
   Lobby,
   NewAvatarToken,
+  OnymousAudienceSelectionPage,
   Ping,
   Played,
+  RobotPlayerSelectionPage,
   SearchResult,
   Settings,
   WaitingPage
@@ -148,7 +154,10 @@ object LobbyProcessingEngineSuite {
     RunRobotPlayerInTheForeground("runRobotPlayerInTheForeground.json"),
     SelectHumanPlayer("selectHumanPlayer.json"),
     SelectOnymousAudience("selectOnymousAudience.json"),
-    StopRobotPlayer("stopRobotPlayer.json")
+    StopRobotPlayer("stopRobotPlayer.json"),
+    HumanPlayerSelectionPage("humanPlayerSelectionPage.json"),
+    OnymousAudienceSelectionPage("onymousAudienceSelectionPage.json"),
+    RobotPlayerSelectionPage("robotPlayerSelectionPage.json")
   )
 }
 
@@ -198,6 +207,9 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyPars
     .set(new SelectHumanPlayerAE())
     .set(new SelectOnymousAudienceAE())
     .set(new StopRobotPlayerAE())
+    .set(new HumanPlayerSelectionPageAE())
+    .set(new OnymousAudienceSelectionPageAE())
+    .set(new RobotPlayerSelectionPageAE())
 
   private val processingEngine: LobbyProcessingEngine = processingEngineFactory.create
 

@@ -19,7 +19,7 @@ final case class BuildVillageProtocol(
     comment:        Option[String]
 ) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonBuildVillage] = {
+  private lazy val json: Option[JsonBuildVillage] = {
     for {
       jsonHostPlayer    <- hostPlayer.json
       jsonPlayerSetting <- playerSetting.json

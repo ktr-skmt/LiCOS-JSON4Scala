@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class SelectOnymousAudienceProtocol(token: UUID) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonSelectOnymousAudience] = {
+  private lazy val json: Option[JsonSelectOnymousAudience] = {
     Some(
       new JsonSelectOnymousAudience(
         token.toString

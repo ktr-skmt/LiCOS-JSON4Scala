@@ -1,17 +1,20 @@
 package licos.json.element.lobby.client2server
 
 import licos.json.element.lobby.TypeSystem
-import licos.json.validation.village.AvatarValidation
+import licos.json.validation.village.{AvatarValidation, VillageValidation}
 
-final case class JsonCreateHumanPlayer(`type`: String, name: String) extends TypeSystem(`type`) {
+final case class JsonCreateHumanPlayer(`type`: String, name: String, image: String, lang: String)
+    extends TypeSystem(`type`) {
 
   override protected def validType: String = JsonCreateHumanPlayer.`type`
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
-  def this(name: String) = {
+  def this(name: String, image: String, lang: String) = {
     this(
       JsonCreateHumanPlayer.`type`,
-      name
+      name,
+      image,
+      lang
     )
   }
 
@@ -27,7 +30,9 @@ object JsonCreateHumanPlayer {
 
   implicit val jsonReads: Reads[JsonCreateHumanPlayer] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
-      (JsPath \ "name").read[String](AvatarValidation.name)
+      (JsPath \ "name").read[String](AvatarValidation.name) and
+      (JsPath \ "image").read[String](AvatarValidation.image) and
+      (JsPath \ "lang").read[String](VillageValidation.language)
   )(JsonCreateHumanPlayer.apply _)
 
   implicit val jsonWrites: OWrites[JsonCreateHumanPlayer] = Json.writes[JsonCreateHumanPlayer]

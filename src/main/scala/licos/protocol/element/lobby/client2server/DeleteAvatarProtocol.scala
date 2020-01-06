@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class DeleteAvatarProtocol(token: Seq[UUID]) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonDeleteAvatar] = {
+  private lazy val json: Option[JsonDeleteAvatar] = {
     Some(
       new JsonDeleteAvatar(
         token

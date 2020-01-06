@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class NewAvatarTokenProtocol(token: UUID) extends Server2ClientLobbyMessageProtocol {
 
-  private val json: Option[JsonNewAvatarToken] = Some(new JsonNewAvatarToken(token.toString))
+  private lazy val json: Option[JsonNewAvatarToken] = Some(new JsonNewAvatarToken(token.toString))
 
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
