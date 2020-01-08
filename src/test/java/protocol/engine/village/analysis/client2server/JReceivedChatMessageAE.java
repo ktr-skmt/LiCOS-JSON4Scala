@@ -16,7 +16,7 @@ public class JReceivedChatMessageAE implements ReceivedChatMessageAnalysisEngine
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, ReceivedChatMessageProtocol receivedChatMessage) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new ReceivedChatMessage(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new ReceivedChatMessage("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

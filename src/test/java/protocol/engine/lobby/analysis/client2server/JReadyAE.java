@@ -16,7 +16,7 @@ public class JReadyAE implements ReadyAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, ReadyProtocol readyProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new Ready(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new Ready("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

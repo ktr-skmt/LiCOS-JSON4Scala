@@ -10,7 +10,7 @@ import play.api.libs.json.{JsValue, Json}
 final case class CreateRobotPlayerProtocol(
     name:             String,
     image:            URL,
-    lang:             Locale,
+    language:         Locale,
     isFullyAutomated: Boolean,
     support:          SupportProtocol
 ) extends Client2ServerLobbyMessageProtocol {
@@ -20,7 +20,7 @@ final case class CreateRobotPlayerProtocol(
       new JsonCreateRobotPlayer(
         name,
         image.toString,
-        lang.getLanguage,
+        language.getLanguage,
         isFullyAutomated,
         jsonSupport
       )
@@ -70,7 +70,7 @@ object CreateRobotPlayerProtocol {
       CreateRobotPlayerProtocol(
         json.name,
         new URL(json.image),
-        new Locale(json.lang),
+        new Locale(json.language),
         json.isFullyAutomated,
         support
       )

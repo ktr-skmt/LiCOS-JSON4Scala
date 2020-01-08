@@ -16,7 +16,7 @@ public class JDeleteAvatarAE implements DeleteAvatarAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, DeleteAvatarProtocol deleteAvatarProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new DeleteAvatar(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new DeleteAvatar("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

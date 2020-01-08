@@ -16,7 +16,7 @@ public class JLobbyAE implements LobbyAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, LobbyProtocol lobbyProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new Lobby(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new Lobby("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

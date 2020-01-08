@@ -17,7 +17,7 @@ public class JReadyAE implements ReadyAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, ReadyProtocol ready) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new Ready(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new Ready("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

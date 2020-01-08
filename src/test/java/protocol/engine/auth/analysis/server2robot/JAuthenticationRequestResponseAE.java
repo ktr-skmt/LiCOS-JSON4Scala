@@ -16,7 +16,7 @@ public class JAuthenticationRequestResponseAE implements AuthenticationRequestRe
     @Override
     public Try<AuthMessageProtocol> process(AuthBOX box, AuthenticationRequestResponseProtocol authenticationRequestResponseProtocol) {
         if (box instanceof JAuthBox) {
-            return Success.apply(AuthMessageTestProtocol.apply(new AuthenticationRequestResponse(null).type()));
+            return Success.apply(AuthMessageTestProtocol.apply(new AuthenticationRequestResponse("").type()));
         } else {
             return Failure.apply(new AuthBOXNotFoundException(null, null));
         }

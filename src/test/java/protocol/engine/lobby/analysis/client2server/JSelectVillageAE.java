@@ -16,7 +16,7 @@ public class JSelectVillageAE implements SelectVillageAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, SelectVillageProtocol selectVillageProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new SelectVillage(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new SelectVillage("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

@@ -16,7 +16,7 @@ public class JAuthenticationAndAuthorizationRequestAE implements AuthenticationA
     @Override
     public Try<AuthMessageProtocol> process(AuthBOX box, AuthenticationAndAuthorizationRequestProtocol authenticationAndAuthorizationRequestProtocol) {
         if (box instanceof JAuthBox) {
-            return Success.apply(AuthMessageTestProtocol.apply(new AuthenticationAndAuthorizationRequest(null).type()));
+            return Success.apply(AuthMessageTestProtocol.apply(new AuthenticationAndAuthorizationRequest("").type()));
         } else {
             return Failure.apply(new AuthBOXNotFoundException(null, null));
         }

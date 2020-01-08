@@ -16,7 +16,7 @@ public class JVoteAE implements VoteAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, VoteProtocol vote) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new Vote(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new Vote("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

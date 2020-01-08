@@ -16,7 +16,7 @@ public class JStopRobotPlayerAE implements StopRobotPlayerAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, StopRobotPlayerProtocol stopRobotPlayerProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new StopRobotPlayer(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new StopRobotPlayer("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

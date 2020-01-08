@@ -16,7 +16,7 @@ public class JCreateRobotPlayerAE implements CreateRobotPlayerAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, CreateRobotPlayerProtocol createRobotPlayerProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new CreateRobotPlayer(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new CreateRobotPlayer("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

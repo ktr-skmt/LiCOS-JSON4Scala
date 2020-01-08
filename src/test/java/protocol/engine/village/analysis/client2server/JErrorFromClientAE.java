@@ -16,7 +16,7 @@ public class JErrorFromClientAE implements ErrorFromClientAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, ErrorFromClientProtocol errorFromClient) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new ErrorFromClient(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new ErrorFromClient("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

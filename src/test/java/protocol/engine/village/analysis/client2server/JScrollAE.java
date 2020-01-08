@@ -16,7 +16,7 @@ public class JScrollAE implements ScrollAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, ScrollProtocol scroll) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new Scroll(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new Scroll("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

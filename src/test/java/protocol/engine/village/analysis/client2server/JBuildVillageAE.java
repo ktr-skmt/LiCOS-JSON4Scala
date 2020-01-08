@@ -17,7 +17,7 @@ public class JBuildVillageAE implements BuildVillageAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, BuildVillageProtocol buildVillage) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new BuildVillage(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new BuildVillage("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

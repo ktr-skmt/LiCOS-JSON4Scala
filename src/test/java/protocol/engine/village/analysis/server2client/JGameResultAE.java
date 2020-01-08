@@ -16,7 +16,7 @@ public class JGameResultAE implements GameResultAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, GameResultProtocol gameResult) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new GameResult(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new GameResult("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

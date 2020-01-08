@@ -5,12 +5,12 @@ import java.util.Locale
 import licos.json.element.lobby.server2client.JsonPlayed
 import play.api.libs.json.{JsValue, Json}
 
-final case class PlayedProtocol(lang: Locale) extends Server2ClientLobbyMessageProtocol {
+final case class PlayedProtocol(language: Locale) extends Server2ClientLobbyMessageProtocol {
 
   lazy val json: Option[JsonPlayed] = {
     Some(
       new JsonPlayed(
-        lang.getLanguage
+        language.getLanguage
       )
     )
   }
@@ -25,7 +25,7 @@ object PlayedProtocol {
   def read(json: JsonPlayed): Option[PlayedProtocol] = {
     Some(
       PlayedProtocol(
-        new Locale(json.lang)
+        new Locale(json.language)
       )
     )
   }

@@ -19,7 +19,7 @@ import protocol.engine.lobby.analysis.client2server.{
   AdvancedSearchAE,
   AuthorizationRequestAcceptedAE,
   BuildVillageAE,
-  ChangeLangAE,
+  ChangeLanguageAE,
   ChangeUserEmailAE,
   ChangeUserNameAE,
   ChangeUserPasswordAE,
@@ -27,6 +27,7 @@ import protocol.engine.lobby.analysis.client2server.{
   CreateOnymousAudienceAE,
   CreateRobotPlayerAE,
   DeleteAvatarAE,
+  EnterAvatarSelectionPageAE,
   EnterLobbyAE,
   GetAvatarInfoAE,
   GetSettingsAE,
@@ -38,11 +39,9 @@ import protocol.engine.lobby.analysis.client2server.{
   ReadyAE,
   RenewAvatarTokenAE,
   RunRobotPlayerInTheBackgroundAE,
-  RunRobotPlayerInTheForegroundAE,
-  SelectHumanPlayerAE,
-  SelectOnymousAudienceAE,
   SelectVillageAE,
-  StopRobotPlayerAE
+  StopRobotPlayerAE,
+  UpdateAvatarAE
 }
 import protocol.engine.lobby.analysis.server2client.{
   AuthorizationRequestAE,
@@ -64,7 +63,7 @@ import protocol.engine.lobby.example.client2server.{
   AdvancedSearch,
   AuthorizationRequestAccepted,
   BuildVillage,
-  ChangeLang,
+  ChangeLanguage,
   ChangeUserEmail,
   ChangeUserName,
   ChangeUserPassword,
@@ -72,6 +71,7 @@ import protocol.engine.lobby.example.client2server.{
   CreateOnymousAudience,
   CreateRobotPlayer,
   DeleteAvatar,
+  EnterAvatarSelectionPage,
   EnterLobby,
   GetAvatarInfo,
   GetSettings,
@@ -83,11 +83,9 @@ import protocol.engine.lobby.example.client2server.{
   Ready,
   RenewAvatarToken,
   RunRobotPlayerInTheBackground,
-  RunRobotPlayerInTheForeground,
-  SelectHumanPlayer,
-  SelectOnymousAudience,
   SelectVillage,
-  StopRobotPlayer
+  StopRobotPlayer,
+  UpdateAvatar
 }
 import protocol.engine.lobby.example.server2client.{
   AuthorizationRequest,
@@ -114,7 +112,7 @@ object LobbyProcessingEngineSuite {
   def exampleSeq: Array[LobbyExample] = Array[LobbyExample](
     AdvancedSearch("advancedSearch.json"),
     BuildVillage("buildVillage.json"),
-    ChangeLang("changeLang.json"),
+    ChangeLanguage("changeLanguage.json"),
     ChangeUserEmail("changeUserEmail.json"),
     ChangeUserName("changeUserName.json"),
     ChangeUserPassword("changeUserPassword.json"),
@@ -130,16 +128,19 @@ object LobbyProcessingEngineSuite {
     Play("play.json"),
     Pong("pong.json"),
     Ready("ready.json"),
-    SelectVillage("selectVillageForHumanPlayer.json"),
+    SelectVillage("selectVillage.json"),
     AuthorizationRequest("authorizationRequest.json"),
     AuthorizationRequestAcceptedResponse("authorizationRequestAcceptedResponse.json"),
     AvatarInfo("avatar.json"),
+    Lobby("lobbyForAnonymousAudience.json"),
     Lobby("lobbyForHumanPlayer.json"),
+    Lobby("lobbyForOnymousAudience.json"),
+    Lobby("lobbyForRobotPlayer.json"),
     Ping("ping.json"),
     Played("played.json"),
     SearchResult("searchResult.json"),
     Settings("settings.json"),
-    WaitingPage("waitingPageForHumanPlayer.json"),
+    WaitingPage("waitingPage.json"),
     PlayedWithToken("playedWithToken.json"),
     AuthorizationRequestAccepted("authorizationRequestAccepted.json"),
     RenewAvatarToken("renewAvatarToken.json"),
@@ -149,13 +150,14 @@ object LobbyProcessingEngineSuite {
     CreateRobotPlayer("createRobotPlayer.json"),
     DeleteAvatar("deleteAvatar.json"),
     RunRobotPlayerInTheBackground("runRobotPlayerInTheBackground.json"),
-    RunRobotPlayerInTheForeground("runRobotPlayerInTheForeground.json"),
-    SelectHumanPlayer("selectHumanPlayer.json"),
-    SelectOnymousAudience("selectOnymousAudience.json"),
     StopRobotPlayer("stopRobotPlayer.json"),
     HumanPlayerSelectionPage("humanPlayerSelectionPage.json"),
     OnymousAudienceSelectionPage("onymousAudienceSelectionPage.json"),
-    RobotPlayerSelectionPage("robotPlayerSelectionPage.json")
+    RobotPlayerSelectionPage("robotPlayerSelectionPage.json"),
+    UpdateAvatar("updateAvatarName.json"),
+    UpdateAvatar("updateAvatarImage.json"),
+    UpdateAvatar("updateAvatarLanguage.json"),
+    EnterAvatarSelectionPage("enterAvatarSelectionPage.json")
   )
 }
 
@@ -170,7 +172,7 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyPars
     .set(new AdvancedSearchAE())
     .set(new AvatarInfoAE())
     .set(new BuildVillageAE())
-    .set(new ChangeLangAE())
+    .set(new ChangeLanguageAE())
     .set(new ChangeUserEmailAE())
     .set(new ChangeUserNameAE())
     .set(new ChangeUserPasswordAE())
@@ -201,13 +203,12 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyPars
     .set(new CreateRobotPlayerAE())
     .set(new DeleteAvatarAE())
     .set(new RunRobotPlayerInTheBackgroundAE())
-    .set(new RunRobotPlayerInTheForegroundAE())
-    .set(new SelectHumanPlayerAE())
-    .set(new SelectOnymousAudienceAE())
     .set(new StopRobotPlayerAE())
     .set(new HumanPlayerSelectionPageAE())
     .set(new OnymousAudienceSelectionPageAE())
     .set(new RobotPlayerSelectionPageAE())
+    .set(new UpdateAvatarAE())
+    .set(new EnterAvatarSelectionPageAE())
 
   private val processingEngine: LobbyProcessingEngine = processingEngineFactory.create
 

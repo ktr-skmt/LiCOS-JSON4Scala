@@ -16,7 +16,7 @@ public class JBuildVillageAE implements BuildVillageAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, BuildVillageProtocol buildVillageProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new BuildVillage(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new BuildVillage("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

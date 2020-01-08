@@ -17,7 +17,7 @@ public class JOnymousAudienceChatFromClientAE implements OnymousAudienceChatFrom
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, OnymousAudienceChatFromClientProtocol onymousAudienceChatFromClient) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new OnymousAudienceChatFromClient(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new OnymousAudienceChatFromClient("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

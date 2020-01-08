@@ -17,7 +17,7 @@ public class JReceivedSystemMessageAE implements ReceivedSystemMessageAnalysisEn
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, ReceivedSystemMessageProtocol receivedSystemMessage) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new ReceivedSystemMessage(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new ReceivedSystemMessage("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

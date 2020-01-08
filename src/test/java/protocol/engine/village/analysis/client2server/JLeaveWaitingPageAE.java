@@ -16,7 +16,7 @@ public class JLeaveWaitingPageAE implements LeaveWaitingPageAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, LeaveWaitingPageProtocol leaveWaitingPageProtocol) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new LeaveWaitingPage(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new LeaveWaitingPage("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

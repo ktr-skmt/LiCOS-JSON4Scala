@@ -16,7 +16,7 @@ public class JChatFromClientAE implements ChatFromClientAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, ChatFromClientProtocol chatFromClient) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new ChatFromClient(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new ChatFromClient("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

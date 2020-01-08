@@ -16,7 +16,7 @@ public class JRunRobotPlayerInTheBackgroundAE implements RunRobotPlayerInTheBack
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, RunRobotPlayerInTheBackgroundProtocol runRobotPlayerInTheBackgroundProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new RunRobotPlayerInTheBackground(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new RunRobotPlayerInTheBackground("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

@@ -16,7 +16,7 @@ public class JOnymousAudienceScrollAE implements OnymousAudienceScrollAnalysisEn
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, OnymousAudienceScrollProtocol onymousAudienceScroll) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new OnymousAudienceScroll(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new OnymousAudienceScroll("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

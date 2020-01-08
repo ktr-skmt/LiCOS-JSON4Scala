@@ -16,7 +16,7 @@ public class JBoardAE implements BoardAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, BoardProtocol board) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new Board(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new Board("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

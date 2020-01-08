@@ -16,7 +16,7 @@ public class JFlavorTextAE implements FlavorTextAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, FlavorTextProtocol flavorText) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new FlavorText(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new FlavorText("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

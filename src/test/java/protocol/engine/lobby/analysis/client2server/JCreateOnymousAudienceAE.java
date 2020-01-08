@@ -16,7 +16,7 @@ public class JCreateOnymousAudienceAE implements CreateOnymousAudienceAnalysisEn
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, CreateOnymousAudienceProtocol createOnymousAudienceProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new CreateOnymousAudience(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new CreateOnymousAudience("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

@@ -16,7 +16,7 @@ public class JEnterLobbyAE implements EnterLobbyAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, EnterLobbyProtocol enterLobbyProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new EnterLobby(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new EnterLobby("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

@@ -16,7 +16,7 @@ public class JSearchResultAE implements SearchResultAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, SearchResultProtocol searchResultProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new SearchResult(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new SearchResult("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

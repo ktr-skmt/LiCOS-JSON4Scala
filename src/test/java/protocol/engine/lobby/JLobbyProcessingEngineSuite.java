@@ -32,10 +32,10 @@ import java.util.stream.Collectors;
 public class JLobbyProcessingEngineSuite {
 
     @DataPoints
-    private static LobbyExample[] exampleSeq = {
+    public static LobbyExample[] exampleSeq = {
             new AdvancedSearch("advancedSearch.json"),
             new BuildVillage("buildVillage.json"),
-            new ChangeLang("changeLang.json"),
+            new ChangeLanguage("changeLanguage.json"),
             new ChangeUserEmail("changeUserEmail.json"),
             new ChangeUserName("changeUserName.json"),
             new ChangeUserPassword("changeUserPassword.json"),
@@ -51,16 +51,19 @@ public class JLobbyProcessingEngineSuite {
             new Play("play.json"),
             new Pong("pong.json"),
             new Ready("ready.json"),
-            new SelectVillage("selectVillageForHumanPlayer.json"),
+            new SelectVillage("selectVillage.json"),
             new AuthorizationRequest("authorizationRequest.json"),
             new AuthorizationRequestAcceptedResponse("authorizationRequestAcceptedResponse.json"),
             new AvatarInfo("avatar.json"),
+            new Lobby("lobbyForAnonymousAudience.json"),
             new Lobby("lobbyForHumanPlayer.json"),
+            new Lobby("lobbyForOnymousAudience.json"),
+            new Lobby("lobbyForRobotPlayer.json"),
             new Ping("ping.json"),
             new Played("played.json"),
             new SearchResult("searchResult.json"),
             new Settings("settings.json"),
-            new WaitingPage("waitingPageForHumanPlayer.json"),
+            new WaitingPage("waitingPage.json"),
             new PlayedWithToken("playedWithToken.json"),
             new AuthorizationRequestAccepted("authorizationRequestAccepted.json"),
             new RenewAvatarToken("renewAvatarToken.json"),
@@ -70,20 +73,21 @@ public class JLobbyProcessingEngineSuite {
             new CreateRobotPlayer("createRobotPlayer.json"),
             new DeleteAvatar("deleteAvatar.json"),
             new RunRobotPlayerInTheBackground("runRobotPlayerInTheBackground.json"),
-            new RunRobotPlayerInTheForeground("runRobotPlayerInTheForeground.json"),
-            new SelectHumanPlayer("selectHumanPlayer.json"),
-            new SelectOnymousAudience("selectOnymousAudience.json"),
             new StopRobotPlayer("stopRobotPlayer.json"),
             new HumanPlayerSelectionPage("humanPlayerSelectionPage.json"),
             new OnymousAudienceSelectionPage("onymousAudienceSelectionPage.json"),
-            new RobotPlayerSelectionPage("robotPlayerSelectionPage.json")
+            new RobotPlayerSelectionPage("robotPlayerSelectionPage.json"),
+            new UpdateAvatar("updateAvatarName.json"),
+            new UpdateAvatar("updateAvatarImage.json"),
+            new UpdateAvatar("updateAvatarLanguage.json"),
+            new EnterAvatarSelectionPage("enterAvatarSelectionPage.json")
     };
 
     private LobbyProcessingEngineFactory processingEngineFactory = new LobbyProcessingEngineFactory()
             .set(new JAdvancedSearchAE())
             .set(new JAvatarInfoAE())
             .set(new JBuildVillageAE())
-            .set(new JChangeLangAE())
+            .set(new JChangeLanguageAE())
             .set(new JChangeUserEmailAE())
             .set(new JChangeUserNameAE())
             .set(new JChangeUserPasswordAE())
@@ -114,13 +118,12 @@ public class JLobbyProcessingEngineSuite {
             .set(new JCreateRobotPlayerAE())
             .set(new JDeleteAvatarAE())
             .set(new JRunRobotPlayerInTheBackgroundAE())
-            .set(new JRunRobotPlayerInTheForegroundAE())
-            .set(new JSelectHumanPlayerAE())
-            .set(new JSelectOnymousAudienceAE())
             .set(new JStopRobotPlayerAE())
             .set(new JHumanPlayerSelectionPageAE())
             .set(new JOnymousAudienceSelectionPageAE())
-            .set(new JRobotPlayerSelectionPageAE());
+            .set(new JRobotPlayerSelectionPageAE())
+            .set(new JUpdateAvatarAE())
+            .set(new JEnterAvatarSelectionPageAE());
 
     private LobbyProcessingEngine processingEngine = processingEngineFactory.create();
 

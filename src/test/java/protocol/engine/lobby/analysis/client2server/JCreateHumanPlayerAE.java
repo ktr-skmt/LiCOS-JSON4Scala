@@ -16,7 +16,7 @@ public class JCreateHumanPlayerAE implements CreateHumanPlayerAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, CreateHumanPlayerProtocol createHumanPlayerProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new CreateHumanPlayer(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new CreateHumanPlayer("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

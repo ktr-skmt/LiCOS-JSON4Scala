@@ -16,7 +16,7 @@ public class JRenewAvatarTokenAE implements RenewAvatarTokenAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, RenewAvatarTokenProtocol renewAvatarTokenProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new RenewAvatarToken(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new RenewAvatarToken("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

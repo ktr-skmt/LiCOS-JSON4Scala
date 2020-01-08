@@ -16,7 +16,7 @@ public class JKickOutPlayerAE implements KickOutPlayerAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, KickOutPlayerProtocol kickOutPlayerProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new KickOutPlayer(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new KickOutPlayer("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

@@ -16,7 +16,7 @@ public class JOnymousAudienceSelectionPageAE implements OnymousAudienceSelection
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, OnymousAudienceSelectionPageProtocol onymousAudienceSelectionPageProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new OnymousAudienceSelectionPage(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new OnymousAudienceSelectionPage("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

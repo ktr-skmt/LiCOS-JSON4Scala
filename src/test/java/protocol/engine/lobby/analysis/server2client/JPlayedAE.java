@@ -16,7 +16,7 @@ public class JPlayedAE implements PlayedAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, PlayedProtocol playedProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new Played(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new Played("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

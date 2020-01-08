@@ -16,7 +16,7 @@ public class JStarAE implements StarAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, StarProtocol star) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new Star(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new Star("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

@@ -16,7 +16,7 @@ public class JAnonymousAudienceChatFromServerAE implements AnonymousAudienceChat
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, AnonymousAudienceChatFromServerProtocol anonymousAudienceChatFromServer) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new AnonymousAudienceChatFromServer(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new AnonymousAudienceChatFromServer("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

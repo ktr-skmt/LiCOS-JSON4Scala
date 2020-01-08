@@ -16,7 +16,7 @@ public class JHumanPlayerSelectionPageAE implements HumanPlayerSelectionPageAnal
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, HumanPlayerSelectionPageProtocol humanPlayerSelectionPageProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new HumanPlayerSelectionPage(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new HumanPlayerSelectionPage("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

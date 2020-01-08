@@ -16,7 +16,7 @@ public class JRobotPlayerSelectionPageAE implements RobotPlayerSelectionPageAnal
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, RobotPlayerSelectionPageProtocol robotPlayerSelectionPageProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new RobotPlayerSelectionPage(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new RobotPlayerSelectionPage("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

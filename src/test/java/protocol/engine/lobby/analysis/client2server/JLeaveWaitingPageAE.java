@@ -16,7 +16,7 @@ public class JLeaveWaitingPageAE implements LeaveWaitingPageAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, LeaveWaitingPageProtocol leaveWaitingPageProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new LeaveWaitingPage(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new LeaveWaitingPage("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

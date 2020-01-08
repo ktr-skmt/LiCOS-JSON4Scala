@@ -16,7 +16,7 @@ public class JChangeUserPasswordAE implements ChangeUserPasswordAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, ChangeUserPasswordProtocol changeUserPasswordProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new ChangeUserPassword(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new ChangeUserPassword("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

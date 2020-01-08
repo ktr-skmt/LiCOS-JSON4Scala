@@ -6,7 +6,7 @@ import java.util.Locale
 import licos.json.element.lobby.client2server.JsonCreateOnymousAudience
 import play.api.libs.json.{JsValue, Json}
 
-final case class CreateOnymousAudienceProtocol(name: String, image: URL, lang: Locale)
+final case class CreateOnymousAudienceProtocol(name: String, image: URL, language: Locale)
     extends Client2ServerLobbyMessageProtocol {
 
   private lazy val json: Option[JsonCreateOnymousAudience] = {
@@ -14,7 +14,7 @@ final case class CreateOnymousAudienceProtocol(name: String, image: URL, lang: L
       new JsonCreateOnymousAudience(
         name,
         image.toString,
-        lang.getLanguage
+        language.getLanguage
       )
     )
   }
@@ -31,7 +31,7 @@ object CreateOnymousAudienceProtocol {
       CreateOnymousAudienceProtocol(
         json.name,
         new URL(json.image),
-        new Locale(json.lang)
+        new Locale(json.language)
       )
     )
   }

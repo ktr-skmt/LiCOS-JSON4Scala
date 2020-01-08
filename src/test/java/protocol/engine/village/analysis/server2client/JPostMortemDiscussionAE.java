@@ -16,7 +16,7 @@ public class JPostMortemDiscussionAE implements PostMortemDiscussionAnalysisEngi
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, PostMortemDiscussionProtocol postMortemDiscussion) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new PostMortemDiscussion(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new PostMortemDiscussion("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

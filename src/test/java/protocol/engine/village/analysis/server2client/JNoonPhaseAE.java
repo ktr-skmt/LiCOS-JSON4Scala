@@ -16,7 +16,7 @@ public class JNoonPhaseAE implements NoonPhaseAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, NoonPhaseProtocol noonPhase) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new NoonPhase(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new NoonPhase("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

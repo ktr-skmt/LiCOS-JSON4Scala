@@ -45,19 +45,19 @@ final case class JsonRobotPlayerInfo private (
       token:            String,
       name:             String,
       image:            String,
-      lang:             String,
+      language:         String,
       status:           String,
       isAuthorized:     Boolean,
       isTestPassed:     Boolean,
       isFullyAutomated: Boolean
   ) = {
-    this(JsonSubAvatarInfo(token, name, image, lang), status, isAuthorized, isTestPassed, isFullyAutomated)
+    this(JsonSubAvatarInfo(token, name, image, language), status, isAuthorized, isTestPassed, isFullyAutomated)
   }
 
-  def token: String = avatar.token
-  def name:  String = avatar.name
-  def image: String = avatar.image
-  def lang:  String = avatar.lang
+  def token:    String = avatar.token
+  def name:     String = avatar.name
+  def image:    String = avatar.image
+  def language: String = avatar.language
 
 }
 

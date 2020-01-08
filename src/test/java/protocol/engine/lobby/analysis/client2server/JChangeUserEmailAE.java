@@ -16,7 +16,7 @@ public class JChangeUserEmailAE implements ChangeUserEmailAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, ChangeUserEmailProtocol changeUserEmailProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new ChangeUserEmail(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new ChangeUserEmail("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

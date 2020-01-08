@@ -16,7 +16,7 @@ public class JWaitingPageAE implements WaitingPageAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, WaitingPageProtocol waitingPageProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new WaitingPage(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new WaitingPage("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

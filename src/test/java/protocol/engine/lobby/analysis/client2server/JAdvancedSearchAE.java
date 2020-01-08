@@ -16,7 +16,7 @@ public class JAdvancedSearchAE implements AdvancedSearchAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, AdvancedSearchProtocol advancedSearchProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new AdvancedSearch(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new AdvancedSearch("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

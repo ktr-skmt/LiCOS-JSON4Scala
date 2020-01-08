@@ -8,14 +8,14 @@ final case class JsonAvatarInfo private (`type`: String, subAvatarInfo: JsonSubA
   override protected def validType: String = JsonAvatarInfo.`type`
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
-  def this(token: String, name: String, image: String, lang: String) = {
-    this(JsonAvatarInfo.`type`, JsonSubAvatarInfo(token, name, image, lang))
+  def this(token: String, name: String, image: String, language: String) = {
+    this(JsonAvatarInfo.`type`, JsonSubAvatarInfo(token, name, image, language))
   }
 
-  def token: String = subAvatarInfo.token
-  def name:  String = subAvatarInfo.name
-  def image: String = subAvatarInfo.image
-  def lang:  String = subAvatarInfo.lang
+  def token:    String = subAvatarInfo.token
+  def name:     String = subAvatarInfo.name
+  def image:    String = subAvatarInfo.image
+  def language: String = subAvatarInfo.language
 }
 
 object JsonAvatarInfo {
@@ -36,13 +36,13 @@ object JsonAvatarInfo {
       "token" -> o.token,
       "name" -> o.name,
       "image" -> o.image,
-      "lang" -> o.lang
+      "language" -> o.language
     )
   }
 
 }
 
-final case class JsonSubAvatarInfo(token: String, name: String, image: String, lang: String)
+final case class JsonSubAvatarInfo(token: String, name: String, image: String, language: String)
 
 object JsonSubAvatarInfo {
 
@@ -53,7 +53,7 @@ object JsonSubAvatarInfo {
     (JsPath \ "token").read[String](AvatarValidation.token) and
       (JsPath \ "name").read[String](AvatarValidation.name) and
       (JsPath \ "image").read[String](AvatarValidation.image) and
-      (JsPath \ "lang").read[String](VillageValidation.language)
+      (JsPath \ "language").read[String](VillageValidation.language)
   )(JsonSubAvatarInfo.apply _)
 
   implicit val jsonWrites: OWrites[JsonSubAvatarInfo] = Json.writes[JsonSubAvatarInfo]

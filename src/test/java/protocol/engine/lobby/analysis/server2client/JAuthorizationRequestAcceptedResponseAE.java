@@ -16,7 +16,7 @@ public class JAuthorizationRequestAcceptedResponseAE implements AuthorizationReq
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, AuthorizationRequestAcceptedResponseProtocol authorizationRequestAcceptedResponseProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new AuthorizationRequestAcceptedResponse(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new AuthorizationRequestAcceptedResponse("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

@@ -16,7 +16,7 @@ public class JSettingsAE implements SettingsAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, SettingsProtocol settingsProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new Settings(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new Settings("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

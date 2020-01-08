@@ -16,7 +16,7 @@ public class JReceivedFlavorTextMessageAE implements ReceivedFlavorTextMessageAn
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, ReceivedFlavorTextMessageProtocol receivedFlavorTextMessage) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new ReceivedFlavorTextMessage(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new ReceivedFlavorTextMessage("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

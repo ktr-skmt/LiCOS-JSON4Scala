@@ -16,7 +16,7 @@ public class JGetAvatarInfoAE implements GetAvatarInfoAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, GetAvatarInfoProtocol getAvatarInfoProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new GetAvatarInfo(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new GetAvatarInfo("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

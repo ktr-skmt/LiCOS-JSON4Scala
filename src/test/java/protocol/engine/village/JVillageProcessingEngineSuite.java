@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 public class JVillageProcessingEngineSuite {
 
     @DataPoints
-    private static VillageExample[] exampleSeq = {
+    public static VillageExample[] exampleSeq = {
             new ReceivedChatMessage("receipt/receivedChatMessage.json"),
             new ReceivedFlavorTextMessage("receipt/receivedFlavorTextMessage.json"),
             new ReceivedSystemMessage("receipt/receivedSystemMessage.json"),

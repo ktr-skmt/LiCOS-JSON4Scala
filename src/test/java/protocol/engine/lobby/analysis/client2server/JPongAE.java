@@ -16,7 +16,7 @@ public class JPongAE implements PongAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, PongProtocol pongProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new Pong(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new Pong("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

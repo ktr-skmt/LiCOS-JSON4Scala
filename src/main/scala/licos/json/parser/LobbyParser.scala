@@ -3,7 +3,7 @@ package licos.json.parser
 import licos.json.element.lobby.client2server.{
   JsonAdvancedSearch,
   JsonAuthorizationRequestAccepted,
-  JsonChangeLang,
+  JsonChangeLanguage,
   JsonChangeUserEmail,
   JsonChangeUserName,
   JsonChangeUserPassword,
@@ -11,6 +11,7 @@ import licos.json.element.lobby.client2server.{
   JsonCreateOnymousAudience,
   JsonCreateRobotPlayer,
   JsonDeleteAvatar,
+  JsonEnterAvatarSelectionPage,
   JsonEnterLobby,
   JsonGetSettings,
   JsonIdSearch,
@@ -19,11 +20,9 @@ import licos.json.element.lobby.client2server.{
   JsonPong,
   JsonRenewAvatarToken,
   JsonRunRobotPlayerInTheBackground,
-  JsonRunRobotPlayerInTheForeground,
-  JsonSelectHumanPlayer,
-  JsonSelectOnymousAudience,
   JsonSelectVillage,
-  JsonStopRobotPlayer
+  JsonStopRobotPlayer,
+  JsonUpdateAvatar
 }
 import licos.json.element.lobby.server2client.{
   JsonAuthorizationRequest,
@@ -45,7 +44,7 @@ import licos.json.element.lobby.server2server.JsonPlayedWithToken
 import licos.json.engine.analysis.lobby.client2server.{
   AdvancedSearchAnalysisEngine,
   AuthorizationRequestAcceptedAnalysisEngine,
-  ChangeLangAnalysisEngine,
+  ChangeLanguageAnalysisEngine,
   ChangeUserEmailAnalysisEngine,
   ChangeUserNameAnalysisEngine,
   ChangeUserPasswordAnalysisEngine,
@@ -53,6 +52,7 @@ import licos.json.engine.analysis.lobby.client2server.{
   CreateOnymousAudienceAnalysisEngine,
   CreateRobotPlayerAnalysisEngine,
   DeleteAvatarAnalysisEngine,
+  EnterAvatarSelectionPageAnalysisEngine,
   EnterLobbyAnalysisEngine,
   GetAvatarInfoAnalysisEngine,
   GetSettingsAnalysisEngine,
@@ -62,11 +62,9 @@ import licos.json.engine.analysis.lobby.client2server.{
   PongAnalysisEngine,
   RenewAvatarTokenAnalysisEngine,
   RunRobotPlayerInTheBackgroundAnalysisEngine,
-  RunRobotPlayerInTheForegroundAnalysisEngine,
-  SelectHumanPlayerAnalysisEngine,
-  SelectOnymousAudienceAnalysisEngine,
   SelectVillageAnalysisEngine,
-  StopRobotPlayerAnalysisEngine
+  StopRobotPlayerAnalysisEngine,
+  UpdateAvatarAnalysisEngine
 }
 import licos.json.engine.analysis.lobby.server2client.{
   AuthorizationRequestAcceptedResponseAnalysisEngine,
@@ -398,23 +396,23 @@ trait LobbyParser extends LiCOSParser {
     }
   }
 
-  /** Tries to parse play.api.libs.json.JsValue as Change-lang JSON.
+  /** Tries to parse play.api.libs.json.JsValue as Change-language JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return either Change-lang JSON.
+    * @return either Change-language JSON.
     */
-  protected def parseChangeLang(jsValue: JsValue): Either[JsValue, JsonChangeLang] = {
-    Try(jsValue.validate[JsonChangeLang]) match {
-      case Success(json: JsResult[JsonChangeLang]) =>
+  protected def parseChangeLanguage(jsValue: JsValue): Either[JsValue, JsonChangeLanguage] = {
+    Try(jsValue.validate[JsonChangeLanguage]) match {
+      case Success(json: JsResult[JsonChangeLanguage]) =>
         json match {
           case JsSuccess(j, _) => Right(j)
           case e: JsError =>
             log.debug(Json.prettyPrint(JsError.toJson(e)))
-            Left(returnError(e, jsValue, ChangeLangAnalysisEngine.isFromServer))
+            Left(returnError(e, jsValue, ChangeLanguageAnalysisEngine.isFromServer))
         }
       case Failure(err: Throwable) =>
         log.error(err.getMessage)
-        Left(returnError(err, jsValue, ChangeLangAnalysisEngine.isFromServer))
+        Left(returnError(err, jsValue, ChangeLanguageAnalysisEngine.isFromServer))
     }
   }
 
@@ -724,68 +722,6 @@ trait LobbyParser extends LiCOSParser {
     }
   }
 
-  /** Tries to parse play.api.libs.json.JsValue as Run-robot-player-in-the-foreground JSON.
-    *
-    * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return either Run-robot-player-in-the-foreground JSON.
-    */
-  protected def parseRunRobotPlayerInTheForeground(
-      jsValue: JsValue
-  ): Either[JsValue, JsonRunRobotPlayerInTheForeground] = {
-    Try(jsValue.validate[JsonRunRobotPlayerInTheForeground]) match {
-      case Success(json: JsResult[JsonRunRobotPlayerInTheForeground]) =>
-        json match {
-          case JsSuccess(j, _) => Right(j)
-          case e: JsError =>
-            log.debug(Json.prettyPrint(JsError.toJson(e)))
-            Left(returnError(e, jsValue, RunRobotPlayerInTheForegroundAnalysisEngine.isFromServer))
-        }
-      case Failure(err: Throwable) =>
-        log.error(err.getMessage)
-        Left(returnError(err, jsValue, RunRobotPlayerInTheForegroundAnalysisEngine.isFromServer))
-    }
-  }
-
-  /** Tries to parse play.api.libs.json.JsValue as Select-human-player JSON.
-    *
-    * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return either Select-human-player JSON.
-    */
-  protected def parseSelectHumanPlayer(jsValue: JsValue): Either[JsValue, JsonSelectHumanPlayer] = {
-    Try(jsValue.validate[JsonSelectHumanPlayer]) match {
-      case Success(json: JsResult[JsonSelectHumanPlayer]) =>
-        json match {
-          case JsSuccess(j, _) => Right(j)
-          case e: JsError =>
-            log.debug(Json.prettyPrint(JsError.toJson(e)))
-            Left(returnError(e, jsValue, SelectHumanPlayerAnalysisEngine.isFromServer))
-        }
-      case Failure(err: Throwable) =>
-        log.error(err.getMessage)
-        Left(returnError(err, jsValue, SelectHumanPlayerAnalysisEngine.isFromServer))
-    }
-  }
-
-  /** Tries to parse play.api.libs.json.JsValue as Select-onymous-audience JSON.
-    *
-    * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return either Select-onymous-audience JSON.
-    */
-  protected def parseSelectOnymousAudience(jsValue: JsValue): Either[JsValue, JsonSelectOnymousAudience] = {
-    Try(jsValue.validate[JsonSelectOnymousAudience]) match {
-      case Success(json: JsResult[JsonSelectOnymousAudience]) =>
-        json match {
-          case JsSuccess(j, _) => Right(j)
-          case e: JsError =>
-            log.debug(Json.prettyPrint(JsError.toJson(e)))
-            Left(returnError(e, jsValue, SelectOnymousAudienceAnalysisEngine.isFromServer))
-        }
-      case Failure(err: Throwable) =>
-        log.error(err.getMessage)
-        Left(returnError(err, jsValue, SelectOnymousAudienceAnalysisEngine.isFromServer))
-    }
-  }
-
   /** Tries to parse play.api.libs.json.JsValue as Stop-robot-player JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
@@ -865,6 +801,46 @@ trait LobbyParser extends LiCOSParser {
       case Failure(err: Throwable) =>
         log.error(err.getMessage)
         Left(returnError(err, jsValue, RobotPlayerSelectionPageAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Enter-avatar-selection-page JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Enter-avatar-selection-page JSON.
+    */
+  protected def parseEnterAvatarSelectionPage(jsValue: JsValue): Either[JsValue, JsonEnterAvatarSelectionPage] = {
+    Try(jsValue.validate[JsonEnterAvatarSelectionPage]) match {
+      case Success(json: JsResult[JsonEnterAvatarSelectionPage]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, EnterAvatarSelectionPageAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, EnterAvatarSelectionPageAnalysisEngine.isFromServer))
+    }
+  }
+
+  /** Tries to parse play.api.libs.json.JsValue as Update-avatar JSON.
+    *
+    * @param jsValue a play.api.libs.json.JsValue to parse.
+    * @return either Update-avatar JSON.
+    */
+  protected def parseUpdateAvatar(jsValue: JsValue): Either[JsValue, JsonUpdateAvatar] = {
+    Try(jsValue.validate[JsonUpdateAvatar]) match {
+      case Success(json: JsResult[JsonUpdateAvatar]) =>
+        json match {
+          case JsSuccess(j, _) => Right(j)
+          case e: JsError =>
+            log.debug(Json.prettyPrint(JsError.toJson(e)))
+            Left(returnError(e, jsValue, UpdateAvatarAnalysisEngine.isFromServer))
+        }
+      case Failure(err: Throwable) =>
+        log.error(err.getMessage)
+        Left(returnError(err, jsValue, UpdateAvatarAnalysisEngine.isFromServer))
     }
   }
 }

@@ -21,7 +21,7 @@ final case class RobotPlayerInfoProtocol(
         avatar.token.toString,
         avatar.name,
         avatar.image.toString,
-        avatar.lang.getLanguage,
+        avatar.language.getLanguage,
         status.label,
         isAuthorized,
         isTestPassed,
@@ -39,7 +39,7 @@ object RobotPlayerInfoProtocol {
           UUID.fromString(json.token),
           json.name,
           new URL(json.image),
-          new Locale(json.lang)
+          new Locale(json.language)
         ),
         status,
         json.isAuthorized,

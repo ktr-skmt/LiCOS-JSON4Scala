@@ -16,7 +16,7 @@ public class JOnymousAudienceBoardAE implements OnymousAudienceBoardAnalysisEngi
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, OnymousAudienceBoardProtocol onymousAudienceBoard) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new OnymousAudienceBoard(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new OnymousAudienceBoard("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

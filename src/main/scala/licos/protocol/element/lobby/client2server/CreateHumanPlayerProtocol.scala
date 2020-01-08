@@ -6,7 +6,7 @@ import java.util.Locale
 import licos.json.element.lobby.client2server.JsonCreateHumanPlayer
 import play.api.libs.json.{JsValue, Json}
 
-final case class CreateHumanPlayerProtocol(name: String, image: URL, lang: Locale)
+final case class CreateHumanPlayerProtocol(name: String, image: URL, language: Locale)
     extends Client2ServerLobbyMessageProtocol {
 
   private lazy val json: Option[JsonCreateHumanPlayer] = {
@@ -14,7 +14,7 @@ final case class CreateHumanPlayerProtocol(name: String, image: URL, lang: Local
       new JsonCreateHumanPlayer(
         name,
         image.toString,
-        lang.getLanguage
+        language.getLanguage
       )
     )
   }
@@ -31,7 +31,7 @@ object CreateHumanPlayerProtocol {
       CreateHumanPlayerProtocol(
         json.name,
         new URL(json.image),
-        new Locale(json.lang)
+        new Locale(json.language)
       )
     )
   }

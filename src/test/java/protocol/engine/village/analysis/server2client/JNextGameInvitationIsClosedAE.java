@@ -16,7 +16,7 @@ public class JNextGameInvitationIsClosedAE implements NextGameInvitationIsClosed
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, NextGameInvitationIsClosedProtocol nextGameInvitationIsClosed) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new NextGameInvitationIsClosed(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new NextGameInvitationIsClosed("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

@@ -3,11 +3,11 @@ package licos.json.element.lobby.server2client
 import licos.json.element.lobby.TypeSystem
 import licos.json.validation.village.VillageValidation
 
-final case class JsonPlayed(`type`: String, lang: String) extends TypeSystem(`type`) {
+final case class JsonPlayed(`type`: String, language: String) extends TypeSystem(`type`) {
   override protected def validType: String = JsonPlayed.`type`
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
-  def this(lang: String) = this(JsonPlayed.`type`, lang)
+  def this(language: String) = this(JsonPlayed.`type`, language)
 }
 
 object JsonPlayed {
@@ -20,7 +20,7 @@ object JsonPlayed {
 
   implicit val jsonReads: Reads[JsonPlayed] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
-      (JsPath \ "lang").read[String](VillageValidation.language)
+      (JsPath \ "language").read[String](VillageValidation.language)
   )(JsonPlayed.apply _)
 
   implicit val jsonWrites: OWrites[JsonPlayed] = Json.writes[JsonPlayed]

@@ -16,7 +16,7 @@ public class JPingAE implements PingAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, PingProtocol pingProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new Ping(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new Ping("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

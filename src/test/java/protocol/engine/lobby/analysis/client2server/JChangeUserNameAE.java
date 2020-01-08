@@ -16,7 +16,7 @@ public class JChangeUserNameAE implements ChangeUserNameAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, ChangeUserNameProtocol changeUserNameProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new ChangeUserName(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new ChangeUserName("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

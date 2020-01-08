@@ -16,7 +16,7 @@ public class JFirstMorningPhaseAE implements FirstMorningPhaseAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, FirstMorningPhaseProtocol firstMorningPhase) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new FirstMorningPhase(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new FirstMorningPhase("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

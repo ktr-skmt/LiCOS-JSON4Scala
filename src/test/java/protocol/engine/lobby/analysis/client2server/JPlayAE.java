@@ -16,7 +16,7 @@ public class JPlayAE implements PlayAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, PlayProtocol playProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new Play(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new Play("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

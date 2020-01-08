@@ -4,7 +4,7 @@ import licos.json.element.lobby.client2server.{
   JsonAdvancedSearch,
   JsonAuthorizationRequestAccepted,
   JsonBuildVillage,
-  JsonChangeLang,
+  JsonChangeLanguage,
   JsonChangeUserEmail,
   JsonChangeUserName,
   JsonChangeUserPassword,
@@ -12,6 +12,7 @@ import licos.json.element.lobby.client2server.{
   JsonCreateOnymousAudience,
   JsonCreateRobotPlayer,
   JsonDeleteAvatar,
+  JsonEnterAvatarSelectionPage,
   JsonEnterLobby,
   JsonGetSettings,
   JsonIdSearch,
@@ -22,11 +23,9 @@ import licos.json.element.lobby.client2server.{
   JsonReady,
   JsonRenewAvatarToken,
   JsonRunRobotPlayerInTheBackground,
-  JsonRunRobotPlayerInTheForeground,
-  JsonSelectHumanPlayer,
-  JsonSelectOnymousAudience,
   JsonSelectVillage,
-  JsonStopRobotPlayer
+  JsonStopRobotPlayer,
+  JsonUpdateAvatar
 }
 import licos.json.element.lobby.server2client.{
   JsonAuthorizationRequest,
@@ -52,7 +51,7 @@ import licos.protocol.element.lobby.client2server.{
   AdvancedSearchProtocol,
   AuthorizationRequestAcceptedProtocol,
   BuildVillageProtocol,
-  ChangeLangProtocol,
+  ChangeLanguageProtocol,
   ChangeUserEmailProtocol,
   ChangeUserNameProtocol,
   ChangeUserPasswordProtocol,
@@ -60,6 +59,7 @@ import licos.protocol.element.lobby.client2server.{
   CreateOnymousAudienceProtocol,
   CreateRobotPlayerProtocol,
   DeleteAvatarProtocol,
+  EnterAvatarSelectionPageProtocol,
   EnterLobbyProtocol,
   GetAvatarInfoProtocol,
   GetSettingsProtocol,
@@ -71,11 +71,9 @@ import licos.protocol.element.lobby.client2server.{
   ReadyProtocol,
   RenewAvatarTokenProtocol,
   RunRobotPlayerInTheBackgroundProtocol,
-  RunRobotPlayerInTheForegroundProtocol,
-  SelectHumanPlayerProtocol,
-  SelectOnymousAudienceProtocol,
   SelectVillageProtocol,
-  StopRobotPlayerProtocol
+  StopRobotPlayerProtocol,
+  UpdateAvatarProtocol
 }
 import licos.protocol.element.lobby.server2client.{
   AuthorizationRequestAcceptedResponseProtocol,
@@ -136,8 +134,8 @@ object Json2LobbyMessageProtocol extends Json2Protocol {
         ReadyProtocol.read(json)
       case Right(json: JsonSearchResult) =>
         SearchResultProtocol.read(json)
-      case Right(json: JsonChangeLang) =>
-        ChangeLangProtocol.read(json)
+      case Right(json: JsonChangeLanguage) =>
+        ChangeLanguageProtocol.read(json)
       case Right(json: JsonChangeUserEmail) =>
         ChangeUserEmailProtocol.read(json)
       case Right(json: JsonChangeUserName) =>
@@ -168,12 +166,6 @@ object Json2LobbyMessageProtocol extends Json2Protocol {
         DeleteAvatarProtocol.read(json)
       case Right(json: JsonRunRobotPlayerInTheBackground) =>
         RunRobotPlayerInTheBackgroundProtocol.read(json)
-      case Right(json: JsonRunRobotPlayerInTheForeground) =>
-        RunRobotPlayerInTheForegroundProtocol.read(json)
-      case Right(json: JsonSelectHumanPlayer) =>
-        SelectHumanPlayerProtocol.read(json)
-      case Right(json: JsonSelectOnymousAudience) =>
-        SelectOnymousAudienceProtocol.read(json)
       case Right(json: JsonStopRobotPlayer) =>
         StopRobotPlayerProtocol.read(json)
       case Right(json: JsonHumanPlayerSelectionPage) =>
@@ -182,6 +174,10 @@ object Json2LobbyMessageProtocol extends Json2Protocol {
         OnymousAudienceSelectionPageProtocol.read(json)
       case Right(json: JsonRobotPlayerSelectionPage) =>
         RobotPlayerSelectionPageProtocol.read(json)
+      case Right(json: JsonUpdateAvatar) =>
+        UpdateAvatarProtocol.read(json)
+      case Right(json: JsonEnterAvatarSelectionPage) =>
+        EnterAvatarSelectionPageProtocol.read(json)
       case _ =>
         Option.empty[LobbyMessageProtocol]
     }

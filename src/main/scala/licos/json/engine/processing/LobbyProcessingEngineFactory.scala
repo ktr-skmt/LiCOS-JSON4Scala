@@ -27,7 +27,7 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var playedWithTokenEngine:      Option[PlayedWithTokenAnalysisEngine]      = None
   private var readyEngine:                Option[ReadyAnalysisEngine]                = None
   private var searchResultEngine:         Option[SearchResultAnalysisEngine]         = None
-  private var changeLangEngine:           Option[ChangeLangAnalysisEngine]           = None
+  private var changeLanguageEngine:       Option[ChangeLanguageAnalysisEngine]       = None
   private var changeUserEmailEngine:      Option[ChangeUserEmailAnalysisEngine]      = None
   private var changeUserNameEngine:       Option[ChangeUserNameAnalysisEngine]       = None
   private var changeUserPasswordEngine:   Option[ChangeUserPasswordAnalysisEngine]   = None
@@ -44,13 +44,12 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var createRobotPlayerEngine:             Option[CreateRobotPlayerAnalysisEngine]             = None
   private var deleteAvatarEngine:                  Option[DeleteAvatarAnalysisEngine]                  = None
   private var runRobotPlayerInTheBackgroundEngine: Option[RunRobotPlayerInTheBackgroundAnalysisEngine] = None
-  private var runRobotPlayerInTheForegroundEngine: Option[RunRobotPlayerInTheForegroundAnalysisEngine] = None
-  private var selectHumanPlayerEngine:             Option[SelectHumanPlayerAnalysisEngine]             = None
-  private var selectOnymousAudienceEngine:         Option[SelectOnymousAudienceAnalysisEngine]         = None
   private var stopRobotPlayerEngine:               Option[StopRobotPlayerAnalysisEngine]               = None
   private var humanPlayerSelectionPageEngine:      Option[HumanPlayerSelectionPageAnalysisEngine]      = None
   private var onymousAudienceSelectionPageEngine:  Option[OnymousAudienceSelectionPageAnalysisEngine]  = None
   private var robotPlayerSelectionPageEngine:      Option[RobotPlayerSelectionPageAnalysisEngine]      = None
+  private var updateAvatarEngine:                  Option[UpdateAvatarAnalysisEngine]                  = None
+  private var enterAvatarSelectionPageEngine:      Option[EnterAvatarSelectionPageAnalysisEngine]      = None
 
   /** Creates a lobby processing engine.
     *
@@ -76,7 +75,7 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       playedWithTokenEngine:                      Option[PlayedWithTokenAnalysisEngine],
       readyEngine:                                Option[ReadyAnalysisEngine],
       searchResultEngine:                         Option[SearchResultAnalysisEngine],
-      changeLangEngine:                           Option[ChangeLangAnalysisEngine],
+      changeLanguageEngine:                       Option[ChangeLanguageAnalysisEngine],
       changeUserEmailEngine:                      Option[ChangeUserEmailAnalysisEngine],
       changeUserNameEngine:                       Option[ChangeUserNameAnalysisEngine],
       changeUserPasswordEngine:                   Option[ChangeUserPasswordAnalysisEngine],
@@ -92,13 +91,12 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       createRobotPlayerEngine:                    Option[CreateRobotPlayerAnalysisEngine],
       deleteAvatarEngine:                         Option[DeleteAvatarAnalysisEngine],
       runRobotPlayerInTheBackgroundEngine:        Option[RunRobotPlayerInTheBackgroundAnalysisEngine],
-      runRobotPlayerInTheForegroundEngine:        Option[RunRobotPlayerInTheForegroundAnalysisEngine],
-      selectHumanPlayerEngine:                    Option[SelectHumanPlayerAnalysisEngine],
-      selectOnymousAudienceEngine:                Option[SelectOnymousAudienceAnalysisEngine],
       stopRobotPlayerEngine:                      Option[StopRobotPlayerAnalysisEngine],
       humanPlayerSelectionPageEngine:             Option[HumanPlayerSelectionPageAnalysisEngine],
       onymousAudienceSelectionPageEngine:         Option[OnymousAudienceSelectionPageAnalysisEngine],
-      robotPlayerSelectionPageEngine:             Option[RobotPlayerSelectionPageAnalysisEngine]
+      robotPlayerSelectionPageEngine:             Option[RobotPlayerSelectionPageAnalysisEngine],
+      updateAvatarEngine:                         Option[UpdateAvatarAnalysisEngine],
+      enterAvatarSelectionPageEngine:             Option[EnterAvatarSelectionPageAnalysisEngine]
     )
   }
 
@@ -192,8 +190,8 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(changeLangEngine: ChangeLangAnalysisEngine): LobbyProcessingEngineFactory = {
-    this.changeLangEngine = Option(changeLangEngine)
+  def set(changeLanguageEngine: ChangeLanguageAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.changeLanguageEngine = Option(changeLanguageEngine)
     this
   }
 
@@ -278,23 +276,6 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(
-      runRobotPlayerInTheForegroundEngine: RunRobotPlayerInTheForegroundAnalysisEngine
-  ): LobbyProcessingEngineFactory = {
-    this.runRobotPlayerInTheForegroundEngine = Option(runRobotPlayerInTheForegroundEngine)
-    this
-  }
-
-  def set(selectHumanPlayerEngine: SelectHumanPlayerAnalysisEngine): LobbyProcessingEngineFactory = {
-    this.selectHumanPlayerEngine = Option(selectHumanPlayerEngine)
-    this
-  }
-
-  def set(selectOnymousAudienceEngine: SelectOnymousAudienceAnalysisEngine): LobbyProcessingEngineFactory = {
-    this.selectOnymousAudienceEngine = Option(selectOnymousAudienceEngine)
-    this
-  }
-
   def set(stopRobotPlayerEngine: StopRobotPlayerAnalysisEngine): LobbyProcessingEngineFactory = {
     this.stopRobotPlayerEngine = Option(stopRobotPlayerEngine)
     this
@@ -318,6 +299,18 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       robotPlayerSelectionPageAnalysisEngine: RobotPlayerSelectionPageAnalysisEngine
   ): LobbyProcessingEngineFactory = {
     this.robotPlayerSelectionPageEngine = Option(robotPlayerSelectionPageAnalysisEngine)
+    this
+  }
+
+  def set(updateAvatarAnalysisEngine: UpdateAvatarAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.updateAvatarEngine = Option(updateAvatarAnalysisEngine)
+    this
+  }
+
+  def set(
+      enterAvatarSelectionPageAnalysisEngine: EnterAvatarSelectionPageAnalysisEngine
+  ): LobbyProcessingEngineFactory = {
+    this.enterAvatarSelectionPageEngine = Option(enterAvatarSelectionPageAnalysisEngine)
     this
   }
 }

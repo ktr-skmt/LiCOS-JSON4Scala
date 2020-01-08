@@ -16,7 +16,7 @@ public class JNightPhaseAE implements NightPhaseAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, NightPhaseProtocol nightPhase) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new NightPhase(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new NightPhase("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

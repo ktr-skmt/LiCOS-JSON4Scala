@@ -16,7 +16,7 @@ public class JNewAvatarTokenAE implements NewAvatarTokenAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, NewAvatarTokenProtocol newAvatarTokenProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new NewAvatarToken(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new NewAvatarToken("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

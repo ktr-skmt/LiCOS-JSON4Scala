@@ -16,7 +16,7 @@ public class JNextGameInvitationAE implements NextGameInvitationAnalysisEngine {
     @Override
     public Try<VillageMessageProtocol> process(VillageBOX box, NextGameInvitationProtocol nextGameInvitation) {
         if (box instanceof JVillageBox) {
-            return Success.apply(VillageMessageTestProtocol.apply(new NextGameInvitation(null).type()));
+            return Success.apply(VillageMessageTestProtocol.apply(new NextGameInvitation("").type()));
         } else {
             return Failure.apply(new VillageBOXNotFoundException(null, null));
         }

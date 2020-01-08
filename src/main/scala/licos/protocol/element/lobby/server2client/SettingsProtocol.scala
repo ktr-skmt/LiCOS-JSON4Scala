@@ -5,7 +5,7 @@ import java.util.Locale
 import licos.json.element.lobby.server2client.JsonSettings
 import play.api.libs.json.{JsValue, Json}
 
-final case class SettingsProtocol(userName: String, userEmail: String, lang: Locale)
+final case class SettingsProtocol(userName: String, userEmail: String, language: Locale)
     extends Server2ClientLobbyMessageProtocol {
 
   private lazy val json: Option[JsonSettings] = {
@@ -13,7 +13,7 @@ final case class SettingsProtocol(userName: String, userEmail: String, lang: Loc
       new JsonSettings(
         userName,
         userEmail,
-        lang.getLanguage
+        language.getLanguage
       )
     )
   }
@@ -30,7 +30,7 @@ object SettingsProtocol {
       SettingsProtocol(
         json.userName,
         json.userEmail,
-        new Locale(json.lang)
+        new Locale(json.language)
       )
     )
   }

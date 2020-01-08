@@ -7,15 +7,15 @@ final case class JsonCreateRobotPlayer(
     `type`:           String,
     name:             String,
     image:            String,
-    lang:             String,
+    language:         String,
     isFullyAutomated: Boolean,
     support:          JsonSupport
 ) extends TypeSystem(`type`) {
   override protected def validType: String = JsonCreateRobotPlayer.`type`
 
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
-  def this(name: String, image: String, lang: String, isFullyAutomated: Boolean, support: JsonSupport) = {
-    this(JsonCreateRobotPlayer.`type`, name, image, lang, isFullyAutomated, support)
+  def this(name: String, image: String, language: String, isFullyAutomated: Boolean, support: JsonSupport) = {
+    this(JsonCreateRobotPlayer.`type`, name, image, language, isFullyAutomated, support)
   }
 }
 
@@ -31,7 +31,7 @@ object JsonCreateRobotPlayer {
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "name").read[String](AvatarValidation.name) and
       (JsPath \ "image").read[String](AvatarValidation.image) and
-      (JsPath \ "lang").read[String](VillageValidation.language) and
+      (JsPath \ "language").read[String](VillageValidation.language) and
       (JsPath \ "isFullyAutomated").read[Boolean] and
       (JsPath \ "support").read[JsonSupport]
   )(JsonCreateRobotPlayer.apply _)

@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public class JAuthProcessingEngineSuite {
 
     @DataPoints
-    private static AuthExample[] exampleSeq = {
+    public static AuthExample[] exampleSeq = {
             new AuthenticationAndAuthorizationRequest("authenticationAndAuthorizationRequest.json"),
             new AuthenticationRequestResponse("authenticationRequestResponse.json"),
             new AuthorizationRequestResponse("authorizationRequestResponse.json")

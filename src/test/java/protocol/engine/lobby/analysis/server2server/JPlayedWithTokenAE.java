@@ -16,7 +16,7 @@ public class JPlayedWithTokenAE implements PlayedWithTokenAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, PlayedWithTokenProtocol playedWithTokenProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new PlayedWithToken(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new PlayedWithToken("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }

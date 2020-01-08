@@ -16,7 +16,7 @@ public class JIdSearchAE implements IdSearchAnalysisEngine {
     @Override
     public Try<LobbyMessageProtocol> process(LobbyBOX box, IdSearchProtocol idSearchProtocol) {
         if (box instanceof JLobbyBox) {
-            return Success.apply(LobbyMessageTestProtocol.apply(new IdSearch(null).type()));
+            return Success.apply(LobbyMessageTestProtocol.apply(new IdSearch("").type()));
         } else {
             return Failure.apply(new LobbyBOXNotFoundException(null, null));
         }
