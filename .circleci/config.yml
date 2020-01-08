@@ -96,13 +96,13 @@ jobs:
           name: test async.protocol.server2logger.VillageProcessingEngineSuite
           command: cat /dev/null | sbt "testOnly protocol.engine.async.village.server2logger.VillageProcessingEngineSuite"
       - run:
-          name:
+          name: test protocol.engine.auth.JAuthProcessingEngineSuite
           command: cat /dev/null | sbt "testOnly protocol.engine.auth.JAuthProcessingEngineSuite"
       - run:
-          name:
+          name: test protocol.engine.lobby.JLobbyProcessingEngineSuite
           command: cat /dev/null | sbt "testOnly protocol.engine.lobby.JLobbyProcessingEngineSuite"
       - run:
-          name:
+          name: test protocol.engine.village.JVillageProcessingEngineSuite
           command: cat /dev/null | sbt "testOnly protocol.engine.village.JVillageProcessingEngineSuite"
       - run:
           name: coverage report
