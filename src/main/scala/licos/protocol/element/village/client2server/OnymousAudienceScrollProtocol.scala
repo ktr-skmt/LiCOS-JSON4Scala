@@ -16,7 +16,7 @@ final case class OnymousAudienceScrollProtocol(
     myAvatarImage: URL
 ) extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonOnymousAudienceScroll] = {
+  private lazy val json: Option[JsonOnymousAudienceScroll] = {
     server2logger
       .OnymousAudienceScrollProtocol(
         village,

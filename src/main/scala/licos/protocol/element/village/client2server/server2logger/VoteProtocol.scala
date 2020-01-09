@@ -22,7 +22,7 @@ final case class VoteProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  val json: Option[JsonVote] = {
+  lazy val json: Option[JsonVote] = {
     Some(
       new JsonVote(
         BaseProtocol(
@@ -31,7 +31,7 @@ final case class VoteProtocol(
           VillageProtocol(
             village.id,
             village.name,
-            village.cast.totalNumberOfPlayers,
+            village.composition.totalNumberOfPlayers,
             village.language,
             ChatSettingsProtocol(
               village.id,
@@ -80,7 +80,7 @@ object VoteProtocol {
         for {
           character   <- Data2Knowledge.characterOpt(json.character.name.en, json.character.id)
           myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-          myRole      <- village.cast.parse(json.myCharacter.role.name.en)
+          myRole      <- village.composition.parse(json.myCharacter.role.name.en)
         } yield {
           VoteProtocol(
             village,
@@ -90,7 +90,7 @@ object VoteProtocol {
             json.base.extensionalDisclosureRange.flatMap { jsonStatusCharacter: JsonStatusCharacter =>
               for {
                 character  <- Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id).toList
-                role       <- village.cast.parse(jsonStatusCharacter.role.name.en).toList
+                role       <- village.composition.parse(jsonStatusCharacter.role.name.en).toList
                 status     <- Data2Knowledge.statusOpt(jsonStatusCharacter.status).toList
                 playerType <- Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType).toList
               } yield {

@@ -4,7 +4,7 @@ import licos.json.element.lobby.JsonHuman
 
 final case class HumanProtocol(max: Int, current: Int) {
 
-  val json: Option[JsonHuman] = {
+  lazy val json: Option[JsonHuman] = {
     Some(
       JsonHuman(
         max,

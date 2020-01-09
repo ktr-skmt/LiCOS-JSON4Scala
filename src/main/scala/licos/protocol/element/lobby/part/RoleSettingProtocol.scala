@@ -13,7 +13,7 @@ final case class RoleSettingProtocol(
     werehamster: Int
 ) {
 
-  val json: Option[JsonRoleSetting] = {
+  lazy val json: Option[JsonRoleSetting] = {
     Some(
       JsonRoleSetting(
         villager,

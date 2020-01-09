@@ -23,7 +23,7 @@ final case class ResultCharacterProtocol(
     language:    Locale
 ) {
 
-  val json: JsonResultCharacter = {
+  lazy val json: JsonResultCharacter = {
     val `@id`: String = LiCOSOnline.state(villageId, "")
     JsonResultCharacter(
       CharacterContext.iri,

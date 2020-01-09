@@ -15,7 +15,7 @@ final class StarAE extends StarAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(Star.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(Star.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

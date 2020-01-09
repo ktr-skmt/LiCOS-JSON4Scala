@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class PongProtocol(token: UUID, id: UUID) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonPong] = {
+  private lazy val json: Option[JsonPong] = {
     Some(
       new JsonPong(
         token.toString,

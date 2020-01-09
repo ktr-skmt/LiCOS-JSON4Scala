@@ -15,7 +15,7 @@ final class BuildVillageAE extends BuildVillageAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(BuildVillage.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(BuildVillage.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

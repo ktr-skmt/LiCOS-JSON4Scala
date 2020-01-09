@@ -16,7 +16,7 @@ final class LeaveWaitingPageAE extends LeaveWaitingPageAnalysisEngine {
       leaveWaitingPageProtocol: LeaveWaitingPageProtocol
   )(implicit ec:                ExecutionContext): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(LeaveWaitingPage.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(LeaveWaitingPage.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

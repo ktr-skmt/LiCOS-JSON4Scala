@@ -93,7 +93,7 @@ class VillageProcessingEngineSuite extends AssertionsForJUnit {
             jsValue.toString
           ).mkString("\n")
         )
-        None
+        Option.empty[JsonTest]
     }
   }
 

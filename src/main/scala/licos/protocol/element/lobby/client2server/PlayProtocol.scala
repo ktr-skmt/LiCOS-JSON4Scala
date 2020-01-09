@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class PlayProtocol(token: UUID, villageId: Long) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonPlay] = {
+  private lazy val json: Option[JsonPlay] = {
     Some(
       new JsonPlay(
         token.toString,

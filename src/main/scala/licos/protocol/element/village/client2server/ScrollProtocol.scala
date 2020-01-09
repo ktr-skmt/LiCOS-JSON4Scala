@@ -15,7 +15,7 @@ final case class ScrollProtocol(
     myRole:       Role
 ) extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonScroll] = {
+  private lazy val json: Option[JsonScroll] = {
     server2logger.ScrollProtocol(village, nodeId, scrollTop, scrollHeight, offsetHeight, myCharacter, myRole, Nil).json
   }
 
@@ -32,7 +32,7 @@ object ScrollProtocol {
       .flatMap { village: VillageInfo =>
         for {
           myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-          myRole      <- village.cast.parse(json.myCharacter.role.name.en)
+          myRole      <- village.composition.parse(json.myCharacter.role.name.en)
         } yield {
           ScrollProtocol(
             village,

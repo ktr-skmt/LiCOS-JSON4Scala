@@ -14,7 +14,7 @@ final case class VillageProtocol(
     chatSettings:         ChatSettingsProtocol
 ) {
 
-  val json: JsonVillage = JsonVillage(
+  lazy val json: JsonVillage = JsonVillage(
     VillageContext.iri,
     LiCOSOnline.stateVillage,
     id,

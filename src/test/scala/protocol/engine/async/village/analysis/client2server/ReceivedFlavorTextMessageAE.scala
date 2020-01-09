@@ -16,7 +16,7 @@ final class ReceivedFlavorTextMessageAE extends ReceivedFlavorTextMessageAnalysi
       receivedFlavorTextMessage: ReceivedFlavorTextMessageProtocol
   )(implicit ec:                 ExecutionContext): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(ReceivedFlavorTextMessage.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(ReceivedFlavorTextMessage.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

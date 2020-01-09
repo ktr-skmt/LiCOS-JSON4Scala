@@ -31,7 +31,7 @@ final class LobbyProcessingEngine(
     playedWithTokenEngine:                      Option[PlayedWithTokenAnalysisEngine],
     readyEngine:                                Option[ReadyAnalysisEngine],
     searchResultEngine:                         Option[SearchResultAnalysisEngine],
-    changeLangEngine:                           Option[ChangeLangAnalysisEngine],
+    changeLanguageEngine:                       Option[ChangeLanguageAnalysisEngine],
     changeUserEmailEngine:                      Option[ChangeUserEmailAnalysisEngine],
     changeUserNameEngine:                       Option[ChangeUserNameAnalysisEngine],
     changeUserPasswordEngine:                   Option[ChangeUserPasswordAnalysisEngine],
@@ -39,7 +39,20 @@ final class LobbyProcessingEngine(
     settingsEngine:                             Option[SettingsAnalysisEngine],
     authorizationRequestEngine:                 Option[AuthorizationRequestAnalysisEngine],
     authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine],
-    authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine]
+    authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine],
+    renewAvatarTokenEngine:                     Option[RenewAvatarTokenAnalysisEngine],
+    newAvatarTokenEngine:                       Option[NewAvatarTokenAnalysisEngine],
+    createHumanPlayerEngine:                    Option[CreateHumanPlayerAnalysisEngine],
+    createOnymousAudienceEngine:                Option[CreateOnymousAudienceAnalysisEngine],
+    createRobotPlayerEngine:                    Option[CreateRobotPlayerAnalysisEngine],
+    deleteAvatarEngine:                         Option[DeleteAvatarAnalysisEngine],
+    runRobotPlayerInTheBackgroundEngine:        Option[RunRobotPlayerInTheBackgroundAnalysisEngine],
+    stopRobotPlayerEngine:                      Option[StopRobotPlayerAnalysisEngine],
+    humanPlayerSelectionPageEngine:             Option[HumanPlayerSelectionPageAnalysisEngine],
+    onymousAudienceSelectionPageEngine:         Option[OnymousAudienceSelectionPageAnalysisEngine],
+    robotPlayerSelectionPageEngine:             Option[RobotPlayerSelectionPageAnalysisEngine],
+    updateAvatarEngine:                         Option[UpdateAvatarAnalysisEngine],
+    enterAvatarSelectionPageEngine:             Option[EnterAvatarSelectionPageAnalysisEngine]
 ) extends ProcessingEngine {
 
   private val logger = Logger[LobbyProcessingEngine]
@@ -179,12 +192,12 @@ final class LobbyProcessingEngine(
             engine.process(box, protocol)
           case None => Failure(new NoEngineException(SearchResultAnalysisEngine.name))
         }
-      case protocol: ChangeLangProtocol =>
-        changeLangEngine match {
+      case protocol: ChangeLanguageProtocol =>
+        changeLanguageEngine match {
           case Some(engine) =>
-            log(ChangeLangAnalysisEngine.name)
+            log(ChangeLanguageAnalysisEngine.name)
             engine.process(box, protocol)
-          case None => Failure(new NoEngineException(ChangeLangAnalysisEngine.name))
+          case None => Failure(new NoEngineException(ChangeLanguageAnalysisEngine.name))
         }
       case protocol: ChangeUserEmailProtocol =>
         changeUserEmailEngine match {
@@ -240,6 +253,97 @@ final class LobbyProcessingEngine(
             log(AuthorizationRequestAcceptedAnalysisEngine.name)
             engine.process(box, protocol)
           case None => Failure(new NoEngineException(AuthorizationRequestAcceptedAnalysisEngine.name))
+        }
+      case protocol: RenewAvatarTokenProtocol =>
+        renewAvatarTokenEngine match {
+          case Some(engine) =>
+            log(RenewAvatarTokenAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(RenewAvatarTokenAnalysisEngine.name))
+        }
+      case protocol: NewAvatarTokenProtocol =>
+        newAvatarTokenEngine match {
+          case Some(engine) =>
+            log(NewAvatarTokenAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(NewAvatarTokenAnalysisEngine.name))
+        }
+      case protocol: CreateHumanPlayerProtocol =>
+        createHumanPlayerEngine match {
+          case Some(engine) =>
+            log(CreateHumanPlayerAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(CreateHumanPlayerAnalysisEngine.name))
+        }
+      case protocol: CreateOnymousAudienceProtocol =>
+        createOnymousAudienceEngine match {
+          case Some(engine) =>
+            log(CreateOnymousAudienceAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(CreateOnymousAudienceAnalysisEngine.name))
+        }
+      case protocol: CreateRobotPlayerProtocol =>
+        createRobotPlayerEngine match {
+          case Some(engine) =>
+            log(CreateRobotPlayerAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(CreateRobotPlayerAnalysisEngine.name))
+        }
+      case protocol: DeleteAvatarProtocol =>
+        deleteAvatarEngine match {
+          case Some(engine) =>
+            log(DeleteAvatarAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(DeleteAvatarAnalysisEngine.name))
+        }
+      case protocol: RunRobotPlayerInTheBackgroundProtocol =>
+        runRobotPlayerInTheBackgroundEngine match {
+          case Some(engine) =>
+            log(RunRobotPlayerInTheBackgroundAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(RunRobotPlayerInTheBackgroundAnalysisEngine.name))
+        }
+      case protocol: StopRobotPlayerProtocol =>
+        stopRobotPlayerEngine match {
+          case Some(engine) =>
+            log(StopRobotPlayerAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(StopRobotPlayerAnalysisEngine.name))
+        }
+      case protocol: HumanPlayerSelectionPageProtocol =>
+        humanPlayerSelectionPageEngine match {
+          case Some(engine) =>
+            log(HumanPlayerSelectionPageAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(HumanPlayerSelectionPageAnalysisEngine.name))
+        }
+      case protocol: OnymousAudienceSelectionPageProtocol =>
+        onymousAudienceSelectionPageEngine match {
+          case Some(engine) =>
+            log(OnymousAudienceSelectionPageAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(OnymousAudienceSelectionPageAnalysisEngine.name))
+        }
+      case protocol: RobotPlayerSelectionPageProtocol =>
+        robotPlayerSelectionPageEngine match {
+          case Some(engine) =>
+            log(RobotPlayerSelectionPageAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(RobotPlayerSelectionPageAnalysisEngine.name))
+        }
+      case protocol: UpdateAvatarProtocol =>
+        updateAvatarEngine match {
+          case Some(engine) =>
+            log(UpdateAvatarAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(UpdateAvatarAnalysisEngine.name))
+        }
+      case protocol: EnterAvatarSelectionPageProtocol =>
+        enterAvatarSelectionPageEngine match {
+          case Some(engine) =>
+            log(EnterAvatarSelectionPageAnalysisEngine.name)
+            engine.process(box, protocol)
+          case None => Failure(new NoEngineException(EnterAvatarSelectionPageAnalysisEngine.name))
         }
       case _ =>
         Failure(new JSON2ProtocolException("No protocol"))

@@ -2,4 +2,4 @@ package json.engine.auth
 
 import licos.json.engine.BOX
 
-class AuthBox(text: String) extends BOX
+final class AuthBox(text: String) extends BOX

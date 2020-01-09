@@ -16,7 +16,7 @@ final class AuthenticationRequestResponseAE extends AuthenticationRequestRespons
       authenticationRequestResponseProtocol: AuthenticationRequestResponseProtocol
   )(implicit ec:                             ExecutionContext): Future[AuthMessageProtocol] = {
     box match {
-      case _: AuthBox => Future(AuthMessageTestProtocol(AuthenticationRequestResponse.`type`))
+      case _: AuthBox => Future.successful(AuthMessageTestProtocol(AuthenticationRequestResponse.`type`))
       case _ => Future.failed(new AuthBOXNotFoundException())
     }
   }

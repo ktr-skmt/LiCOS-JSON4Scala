@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class SelectVillageProtocol(token: UUID, villageId: Long) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonSelectVillage] = {
+  private lazy val json: Option[JsonSelectVillage] = {
     Some(
       new JsonSelectVillage(
         token.toString,

@@ -15,7 +15,7 @@ final class NextGameInvitationAE extends NextGameInvitationAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(NextGameInvitation.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(NextGameInvitation.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

@@ -15,7 +15,7 @@ final class PingAE extends PingAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(Ping.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(Ping.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

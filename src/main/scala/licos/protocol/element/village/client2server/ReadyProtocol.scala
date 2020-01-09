@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class ReadyProtocol(token: UUID, villageId: Long) extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonReady] = {
+  private lazy val json: Option[JsonReady] = {
     Some(
       new JsonReady(
         token.toString,

@@ -7,11 +7,17 @@ import json.engine.LobbyExample
 import json.element.JsonTest
 import json.engine.lobby.analysis.client2server.{
   AdvancedSearchAE,
+  AuthorizationRequestAcceptedAE,
   BuildVillageAE,
-  ChangeLangAE,
+  ChangeLanguageAE,
   ChangeUserEmailAE,
   ChangeUserNameAE,
   ChangeUserPasswordAE,
+  CreateHumanPlayerAE,
+  CreateOnymousAudienceAE,
+  CreateRobotPlayerAE,
+  DeleteAvatarAE,
+  EnterAvatarSelectionPageAE,
   EnterLobbyAE,
   GetAvatarInfoAE,
   GetSettingsAE,
@@ -21,13 +27,23 @@ import json.engine.lobby.analysis.client2server.{
   PlayAE,
   PongAE,
   ReadyAE,
-  SelectVillageAE
+  RenewAvatarTokenAE,
+  RunRobotPlayerInTheBackgroundAE,
+  SelectVillageAE,
+  StopRobotPlayerAE,
+  UpdateAvatarAE
 }
 import json.engine.lobby.analysis.server2client.{
+  AuthorizationRequestAE,
+  AuthorizationRequestAcceptedResponseAE,
   AvatarInfoAE,
+  HumanPlayerSelectionPageAE,
   LobbyAE,
+  NewAvatarTokenAE,
+  OnymousAudienceSelectionPageAE,
   PingAE,
   PlayedAE,
+  RobotPlayerSelectionPageAE,
   SearchResultAE,
   SettingsAE,
   WaitingPageAE
@@ -35,11 +51,17 @@ import json.engine.lobby.analysis.server2client.{
 import json.engine.lobby.analysis.server2server.PlayedWithTokenAE
 import json.engine.lobby.example.client2server.{
   AdvancedSearch,
+  AuthorizationRequestAccepted,
   BuildVillage,
-  ChangeLang,
+  ChangeLanguage,
   ChangeUserEmail,
   ChangeUserName,
   ChangeUserPassword,
+  CreateHumanPlayer,
+  CreateOnymousAudience,
+  CreateRobotPlayer,
+  DeleteAvatar,
+  EnterAvatarSelectionPage,
   EnterLobby,
   GetAvatarInfo,
   GetSettings,
@@ -49,9 +71,27 @@ import json.engine.lobby.example.client2server.{
   Play,
   Pong,
   Ready,
-  SelectVillage
+  RenewAvatarToken,
+  RunRobotPlayerInTheBackground,
+  SelectVillage,
+  StopRobotPlayer,
+  UpdateAvatar
 }
-import json.engine.lobby.example.server2client.{AvatarInfo, Lobby, Ping, Played, SearchResult, Settings, WaitingPage}
+import json.engine.lobby.example.server2client.{
+  AuthorizationRequest,
+  AuthorizationRequestAcceptedResponse,
+  AvatarInfo,
+  HumanPlayerSelectionPage,
+  Lobby,
+  NewAvatarToken,
+  OnymousAudienceSelectionPage,
+  Ping,
+  Played,
+  RobotPlayerSelectionPage,
+  SearchResult,
+  Settings,
+  WaitingPage
+}
 import json.engine.lobby.example.server2server.PlayedWithToken
 import licos.json.engine.processing.{
   LobbyPE,
@@ -72,13 +112,14 @@ object LobbyProcessingEngineSuite {
   def jsonExampleSeq: Array[LobbyExample] = Array[LobbyExample](
     AdvancedSearch("advancedSearch.json"),
     BuildVillage("buildVillage.json"),
-    ChangeLang("changeLang.json"),
+    ChangeLanguage("changeLanguage.json"),
     ChangeUserEmail("changeUserEmail.json"),
     ChangeUserName("changeUserName.json"),
     ChangeUserPassword("changeUserPassword.json"),
     EnterLobby("enterLobbyForAnonymousAudience.json"),
     EnterLobby("enterLobbyForHumanPlayer.json"),
     EnterLobby("enterLobbyForOnymousAudience.json"),
+    EnterLobby("enterLobbyForRobotPlayer.json"),
     GetAvatarInfo("getAvatar.json"),
     GetSettings("getSettings.json"),
     IdSearch("idSearch.json"),
@@ -87,22 +128,43 @@ object LobbyProcessingEngineSuite {
     Play("play.json"),
     Pong("pong.json"),
     Ready("ready.json"),
-    SelectVillage("selectVillageForHumanPlayer.json"),
+    SelectVillage("selectVillage.json"),
     AvatarInfo("avatar.json"),
     Ping("ping.json"),
     Settings("settings.json"),
+    Lobby("lobbyForAnonymousAudience.json"),
     Lobby("lobbyForHumanPlayer.json"),
+    Lobby("lobbyForOnymousAudience.json"),
+    Lobby("lobbyForRobotPlayer.json"),
     Played("played.json"),
     PlayedWithToken("playedWithToken.json"),
     SearchResult("searchResult.json"),
-    WaitingPage("waitingPageForHumanPlayer.json")
+    WaitingPage("waitingPage.json"),
+    AuthorizationRequestAccepted("authorizationRequestAccepted.json"),
+    AuthorizationRequest("authorizationRequest.json"),
+    AuthorizationRequestAcceptedResponse("authorizationRequestAcceptedResponse.json"),
+    RenewAvatarToken("renewAvatarToken.json"),
+    NewAvatarToken("newAvatarToken.json"),
+    CreateHumanPlayer("createHumanPlayer.json"),
+    CreateOnymousAudience("createOnymousAudience.json"),
+    CreateRobotPlayer("createRobotPlayer.json"),
+    DeleteAvatar("deleteAvatar.json"),
+    RunRobotPlayerInTheBackground("runRobotPlayerInTheBackground.json"),
+    StopRobotPlayer("stopRobotPlayer.json"),
+    HumanPlayerSelectionPage("humanPlayerSelectionPage.json"),
+    OnymousAudienceSelectionPage("onymousAudienceSelectionPage.json"),
+    RobotPlayerSelectionPage("robotPlayerSelectionPage.json"),
+    UpdateAvatar("updateAvatarName.json"),
+    UpdateAvatar("updateAvatarImage.json"),
+    UpdateAvatar("updateAvatarLanguage.json"),
+    EnterAvatarSelectionPage("enterAvatarSelectionPage.json")
   )
 }
 
 @RunWith(classOf[Theories])
-class LobbyProcessingEngineSuite extends AssertionsForJUnit {
+final class LobbyProcessingEngineSuite extends AssertionsForJUnit {
 
-  private final val log: Logger = Logger[LobbyProcessingEngineSuite]
+  private val log: Logger = Logger[LobbyProcessingEngineSuite]
 
   private val processingEngineFactory: LobbyProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(LobbyPE)
@@ -125,12 +187,28 @@ class LobbyProcessingEngineSuite extends AssertionsForJUnit {
     .set(new PlayedWithTokenAE())
     .set(new ReadyAE())
     .set(new SearchResultAE())
-    .set(new ChangeLangAE())
+    .set(new ChangeLanguageAE())
     .set(new ChangeUserEmailAE())
     .set(new ChangeUserNameAE())
     .set(new ChangeUserPasswordAE())
     .set(new GetSettingsAE())
     .set(new SettingsAE())
+    .set(new AuthorizationRequestAcceptedAE())
+    .set(new AuthorizationRequestAE())
+    .set(new AuthorizationRequestAcceptedResponseAE())
+    .set(new RenewAvatarTokenAE())
+    .set(new NewAvatarTokenAE())
+    .set(new CreateHumanPlayerAE())
+    .set(new CreateOnymousAudienceAE())
+    .set(new CreateRobotPlayerAE())
+    .set(new DeleteAvatarAE())
+    .set(new RunRobotPlayerInTheBackgroundAE())
+    .set(new StopRobotPlayerAE())
+    .set(new HumanPlayerSelectionPageAE())
+    .set(new OnymousAudienceSelectionPageAE())
+    .set(new RobotPlayerSelectionPageAE())
+    .set(new UpdateAvatarAE())
+    .set(new EnterAvatarSelectionPageAE())
 
   private val processingEngine: LobbyProcessingEngine = processingEngineFactory.create
 
@@ -180,7 +258,7 @@ class LobbyProcessingEngineSuite extends AssertionsForJUnit {
             jsValue.toString
           ).mkString("\n")
         )
-        None
+        Option.empty[JsonTest]
     }
   }
 }

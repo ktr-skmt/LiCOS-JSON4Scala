@@ -15,7 +15,7 @@ final class ReadyAE extends ReadyAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(Ready.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(Ready.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

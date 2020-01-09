@@ -15,7 +15,7 @@ final class FlavorTextAE extends FlavorTextAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(FlavorText.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(FlavorText.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

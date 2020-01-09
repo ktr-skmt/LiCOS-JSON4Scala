@@ -5,7 +5,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class NextGameInvitationProtocol(villageId: Long) extends Server2ClientVillageMessageProtocol {
 
-  private val json: Option[JsonNextGameInvitation] = {
+  private lazy val json: Option[JsonNextGameInvitation] = {
     Some(new JsonNextGameInvitation(villageId))
   }
 

@@ -13,7 +13,7 @@ final case class OnymousAudienceChatFromClientProtocol(
     myAvatarImage: URL
 ) extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonOnymousAudienceChat] = {
+  private lazy val json: Option[JsonOnymousAudienceChat] = {
     server2logger.OnymousAudienceChatFromClientProtocol(village, text, myAvatarName, myAvatarImage, Nil).json
   }
 
@@ -40,7 +40,7 @@ object OnymousAudienceChatFromClientProtocol {
           )
         }
     } else {
-      None
+      Option.empty[OnymousAudienceChatFromClientProtocol]
     }
   }
 

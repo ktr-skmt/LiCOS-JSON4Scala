@@ -64,9 +64,9 @@ object VillageProcessingEngineSuite {
 }
 
 @RunWith(classOf[Theories])
-class VillageProcessingEngineSuite extends AssertionsForJUnit {
+final class VillageProcessingEngineSuite extends AssertionsForJUnit {
 
-  private final val log: Logger = Logger[VillageProcessingEngineSuite]
+  private val log: Logger = Logger[VillageProcessingEngineSuite]
 
   private val processingEngineFactory: VillageProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(VillagePE)
@@ -145,7 +145,7 @@ class VillageProcessingEngineSuite extends AssertionsForJUnit {
             jsValue.toString
           ).mkString("\n")
         )
-        None
+        Option.empty[JsonTest]
     }
   }
 }

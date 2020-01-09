@@ -13,7 +13,7 @@ final case class ReceivedChatMessageProtocol(
     clientTimestamp: OffsetDateTime
 ) extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonReceivedChatMessage] = {
+  private lazy val json: Option[JsonReceivedChatMessage] = {
     Some(new JsonReceivedChatMessage(token.toString, villageId, serverTimestamp.toString, clientTimestamp.toString))
   }
 

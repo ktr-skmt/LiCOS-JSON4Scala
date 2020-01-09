@@ -15,7 +15,7 @@ final class AvatarInfoAE extends AvatarInfoAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(AvatarInfo.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(AvatarInfo.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

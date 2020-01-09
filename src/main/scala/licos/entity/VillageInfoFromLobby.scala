@@ -2,12 +2,12 @@ package licos.entity
 
 import java.net.URL
 
-import licos.knowledge.{Architecture, AvatarSetting, Cast, Lobby}
+import licos.knowledge.{Architecture, AvatarSetting, Composition, Lobby}
 
 final case class VillageInfoFromLobby(
     lobby:                   Lobby,
     hostPlayer:              HostPlayer,
-    cast:                    Cast,
+    composition:             Composition,
     idForSearching:          Int,
     avatarSetting:           AvatarSetting,
     maxNumberOfHumanPlayers: Int,

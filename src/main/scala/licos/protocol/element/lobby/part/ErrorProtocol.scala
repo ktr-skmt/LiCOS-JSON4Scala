@@ -8,7 +8,7 @@ import licos.protocol.element.village.part.NameProtocol
 
 final case class ErrorProtocol(content: NameProtocol, severity: Severity, source: String, isFromServer: Boolean) {
 
-  val json: Option[JsonSubError] = {
+  lazy val json: Option[JsonSubError] = {
     Some(
       JsonSubError(
         content.json(Some(Locale.ENGLISH)),

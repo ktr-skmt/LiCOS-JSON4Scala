@@ -16,7 +16,7 @@ final class OnymousAudienceScrollAE extends OnymousAudienceScrollAnalysisEngine 
       onymousAudienceScroll: OnymousAudienceScrollProtocol
   )(implicit ec:             ExecutionContext): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(OnymousAudienceScroll.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(OnymousAudienceScroll.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

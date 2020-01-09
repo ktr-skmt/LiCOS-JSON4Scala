@@ -85,7 +85,7 @@ final class VillageProcessingEngine(
 
   override protected val flowController: FlowController = new VillageFlowController()
 
-  private final val logger: Logger = Logger[VillageProcessingEngine]
+  private val logger: Logger = Logger[VillageProcessingEngine]
 
   /** Returns a play.api.libs.json.JsValue response from a JSON message.
     *
@@ -109,18 +109,18 @@ final class VillageProcessingEngine(
           new JsonSubError(
             new JsonName(
               en = s"No $name is set. Please set it to the processing engine.",
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String]
             ),
             "warning",
             "Nothing",
@@ -137,18 +137,18 @@ final class VillageProcessingEngine(
           new JsonSubError(
             new JsonName(
               en = "VillageProcessingEngine returns nothing",
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String]
             ),
             "warning",
             jsValue.toString,

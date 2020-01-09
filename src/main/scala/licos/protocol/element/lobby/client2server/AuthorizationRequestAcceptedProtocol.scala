@@ -7,7 +7,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class AuthorizationRequestAcceptedProtocol(accessToken: UUID) extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonAuthorizationRequestAccepted] = {
+  private lazy val json: Option[JsonAuthorizationRequestAccepted] = {
     Some(
       new JsonAuthorizationRequestAccepted(
         accessToken.toString

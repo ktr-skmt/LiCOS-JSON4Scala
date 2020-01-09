@@ -8,7 +8,7 @@ import play.api.libs.json.{JsValue, Json}
 final case class VoteProtocol(village: VillageInfo, character: Character, myCharacter: Character, myRole: Role)
     extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonVote] = {
+  private lazy val json: Option[JsonVote] = {
     server2logger.VoteProtocol(village, character, myCharacter, myRole, Nil).json
   }
 
@@ -26,7 +26,7 @@ object VoteProtocol {
         for {
           character   <- Data2Knowledge.characterOpt(json.character.name.en, json.character.id)
           myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-          myRole      <- village.cast.parse(json.myCharacter.role.name.en)
+          myRole      <- village.composition.parse(json.myCharacter.role.name.en)
         } yield {
           VoteProtocol(
             village,

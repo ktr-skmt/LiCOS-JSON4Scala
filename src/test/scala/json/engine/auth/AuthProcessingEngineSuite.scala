@@ -15,7 +15,6 @@ import licos.json.engine.processing.{
   AuthProcessingEngineFactory,
   SpecificProcessingEngineFactory
 }
-import licos.json.parser.AuthParser
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
 import org.scalatest.junit.AssertionsForJUnit
@@ -35,9 +34,9 @@ object AuthProcessingEngineSuite {
 }
 
 @RunWith(classOf[Theories])
-class AuthProcessingEngineSuite extends AssertionsForJUnit with AuthParser {
+final class AuthProcessingEngineSuite extends AssertionsForJUnit {
 
-  private final val log: Logger = Logger[AuthProcessingEngineSuite]
+  private val log: Logger = Logger[AuthProcessingEngineSuite]
 
   private val processingEngineFactory: AuthProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(AuthPE)

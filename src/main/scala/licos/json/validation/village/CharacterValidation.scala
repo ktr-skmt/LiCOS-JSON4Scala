@@ -15,7 +15,7 @@ object CharacterValidation {
 
   val `@idRegex`: Regex = LiCOSOnline
     .stateRegex(
-      s"""(?:myCharacter|character|(?:(?:role#${RoleValidation.roleNamesInLowerCase}(?:/board#$idStringPattern)?|extensionalDisclosureRange|votingResultsSummary#${CharacterValidation.idStringPattern}|votingResultsDetails#${CharacterValidation.idStringPattern}-${CharacterValidation.idStringPattern})/)?character#$idStringPattern)"""
+      s"""(?:myCharacter|character|(?:(?:role#${RoleValidation.roleNamesInLowerCase}(?:/board#$idStringPattern)?|extensionalDisclosureRange|votingResultsSummary#$idStringPattern|votingResultsDetails#$idStringPattern-$idStringPattern)/)?character#$idStringPattern)"""
     )
     .r
   val `@id`:  Reads[String] = pattern(`@idRegex`)

@@ -2,4 +2,4 @@ package protocol.engine.lobby
 
 import licos.protocol.engine.processing.lobby.LobbyBOX
 
-class LobbyBox extends LobbyBOX
+final class LobbyBox extends LobbyBOX

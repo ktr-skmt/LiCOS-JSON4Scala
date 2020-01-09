@@ -15,7 +15,7 @@ final class ChatFromClientAE extends ChatFromClientAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(ChatFromClient.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(ChatFromClient.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

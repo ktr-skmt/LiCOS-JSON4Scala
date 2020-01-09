@@ -16,7 +16,7 @@ final class ReceivedChatMessageAE extends ReceivedChatMessageAnalysisEngine {
       receivedChatMessage: ReceivedChatMessageProtocol
   )(implicit ec:           ExecutionContext): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(ReceivedChatMessage.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(ReceivedChatMessage.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

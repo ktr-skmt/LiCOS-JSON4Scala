@@ -90,9 +90,9 @@ object VillageUnitTestSuite {
 }
 
 @RunWith(classOf[Theories])
-class VillageUnitTestSuite extends AssertionsForJUnit with VillageUnitTestParser {
+final class VillageUnitTestSuite extends AssertionsForJUnit with VillageUnitTestParser {
 
-  private final val log: Logger = Logger[VillageUnitTestSuite]
+  private val log: Logger = Logger[VillageUnitTestSuite]
 
   @Theory
   def process(jsonExample: VillageUnitTestExample): Unit = {

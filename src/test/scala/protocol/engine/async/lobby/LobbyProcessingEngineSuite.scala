@@ -19,10 +19,15 @@ import protocol.engine.async.lobby.analysis.client2server.{
   AdvancedSearchAE,
   AuthorizationRequestAcceptedAE,
   BuildVillageAE,
-  ChangeLangAE,
+  ChangeLanguageAE,
   ChangeUserEmailAE,
   ChangeUserNameAE,
   ChangeUserPasswordAE,
+  CreateHumanPlayerAE,
+  CreateOnymousAudienceAE,
+  CreateRobotPlayerAE,
+  DeleteAvatarAE,
+  EnterAvatarSelectionPageAE,
   EnterLobbyAE,
   GetAvatarInfoAE,
   GetSettingsAE,
@@ -32,15 +37,23 @@ import protocol.engine.async.lobby.analysis.client2server.{
   PlayAE,
   PongAE,
   ReadyAE,
-  SelectVillageAE
+  RenewAvatarTokenAE,
+  RunRobotPlayerInTheBackgroundAE,
+  SelectVillageAE,
+  StopRobotPlayerAE,
+  UpdateAvatarAE
 }
 import protocol.engine.async.lobby.analysis.server2client.{
   AuthorizationRequestAE,
   AuthorizationRequestAcceptedResponseAE,
   AvatarInfoAE,
+  HumanPlayerSelectionPageAE,
   LobbyAE,
+  NewAvatarTokenAE,
+  OnymousAudienceSelectionPageAE,
   PingAE,
   PlayedAE,
+  RobotPlayerSelectionPageAE,
   SearchResultAE,
   SettingsAE,
   WaitingPageAE
@@ -51,10 +64,15 @@ import protocol.engine.lobby.example.client2server.{
   AdvancedSearch,
   AuthorizationRequestAccepted,
   BuildVillage,
-  ChangeLang,
+  ChangeLanguage,
   ChangeUserEmail,
   ChangeUserName,
   ChangeUserPassword,
+  CreateHumanPlayer,
+  CreateOnymousAudience,
+  CreateRobotPlayer,
+  DeleteAvatar,
+  EnterAvatarSelectionPage,
   EnterLobby,
   GetAvatarInfo,
   GetSettings,
@@ -64,15 +82,23 @@ import protocol.engine.lobby.example.client2server.{
   Play,
   Pong,
   Ready,
-  SelectVillage
+  RenewAvatarToken,
+  RunRobotPlayerInTheBackground,
+  SelectVillage,
+  StopRobotPlayer,
+  UpdateAvatar
 }
 import protocol.engine.lobby.example.server2client.{
   AuthorizationRequest,
   AuthorizationRequestAcceptedResponse,
   AvatarInfo,
+  HumanPlayerSelectionPage,
   Lobby,
+  NewAvatarToken,
+  OnymousAudienceSelectionPage,
   Ping,
   Played,
+  RobotPlayerSelectionPage,
   SearchResult,
   Settings,
   WaitingPage
@@ -88,7 +114,7 @@ object LobbyProcessingEngineSuite {
   def exampleSeq: Array[LobbyExample] = Array[LobbyExample](
     AdvancedSearch("advancedSearch.json"),
     BuildVillage("buildVillage.json"),
-    ChangeLang("changeLang.json"),
+    ChangeLanguage("changeLanguage.json"),
     ChangeUserEmail("changeUserEmail.json"),
     ChangeUserName("changeUserName.json"),
     ChangeUserPassword("changeUserPassword.json"),
@@ -104,18 +130,36 @@ object LobbyProcessingEngineSuite {
     Play("play.json"),
     Pong("pong.json"),
     Ready("ready.json"),
-    SelectVillage("selectVillageForHumanPlayer.json"),
+    SelectVillage("selectVillage.json"),
     AuthorizationRequest("authorizationRequest.json"),
     AuthorizationRequestAcceptedResponse("authorizationRequestAcceptedResponse.json"),
     AvatarInfo("avatar.json"),
+    Lobby("lobbyForAnonymousAudience.json"),
     Lobby("lobbyForHumanPlayer.json"),
+    Lobby("lobbyForOnymousAudience.json"),
+    Lobby("lobbyForRobotPlayer.json"),
     Ping("ping.json"),
     Played("played.json"),
     SearchResult("searchResult.json"),
     Settings("settings.json"),
-    WaitingPage("waitingPageForHumanPlayer.json"),
+    WaitingPage("waitingPage.json"),
     PlayedWithToken("playedWithToken.json"),
-    AuthorizationRequestAccepted("authorizationRequestAccepted.json")
+    AuthorizationRequestAccepted("authorizationRequestAccepted.json"),
+    RenewAvatarToken("renewAvatarToken.json"),
+    NewAvatarToken("newAvatarToken.json"),
+    CreateHumanPlayer("createHumanPlayer.json"),
+    CreateOnymousAudience("createOnymousAudience.json"),
+    CreateRobotPlayer("createRobotPlayer.json"),
+    DeleteAvatar("deleteAvatar.json"),
+    RunRobotPlayerInTheBackground("runRobotPlayerInTheBackground.json"),
+    StopRobotPlayer("stopRobotPlayer.json"),
+    HumanPlayerSelectionPage("humanPlayerSelectionPage.json"),
+    OnymousAudienceSelectionPage("onymousAudienceSelectionPage.json"),
+    RobotPlayerSelectionPage("robotPlayerSelectionPage.json"),
+    UpdateAvatar("updateAvatarName.json"),
+    UpdateAvatar("updateAvatarImage.json"),
+    UpdateAvatar("updateAvatarLanguage.json"),
+    EnterAvatarSelectionPage("enterAvatarSelectionPage.json")
   )
 }
 
@@ -130,7 +174,7 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyPars
     .set(new AdvancedSearchAE())
     .set(new AvatarInfoAE())
     .set(new BuildVillageAE())
-    .set(new ChangeLangAE())
+    .set(new ChangeLanguageAE())
     .set(new ChangeUserEmailAE())
     .set(new ChangeUserNameAE())
     .set(new ChangeUserPasswordAE())
@@ -154,6 +198,19 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyPars
     .set(new AuthorizationRequestAE())
     .set(new AuthorizationRequestAcceptedResponseAE())
     .set(new AuthorizationRequestAcceptedAE())
+    .set(new RenewAvatarTokenAE())
+    .set(new NewAvatarTokenAE())
+    .set(new CreateHumanPlayerAE())
+    .set(new CreateOnymousAudienceAE())
+    .set(new CreateRobotPlayerAE())
+    .set(new DeleteAvatarAE())
+    .set(new RunRobotPlayerInTheBackgroundAE())
+    .set(new StopRobotPlayerAE())
+    .set(new HumanPlayerSelectionPageAE())
+    .set(new OnymousAudienceSelectionPageAE())
+    .set(new RobotPlayerSelectionPageAE())
+    .set(new UpdateAvatarAE())
+    .set(new EnterAvatarSelectionPageAE())
 
   private val processingEngine: LobbyProcessingEngine = processingEngineFactory.create
 
@@ -180,11 +237,7 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyPars
                 case p: LobbyMessageTestProtocol =>
                   assert(p.text == jsonType)
                 case _ =>
-                  fail(
-                    Seq[String](
-                      "No LobbyMessageTestProtocol"
-                    ).mkString("\n")
-                  )
+                  fail("No LobbyMessageTestProtocol")
               }
             }
             .recover {
@@ -200,11 +253,7 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyPars
           Duration.Inf
         )
       case _ =>
-        fail(
-          Seq[String](
-            "No protocol"
-          ).mkString("\n")
-        )
+        fail("No protocol")
     }
   }
 }

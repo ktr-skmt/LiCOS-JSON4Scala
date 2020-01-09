@@ -12,7 +12,11 @@ import json.engine.lobby.unitTestExample.{
   PlayerSetting,
   PlayerTokenInKickOutPlayer,
   Robot,
-  RoleSetting
+  RobotPlayerInfo,
+  RoleSetting,
+  SubAvatarInfo,
+  Support,
+  SupportedComposition
 }
 import org.junit.experimental.theories.{DataPoints, Theories, Theory}
 import org.junit.runner.RunWith
@@ -33,14 +37,18 @@ object LobbyUnitTestSuite {
     PlayerInWaitingPage("playerInWaitingPage.json"),
     Robot("robot.json"),
     RoleSetting("roleSetting.json"),
-    PlayerSetting("playerSetting.json")
+    PlayerSetting("playerSetting.json"),
+    SupportedComposition("supportedComposition.json"),
+    Support("support.json"),
+    SubAvatarInfo("subAvatarInfo.json"),
+    RobotPlayerInfo("robotPlayerInfo.json")
   )
 }
 
 @RunWith(classOf[Theories])
-class LobbyUnitTestSuite extends AssertionsForJUnit with LobbyUnitTestParser {
+final class LobbyUnitTestSuite extends AssertionsForJUnit with LobbyUnitTestParser {
 
-  private final val log: Logger = Logger[LobbyUnitTestSuite]
+  private val log: Logger = Logger[LobbyUnitTestSuite]
 
   @Theory
   def process(jsonExample: LobbyUnitTestExample): Unit = {
@@ -71,6 +79,14 @@ class LobbyUnitTestSuite extends AssertionsForJUnit with LobbyUnitTestParser {
         assert(parseRobot(json).nonEmpty)
       case "unitTest/RoleSetting" =>
         assert(parseRoleSetting(json).nonEmpty)
+      case "unitTest/SupportedComposition" =>
+        assert(parseSupportedComposition(json).nonEmpty)
+      case "unitTest/Support" =>
+        assert(parseSupport(json).nonEmpty)
+      case "unitTest/SubAvatarInfo" =>
+        assert(parseSubAvatarInfo(json).nonEmpty)
+      case "unitTest/RobotPlayerInfo" =>
+        assert(parseRobotPlayerInfo(json).nonEmpty)
       case _ =>
         fail("no json type")
     }

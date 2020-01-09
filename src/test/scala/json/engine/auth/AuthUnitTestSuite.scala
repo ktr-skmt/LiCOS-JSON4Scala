@@ -24,9 +24,9 @@ object AuthUnitTestSuite {
 }
 
 @RunWith(classOf[Theories])
-class AuthUnitTestSuite extends AssertionsForJUnit with AuthUnitTestParser {
+final class AuthUnitTestSuite extends AssertionsForJUnit with AuthUnitTestParser {
 
-  private final val log: Logger = Logger[AuthUnitTestSuite]
+  private val log: Logger = Logger[AuthUnitTestSuite]
 
   @Theory
   def process(jsonExample: AuthUnitTestExample): Unit = {

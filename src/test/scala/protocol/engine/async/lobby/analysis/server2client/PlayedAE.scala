@@ -15,7 +15,7 @@ final class PlayedAE extends PlayedAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(Played.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(Played.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

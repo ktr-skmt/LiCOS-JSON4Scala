@@ -11,7 +11,7 @@ object Data2Knowledge {
       case HumanArchitecture.label               => Some(HumanArchitecture)
       case FullyAutomatedRobotArchitecture.label => Some(FullyAutomatedRobotArchitecture)
       case SemiAutomatedRobotArchitecture.label  => Some(SemiAutomatedRobotArchitecture)
-      case _                                     => None
+      case _                                     => Option.empty[Architecture]
     }
   }
 
@@ -21,7 +21,7 @@ object Data2Knowledge {
       case CrossMark.label    => Some(CrossMark)
       case TriangleMark.label => Some(TriangleMark)
       case CircleMark.label   => Some(CircleMark)
-      case _                  => None
+      case _                  => Option.empty[PolarityMark]
     }
   }
 
@@ -31,7 +31,7 @@ object Data2Knowledge {
       case ErrorSeverity.label   => Some(ErrorSeverity)
       case WarningSeverity.label => Some(WarningSeverity)
       case InfoSeverity.label    => Some(InfoSeverity)
-      case _                     => None
+      case _                     => Option.empty[Severity]
     }
   }
 
@@ -43,7 +43,7 @@ object Data2Knowledge {
       case DeathByAttack.label    => Some(DeathByAttack)
       case DeathByFear.label      => Some(DeathByFear)
       case UnnaturalDeath.label   => Some(UnnaturalDeath)
-      case _                      => None
+      case _                      => Option.empty[Status]
     }
   }
 
@@ -52,6 +52,7 @@ object Data2Knowledge {
       case PingDanger.label  => Some(PingDanger)
       case PingWarning.label => Some(PingWarning)
       case PingSafe.label    => Some(PingSafe)
+      case _                 => Option.empty[PingStatus]
     }
   }
 
@@ -59,7 +60,7 @@ object Data2Knowledge {
     label match {
       case Victory.label => Some(Victory)
       case Defeat.label  => Some(Defeat)
-      case _             => None
+      case _             => Option.empty[Outcome]
     }
   }
 
@@ -69,7 +70,7 @@ object Data2Knowledge {
       case RobotPlayerLobby.label       => Some(RobotPlayerLobby)
       case OnymousAudienceLobby.label   => Some(OnymousAudienceLobby)
       case AnonymousAudienceLobby.label => Some(AnonymousAudienceLobby)
-      case _                            => None
+      case _                            => Option.empty[Lobby]
     }
   }
 
@@ -96,7 +97,7 @@ object Data2Knowledge {
       case licos.protocol.PrivateChannel.channel.label  => Some(licos.protocol.PrivateChannel)
       case licos.protocol.WerewolfChannel.channel.label => Some(licos.protocol.WerewolfChannel)
       case licos.protocol.GraveChannel.channel.label    => Some(licos.protocol.GraveChannel)
-      case _                                            => None
+      case _                                            => Option.empty[PlayerChatChannel]
     }
   }
 
@@ -108,7 +109,7 @@ object Data2Knowledge {
       case Night.label                => Some(Night)
       case Result.label               => Some(Result)
       case PostMortemDiscussion.label => Some(PostMortemDiscussion)
-      case _                          => None
+      case _                          => Option.empty[Phase]
     }
   }
 
@@ -123,13 +124,13 @@ object Data2Knowledge {
       case "madman"      => Some(MadmanRole(numberOfPlayers))
       case "werehamster" => Some(WerehamsterRole(numberOfPlayers))
       case "master"      => Some(MasterRole(numberOfPlayers))
-      case _             => None
+      case _             => Option.empty[Role]
     }
   }
 
   def characterOpt(name: String, id: Int): Option[Character] = {
-    val retOpt: Option[Character] = {
-      java.lang.Character.toLowerCase(name.head) match {
+    name.headOption.flatMap { head: Char =>
+      java.lang.Character.toLowerCase(head) match {
         case 'a' => Some(Adil())
         case 'b' => Some(Borya())
         case 'c' => Some(Chacha())
@@ -151,17 +152,27 @@ object Data2Knowledge {
         case 'u' => Some(Uma())
         case 'v' => Some(Valeria())
         case 'y' => Some(Yihan())
-        case _   => None
+        case _   => Option.empty[Character]
       }
-    }
-    retOpt.map(_.setId(id))
+    }.map(_.setId(id))
   }
 
   def avatarSettingOpt(label: String): Option[AvatarSetting] = {
     label match {
       case RandomAvatarSetting.label => Some(RandomAvatarSetting)
       case FixedAvatarSetting.label  => Some(FixedAvatarSetting)
-      case _                         => None
+      case _                         => Option.empty[AvatarSetting]
+    }
+  }
+
+  def robotPlayerStatusOpt(label: String): Option[RobotPlayerStatus] = {
+    label match {
+      case Connected.label                 => Some(Connected)
+      case AwaitingAuthorization.label     => Some(AwaitingAuthorization)
+      case AwaitingCommunicationTest.label => Some(AwaitingCommunicationTest)
+      case RunningInTheBackground.label    => Some(RunningInTheBackground)
+      case RunningInTheForeground.label    => Some(RunningInTheForeground)
+      case _                               => Option.empty[RobotPlayerStatus]
     }
   }
 

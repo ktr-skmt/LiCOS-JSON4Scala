@@ -16,7 +16,7 @@ final class PostMortemDiscussionAE extends PostMortemDiscussionAnalysisEngine {
       postMortemDiscussion: PostMortemDiscussionProtocol
   )(implicit ec:            ExecutionContext): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(PostMortemDiscussion.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(PostMortemDiscussion.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

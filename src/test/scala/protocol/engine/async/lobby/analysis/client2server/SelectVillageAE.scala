@@ -15,7 +15,7 @@ final class SelectVillageAE extends SelectVillageAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(SelectVillage.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(SelectVillage.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

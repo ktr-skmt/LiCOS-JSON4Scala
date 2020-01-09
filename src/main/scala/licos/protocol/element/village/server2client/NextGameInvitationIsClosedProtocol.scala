@@ -5,7 +5,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class NextGameInvitationIsClosedProtocol() extends Server2ClientVillageMessageProtocol {
 
-  private val json: Option[JsonNextGameInvitationIsClosed] = {
+  private lazy val json: Option[JsonNextGameInvitationIsClosed] = {
     Some(new JsonNextGameInvitationIsClosed())
   }
 

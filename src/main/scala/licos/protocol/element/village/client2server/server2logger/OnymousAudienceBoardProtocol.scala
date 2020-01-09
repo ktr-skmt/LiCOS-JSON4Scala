@@ -23,7 +23,7 @@ final case class OnymousAudienceBoardProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Client2ServerVillageMessageProtocolForLogging {
 
-  val json: Option[JsonOnymousAudienceBoard] = {
+  lazy val json: Option[JsonOnymousAudienceBoard] = {
     Some(
       new JsonOnymousAudienceBoard(
         BaseProtocol(
@@ -32,7 +32,7 @@ final case class OnymousAudienceBoardProtocol(
           VillageProtocol(
             village.id,
             village.name,
-            village.cast.totalNumberOfPlayers,
+            village.composition.totalNumberOfPlayers,
             village.language,
             ChatSettingsProtocol(
               village.id,
@@ -91,7 +91,10 @@ object OnymousAudienceBoardProtocol {
           prediction <- Data2Knowledge.polarityMarkOpt(json.prediction)
           character  <- Data2Knowledge.characterOpt(json.character.name.en, json.character.id)
           role <- Data2Knowledge
-            .roleOpt(json.role.name.en, village.cast.parse(json.role.name.en).map(_.numberOfPlayers).getOrElse(0))
+            .roleOpt(
+              json.role.name.en,
+              village.composition.parse(json.role.name.en).map(_.numberOfPlayers).getOrElse(0)
+            )
         } yield {
           OnymousAudienceBoardProtocol(
             village,
@@ -103,7 +106,7 @@ object OnymousAudienceBoardProtocol {
             json.base.extensionalDisclosureRange.flatMap { jsonStatusCharacter: JsonStatusCharacter =>
               for {
                 character  <- Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id).toList
-                role       <- village.cast.parse(jsonStatusCharacter.role.name.en).toList
+                role       <- village.composition.parse(jsonStatusCharacter.role.name.en).toList
                 status     <- Data2Knowledge.statusOpt(jsonStatusCharacter.status).toList
                 playerType <- Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType).toList
               } yield {

@@ -5,9 +5,8 @@ import java.nio.charset.StandardCharsets
 
 import com.typesafe.scalalogging.Logger
 import licos.entity.{HostPlayer, VillageInfoFromLobby}
-import licos.json.parser.VillageParser
 import licos.json2protocol.village.server2logger.Json2VillageMessageProtocol
-import licos.knowledge.{Cast, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
+import licos.knowledge.{Composition, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.engine.processing.{SpecificProcessingEngineFactory, VillagePE4Logger}
 import licos.protocol.engine.processing.village.server2logger.{
@@ -39,7 +38,7 @@ object VillageProcessingEngineSuite {
 }
 
 @RunWith(classOf[Theories])
-final class VillageProcessingEngineSuite extends AssertionsForJUnit with VillageParser {
+final class VillageProcessingEngineSuite extends AssertionsForJUnit {
 
   private val log: Logger = Logger[VillageProcessingEngineSuite]
 
@@ -63,7 +62,7 @@ final class VillageProcessingEngineSuite extends AssertionsForJUnit with Village
     val villageInfoFromLobby = VillageInfoFromLobby(
       HumanPlayerLobby,
       hostPlayer,
-      Cast.playerNumRoleNumMap(15)("A"),
+      Composition.support.`for`(15).A,
       1,
       RandomAvatarSetting,
       15,
@@ -90,11 +89,7 @@ final class VillageProcessingEngineSuite extends AssertionsForJUnit with Village
               case p: VillageMessageTestProtocol =>
                 assert(p.text == jsonType)
               case _ =>
-                fail(
-                  Seq[String](
-                    "No VillageMessageTestProtocol"
-                  ).mkString("\n")
-                )
+                fail("No VillageMessageTestProtocol")
             }
           case Failure(error: Throwable) =>
             fail(
@@ -106,11 +101,7 @@ final class VillageProcessingEngineSuite extends AssertionsForJUnit with Village
             )
         }
       case _ =>
-        fail(
-          Seq[String](
-            "No protocol"
-          ).mkString("\n")
-        )
+        fail("No protocol")
     }
   }
 }

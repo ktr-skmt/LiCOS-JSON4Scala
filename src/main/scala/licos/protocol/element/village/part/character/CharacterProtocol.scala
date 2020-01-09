@@ -18,18 +18,19 @@ final case class CharacterProtocol(
     isAChoice:      Boolean
 ) {
 
-  private val `@id`: String = LiCOSOnline.state(villageId, s"character#${character.getId}")
-
-  val json: JsonCharacter = JsonCharacter(
-    CharacterContext.iri,
-    `@id`,
-    character.getId,
-    character.name.json(Option(language)),
-    character.icon,
-    isMine,
-    status.label,
-    updateProtocol.json(`@id`),
-    isAChoice
-  )
+  lazy val json: JsonCharacter = {
+    val `@id`: String = LiCOSOnline.state(villageId, s"character#${character.getId}")
+    JsonCharacter(
+      CharacterContext.iri,
+      `@id`,
+      character.getId,
+      character.name.json(Option(language)),
+      character.icon,
+      isMine,
+      status.label,
+      updateProtocol.json(`@id`),
+      isAChoice
+    )
+  }
 
 }

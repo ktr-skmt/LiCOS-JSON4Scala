@@ -15,7 +15,7 @@ final class ScrollAE extends ScrollAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(Scroll.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(Scroll.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

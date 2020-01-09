@@ -16,7 +16,7 @@ final class AuthenticationAndAuthorizationRequestAE extends AuthenticationAndAut
       authenticationAndAuthorizationRequestProtocol: AuthenticationAndAuthorizationRequestProtocol
   )(implicit ec:                                     ExecutionContext): Future[AuthMessageProtocol] = {
     box match {
-      case _: AuthBox => Future(AuthMessageTestProtocol(AuthenticationAndAuthorizationRequest.`type`))
+      case _: AuthBox => Future.successful(AuthMessageTestProtocol(AuthenticationAndAuthorizationRequest.`type`))
       case _ => Future.failed(new AuthBOXNotFoundException())
     }
   }

@@ -9,14 +9,14 @@ import licos.knowledge.Architecture
 sealed abstract class AvatarInLobby()
 
 final case class PlayerInLobby(
-    id:           Long,
-    token:        UUID,
-    createdAt:    OffsetDateTime,
-    updatedAt:    OffsetDateTime,
-    name:         String,
-    image:        URL,
-    isPrimary:    Boolean,
-    architecture: Architecture
+    id:         Long,
+    token:      UUID,
+    createdAt:  OffsetDateTime,
+    updatedAt:  OffsetDateTime,
+    name:       String,
+    image:      URL,
+    isPrimary:  Boolean,
+    playerType: Architecture
 ) extends AvatarInLobby()
 
 final case class OnymousAudienceInLobby(

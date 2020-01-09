@@ -16,7 +16,7 @@ final class AuthorizationRequestAcceptedResponseAE extends AuthorizationRequestA
       authorizationRequestAcceptedResponseProtocol: AuthorizationRequestAcceptedResponseProtocol
   )(implicit ec:                                    ExecutionContext): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(AuthorizationRequestAcceptedResponse.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(AuthorizationRequestAcceptedResponse.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

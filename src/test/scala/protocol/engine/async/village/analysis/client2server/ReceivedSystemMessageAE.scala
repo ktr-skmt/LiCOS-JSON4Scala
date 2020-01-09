@@ -16,7 +16,7 @@ final class ReceivedSystemMessageAE extends ReceivedSystemMessageAnalysisEngine 
       receivedSystemMessage: ReceivedSystemMessageProtocol
   )(implicit ec:             ExecutionContext): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(ReceivedSystemMessage.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(ReceivedSystemMessage.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

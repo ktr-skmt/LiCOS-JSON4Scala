@@ -18,7 +18,7 @@ final case class ErrorFromServerProtocol(
     extensionalDisclosureRange: Seq[StatusCharacterProtocol]
 ) extends Server2ClientVillageMessageProtocolForLogging {
 
-  val json: Option[JsonError] = {
+  lazy val json: Option[JsonError] = {
     Some(
       new JsonError(
         BaseProtocol(
@@ -27,7 +27,7 @@ final case class ErrorFromServerProtocol(
           VillageProtocol(
             village.id,
             village.name,
-            village.cast.totalNumberOfPlayers,
+            village.composition.totalNumberOfPlayers,
             village.language,
             ChatSettingsProtocol(
               village.id,
@@ -77,7 +77,7 @@ object ErrorFromServerProtocol {
               json.base.extensionalDisclosureRange.flatMap { jsonStatusCharacter: JsonStatusCharacter =>
                 for {
                   character  <- Data2Knowledge.characterOpt(jsonStatusCharacter.name.en, jsonStatusCharacter.id).toList
-                  role       <- village.cast.parse(jsonStatusCharacter.role.name.en).toList
+                  role       <- village.composition.parse(jsonStatusCharacter.role.name.en).toList
                   status     <- Data2Knowledge.statusOpt(jsonStatusCharacter.status).toList
                   playerType <- Data2Knowledge.architectureOpt(jsonStatusCharacter.playerType).toList
                 } yield {
@@ -95,7 +95,7 @@ object ErrorFromServerProtocol {
           }
         }
     } else {
-      None
+      Option.empty[ErrorFromServerProtocol]
     }
   }
 

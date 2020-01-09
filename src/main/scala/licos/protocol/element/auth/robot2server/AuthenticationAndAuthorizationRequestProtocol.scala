@@ -15,7 +15,7 @@ final case class AuthenticationAndAuthorizationRequestProtocol(
     sourceCode:   SourceCodeProtocol
 ) extends AuthMessageProtocol {
 
-  val json: Option[JsonAuthenticationAndAuthorizationRequest] = {
+  lazy val json: Option[JsonAuthenticationAndAuthorizationRequest] = {
     sourceCode.json.map { jsonSourceCode: JsonSourceCode =>
       new JsonAuthenticationAndAuthorizationRequest(
         userEmail,

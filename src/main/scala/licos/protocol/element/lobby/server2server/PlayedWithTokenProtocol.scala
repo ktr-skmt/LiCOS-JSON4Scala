@@ -9,7 +9,7 @@ import play.api.libs.json.{JsValue, Json}
 
 final case class PlayedWithTokenProtocol(to: UUID, json: PlayedProtocol) extends Server2ServerLobbyMessageProtocol {
 
-  private val json_ : Option[JsonPlayedWithToken] = {
+  private lazy val json_ : Option[JsonPlayedWithToken] = {
     json.json.map { played: JsonPlayed =>
       JsonPlayedWithToken(
         to.toString,

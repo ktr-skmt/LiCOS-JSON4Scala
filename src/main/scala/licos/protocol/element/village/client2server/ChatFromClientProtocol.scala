@@ -15,7 +15,7 @@ final case class ChatFromClientProtocol(
     myRole:      Role
 ) extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonChatFromClient] = {
+  private lazy val json: Option[JsonChatFromClient] = {
     server2logger.ChatFromClientProtocol(village, channel, text, isOver, myCharacter, myRole, Nil).json
   }
 
@@ -33,7 +33,7 @@ object ChatFromClientProtocol {
         for {
           channel     <- Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)
           myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-          myRole      <- village.cast.parse(json.myCharacter.role.name.en)
+          myRole      <- village.composition.parse(json.myCharacter.role.name.en)
         } yield {
           ChatFromClientProtocol(
             village,

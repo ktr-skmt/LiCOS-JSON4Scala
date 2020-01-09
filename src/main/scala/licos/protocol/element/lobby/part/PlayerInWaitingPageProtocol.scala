@@ -14,7 +14,7 @@ final case class PlayerInWaitingPageProtocol(
     isMe:        Boolean
 ) {
 
-  val json: Option[JsonPlayerInWaitingPage] = {
+  lazy val json: Option[JsonPlayerInWaitingPage] = {
     Some(
       JsonPlayerInWaitingPage(
         token.toString,

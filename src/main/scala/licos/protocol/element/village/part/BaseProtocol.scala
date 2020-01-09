@@ -28,7 +28,7 @@ final case class BaseProtocol(
     votingResultsDetails:       Option[Seq[VotingResultDetailProtocol]]
 ) {
 
-  val json: JsonBase = JsonBase(
+  lazy val json: JsonBase = JsonBase(
     context.map(_.iri),
     message.iri(village.id),
     village.json,

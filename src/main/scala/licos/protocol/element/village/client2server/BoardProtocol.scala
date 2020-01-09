@@ -14,7 +14,7 @@ final case class BoardProtocol(
     myRole:      Role
 ) extends Client2ServerVillageMessageProtocol {
 
-  private val json: Option[JsonBoard] = {
+  private lazy val json: Option[JsonBoard] = {
     server2logger.BoardProtocol(village, character, role, prediction, myCharacter, myRole, Nil).json
   }
 
@@ -33,9 +33,12 @@ object BoardProtocol {
           prediction <- Data2Knowledge.polarityMarkOpt(json.prediction)
           character  <- Data2Knowledge.characterOpt(json.character.name.en, json.character.id)
           role <- Data2Knowledge
-            .roleOpt(json.role.name.en, village.cast.parse(json.role.name.en).map(_.numberOfPlayers).getOrElse(0))
+            .roleOpt(
+              json.role.name.en,
+              village.composition.parse(json.role.name.en).map(_.numberOfPlayers).getOrElse(0)
+            )
           myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)
-          myRole      <- village.cast.parse(json.myCharacter.role.name.en)
+          myRole      <- village.composition.parse(json.myCharacter.role.name.en)
         } yield {
           BoardProtocol(
             village,

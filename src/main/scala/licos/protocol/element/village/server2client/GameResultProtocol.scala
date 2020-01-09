@@ -17,7 +17,7 @@ final case class GameResultProtocol(
     role:      Seq[ResultRoleProtocol]
 ) extends Server2ClientVillageMessageProtocol {
 
-  private val json: Option[JsonGameResult] = {
+  private lazy val json: Option[JsonGameResult] = {
     server2logger.GameResultProtocol(village, character, role, Nil).json
   }
 
@@ -37,7 +37,7 @@ object GameResultProtocol {
           json.character.flatMap { jsonResultCharacter: JsonResultCharacter =>
             for {
               character <- Data2Knowledge.characterOpt(jsonResultCharacter.name.en, jsonResultCharacter.id).toList
-              role      <- village.cast.parse(jsonResultCharacter.role.name.en).toList
+              role      <- village.composition.parse(jsonResultCharacter.role.name.en).toList
               status    <- Data2Knowledge.statusOpt(jsonResultCharacter.status).toList
               result    <- Data2Knowledge.outcomeOpt(jsonResultCharacter.result).toList
             } yield {

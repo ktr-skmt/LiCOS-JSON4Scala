@@ -4,7 +4,7 @@ import java.net.URL
 
 import licos.entity.{HostPlayer, VillageInfoFromLobby}
 import licos.json2protocol.village.Json2VillageMessageProtocol
-import licos.knowledge.{Cast, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
+import licos.knowledge.{Composition, HumanArchitecture, HumanPlayerLobby, RandomAvatarSetting}
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.engine.async.processing.village.{VillageProcessingEngine, VillageProcessingEngineFactory}
 import licos.protocol.engine.async.processing.{SpecificProcessingEngineFactory, VillagePE}
@@ -43,16 +43,16 @@ object AsyncProtocolVillageMessageRunner extends App {
   private val villageInfoFromLobby = VillageInfoFromLobby(
     HumanPlayerLobby,
     hostPlayer,
-    Cast.playerNumRoleNumMap(15)("A"),
+    Composition.support.`for`(15).A,
     1,
     RandomAvatarSetting,
     15,
-    None,
+    Option.empty[String],
     "Christopher",
     new URL("https://werewolf.world/image/0.3/character_icons/50x50/a_50x50.png")
   )
 
-  val anExampleOfBOX: VillageBOX = new VillageBox(villageInfoFromLobby)
+  private val anExampleOfBOX: VillageBOX = new VillageBox(villageInfoFromLobby)
 
   import scala.concurrent.ExecutionContext.Implicits.global
 

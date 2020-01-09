@@ -15,7 +15,7 @@ final class LeaveWaitingPageAE extends LeaveWaitingPageAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(LeaveWaitingPage.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(LeaveWaitingPage.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

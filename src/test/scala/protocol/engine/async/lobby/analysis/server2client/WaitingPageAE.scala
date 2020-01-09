@@ -15,7 +15,7 @@ final class WaitingPageAE extends WaitingPageAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
-      case _: LobbyBox => Future(LobbyMessageTestProtocol(WaitingPage.`type`))
+      case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(WaitingPage.`type`))
       case _ => Future.failed(new LobbyBOXNotFoundException())
     }
   }

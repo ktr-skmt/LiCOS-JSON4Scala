@@ -5,10 +5,15 @@ import licos.json.element.lobby.client2server.{
   JsonAdvancedSearch,
   JsonAuthorizationRequestAccepted,
   JsonBuildVillage,
-  JsonChangeLang,
+  JsonChangeLanguage,
   JsonChangeUserEmail,
   JsonChangeUserName,
   JsonChangeUserPassword,
+  JsonCreateHumanPlayer,
+  JsonCreateOnymousAudience,
+  JsonCreateRobotPlayer,
+  JsonDeleteAvatar,
+  JsonEnterAvatarSelectionPage,
   JsonEnterLobby,
   JsonGetSettings,
   JsonIdSearch,
@@ -17,16 +22,24 @@ import licos.json.element.lobby.client2server.{
   JsonPlay,
   JsonPong,
   JsonReady,
-  JsonSelectVillage
+  JsonRenewAvatarToken,
+  JsonRunRobotPlayerInTheBackground,
+  JsonSelectVillage,
+  JsonStopRobotPlayer,
+  JsonUpdateAvatar
 }
 import licos.json.element.lobby.server2client.{
   JsonAuthorizationRequest,
   JsonAuthorizationRequestAcceptedResponse,
   JsonAvatarInfo,
   JsonGetAvatarInfo,
+  JsonHumanPlayerSelectionPage,
   JsonLobby,
+  JsonNewAvatarToken,
+  JsonOnymousAudienceSelectionPage,
   JsonPing,
   JsonPlayed,
+  JsonRobotPlayerSelectionPage,
   JsonSearchResult,
   JsonSettings,
   JsonWaitingPage
@@ -60,7 +73,7 @@ import play.api.libs.json.{JsValue, Json}
   * @param playedWithTokenEngine the analysis engine for Played-with-token JSON.
   * @param readyEngine the analysis engine for Ready JSON.
   * @param searchResultEngine the analysis engine for Search-result JSON.
-  * @param changeLangEngine the analysis engine for Change-lang JSON.
+  * @param changeLanguageEngine the analysis engine for Change-language JSON.
   * @param changeUserEmailEngine the analysis engine for Change-user-email JSON.
   * @param changeUserNameEngine the analysis engine for Change-user-name JSON.
   * @param changeUserPasswordEngine the analysis engine for Change-user-password JSON.
@@ -69,6 +82,19 @@ import play.api.libs.json.{JsValue, Json}
   * @param authorizationRequestEngine the analysis engine for Authorization-request JSON
   * @param authorizationRequestAcceptedResponseEngine the analysis engine for Authorization-request-accepted-response JSON
   * @param authorizationRequestAcceptedEngine the analysis engine for Authorization-request-accepted JSON
+  * @param renewAvatarTokenEngine the analysis engine for Renew-avatar-token JSON
+  * @param newAvatarTokenEngine the analysis engine for New-avatar-token JSON
+  * @param createHumanPlayerEngine the analysis engine for Create-human-player JSON
+  * @param createRobotPlayerEngine the analysis engine for Create-robot-player JSON
+  * @param createOnymousAudienceEngine the analysis engine for Create-onymous-audience JSON
+  * @param deleteAvatarEngine the analysis engine for Delete-avatar JSON
+  * @param runRobotPlayerInTheBackgroundEngine the analysis engine for Run-robot-player-in-the-background JSON
+  * @param stopRobotPlayerEngine the analysis engine for Stop-robot-player JSON
+  * @param humanPlayerSelectionPageEngine the analysis engine for Human-player-selection-page JSON
+  * @param onymousAudienceSelectionPageEngine the analysis engine for Onymous-audience-selection-page JSON
+  * @param robotPlayerSelectionPageEngine the analysis engine for Robot-player-selection-page JSON
+  * @param updateAvatarEngine the analysis engine for Update-avatar JSON
+  * @param enterAvatarSelectionPageEngine the analysis engine for Enter-avatar-selection-page JSON
   * @author Kotaro Sakamoto
   */
 final class LobbyProcessingEngine(
@@ -90,7 +116,7 @@ final class LobbyProcessingEngine(
     playedWithTokenEngine:                      Option[PlayedWithTokenAnalysisEngine],
     readyEngine:                                Option[ReadyAnalysisEngine],
     searchResultEngine:                         Option[SearchResultAnalysisEngine],
-    changeLangEngine:                           Option[ChangeLangAnalysisEngine],
+    changeLanguageEngine:                       Option[ChangeLanguageAnalysisEngine],
     changeUserEmailEngine:                      Option[ChangeUserEmailAnalysisEngine],
     changeUserNameEngine:                       Option[ChangeUserNameAnalysisEngine],
     changeUserPasswordEngine:                   Option[ChangeUserPasswordAnalysisEngine],
@@ -98,12 +124,25 @@ final class LobbyProcessingEngine(
     settingsEngine:                             Option[SettingsAnalysisEngine],
     authorizationRequestEngine:                 Option[AuthorizationRequestAnalysisEngine],
     authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine],
-    authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine]
+    authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine],
+    renewAvatarTokenEngine:                     Option[RenewAvatarTokenAnalysisEngine],
+    newAvatarTokenEngine:                       Option[NewAvatarTokenAnalysisEngine],
+    createHumanPlayerEngine:                    Option[CreateHumanPlayerAnalysisEngine],
+    createOnymousAudienceEngine:                Option[CreateOnymousAudienceAnalysisEngine],
+    createRobotPlayerEngine:                    Option[CreateRobotPlayerAnalysisEngine],
+    deleteAvatarEngine:                         Option[DeleteAvatarAnalysisEngine],
+    runRobotPlayerInTheBackgroundEngine:        Option[RunRobotPlayerInTheBackgroundAnalysisEngine],
+    stopRobotPlayerEngine:                      Option[StopRobotPlayerAnalysisEngine],
+    humanPlayerSelectionPageEngine:             Option[HumanPlayerSelectionPageAnalysisEngine],
+    onymousAudienceSelectionPageEngine:         Option[OnymousAudienceSelectionPageAnalysisEngine],
+    robotPlayerSelectionPageEngine:             Option[RobotPlayerSelectionPageAnalysisEngine],
+    updateAvatarEngine:                         Option[UpdateAvatarAnalysisEngine],
+    enterAvatarSelectionPageEngine:             Option[EnterAvatarSelectionPageAnalysisEngine]
 ) extends ProcessingEngine {
 
   override protected val flowController = new LobbyFlowController()
 
-  private final val logger = Logger[LobbyProcessingEngine]
+  private val logger = Logger[LobbyProcessingEngine]
 
   /** Returns a play.api.libs.json.JsValue response from a JSON message.
     *
@@ -127,18 +166,18 @@ final class LobbyProcessingEngine(
           new JsonSubError(
             new JsonName(
               en = s"No $name is set. Please set it to the processing engine.",
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String]
             ),
             "warning",
             "Nothing",
@@ -155,18 +194,18 @@ final class LobbyProcessingEngine(
           new JsonSubError(
             new JsonName(
               en = "LobbyProcessingEngine returns nothing",
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None,
-              None
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String],
+              Option.empty[String]
             ),
             "warning",
             jsValue.toString,
@@ -321,13 +360,13 @@ final class LobbyProcessingEngine(
           case None =>
             noAnalysisEngine(SearchResultAnalysisEngine.name, SearchResultAnalysisEngine.isFromServer)
         }
-      case Right(changeLang: JsonChangeLang) =>
+      case Right(changeLanguage: JsonChangeLanguage) =>
         log("JsonChangeLang")
-        changeLangEngine match {
+        changeLanguageEngine match {
           case Some(engine) =>
-            engine.process(box, changeLang)
+            engine.process(box, changeLanguage)
           case None =>
-            noAnalysisEngine(ChangeLangAnalysisEngine.name, ChangeLangAnalysisEngine.isFromServer)
+            noAnalysisEngine(ChangeLanguageAnalysisEngine.name, ChangeLanguageAnalysisEngine.isFromServer)
         }
       case Right(changeUserEmail: JsonChangeUserEmail) =>
         log("JsonChangeUserEmail")
@@ -378,6 +417,7 @@ final class LobbyProcessingEngine(
             noAnalysisEngine(AuthorizationRequestAnalysisEngine.name, AuthorizationRequestAnalysisEngine.isFromServer)
         }
       case Right(authorizationRequestAcceptedResponse: JsonAuthorizationRequestAcceptedResponse) =>
+        log("JsonAuthorizationRequestAcceptedResponse")
         authorizationRequestAcceptedResponseEngine match {
           case Some(engine) =>
             engine.process(box, authorizationRequestAcceptedResponse)
@@ -388,6 +428,7 @@ final class LobbyProcessingEngine(
             )
         }
       case Right(authorizationRequestAccepted: JsonAuthorizationRequestAccepted) =>
+        log("JsonAuthorizationRequestAccepted")
         authorizationRequestAcceptedEngine match {
           case Some(engine) =>
             engine.process(box, authorizationRequestAccepted)
@@ -395,6 +436,149 @@ final class LobbyProcessingEngine(
             noAnalysisEngine(
               AuthorizationRequestAcceptedAnalysisEngine.name,
               AuthorizationRequestAcceptedAnalysisEngine.isFromServer
+            )
+        }
+      case Right(renewAvatarToken: JsonRenewAvatarToken) =>
+        log("JsonRenewAvatarToken")
+        renewAvatarTokenEngine match {
+          case Some(engine) =>
+            engine.process(box, renewAvatarToken)
+          case None =>
+            noAnalysisEngine(
+              RenewAvatarTokenAnalysisEngine.name,
+              RenewAvatarTokenAnalysisEngine.isFromServer
+            )
+        }
+      case Right(newAvatarToken: JsonNewAvatarToken) =>
+        log("JsonNewAvatarToken")
+        newAvatarTokenEngine match {
+          case Some(engine) =>
+            engine.process(box, newAvatarToken)
+          case None =>
+            noAnalysisEngine(
+              NewAvatarTokenAnalysisEngine.name,
+              NewAvatarTokenAnalysisEngine.isFromServer
+            )
+        }
+      case Right(createHumanPlayer: JsonCreateHumanPlayer) =>
+        log("JsonCreateHumanPlayer")
+        createHumanPlayerEngine match {
+          case Some(engine) =>
+            engine.process(box, createHumanPlayer)
+          case None =>
+            noAnalysisEngine(
+              CreateHumanPlayerAnalysisEngine.name,
+              CreateHumanPlayerAnalysisEngine.isFromServer
+            )
+        }
+      case Right(createOnymousAudience: JsonCreateOnymousAudience) =>
+        log("JsonCreateOnymousAudience")
+        createOnymousAudienceEngine match {
+          case Some(engine) =>
+            engine.process(box, createOnymousAudience)
+          case None =>
+            noAnalysisEngine(
+              CreateOnymousAudienceAnalysisEngine.name,
+              CreateOnymousAudienceAnalysisEngine.isFromServer
+            )
+        }
+      case Right(createRobotPlayer: JsonCreateRobotPlayer) =>
+        log("JsonCreateRobotPlayer")
+        createRobotPlayerEngine match {
+          case Some(engine) =>
+            engine.process(box, createRobotPlayer)
+          case None =>
+            noAnalysisEngine(
+              CreateRobotPlayerAnalysisEngine.name,
+              CreateRobotPlayerAnalysisEngine.isFromServer
+            )
+        }
+      case Right(deleteAvatar: JsonDeleteAvatar) =>
+        log("JsonDeleteAvatar")
+        deleteAvatarEngine match {
+          case Some(engine) =>
+            engine.process(box, deleteAvatar)
+          case None =>
+            noAnalysisEngine(
+              DeleteAvatarAnalysisEngine.name,
+              DeleteAvatarAnalysisEngine.isFromServer
+            )
+        }
+      case Right(runRobotPlayerInTheBackground: JsonRunRobotPlayerInTheBackground) =>
+        log("JsonRunRobotPlayerInTheBackground")
+        runRobotPlayerInTheBackgroundEngine match {
+          case Some(engine) =>
+            engine.process(box, runRobotPlayerInTheBackground)
+          case None =>
+            noAnalysisEngine(
+              RunRobotPlayerInTheBackgroundAnalysisEngine.name,
+              RunRobotPlayerInTheBackgroundAnalysisEngine.isFromServer
+            )
+        }
+      case Right(stopRobotPlayer: JsonStopRobotPlayer) =>
+        log("JsonStopRobotPlayer")
+        stopRobotPlayerEngine match {
+          case Some(engine) =>
+            engine.process(box, stopRobotPlayer)
+          case None =>
+            noAnalysisEngine(
+              StopRobotPlayerAnalysisEngine.name,
+              StopRobotPlayerAnalysisEngine.isFromServer
+            )
+        }
+      case Right(humanPlayerSelectionPage: JsonHumanPlayerSelectionPage) =>
+        log("JsonHumanPlayerSelectionPage")
+        humanPlayerSelectionPageEngine match {
+          case Some(engine) =>
+            engine.process(box, humanPlayerSelectionPage)
+          case None =>
+            noAnalysisEngine(
+              HumanPlayerSelectionPageAnalysisEngine.name,
+              HumanPlayerSelectionPageAnalysisEngine.isFromServer
+            )
+        }
+      case Right(onymousAudienceSelectionPage: JsonOnymousAudienceSelectionPage) =>
+        log("JsonOnymousAudienceSelectionPage")
+        onymousAudienceSelectionPageEngine match {
+          case Some(engine) =>
+            engine.process(box, onymousAudienceSelectionPage)
+          case None =>
+            noAnalysisEngine(
+              OnymousAudienceSelectionPageAnalysisEngine.name,
+              OnymousAudienceSelectionPageAnalysisEngine.isFromServer
+            )
+        }
+      case Right(robotPlayerSelectionPage: JsonRobotPlayerSelectionPage) =>
+        log("JsonRobotPlayerSelectionPage")
+        robotPlayerSelectionPageEngine match {
+          case Some(engine) =>
+            engine.process(box, robotPlayerSelectionPage)
+          case None =>
+            noAnalysisEngine(
+              RobotPlayerSelectionPageAnalysisEngine.name,
+              RobotPlayerSelectionPageAnalysisEngine.isFromServer
+            )
+        }
+      case Right(updateAvatar: JsonUpdateAvatar) =>
+        log("JsonUpdateAvatar")
+        updateAvatarEngine match {
+          case Some(engine) =>
+            engine.process(box, updateAvatar)
+          case None =>
+            noAnalysisEngine(
+              UpdateAvatarAnalysisEngine.name,
+              UpdateAvatarAnalysisEngine.isFromServer
+            )
+        }
+      case Right(enterAvatarSelectionPage: JsonEnterAvatarSelectionPage) =>
+        log("JsonEnterAvatarSelectionPage")
+        enterAvatarSelectionPageEngine match {
+          case Some(engine) =>
+            engine.process(box, enterAvatarSelectionPage)
+          case None =>
+            noAnalysisEngine(
+              EnterAvatarSelectionPageAnalysisEngine.name,
+              EnterAvatarSelectionPageAnalysisEngine.isFromServer
             )
         }
       case _ =>

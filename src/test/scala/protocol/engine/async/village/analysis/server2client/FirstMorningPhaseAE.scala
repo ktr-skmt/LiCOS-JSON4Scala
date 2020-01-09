@@ -15,7 +15,7 @@ final class FirstMorningPhaseAE extends FirstMorningPhaseAnalysisEngine {
       implicit ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(FirstMorningPhase.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(FirstMorningPhase.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

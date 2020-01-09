@@ -16,7 +16,7 @@ final class OnymousAudienceBoardAE extends OnymousAudienceBoardAnalysisEngine {
       onymousAudienceBoard: OnymousAudienceBoardProtocol
   )(implicit ec:            ExecutionContext): Future[VillageMessageProtocol] = {
     box match {
-      case _: VillageBox => Future(VillageMessageTestProtocol(OnymousAudienceBoard.`type`))
+      case _: VillageBox => Future.successful(VillageMessageTestProtocol(OnymousAudienceBoard.`type`))
       case _ => Future.failed(new VillageBOXNotFoundException())
     }
   }

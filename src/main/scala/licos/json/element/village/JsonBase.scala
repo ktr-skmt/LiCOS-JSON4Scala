@@ -43,7 +43,6 @@ final case class JsonBase(
       votingResultsSummary:       JList[JsonVotingResultSummary],
       votingResultsDetails:       JList[JsonVotingResultDetail]
   ) = {
-
     this(
       `@context`.asScala:                   Seq[String],
       `@id`:                                String,

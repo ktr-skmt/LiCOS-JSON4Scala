@@ -9,7 +9,7 @@ import play.api.libs.json.{JsValue, Json}
 final case class LeaveWaitingPageProtocol(token: UUID, villageId: Long, lobby: Lobby)
     extends Client2ServerLobbyMessageProtocol {
 
-  private val json: Option[JsonLeaveWaitingPage] = {
+  private lazy val json: Option[JsonLeaveWaitingPage] = {
     Some(
       new JsonLeaveWaitingPage(
         token.toString,
