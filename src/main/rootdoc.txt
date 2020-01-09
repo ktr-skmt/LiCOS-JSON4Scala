@@ -70,6 +70,7 @@ Notable packages includes:
 === Protocol API ===
 
 See <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/scala/sample/ProtocolVillageMessageRunner.scala" target="_blank">src/test/scala/sample/ProtocolVillageMessageRunner.scala</a>
+or <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/java/sample/JProtocolVillageMessageRunner.java" target="_blank">src/test/java/sample/JProtocolVillageMessageRunner.java</a>
 
 {{{
 //TODO: Define the contractor as you like.
