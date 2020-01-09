@@ -52,7 +52,7 @@ object AsyncProtocolVillageMessageRunner extends App {
     new URL("https://werewolf.world/image/0.3/character_icons/50x50/a_50x50.png")
   )
 
-  val anExampleOfBOX: VillageBOX = new VillageBox(villageInfoFromLobby)
+  private val anExampleOfBOX: VillageBOX = new VillageBox(villageInfoFromLobby)
 
   import scala.concurrent.ExecutionContext.Implicits.global
 
