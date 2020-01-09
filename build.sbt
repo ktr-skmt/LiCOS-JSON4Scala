@@ -42,7 +42,9 @@ lazy val commonSettings = Seq(
 } ++ {
   javacOptions ++= Seq(
     "-source", javaVersion,
-    "-target", javaVersion
+    "-target", javaVersion,
+    "-Xlint:unchecked",
+    "-Xdoclint:accessibility,reference,syntax"
   )
 }
 
