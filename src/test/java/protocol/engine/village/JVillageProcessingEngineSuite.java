@@ -5,12 +5,16 @@ import licos.entity.VillageInfoFromLobby;
 import licos.json2protocol.village.Json2VillageMessageProtocol;
 import licos.knowledge.*;
 import licos.protocol.element.village.VillageMessageProtocol;
+import licos.protocol.engine.processing.SpecificProcessingEngineFactory$;
+import licos.protocol.engine.processing.VillagePE$;
 import licos.protocol.engine.processing.village.VillageProcessingEngine;
 import licos.protocol.engine.processing.village.VillageProcessingEngineFactory;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import play.api.libs.json.Json;
 import protocol.element.VillageMessageTestProtocol;
 import protocol.engine.VillageExample;
@@ -31,11 +35,15 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.fail;
+
 @RunWith(Theories.class)
 public class JVillageProcessingEngineSuite {
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     @DataPoints
-    public static VillageExample[] exampleSeq = {
+    public final static VillageExample[] exampleSeq = {
             new ReceivedChatMessage("receipt/receivedChatMessage.json"),
             new ReceivedFlavorTextMessage("receipt/receivedFlavorTextMessage.json"),
             new ReceivedSystemMessage("receipt/receivedSystemMessage.json"),
@@ -66,7 +74,9 @@ public class JVillageProcessingEngineSuite {
             new ChatFromServer("theirMessageOnChat.jsonld")
     };
 
-    private VillageProcessingEngineFactory processingEngineFactory = new VillageProcessingEngineFactory()
+    private VillageProcessingEngineFactory processingEngineFactory = (
+            (VillageProcessingEngineFactory) SpecificProcessingEngineFactory$.MODULE$
+            .create(VillagePE$.MODULE$))
             .set(new JAnonymousAudienceChatFromClientAE())
             .set(new JBoardAE())
             .set(new JBuildVillageAE())
@@ -102,8 +112,10 @@ public class JVillageProcessingEngineSuite {
     @Theory
     public void process(VillageExample jsonExample) {
         String jsonType = jsonExample.type();
+        URL url = jsonExample.path();
+        log.info(url.toString());
         try {
-            URLConnection connection = jsonExample.path().openConnection();
+            URLConnection connection = url.openConnection();
 
             try (BufferedReader br =  new BufferedReader(
                     new InputStreamReader(
@@ -113,19 +125,19 @@ public class JVillageProcessingEngineSuite {
                 String msg = br
                         .lines()
                         .collect(Collectors.joining("\n"));
-
+                log.debug(msg);
                 HostPlayer hostPlayer = new HostPlayer(
                         1L,
                         "Anonymous",
                         true,
-                        null
+                        HumanArchitecture$.MODULE$
                 );
                 VillageInfoFromLobby villageInfoFromLobby = new VillageInfoFromLobby(
-                        null,
+                        HumanPlayerLobby$.MODULE$,
                         hostPlayer,
                         Composition.support().A(15).get(),
                         1,
-                        null,
+                        RandomAvatarSetting$.MODULE$,
                         15,
                         Option.empty(),
                         "Christopher",
@@ -141,13 +153,22 @@ public class JVillageProcessingEngineSuite {
                         if (response instanceof VillageMessageTestProtocol) {
                             assert(((VillageMessageTestProtocol) response).text().equals(jsonType));
                         } else {
-                            assert(false);
+                            fail("No VillageMessageTestProtocol");
                         }
                     } else {
-                        assert(false);
+                        fail(
+                                String.join(
+                                        "No response is generated.",
+                                        responseTry
+                                                .failed()
+                                                .get()
+                                                .getMessage(),
+                                        msg
+                                )
+                        );
                     }
                 } else {
-                    assert(false);
+                    fail("No protocol");
                 }
             } catch (Exception e) {
                 e.printStackTrace();

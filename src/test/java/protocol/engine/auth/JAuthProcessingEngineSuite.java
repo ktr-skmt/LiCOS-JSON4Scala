@@ -2,12 +2,16 @@ package protocol.engine.auth;
 
 import licos.json2protocol.auth.Json2AuthMessageProtocol;
 import licos.protocol.element.auth.AuthMessageProtocol;
+import licos.protocol.engine.processing.AuthPE$;
+import licos.protocol.engine.processing.SpecificProcessingEngineFactory$;
 import licos.protocol.engine.processing.auth.AuthProcessingEngine;
 import licos.protocol.engine.processing.auth.AuthProcessingEngineFactory;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import play.api.libs.json.Json;
 import protocol.element.AuthMessageTestProtocol;
 import protocol.engine.AuthExample;
@@ -23,21 +27,28 @@ import scala.util.Try;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.fail;
+
 @RunWith(Theories.class)
 public class JAuthProcessingEngineSuite {
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     @DataPoints
-    public static AuthExample[] exampleSeq = {
+    public final static AuthExample[] exampleSeq = {
             new AuthenticationAndAuthorizationRequest("authenticationAndAuthorizationRequest.json"),
             new AuthenticationRequestResponse("authenticationRequestResponse.json"),
             new AuthorizationRequestResponse("authorizationRequestResponse.json")
     };
 
-    private AuthProcessingEngineFactory processingEngineFactory = new AuthProcessingEngineFactory()
+    private AuthProcessingEngineFactory processingEngineFactory = (
+            (AuthProcessingEngineFactory) SpecificProcessingEngineFactory$.MODULE$
+            .create(AuthPE$.MODULE$))
             .set(new JAuthenticationAndAuthorizationRequestAE())
             .set(new JAuthenticationRequestResponseAE())
             .set(new JAuthorizationRequestResponseAE());
@@ -47,8 +58,10 @@ public class JAuthProcessingEngineSuite {
     @Theory
     public void process(AuthExample jsonExample) {
         String jsonType = jsonExample.type();
+        URL url = jsonExample.path();
+        log.info(url.toString());
         try {
-            URLConnection connection = jsonExample.path().openConnection();
+            URLConnection connection = url.openConnection();
 
             try (BufferedReader br =  new BufferedReader(
                     new InputStreamReader(
@@ -58,7 +71,7 @@ public class JAuthProcessingEngineSuite {
                 String msg = br
                         .lines()
                         .collect(Collectors.joining("\n"));
-
+                log.debug(msg);
                 Option<AuthMessageProtocol> protocolOpt = Json2AuthMessageProtocol.toProtocolOpt(Json.parse(msg));
                 if (protocolOpt.nonEmpty()) {
                     AuthMessageProtocol protocol = protocolOpt.get();
@@ -68,13 +81,22 @@ public class JAuthProcessingEngineSuite {
                         if (response instanceof AuthMessageTestProtocol) {
                             assert(((AuthMessageTestProtocol) response).text().equals(jsonType));
                         } else {
-                            assert(false);
+                            fail("No AuthMessageTestProtocol");
                         }
                     } else {
-                        assert(false);
+                        fail(
+                                String.join(
+                                "No response is generated.",
+                                        responseTry
+                                                .failed()
+                                                .get()
+                                                .getMessage(),
+                                        msg
+                                )
+                        );
                     }
                 } else {
-                    assert(false);
+                    fail("No protocol");
                 }
             } catch (Exception e) {
                 e.printStackTrace();

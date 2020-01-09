@@ -4,7 +4,6 @@ import java.net.URL
 import java.nio.charset.StandardCharsets
 
 import com.typesafe.scalalogging.Logger
-import licos.json.parser.LobbyParser
 import licos.json2protocol.lobby.Json2LobbyMessageProtocol
 import licos.protocol.element.lobby.LobbyMessageProtocol
 import licos.protocol.engine.processing.lobby.{LobbyProcessingEngine, LobbyProcessingEngineFactory}
@@ -162,7 +161,7 @@ object LobbyProcessingEngineSuite {
 }
 
 @RunWith(classOf[Theories])
-final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyParser {
+final class LobbyProcessingEngineSuite extends AssertionsForJUnit {
 
   private val log: Logger = Logger[LobbyProcessingEngineSuite]
 
@@ -230,11 +229,7 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyPars
               case p: LobbyMessageTestProtocol =>
                 assert(p.text == jsonType)
               case _ =>
-                fail(
-                  Seq[String](
-                    "No LobbyMessageTestProtocol"
-                  ).mkString("\n")
-                )
+                fail("No LobbyMessageTestProtocol")
             }
           case Failure(error: Throwable) =>
             fail(
@@ -246,11 +241,7 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyPars
             )
         }
       case _ =>
-        fail(
-          Seq[String](
-            "No protocol"
-          ).mkString("\n")
-        )
+        fail("No protocol")
     }
   }
 }

@@ -2,12 +2,16 @@ package protocol.engine.lobby;
 
 import licos.json2protocol.lobby.Json2LobbyMessageProtocol;
 import licos.protocol.element.lobby.LobbyMessageProtocol;
+import licos.protocol.engine.processing.LobbyPE$;
+import licos.protocol.engine.processing.SpecificProcessingEngineFactory$;
 import licos.protocol.engine.processing.lobby.LobbyProcessingEngine;
 import licos.protocol.engine.processing.lobby.LobbyProcessingEngineFactory;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import play.api.libs.json.Json;
 import protocol.element.LobbyMessageTestProtocol;
 import protocol.engine.LobbyExample;
@@ -24,15 +28,20 @@ import scala.util.Try;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.fail;
+
 @RunWith(Theories.class)
 public class JLobbyProcessingEngineSuite {
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     @DataPoints
-    public static LobbyExample[] exampleSeq = {
+    public final static LobbyExample[] exampleSeq = {
             new AdvancedSearch("advancedSearch.json"),
             new BuildVillage("buildVillage.json"),
             new ChangeLanguage("changeLanguage.json"),
@@ -83,7 +92,9 @@ public class JLobbyProcessingEngineSuite {
             new EnterAvatarSelectionPage("enterAvatarSelectionPage.json")
     };
 
-    private LobbyProcessingEngineFactory processingEngineFactory = new LobbyProcessingEngineFactory()
+    private LobbyProcessingEngineFactory processingEngineFactory = (
+            (LobbyProcessingEngineFactory) SpecificProcessingEngineFactory$.MODULE$
+            .create(LobbyPE$.MODULE$))
             .set(new JAdvancedSearchAE())
             .set(new JAvatarInfoAE())
             .set(new JBuildVillageAE())
@@ -130,8 +141,10 @@ public class JLobbyProcessingEngineSuite {
     @Theory
     public void process(LobbyExample jsonExample) {
         String jsonType = jsonExample.type();
+        URL url = jsonExample.path();
+        log.info(url.toString());
         try {
-            URLConnection connection = jsonExample.path().openConnection();
+            URLConnection connection = url.openConnection();
 
             try (BufferedReader br =  new BufferedReader(
                     new InputStreamReader(
@@ -141,7 +154,7 @@ public class JLobbyProcessingEngineSuite {
                 String msg = br
                         .lines()
                         .collect(Collectors.joining("\n"));
-
+                log.debug(msg);
                 Option<LobbyMessageProtocol> protocolOpt = Json2LobbyMessageProtocol.toProtocolOpt(Json.parse(msg));
                 if (protocolOpt.nonEmpty()) {
                     LobbyMessageProtocol protocol = protocolOpt.get();
@@ -151,13 +164,22 @@ public class JLobbyProcessingEngineSuite {
                         if (response instanceof LobbyMessageTestProtocol) {
                             assert(((LobbyMessageTestProtocol) response).text().equals(jsonType));
                         } else {
-                            assert(false);
+                            fail("No LobbyMessageTestProtocol");
                         }
                     } else {
-                        assert(false);
+                        fail(
+                                String.join(
+                                        "No response is generated.",
+                                        responseTry
+                                                .failed()
+                                                .get()
+                                                .getMessage(),
+                                        msg
+                                )
+                        );
                     }
                 } else {
-                    assert(false);
+                    fail("No protocol");
                 }
             } catch (Exception e) {
                 e.printStackTrace();

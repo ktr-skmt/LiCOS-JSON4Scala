@@ -4,7 +4,6 @@ import java.net.URL
 import java.nio.charset.StandardCharsets
 
 import com.typesafe.scalalogging.Logger
-import licos.json.parser.AuthParser
 import licos.json2protocol.auth.Json2AuthMessageProtocol
 import licos.protocol.element.auth.AuthMessageProtocol
 import licos.protocol.engine.processing.auth.{AuthProcessingEngine, AuthProcessingEngineFactory}
@@ -33,7 +32,7 @@ object AuthProcessingEngineSuite {
 }
 
 @RunWith(classOf[Theories])
-final class AuthProcessingEngineSuite extends AssertionsForJUnit with AuthParser {
+final class AuthProcessingEngineSuite extends AssertionsForJUnit {
 
   private val log: Logger = Logger[AuthProcessingEngineSuite]
 
@@ -64,11 +63,7 @@ final class AuthProcessingEngineSuite extends AssertionsForJUnit with AuthParser
               case p: AuthMessageTestProtocol =>
                 assert(p.text == jsonType)
               case _ =>
-                fail(
-                  Seq[String](
-                    "No AuthMessageTestProtocol"
-                  ).mkString("\n")
-                )
+                fail("No AuthMessageTestProtocol")
             }
           case Failure(error: Throwable) =>
             fail(
@@ -80,11 +75,7 @@ final class AuthProcessingEngineSuite extends AssertionsForJUnit with AuthParser
             )
         }
       case _ =>
-        fail(
-          Seq[String](
-            "No protocol"
-          ).mkString("\n")
-        )
+        fail("No protocol")
     }
   }
 }

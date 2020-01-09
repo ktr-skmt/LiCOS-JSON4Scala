@@ -237,11 +237,7 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyPars
                 case p: LobbyMessageTestProtocol =>
                   assert(p.text == jsonType)
                 case _ =>
-                  fail(
-                    Seq[String](
-                      "No LobbyMessageTestProtocol"
-                    ).mkString("\n")
-                  )
+                  fail("No LobbyMessageTestProtocol")
               }
             }
             .recover {
@@ -257,11 +253,7 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit with LobbyPars
           Duration.Inf
         )
       case _ =>
-        fail(
-          Seq[String](
-            "No protocol"
-          ).mkString("\n")
-        )
+        fail("No protocol")
     }
   }
 }

@@ -7,7 +7,7 @@ import licos.protocol.engine.processing.auth.AuthBOX;
 import licos.protocol.engine.processing.auth.AuthBOXNotFoundException;
 import protocol.element.AuthMessageTestProtocol;
 import protocol.engine.auth.JAuthBox;
-import protocol.engine.auth.example.server2robot.AuthorizationRequestResponse;
+import static protocol.engine.auth.example.server2robot.AuthorizationRequestResponse$.MODULE$;
 import scala.util.Failure;
 import scala.util.Success;
 import scala.util.Try;
@@ -17,7 +17,7 @@ public class JAuthorizationRequestResponseAE implements AuthorizationRequestResp
     @Override
     public Try<AuthMessageProtocol> process(AuthBOX box, AuthorizationRequestResponseProtocol authorizationRequestResponseProtocol) {
         if (box instanceof JAuthBox) {
-            return Success.apply(AuthMessageTestProtocol.apply(new AuthorizationRequestResponse("").type()));
+            return Success.apply(AuthMessageTestProtocol.apply(MODULE$.type()));
         } else {
             return Failure.apply(new AuthBOXNotFoundException(null, null));
         }
