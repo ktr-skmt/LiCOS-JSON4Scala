@@ -31,7 +31,6 @@ import licos.json.element.lobby.server2client.{
   JsonGetAvatarInfo,
   JsonHumanPlayerSelectionPage,
   JsonLobby,
-  JsonNewAvatarToken,
   JsonOnymousAudienceSelectionPage,
   JsonPing,
   JsonPlayed,
@@ -72,7 +71,6 @@ import licos.json.engine.analysis.lobby.server2client.{
   AvatarInfoAnalysisEngine,
   HumanPlayerSelectionPageAnalysisEngine,
   LobbyAnalysisEngine,
-  NewAvatarTokenAnalysisEngine,
   OnymousAudienceSelectionPageAnalysisEngine,
   PingAnalysisEngine,
   PlayedAnalysisEngine,
@@ -597,26 +595,6 @@ trait LobbyParser extends LiCOSParser {
       case Failure(err: Throwable) =>
         log.error(err.getMessage)
         Left(returnError(err, jsValue, RenewAvatarTokenAnalysisEngine.isFromServer))
-    }
-  }
-
-  /** Tries to parse play.api.libs.json.JsValue as New-avatar-token JSON.
-    *
-    * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return either New-avatar-token JSON.
-    */
-  protected def parseNewAvatarToken(jsValue: JsValue): Either[JsValue, JsonNewAvatarToken] = {
-    Try(jsValue.validate[JsonNewAvatarToken]) match {
-      case Success(json: JsResult[JsonNewAvatarToken]) =>
-        json match {
-          case JsSuccess(j, _) => Right(j)
-          case e: JsError =>
-            log.debug(Json.prettyPrint(JsError.toJson(e)))
-            Left(returnError(e, jsValue, NewAvatarTokenAnalysisEngine.isFromServer))
-        }
-      case Failure(err: Throwable) =>
-        log.error(err.getMessage)
-        Left(returnError(err, jsValue, NewAvatarTokenAnalysisEngine.isFromServer))
     }
   }
 

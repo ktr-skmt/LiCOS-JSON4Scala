@@ -34,7 +34,6 @@ import licos.json.element.lobby.server2client.{
   JsonGetAvatarInfo,
   JsonHumanPlayerSelectionPage,
   JsonLobby,
-  JsonNewAvatarToken,
   JsonOnymousAudienceSelectionPage,
   JsonPing,
   JsonPlayed,
@@ -81,7 +80,6 @@ import licos.protocol.element.lobby.server2client.{
   AvatarInfoProtocol,
   HumanPlayerSelectionPageProtocol,
   LobbyProtocol,
-  NewAvatarTokenProtocol,
   OnymousAudienceSelectionPageProtocol,
   PingProtocol,
   PlayedProtocol,
@@ -154,8 +152,6 @@ object Json2LobbyMessageProtocol extends Json2Protocol {
         AuthorizationRequestAcceptedProtocol.read(json)
       case Right(json: JsonRenewAvatarToken) =>
         RenewAvatarTokenProtocol.read(json)
-      case Right(json: JsonNewAvatarToken) =>
-        NewAvatarTokenProtocol.read(json)
       case Right(json: JsonCreateHumanPlayer) =>
         CreateHumanPlayerProtocol.read(json)
       case Right(json: JsonCreateOnymousAudience) =>

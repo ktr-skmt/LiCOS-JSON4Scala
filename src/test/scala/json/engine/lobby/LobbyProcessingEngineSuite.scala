@@ -39,7 +39,6 @@ import json.engine.lobby.analysis.server2client.{
   AvatarInfoAE,
   HumanPlayerSelectionPageAE,
   LobbyAE,
-  NewAvatarTokenAE,
   OnymousAudienceSelectionPageAE,
   PingAE,
   PlayedAE,
@@ -83,7 +82,6 @@ import json.engine.lobby.example.server2client.{
   AvatarInfo,
   HumanPlayerSelectionPage,
   Lobby,
-  NewAvatarToken,
   OnymousAudienceSelectionPage,
   Ping,
   Played,
@@ -144,7 +142,6 @@ object LobbyProcessingEngineSuite {
     AuthorizationRequest("authorizationRequest.json"),
     AuthorizationRequestAcceptedResponse("authorizationRequestAcceptedResponse.json"),
     RenewAvatarToken("renewAvatarToken.json"),
-    NewAvatarToken("newAvatarToken.json"),
     CreateHumanPlayer("createHumanPlayer.json"),
     CreateOnymousAudience("createOnymousAudience.json"),
     CreateRobotPlayer("createRobotPlayer.json"),
@@ -197,7 +194,6 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit {
     .set(new AuthorizationRequestAE())
     .set(new AuthorizationRequestAcceptedResponseAE())
     .set(new RenewAvatarTokenAE())
-    .set(new NewAvatarTokenAE())
     .set(new CreateHumanPlayerAE())
     .set(new CreateOnymousAudienceAE())
     .set(new CreateRobotPlayerAE())

@@ -45,22 +45,20 @@ final class LobbyFlowController() extends FlowController with LobbyParser {
                                                     parseAuthorizationRequestAccepted(jsValue) >>> {
                                                       parseAuthorizationRequestAcceptedResponse(jsValue) >>> {
                                                         parseRenewAvatarToken(jsValue) >>> {
-                                                          parseNewAvatarToken(jsValue) >>> {
-                                                            parseCreateHumanPlayer(jsValue) >>> {
-                                                              parseCreateOnymousAudience(jsValue) >>> {
-                                                                parseCreateRobotPlayer(jsValue) >>> {
-                                                                  parseDeleteAvatar(jsValue) >>> {
-                                                                    parseRunRobotPlayerInTheBackground(jsValue) >>> {
-                                                                      parseStopRobotPlayer(jsValue) >>> {
-                                                                        parseHumanPlayerSelectionPage(jsValue) >>> {
-                                                                          parseOnymousAudienceSelectionPage(
-                                                                            jsValue
-                                                                          ) >>> {
-                                                                            parseRobotPlayerSelectionPage(jsValue) >>> {
-                                                                              parseUpdateAvatar(jsValue) >>> {
-                                                                                parseEnterAvatarSelectionPage(jsValue) >>> {
-                                                                                  parsePlayedWithToken(jsValue)
-                                                                                }
+                                                          parseCreateHumanPlayer(jsValue) >>> {
+                                                            parseCreateOnymousAudience(jsValue) >>> {
+                                                              parseCreateRobotPlayer(jsValue) >>> {
+                                                                parseDeleteAvatar(jsValue) >>> {
+                                                                  parseRunRobotPlayerInTheBackground(jsValue) >>> {
+                                                                    parseStopRobotPlayer(jsValue) >>> {
+                                                                      parseHumanPlayerSelectionPage(jsValue) >>> {
+                                                                        parseOnymousAudienceSelectionPage(
+                                                                          jsValue
+                                                                        ) >>> {
+                                                                          parseRobotPlayerSelectionPage(jsValue) >>> {
+                                                                            parseUpdateAvatar(jsValue) >>> {
+                                                                              parseEnterAvatarSelectionPage(jsValue) >>> {
+                                                                                parsePlayedWithToken(jsValue)
                                                                               }
                                                                             }
                                                                           }
