@@ -36,7 +36,6 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       : Option[AuthorizationRequestAcceptedResponseAnalysisEngine] = None
   private var authorizationRequestAcceptedAnalysisEngine: Option[AuthorizationRequestAcceptedAnalysisEngine]  = None
   private var renewAvatarTokenAnalysisEngine:             Option[RenewAvatarTokenAnalysisEngine]              = None
-  private var newAvatarTokenAnalysisEngine:               Option[NewAvatarTokenAnalysisEngine]                = None
   private var createHumanPlayerEngine:                    Option[CreateHumanPlayerAnalysisEngine]             = None
   private var createOnymousEngine:                        Option[CreateOnymousAudienceAnalysisEngine]         = None
   private var createRobotPlayerEngine:                    Option[CreateRobotPlayerAnalysisEngine]             = None
@@ -79,7 +78,6 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       authorizationRequestAcceptedResponseAnalysisEngine,
       authorizationRequestAcceptedAnalysisEngine,
       renewAvatarTokenAnalysisEngine,
-      newAvatarTokenAnalysisEngine,
       createHumanPlayerEngine,
       createOnymousEngine,
       createRobotPlayerEngine,
@@ -235,11 +233,6 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
 
   def set(renewAvatarTokenAnalysisEngine: RenewAvatarTokenAnalysisEngine): LobbyProcessingEngineFactory = {
     this.renewAvatarTokenAnalysisEngine = Option(renewAvatarTokenAnalysisEngine)
-    this
-  }
-
-  def set(newAvatarTokenAnalysisEngine: NewAvatarTokenAnalysisEngine): LobbyProcessingEngineFactory = {
-    this.newAvatarTokenAnalysisEngine = Option(newAvatarTokenAnalysisEngine)
     this
   }
 

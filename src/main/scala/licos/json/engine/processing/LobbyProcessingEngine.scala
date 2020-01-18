@@ -35,7 +35,6 @@ import licos.json.element.lobby.server2client.{
   JsonGetAvatarInfo,
   JsonHumanPlayerSelectionPage,
   JsonLobby,
-  JsonNewAvatarToken,
   JsonOnymousAudienceSelectionPage,
   JsonPing,
   JsonPlayed,
@@ -83,7 +82,6 @@ import play.api.libs.json.{JsValue, Json}
   * @param authorizationRequestAcceptedResponseEngine the analysis engine for Authorization-request-accepted-response JSON
   * @param authorizationRequestAcceptedEngine the analysis engine for Authorization-request-accepted JSON
   * @param renewAvatarTokenEngine the analysis engine for Renew-avatar-token JSON
-  * @param newAvatarTokenEngine the analysis engine for New-avatar-token JSON
   * @param createHumanPlayerEngine the analysis engine for Create-human-player JSON
   * @param createRobotPlayerEngine the analysis engine for Create-robot-player JSON
   * @param createOnymousAudienceEngine the analysis engine for Create-onymous-audience JSON
@@ -126,7 +124,6 @@ final class LobbyProcessingEngine(
     authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine],
     authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine],
     renewAvatarTokenEngine:                     Option[RenewAvatarTokenAnalysisEngine],
-    newAvatarTokenEngine:                       Option[NewAvatarTokenAnalysisEngine],
     createHumanPlayerEngine:                    Option[CreateHumanPlayerAnalysisEngine],
     createOnymousAudienceEngine:                Option[CreateOnymousAudienceAnalysisEngine],
     createRobotPlayerEngine:                    Option[CreateRobotPlayerAnalysisEngine],
@@ -447,17 +444,6 @@ final class LobbyProcessingEngine(
             noAnalysisEngine(
               RenewAvatarTokenAnalysisEngine.name,
               RenewAvatarTokenAnalysisEngine.isFromServer
-            )
-        }
-      case Right(newAvatarToken: JsonNewAvatarToken) =>
-        log("JsonNewAvatarToken")
-        newAvatarTokenEngine match {
-          case Some(engine) =>
-            engine.process(box, newAvatarToken)
-          case None =>
-            noAnalysisEngine(
-              NewAvatarTokenAnalysisEngine.name,
-              NewAvatarTokenAnalysisEngine.isFromServer
             )
         }
       case Right(createHumanPlayer: JsonCreateHumanPlayer) =>

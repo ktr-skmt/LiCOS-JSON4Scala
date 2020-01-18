@@ -76,7 +76,6 @@ public class JLobbyProcessingEngineSuite {
             new PlayedWithToken("playedWithToken.json"),
             new AuthorizationRequestAccepted("authorizationRequestAccepted.json"),
             new RenewAvatarToken("renewAvatarToken.json"),
-            new NewAvatarToken("newAvatarToken.json"),
             new CreateHumanPlayer("createHumanPlayer.json"),
             new CreateOnymousAudience("createOnymousAudience.json"),
             new CreateRobotPlayer("createRobotPlayer.json"),
@@ -123,7 +122,6 @@ public class JLobbyProcessingEngineSuite {
             .set(new JAuthorizationRequestAcceptedResponseAE())
             .set(new JAuthorizationRequestAcceptedAE())
             .set(new JRenewAvatarTokenAE())
-            .set(new JNewAvatarTokenAE())
             .set(new JCreateHumanPlayerAE())
             .set(new JCreateOnymousAudienceAE())
             .set(new JCreateRobotPlayerAE())

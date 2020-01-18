@@ -74,7 +74,7 @@ public class JProtocolVillageMessageRunner {
                     new URL("https://werewolf.world/image/0.3/character_icons/50x50/a_50x50.png")
             );
 
-            VillageBOX anExampleOfBOX  = new JVillageBox(villageInfoFromLobby);
+            VillageBOX anExampleOfBOX = new JVillageBox(villageInfoFromLobby);
 
             Option<VillageMessageProtocol> protocolOpt = Json2VillageMessageProtocol.toProtocolOpt(aJSONExampleOfTheLiCOSProtocol, villageInfoFromLobby);
             if (protocolOpt.nonEmpty()) {

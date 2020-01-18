@@ -41,7 +41,6 @@ final class LobbyProcessingEngine(
     authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine],
     authorizationRequestAcceptedEngine:         Option[AuthorizationRequestAcceptedAnalysisEngine],
     renewAvatarTokenEngine:                     Option[RenewAvatarTokenAnalysisEngine],
-    newAvatarTokenEngine:                       Option[NewAvatarTokenAnalysisEngine],
     createHumanPlayerEngine:                    Option[CreateHumanPlayerAnalysisEngine],
     createOnymousAudienceEngine:                Option[CreateOnymousAudienceAnalysisEngine],
     createRobotPlayerEngine:                    Option[CreateRobotPlayerAnalysisEngine],
@@ -260,13 +259,6 @@ final class LobbyProcessingEngine(
             log(RenewAvatarTokenAnalysisEngine.name)
             engine.process(box, protocol)
           case None => Failure(new NoEngineException(RenewAvatarTokenAnalysisEngine.name))
-        }
-      case protocol: NewAvatarTokenProtocol =>
-        newAvatarTokenEngine match {
-          case Some(engine) =>
-            log(NewAvatarTokenAnalysisEngine.name)
-            engine.process(box, protocol)
-          case None => Failure(new NoEngineException(NewAvatarTokenAnalysisEngine.name))
         }
       case protocol: CreateHumanPlayerProtocol =>
         createHumanPlayerEngine match {
