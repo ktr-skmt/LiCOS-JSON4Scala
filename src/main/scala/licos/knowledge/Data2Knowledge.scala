@@ -168,6 +168,7 @@ object Data2Knowledge {
   def robotPlayerStatusOpt(label: String): Option[RobotPlayerStatus] = {
     label match {
       case Connected.label                 => Some(Connected)
+      case Disconnected.label              => Some(Disconnected)
       case AwaitingAuthorization.label     => Some(AwaitingAuthorization)
       case AwaitingCommunicationTest.label => Some(AwaitingCommunicationTest)
       case RunningInTheBackground.label    => Some(RunningInTheBackground)
