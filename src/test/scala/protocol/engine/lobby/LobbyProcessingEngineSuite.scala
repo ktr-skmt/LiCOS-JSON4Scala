@@ -18,6 +18,7 @@ import protocol.engine.lobby.analysis.client2server.{
   AdvancedSearchAE,
   AuthorizationRequestAcceptedAE,
   BuildVillageAE,
+  ChangeAvatarAE,
   ChangeLanguageAE,
   ChangeUserEmailAE,
   ChangeUserNameAE,
@@ -39,8 +40,7 @@ import protocol.engine.lobby.analysis.client2server.{
   RenewAvatarTokenAE,
   RunRobotPlayerInTheBackgroundAE,
   SelectVillageAE,
-  StopRobotPlayerAE,
-  UpdateAvatarAE
+  StopRobotPlayerAE
 }
 import protocol.engine.lobby.analysis.server2client.{
   AuthorizationRequestAE,
@@ -61,6 +61,7 @@ import protocol.engine.lobby.example.client2server.{
   AdvancedSearch,
   AuthorizationRequestAccepted,
   BuildVillage,
+  ChangeAvatar,
   ChangeLanguage,
   ChangeUserEmail,
   ChangeUserName,
@@ -82,8 +83,7 @@ import protocol.engine.lobby.example.client2server.{
   RenewAvatarToken,
   RunRobotPlayerInTheBackground,
   SelectVillage,
-  StopRobotPlayer,
-  UpdateAvatar
+  StopRobotPlayer
 }
 import protocol.engine.lobby.example.server2client.{
   AuthorizationRequest,
@@ -150,9 +150,9 @@ object LobbyProcessingEngineSuite {
     HumanPlayerSelectionPage("humanPlayerSelectionPage.json"),
     OnymousAudienceSelectionPage("onymousAudienceSelectionPage.json"),
     RobotPlayerSelectionPage("robotPlayerSelectionPage.json"),
-    UpdateAvatar("updateAvatarName.json"),
-    UpdateAvatar("updateAvatarImage.json"),
-    UpdateAvatar("updateAvatarLanguage.json"),
+    ChangeAvatar("updateAvatarName.json"),
+    ChangeAvatar("updateAvatarImage.json"),
+    ChangeAvatar("updateAvatarLanguage.json"),
     EnterAvatarSelectionPage("enterAvatarSelectionPage.json")
   )
 }
@@ -202,7 +202,7 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit {
     .set(new HumanPlayerSelectionPageAE())
     .set(new OnymousAudienceSelectionPageAE())
     .set(new RobotPlayerSelectionPageAE())
-    .set(new UpdateAvatarAE())
+    .set(new ChangeAvatarAE())
     .set(new EnterAvatarSelectionPageAE())
 
   private val processingEngine: LobbyProcessingEngine = processingEngineFactory.create

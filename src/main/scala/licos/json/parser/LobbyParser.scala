@@ -3,6 +3,7 @@ package licos.json.parser
 import licos.json.element.lobby.client2server.{
   JsonAdvancedSearch,
   JsonAuthorizationRequestAccepted,
+  JsonChangeAvatar,
   JsonChangeLanguage,
   JsonChangeUserEmail,
   JsonChangeUserName,
@@ -21,8 +22,7 @@ import licos.json.element.lobby.client2server.{
   JsonRenewAvatarToken,
   JsonRunRobotPlayerInTheBackground,
   JsonSelectVillage,
-  JsonStopRobotPlayer,
-  JsonUpdateAvatar
+  JsonStopRobotPlayer
 }
 import licos.json.element.lobby.server2client.{
   JsonAuthorizationRequest,
@@ -43,6 +43,7 @@ import licos.json.element.lobby.server2server.JsonPlayedWithToken
 import licos.json.engine.analysis.lobby.client2server.{
   AdvancedSearchAnalysisEngine,
   AuthorizationRequestAcceptedAnalysisEngine,
+  ChangeAvatarAnalysisEngine,
   ChangeLanguageAnalysisEngine,
   ChangeUserEmailAnalysisEngine,
   ChangeUserNameAnalysisEngine,
@@ -62,8 +63,7 @@ import licos.json.engine.analysis.lobby.client2server.{
   RenewAvatarTokenAnalysisEngine,
   RunRobotPlayerInTheBackgroundAnalysisEngine,
   SelectVillageAnalysisEngine,
-  StopRobotPlayerAnalysisEngine,
-  UpdateAvatarAnalysisEngine
+  StopRobotPlayerAnalysisEngine
 }
 import licos.json.engine.analysis.lobby.server2client.{
   AuthorizationRequestAcceptedResponseAnalysisEngine,
@@ -802,23 +802,23 @@ trait LobbyParser extends LiCOSParser {
     }
   }
 
-  /** Tries to parse play.api.libs.json.JsValue as Update-avatar JSON.
+  /** Tries to parse play.api.libs.json.JsValue as Change-avatar JSON.
     *
     * @param jsValue a play.api.libs.json.JsValue to parse.
-    * @return either Update-avatar JSON.
+    * @return either Change-avatar JSON.
     */
-  protected def parseUpdateAvatar(jsValue: JsValue): Either[JsValue, JsonUpdateAvatar] = {
-    Try(jsValue.validate[JsonUpdateAvatar]) match {
-      case Success(json: JsResult[JsonUpdateAvatar]) =>
+  protected def parseChangeAvatar(jsValue: JsValue): Either[JsValue, JsonChangeAvatar] = {
+    Try(jsValue.validate[JsonChangeAvatar]) match {
+      case Success(json: JsResult[JsonChangeAvatar]) =>
         json match {
           case JsSuccess(j, _) => Right(j)
           case e: JsError =>
             log.debug(Json.prettyPrint(JsError.toJson(e)))
-            Left(returnError(e, jsValue, UpdateAvatarAnalysisEngine.isFromServer))
+            Left(returnError(e, jsValue, ChangeAvatarAnalysisEngine.isFromServer))
         }
       case Failure(err: Throwable) =>
         log.error(err.getMessage)
-        Left(returnError(err, jsValue, UpdateAvatarAnalysisEngine.isFromServer))
+        Left(returnError(err, jsValue, ChangeAvatarAnalysisEngine.isFromServer))
     }
   }
 }
