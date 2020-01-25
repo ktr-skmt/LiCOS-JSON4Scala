@@ -4,6 +4,7 @@ import licos.json.element.lobby.client2server.{
   JsonAdvancedSearch,
   JsonAuthorizationRequestAccepted,
   JsonBuildVillage,
+  JsonChangeAvatar,
   JsonChangeLanguage,
   JsonChangeUserEmail,
   JsonChangeUserName,
@@ -24,8 +25,7 @@ import licos.json.element.lobby.client2server.{
   JsonRenewAvatarToken,
   JsonRunRobotPlayerInTheBackground,
   JsonSelectVillage,
-  JsonStopRobotPlayer,
-  JsonUpdateAvatar
+  JsonStopRobotPlayer
 }
 import licos.json.element.lobby.server2client.{
   JsonAuthorizationRequest,
@@ -50,6 +50,7 @@ import licos.protocol.element.lobby.client2server.{
   AdvancedSearchProtocol,
   AuthorizationRequestAcceptedProtocol,
   BuildVillageProtocol,
+  ChangeAvatarProtocol,
   ChangeLanguageProtocol,
   ChangeUserEmailProtocol,
   ChangeUserNameProtocol,
@@ -71,8 +72,7 @@ import licos.protocol.element.lobby.client2server.{
   RenewAvatarTokenProtocol,
   RunRobotPlayerInTheBackgroundProtocol,
   SelectVillageProtocol,
-  StopRobotPlayerProtocol,
-  UpdateAvatarProtocol
+  StopRobotPlayerProtocol
 }
 import licos.protocol.element.lobby.server2client.{
   AuthorizationRequestAcceptedResponseProtocol,
@@ -170,8 +170,8 @@ object Json2LobbyMessageProtocol extends Json2Protocol {
         OnymousAudienceSelectionPageProtocol.read(json)
       case Right(json: JsonRobotPlayerSelectionPage) =>
         RobotPlayerSelectionPageProtocol.read(json)
-      case Right(json: JsonUpdateAvatar) =>
-        UpdateAvatarProtocol.read(json)
+      case Right(json: JsonChangeAvatar) =>
+        ChangeAvatarProtocol.read(json)
       case Right(json: JsonEnterAvatarSelectionPage) =>
         EnterAvatarSelectionPageProtocol.read(json)
       case _ =>

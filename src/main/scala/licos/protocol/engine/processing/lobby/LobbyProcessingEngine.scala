@@ -50,7 +50,7 @@ final class LobbyProcessingEngine(
     humanPlayerSelectionPageEngine:             Option[HumanPlayerSelectionPageAnalysisEngine],
     onymousAudienceSelectionPageEngine:         Option[OnymousAudienceSelectionPageAnalysisEngine],
     robotPlayerSelectionPageEngine:             Option[RobotPlayerSelectionPageAnalysisEngine],
-    updateAvatarEngine:                         Option[UpdateAvatarAnalysisEngine],
+    changeAvatarEngine:                         Option[ChangeAvatarAnalysisEngine],
     enterAvatarSelectionPageEngine:             Option[EnterAvatarSelectionPageAnalysisEngine]
 ) extends ProcessingEngine {
 
@@ -323,12 +323,12 @@ final class LobbyProcessingEngine(
             engine.process(box, protocol)
           case None => Failure(new NoEngineException(RobotPlayerSelectionPageAnalysisEngine.name))
         }
-      case protocol: UpdateAvatarProtocol =>
-        updateAvatarEngine match {
+      case protocol: ChangeAvatarProtocol =>
+        changeAvatarEngine match {
           case Some(engine) =>
-            log(UpdateAvatarAnalysisEngine.name)
+            log(ChangeAvatarAnalysisEngine.name)
             engine.process(box, protocol)
-          case None => Failure(new NoEngineException(UpdateAvatarAnalysisEngine.name))
+          case None => Failure(new NoEngineException(ChangeAvatarAnalysisEngine.name))
         }
       case protocol: EnterAvatarSelectionPageProtocol =>
         enterAvatarSelectionPageEngine match {

@@ -85,9 +85,9 @@ public class JLobbyProcessingEngineSuite {
             new HumanPlayerSelectionPage("humanPlayerSelectionPage.json"),
             new OnymousAudienceSelectionPage("onymousAudienceSelectionPage.json"),
             new RobotPlayerSelectionPage("robotPlayerSelectionPage.json"),
-            new UpdateAvatar("updateAvatarName.json"),
-            new UpdateAvatar("updateAvatarImage.json"),
-            new UpdateAvatar("updateAvatarLanguage.json"),
+            new ChangeAvatar("updateAvatarName.json"),
+            new ChangeAvatar("updateAvatarImage.json"),
+            new ChangeAvatar("updateAvatarLanguage.json"),
             new EnterAvatarSelectionPage("enterAvatarSelectionPage.json")
     };
 
@@ -131,7 +131,7 @@ public class JLobbyProcessingEngineSuite {
             .set(new JHumanPlayerSelectionPageAE())
             .set(new JOnymousAudienceSelectionPageAE())
             .set(new JRobotPlayerSelectionPageAE())
-            .set(new JUpdateAvatarAE())
+            .set(new JChangeAvatarAE())
             .set(new JEnterAvatarSelectionPageAE());
 
     private LobbyProcessingEngine processingEngine = processingEngineFactory.create();

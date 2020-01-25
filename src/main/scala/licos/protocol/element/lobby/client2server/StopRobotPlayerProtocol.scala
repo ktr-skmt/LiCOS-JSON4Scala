@@ -5,12 +5,13 @@ import java.util.UUID
 import licos.json.element.lobby.client2server.JsonStopRobotPlayer
 import play.api.libs.json.{JsValue, Json}
 
-final case class StopRobotPlayerProtocol(token: UUID) extends Client2ServerLobbyMessageProtocol {
+final case class StopRobotPlayerProtocol(token: Seq[UUID]) extends Client2ServerLobbyMessageProtocol {
 
   private lazy val json: Option[JsonStopRobotPlayer] = {
     Some(
       new JsonStopRobotPlayer(
-        token.toString
+        token
+          .map(_.toString)
       )
     )
   }
@@ -26,7 +27,8 @@ object StopRobotPlayerProtocol {
   def read(json: JsonStopRobotPlayer): Option[StopRobotPlayerProtocol] = {
     Some(
       StopRobotPlayerProtocol(
-        UUID.fromString(json.token)
+        json.token
+          .map(UUID.fromString)
       )
     )
   }

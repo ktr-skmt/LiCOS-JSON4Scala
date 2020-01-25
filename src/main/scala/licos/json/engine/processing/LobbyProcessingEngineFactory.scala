@@ -47,7 +47,7 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
   private var humanPlayerSelectionPageEngine:      Option[HumanPlayerSelectionPageAnalysisEngine]      = None
   private var onymousAudienceSelectionPageEngine:  Option[OnymousAudienceSelectionPageAnalysisEngine]  = None
   private var robotPlayerSelectionPageEngine:      Option[RobotPlayerSelectionPageAnalysisEngine]      = None
-  private var updateAvatarEngine:                  Option[UpdateAvatarAnalysisEngine]                  = None
+  private var changeAvatarEngine:                  Option[ChangeAvatarAnalysisEngine]                  = None
   private var enterAvatarSelectionPageEngine:      Option[EnterAvatarSelectionPageAnalysisEngine]      = None
 
   /** Creates a lobby processing engine.
@@ -93,7 +93,7 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
       humanPlayerSelectionPageEngine:             Option[HumanPlayerSelectionPageAnalysisEngine],
       onymousAudienceSelectionPageEngine:         Option[OnymousAudienceSelectionPageAnalysisEngine],
       robotPlayerSelectionPageEngine:             Option[RobotPlayerSelectionPageAnalysisEngine],
-      updateAvatarEngine:                         Option[UpdateAvatarAnalysisEngine],
+      changeAvatarEngine:                         Option[ChangeAvatarAnalysisEngine],
       enterAvatarSelectionPageEngine:             Option[EnterAvatarSelectionPageAnalysisEngine]
     )
   }
@@ -295,8 +295,8 @@ final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
     this
   }
 
-  def set(updateAvatarAnalysisEngine: UpdateAvatarAnalysisEngine): LobbyProcessingEngineFactory = {
-    this.updateAvatarEngine = Option(updateAvatarAnalysisEngine)
+  def set(changeAvatarAnalysisEngine: ChangeAvatarAnalysisEngine): LobbyProcessingEngineFactory = {
+    this.changeAvatarEngine = Option(changeAvatarAnalysisEngine)
     this
   }
 

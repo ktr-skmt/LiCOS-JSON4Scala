@@ -5,6 +5,7 @@ import licos.json.element.lobby.client2server.{
   JsonAdvancedSearch,
   JsonAuthorizationRequestAccepted,
   JsonBuildVillage,
+  JsonChangeAvatar,
   JsonChangeLanguage,
   JsonChangeUserEmail,
   JsonChangeUserName,
@@ -25,8 +26,7 @@ import licos.json.element.lobby.client2server.{
   JsonRenewAvatarToken,
   JsonRunRobotPlayerInTheBackground,
   JsonSelectVillage,
-  JsonStopRobotPlayer,
-  JsonUpdateAvatar
+  JsonStopRobotPlayer
 }
 import licos.json.element.lobby.server2client.{
   JsonAuthorizationRequest,
@@ -91,7 +91,7 @@ import play.api.libs.json.{JsValue, Json}
   * @param humanPlayerSelectionPageEngine the analysis engine for Human-player-selection-page JSON
   * @param onymousAudienceSelectionPageEngine the analysis engine for Onymous-audience-selection-page JSON
   * @param robotPlayerSelectionPageEngine the analysis engine for Robot-player-selection-page JSON
-  * @param updateAvatarEngine the analysis engine for Update-avatar JSON
+  * @param changeAvatarEngine the analysis engine for Change-avatar JSON
   * @param enterAvatarSelectionPageEngine the analysis engine for Enter-avatar-selection-page JSON
   * @author Kotaro Sakamoto
   */
@@ -133,7 +133,7 @@ final class LobbyProcessingEngine(
     humanPlayerSelectionPageEngine:             Option[HumanPlayerSelectionPageAnalysisEngine],
     onymousAudienceSelectionPageEngine:         Option[OnymousAudienceSelectionPageAnalysisEngine],
     robotPlayerSelectionPageEngine:             Option[RobotPlayerSelectionPageAnalysisEngine],
-    updateAvatarEngine:                         Option[UpdateAvatarAnalysisEngine],
+    changeAvatarEngine:                         Option[ChangeAvatarAnalysisEngine],
     enterAvatarSelectionPageEngine:             Option[EnterAvatarSelectionPageAnalysisEngine]
 ) extends ProcessingEngine {
 
@@ -545,15 +545,15 @@ final class LobbyProcessingEngine(
               RobotPlayerSelectionPageAnalysisEngine.isFromServer
             )
         }
-      case Right(updateAvatar: JsonUpdateAvatar) =>
-        log("JsonUpdateAvatar")
-        updateAvatarEngine match {
+      case Right(changeAvatar: JsonChangeAvatar) =>
+        log("JsonChangeAvatar")
+        changeAvatarEngine match {
           case Some(engine) =>
-            engine.process(box, updateAvatar)
+            engine.process(box, changeAvatar)
           case None =>
             noAnalysisEngine(
-              UpdateAvatarAnalysisEngine.name,
-              UpdateAvatarAnalysisEngine.isFromServer
+              ChangeAvatarAnalysisEngine.name,
+              ChangeAvatarAnalysisEngine.isFromServer
             )
         }
       case Right(enterAvatarSelectionPage: JsonEnterAvatarSelectionPage) =>
