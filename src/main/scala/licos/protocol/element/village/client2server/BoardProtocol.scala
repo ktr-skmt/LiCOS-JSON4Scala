@@ -27,7 +27,7 @@ object BoardProtocol {
 
   def read(json: JsonBoard, villageInfoFromLobby: VillageInfoFromLobby): Option[BoardProtocol] = {
     VillageInfoFactory
-      .create(villageInfoFromLobby, json.base)
+      .createOpt(villageInfoFromLobby, json.base)
       .flatMap { village: VillageInfo =>
         for {
           prediction <- Data2Knowledge.polarityMarkOpt(json.prediction)

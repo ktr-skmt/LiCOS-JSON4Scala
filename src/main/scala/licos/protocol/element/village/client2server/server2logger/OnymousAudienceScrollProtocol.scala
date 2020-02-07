@@ -78,7 +78,7 @@ object OnymousAudienceScrollProtocol {
       villageInfoFromLobby: VillageInfoFromLobby
   ): Option[OnymousAudienceScrollProtocol] = {
     VillageInfoFactory
-      .create(villageInfoFromLobby, json.base)
+      .createOpt(villageInfoFromLobby, json.base)
       .map { village: VillageInfo =>
         OnymousAudienceScrollProtocol(
           village,

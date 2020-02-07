@@ -7,7 +7,7 @@ import licos.json.element.lobby.client2server.JsonBuildVillage
 import licos.json.element.lobby.{JsonHostPlayer, JsonHuman, JsonPlayerSetting, JsonRobot, JsonRoleSetting}
 import play.api.libs.json.{JsValue, Json}
 
-final case class BuildVillageProtocol(village: VillageInfoFromLobby, token: UUID, villageName: String)
+final case class BuildVillageProtocol(village: VillageInfoFromLobby, token: UUID, villageId: Long, villageName: String)
     extends Client2ServerVillageMessageProtocol {
 
   private lazy val json: Option[JsonBuildVillage] = {
@@ -15,7 +15,7 @@ final case class BuildVillageProtocol(village: VillageInfoFromLobby, token: UUID
       new JsonBuildVillage(
         token.toString,
         villageName,
-        -1,
+        villageId,
         -1,
         JsonHostPlayer(
           village.hostPlayer.name,
@@ -62,6 +62,7 @@ object BuildVillageProtocol {
       BuildVillageProtocol(
         village,
         UUID.fromString(json.token),
+        json.id,
         json.name
       )
     )

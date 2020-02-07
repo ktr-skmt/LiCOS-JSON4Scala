@@ -29,7 +29,7 @@ object NightPhaseProtocol {
     import cats.implicits._
     if (json.base.phase === Night.label) {
       VillageInfoFactory
-        .create(villageInfoFromLobby, json.base)
+        .createOpt(villageInfoFromLobby, json.base)
         .map { village: VillageInfo =>
           NightPhaseProtocol(
             village,

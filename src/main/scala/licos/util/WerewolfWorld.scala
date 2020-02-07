@@ -26,6 +26,14 @@ object WerewolfWorld {
     s"$baseUrl/image/$version/character_icons/50x50/${character}_50x50.png"
   }
 
+  /** Returns a URL of a anonymous icon.
+    *
+    * @return a URI of a anonymous icon.
+    */
+  def anonymousIcon: String = {
+    characterIcon("anonymous")
+  }
+
   /** Returns a URL of a role icon.
     *
     * @param role an lower-case role name.

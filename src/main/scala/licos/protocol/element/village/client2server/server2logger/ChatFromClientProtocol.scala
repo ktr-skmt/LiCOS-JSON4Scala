@@ -4,8 +4,7 @@ import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonChatFromClient
 import licos.json.element.village.iri.{ChatMessage, Contexts}
-import licos.knowledge.{Character, ClientToServer, Data2Knowledge, Role}
-import licos.protocol.PlayerChatChannel
+import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PlayerChatChannel, Role}
 import licos.protocol.element.village.part.character.{
   RoleCharacterProtocol,
   SimpleCharacterProtocol,
@@ -86,7 +85,7 @@ object ChatFromClientProtocol {
 
   def read(json: JsonChatFromClient, villageInfoFromLobby: VillageInfoFromLobby): Option[ChatFromClientProtocol] = {
     VillageInfoFactory
-      .create(villageInfoFromLobby, json.base)
+      .createOpt(villageInfoFromLobby, json.base)
       .flatMap { village: VillageInfo =>
         for {
           channel     <- Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)

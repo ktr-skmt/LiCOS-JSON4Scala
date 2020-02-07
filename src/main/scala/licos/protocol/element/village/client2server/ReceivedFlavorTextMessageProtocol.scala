@@ -7,7 +7,7 @@ import licos.knowledge.{Data2Knowledge, Phase}
 import play.api.libs.json.{JsValue, Json}
 
 final case class ReceivedFlavorTextMessageProtocol(token: UUID, villageId: Long, phase: Phase, day: Int)
-    extends Client2ServerVillageMessageProtocol {
+    extends ReceivedMessageProtocol {
 
   private lazy val json: Option[JsonReceivedFlavorTextMessage] = {
     Some(new JsonReceivedFlavorTextMessage(token.toString, villageId, phase.label, day))

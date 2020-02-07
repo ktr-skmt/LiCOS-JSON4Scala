@@ -15,7 +15,9 @@ final case class VillageInfo(
     phase:                            Phase,
     day:                              Int,
     phaseTimeLimit:                   FiniteDuration,
-    phaseStartTime:                   OffsetDateTime
+    phaseStartTime:                   OffsetDateTime,
+    clientTimestampOpt:               Option[OffsetDateTime],
+    serverTimestampOpt:               Option[OffsetDateTime]
 ) {
   def id:                           Long   = village.id
   def name:                         String = village.name
@@ -32,4 +34,23 @@ final case class VillageInfo(
   def avatarSetting:           AvatarSetting  = villageInfoFromLobby.avatarSetting
   def maxNumberOfHumanPlayers: Int            = villageInfoFromLobby.maxNumberOfHumanPlayers
 
+  def updateServerTimestamp(serverTimestamp: OffsetDateTime): VillageInfo = {
+    VillageInfoFactory
+      .create(
+        villageInfoFromLobby,
+        id,
+        name,
+        totalNumberOfPlayers,
+        language,
+        maxNumberOfChatMessages,
+        maxLengthOfUnicodeCodePoints,
+        token,
+        phase,
+        day,
+        phaseTimeLimit.toSeconds.toInt,
+        phaseStartTime,
+        clientTimestampOpt,
+        Option(serverTimestamp)
+      )
+  }
 }

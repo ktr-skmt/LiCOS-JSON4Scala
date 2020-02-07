@@ -29,7 +29,7 @@ object StarProtocol {
 
   def read(json: JsonStar, villageInfoFromLobby: VillageInfoFromLobby): Option[StarProtocol] = {
     VillageInfoFactory
-      .create(villageInfoFromLobby, json.base)
+      .createOpt(villageInfoFromLobby, json.base)
       .flatMap { village: VillageInfo =>
         for {
           myCharacter <- Data2Knowledge.characterOpt(json.myCharacter.name.en, json.myCharacter.id)

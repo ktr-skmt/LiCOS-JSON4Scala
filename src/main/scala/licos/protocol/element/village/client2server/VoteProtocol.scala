@@ -21,7 +21,7 @@ object VoteProtocol {
 
   def read(json: JsonVote, villageInfoFromLobby: VillageInfoFromLobby): Option[VoteProtocol] = {
     VillageInfoFactory
-      .create(villageInfoFromLobby, json.base)
+      .createOpt(villageInfoFromLobby, json.base)
       .flatMap { village: VillageInfo =>
         for {
           character   <- Data2Knowledge.characterOpt(json.character.name.en, json.character.id)

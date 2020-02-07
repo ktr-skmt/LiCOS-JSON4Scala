@@ -33,7 +33,7 @@ object MorningPhaseProtocol {
     import cats.implicits._
     if (json.base.phase === Morning.label && 1 < json.base.day) {
       VillageInfoFactory
-        .create(villageInfoFromLobby, json.base)
+        .createOpt(villageInfoFromLobby, json.base)
         .map { village: VillageInfo =>
           MorningPhaseProtocol(
             village,
