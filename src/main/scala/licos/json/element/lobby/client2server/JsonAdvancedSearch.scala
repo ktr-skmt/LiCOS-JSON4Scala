@@ -12,7 +12,7 @@ final case class JsonAdvancedSearch(
     hostName:    Option[String],
     minimum:     Option[Int],
     maximum:     Option[Int],
-    avatar:      String,
+    avatar:      Option[String],
     comment:     Option[String]
 ) extends TypeSystem(`type`) {
 
@@ -26,7 +26,7 @@ final case class JsonAdvancedSearch(
       hostName:    Option[String],
       minimum:     Option[Int],
       maximum:     Option[Int],
-      avatar:      String,
+      avatar:      Option[String],
       comment:     Option[String]
   ) = {
     this(JsonAdvancedSearch.`type`, token, lobby, villageName, hostName, minimum, maximum, avatar, comment)
@@ -49,7 +49,7 @@ object JsonAdvancedSearch {
       (JsPath \ "hostName").readNullable[String](AvatarValidation.name) and
       (JsPath \ "minimum").readNullable[Int](VillageValidation.totalNumberOfPlayers) and
       (JsPath \ "maximum").readNullable[Int](VillageValidation.totalNumberOfPlayers) and
-      (JsPath \ "avatar").read[String](BuildVillageValidation.avatar) and
+      (JsPath \ "avatar").readNullable[String](BuildVillageValidation.avatar) and
       (JsPath \ "comment").readNullable[String](BuildVillageValidation.comment)
   )(JsonAdvancedSearch.apply _)
 
