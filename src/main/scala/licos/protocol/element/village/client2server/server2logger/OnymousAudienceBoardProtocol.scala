@@ -85,7 +85,7 @@ object OnymousAudienceBoardProtocol {
       villageInfoFromLobby: VillageInfoFromLobby
   ): Option[OnymousAudienceBoardProtocol] = {
     VillageInfoFactory
-      .create(villageInfoFromLobby, json.base)
+      .createOpt(villageInfoFromLobby, json.base)
       .flatMap { village: VillageInfo =>
         for {
           prediction <- Data2Knowledge.polarityMarkOpt(json.prediction)

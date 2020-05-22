@@ -31,7 +31,7 @@ object OnymousAudienceChatFromServerProtocol {
   ): Option[OnymousAudienceChatFromServerProtocol] = {
     if (json.isFromServer) {
       VillageInfoFactory
-        .create(villageInfoFromLobby, json.base)
+        .createOpt(villageInfoFromLobby, json.base)
         .map { village: VillageInfo =>
           OnymousAudienceChatFromServerProtocol(
             village,

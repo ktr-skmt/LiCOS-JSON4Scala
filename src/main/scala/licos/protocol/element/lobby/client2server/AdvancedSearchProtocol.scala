@@ -13,7 +13,7 @@ final case class AdvancedSearchProtocol(
     hostName:      Option[String],
     minimum:       Option[Int],
     maximum:       Option[Int],
-    avatarSetting: AvatarSetting,
+    avatarSetting: Option[AvatarSetting],
     comment:       Option[String]
 ) extends Client2ServerLobbyMessageProtocol {
 
@@ -27,7 +27,7 @@ final case class AdvancedSearchProtocol(
         hostName,
         minimum,
         maximum,
-        avatarSetting.label,
+        avatarSetting.map(_.label),
         comment
       )
     )
@@ -41,10 +41,7 @@ final case class AdvancedSearchProtocol(
 object AdvancedSearchProtocol {
 
   def read(json: JsonAdvancedSearch): Option[AdvancedSearchProtocol] = {
-    for {
-      lobby         <- Data2Knowledge.lobbyOpt(json.lobby)
-      avatarSetting <- Data2Knowledge.avatarSettingOpt(json.avatar)
-    } yield {
+    Data2Knowledge.lobbyOpt(json.lobby).map { lobby: Lobby =>
       AdvancedSearchProtocol(
         UUID.fromString(json.token),
         lobby,
@@ -52,7 +49,7 @@ object AdvancedSearchProtocol {
         json.hostName,
         json.minimum,
         json.maximum,
-        avatarSetting,
+        json.avatar.flatMap(Data2Knowledge.avatarSettingOpt),
         json.comment
       )
     }

@@ -81,7 +81,7 @@ object PostMortemDiscussionProtocol {
     import cats.implicits._
     if (json.base.phase === PostMortemDiscussion.label && json.base.day === 0) {
       VillageInfoFactory
-        .create(villageInfoFromLobby, json.base)
+        .createOpt(villageInfoFromLobby, json.base)
         .map { village: VillageInfo =>
           PostMortemDiscussionProtocol(
             village,

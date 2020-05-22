@@ -30,7 +30,7 @@ object GameResultProtocol {
 
   def read(json: JsonGameResult, villageInfoFromLobby: VillageInfoFromLobby): Option[GameResultProtocol] = {
     VillageInfoFactory
-      .create(villageInfoFromLobby, json.base)
+      .createOpt(villageInfoFromLobby, json.base)
       .map { village: VillageInfo =>
         GameResultProtocol(
           village,

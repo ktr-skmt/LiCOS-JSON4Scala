@@ -24,7 +24,7 @@ object AnonymousAudienceChatFromServerProtocol {
   ): Option[AnonymousAudienceChatFromServerProtocol] = {
     if (json.isFromServer) {
       VillageInfoFactory
-        .create(villageInfoFromLobby, json.base)
+        .createOpt(villageInfoFromLobby, json.base)
         .map { village: VillageInfo =>
           AnonymousAudienceChatFromServerProtocol(
             village,

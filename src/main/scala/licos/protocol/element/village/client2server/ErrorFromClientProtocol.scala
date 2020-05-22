@@ -26,7 +26,7 @@ object ErrorFromClientProtocol {
 
   def read(json: JsonError, villageInfoFromLobby: VillageInfoFromLobby): Option[ErrorFromClientProtocol] = {
     VillageInfoFactory
-      .create(villageInfoFromLobby, json.base)
+      .createOpt(villageInfoFromLobby, json.base)
       .flatMap { village: VillageInfo =>
         Data2Knowledge
           .severityOpt(json.severity)

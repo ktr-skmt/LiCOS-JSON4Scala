@@ -63,7 +63,7 @@ object ErrorFromServerProtocol {
   def read(json: JsonError, villageInfoFromLobby: VillageInfoFromLobby): Option[ErrorFromServerProtocol] = {
     if (json.isFromServer) {
       VillageInfoFactory
-        .create(villageInfoFromLobby, json.base)
+        .createOpt(villageInfoFromLobby, json.base)
         .flatMap { village: VillageInfo =>
           Data2Knowledge.severityOpt(json.severity).map { severity: Severity =>
             ErrorFromServerProtocol(

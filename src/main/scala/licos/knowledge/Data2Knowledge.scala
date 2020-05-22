@@ -1,7 +1,6 @@
 package licos.knowledge
 
 import licos.json.element.village.JsonName
-import licos.protocol.PlayerChatChannel
 import licos.protocol.element.village.part.NameProtocol
 
 object Data2Knowledge {
@@ -93,11 +92,13 @@ object Data2Knowledge {
 
   def playerChatChannelOpt(label: String): Option[PlayerChatChannel] = {
     label match {
-      case licos.protocol.PublicChannel.channel.label   => Some(licos.protocol.PublicChannel)
-      case licos.protocol.PrivateChannel.channel.label  => Some(licos.protocol.PrivateChannel)
-      case licos.protocol.WerewolfChannel.channel.label => Some(licos.protocol.WerewolfChannel)
-      case licos.protocol.GraveChannel.channel.label    => Some(licos.protocol.GraveChannel)
-      case _                                            => Option.empty[PlayerChatChannel]
+      case PublicChatChannel.channel.label            => Some(PublicChatChannel)
+      case PrivateChatChannel.channel.label           => Some(PrivateChatChannel)
+      case WerewolfChatChannel.channel.label          => Some(WerewolfChatChannel)
+      case GraveChatChannel.channel.label             => Some(GraveChatChannel)
+      case OnymousAudienceChatChannel.channel.label   => Some(OnymousAudienceChatChannel)
+      case AnonymousAudienceChatChannel.channel.label => Some(AnonymousAudienceChatChannel)
+      case _                                          => Option.empty[PlayerChatChannel]
     }
   }
 

@@ -79,7 +79,7 @@ object MorningPhaseProtocol {
 
   def read(json: JsonPhase, villageInfoFromLobby: VillageInfoFromLobby): Option[MorningPhaseProtocol] = {
     VillageInfoFactory
-      .create(villageInfoFromLobby, json.base)
+      .createOpt(villageInfoFromLobby, json.base)
       .map { village: VillageInfo =>
         MorningPhaseProtocol(
           village,

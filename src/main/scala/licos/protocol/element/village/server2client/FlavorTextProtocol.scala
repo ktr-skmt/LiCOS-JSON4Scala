@@ -20,7 +20,7 @@ object FlavorTextProtocol {
 
   def read(json: JsonFlavorText, villageInfoFromLobby: VillageInfoFromLobby): Option[FlavorTextProtocol] = {
     VillageInfoFactory
-      .create(villageInfoFromLobby, json.base)
+      .createOpt(villageInfoFromLobby, json.base)
       .map { village: VillageInfo =>
         FlavorTextProtocol(
           village,

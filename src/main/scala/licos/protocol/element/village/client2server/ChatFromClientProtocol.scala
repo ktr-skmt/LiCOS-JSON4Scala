@@ -2,8 +2,7 @@ package licos.protocol.element.village.client2server
 
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.client2server.JsonChatFromClient
-import licos.knowledge.{Character, Data2Knowledge, Role}
-import licos.protocol.PlayerChatChannel
+import licos.knowledge.{Character, Data2Knowledge, PlayerChatChannel, Role}
 import play.api.libs.json.{JsValue, Json}
 
 final case class ChatFromClientProtocol(
@@ -28,7 +27,7 @@ object ChatFromClientProtocol {
 
   def read(json: JsonChatFromClient, villageInfoFromLobby: VillageInfoFromLobby): Option[ChatFromClientProtocol] = {
     VillageInfoFactory
-      .create(villageInfoFromLobby, json.base)
+      .createOpt(villageInfoFromLobby, json.base)
       .flatMap { village: VillageInfo =>
         for {
           channel     <- Data2Knowledge.playerChatChannelOpt(json.base.intensionalDisclosureRange)
