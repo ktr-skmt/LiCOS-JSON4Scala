@@ -2,7 +2,7 @@ package licos.entity
 
 import licos.knowledge.{Alive, Character, Morning, Night, Noon, Outcome, Phase, Role, Status}
 
-sealed abstract class AvatarInVillage()
+sealed abstract class AvatarInVillage() extends Product with Serializable
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading", "org.wartremover.warts.Var"))
 final case class PlayerInVillage(character: Character, role: Role) extends AvatarInVillage() {

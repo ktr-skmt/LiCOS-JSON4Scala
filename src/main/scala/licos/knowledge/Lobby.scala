@@ -1,9 +1,7 @@
 package licos.knowledge
 
-sealed abstract class Lobby(val label: String) {
-
+sealed abstract class Lobby(val label: String) extends Product with Serializable {
   override def toString: String = label
-
 }
 
 case object HumanPlayerLobby extends Lobby("human player")

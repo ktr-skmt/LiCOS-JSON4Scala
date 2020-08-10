@@ -1,6 +1,6 @@
 package licos.knowledge
 
-sealed class PingStatus(val label: String) {
+sealed abstract class PingStatus(val label: String) extends Product with Serializable {
   override def toString: String = label
 }
 

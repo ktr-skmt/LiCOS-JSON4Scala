@@ -1,6 +1,6 @@
 package licos.knowledge
 
-sealed abstract class Channel(val label: String)
+sealed abstract class Channel(val label: String) extends Product with Serializable
 
 case object PublicChannel extends Channel("public")
 case object PrivateChannel extends Channel("private")

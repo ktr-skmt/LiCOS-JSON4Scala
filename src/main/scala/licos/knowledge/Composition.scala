@@ -10,7 +10,7 @@ final class Composition(
     val madman:      MadmanRole,
     val werewolf:    WerewolfRole,
     val werehamster: WerehamsterRole
-) {
+) extends Serializable {
 
   def totalNumberOfPlayers: Int = {
     villager.numberOfPlayers +

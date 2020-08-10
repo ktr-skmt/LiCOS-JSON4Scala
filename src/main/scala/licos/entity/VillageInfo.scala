@@ -18,7 +18,7 @@ final case class VillageInfo(
     phaseStartTime:                   OffsetDateTime,
     clientTimestampOpt:               Option[OffsetDateTime],
     serverTimestampOpt:               Option[OffsetDateTime]
-) {
+) extends Serializable {
   def id:                           Long   = village.id
   def name:                         String = village.name
   def language:                     Locale = village.language

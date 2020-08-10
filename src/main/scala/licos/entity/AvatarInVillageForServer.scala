@@ -19,7 +19,7 @@ import licos.knowledge.{
   WerewolfRole
 }
 
-sealed abstract class AvatarInVillageForServer()
+sealed abstract class AvatarInVillageForServer() extends Product with Serializable
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading", "org.wartremover.warts.Var"))
 final case class PlayerInVillageForServer(character: Character, role: Role, onlyServer: ServerOnly)

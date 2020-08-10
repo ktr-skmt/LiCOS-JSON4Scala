@@ -16,4 +16,4 @@ final case class ServerOnly(
     isPrimary:  Boolean,
     playerType: Architecture,
     isHost:     Boolean
-)
+) extends Serializable
