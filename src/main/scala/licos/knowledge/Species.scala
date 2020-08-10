@@ -2,7 +2,7 @@ package licos.knowledge
 
 import licos.protocol.element.village.part.NameProtocol
 
-sealed abstract class Species(id: String, name: NameProtocol) {
+sealed abstract class Species(val id: String, val name: NameProtocol) extends Product with Serializable {
   override def toString: String = id
 }
 

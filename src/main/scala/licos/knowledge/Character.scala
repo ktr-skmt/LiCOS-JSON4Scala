@@ -4,7 +4,7 @@ import licos.protocol.element.village.part.NameProtocol
 import licos.util.WerewolfWorld
 
 @SuppressWarnings(Array[String]("org.wartremover.warts.Var"))
-sealed abstract class Character(val name: NameProtocol) {
+sealed abstract class Character(val name: NameProtocol) extends Product with Serializable {
   private var id: Int = -1
 
   def getId: Int = id

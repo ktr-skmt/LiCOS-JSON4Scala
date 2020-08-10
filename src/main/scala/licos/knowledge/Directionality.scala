@@ -1,6 +1,6 @@
 package licos.knowledge
 
-sealed class Directionality(val label: String) {
+sealed abstract class Directionality(val label: String) extends Product with Serializable {
   override def toString: String = label
 }
 

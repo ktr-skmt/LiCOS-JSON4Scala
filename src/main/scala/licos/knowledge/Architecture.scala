@@ -1,6 +1,6 @@
 package licos.knowledge
 
-sealed abstract class Architecture(val label: String) {
+sealed abstract class Architecture(val label: String) extends Product with Serializable {
   def isHuman: Boolean = {
     import cats.implicits._
     this.label === HumanArchitecture.label

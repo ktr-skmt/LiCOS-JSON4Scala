@@ -1,6 +1,6 @@
 package licos.knowledge
 
-sealed abstract class PlayerChatChannel(val channel: Channel)
+sealed abstract class PlayerChatChannel(val channel: Channel) extends Product with Serializable
 
 case object PublicChatChannel extends PlayerChatChannel(PublicChannel)
 

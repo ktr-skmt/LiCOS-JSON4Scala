@@ -1,3 +1,3 @@
 package licos.json.element
 
-trait Element
+trait Element extends Serializable

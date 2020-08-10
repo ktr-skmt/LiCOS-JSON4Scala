@@ -1,6 +1,6 @@
 package licos.knowledge
 
-sealed abstract class RobotPlayerStatus(val label: String)
+sealed abstract class RobotPlayerStatus(val label: String) extends Product with Serializable
 
 case object Connected extends RobotPlayerStatus("connected")
 case object Disconnected extends RobotPlayerStatus("disconnected")

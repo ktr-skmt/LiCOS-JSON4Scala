@@ -1,6 +1,6 @@
 package licos.knowledge
 
-sealed abstract class PolarityResultMark(val label: String) {
+sealed abstract class PolarityResultMark(val label: String) extends Product with Serializable {
   override def toString: String = label
 }
 

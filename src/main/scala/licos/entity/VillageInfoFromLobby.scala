@@ -14,6 +14,7 @@ final case class VillageInfoFromLobby(
     comment:                 Option[String],
     myAvatarName:            String,
     myAvatarImage:           URL
-)
+) extends Serializable
 
 final case class HostPlayer(id: Long, name: String, isAnonymous: Boolean, architecture: Architecture)
+    extends Serializable

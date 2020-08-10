@@ -6,7 +6,7 @@ import java.util.UUID
 
 import licos.knowledge.Architecture
 
-sealed abstract class AvatarInLobby()
+sealed abstract class AvatarInLobby() extends Product with Serializable
 
 final case class PlayerInLobby(
     id:         Long,
