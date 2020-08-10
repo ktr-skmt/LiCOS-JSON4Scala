@@ -2,7 +2,8 @@ package licos.entity
 
 import licos.knowledge.Alive
 
-final case class VillageInfoWithAvatarList(villageInfo: VillageInfo, avatarList: Seq[AvatarInVillage]) {
+final case class VillageInfoWithAvatarList(villageInfo: VillageInfo, avatarList: Seq[AvatarInVillage])
+    extends Serializable {
 
   def alivePlayerList: Seq[PlayerInVillage] = {
     import cats.implicits._

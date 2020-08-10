@@ -1596,19 +1596,19 @@ or <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/ja
       </span>
       
       
-    </li><li name="licos.knowledge.Outcome" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="OutcomeextendsSerializable"></a><a id="Outcome:Outcome"></a>
+    </li><li name="licos.knowledge.Outcome" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="OutcomeextendsProductwithSerializable"></a><a id="Outcome:Outcome"></a>
       <span class="permalink">
       <a href="../../licos/knowledge/Outcome.html" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">sealed </span>
+        <span class="modifier">sealed abstract </span>
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Outcome.html"><span class="name">Outcome</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="Outcome.html"><span class="name">Outcome</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -1808,7 +1808,7 @@ or <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/ja
       
       
     </li><li name="licos.knowledge.Support" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="SupportextendsProductwithSerializable"></a><a id="Support:Support"></a>
+      <a id="SupportextendsSerializablewithProduct"></a><a id="Support:Support"></a>
       <span class="permalink">
       <a href="../../licos/knowledge/Support.html" title="Permalink">
         <i class="material-icons"></i>
@@ -1819,12 +1819,12 @@ or <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/ja
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Support.html"><span class="name">Support</span></a><span class="params">(<span name="for">for: <span class="extype" name="scala.Predef.Map">Map</span>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>, <a href="SupportedComposition.html" class="extype" name="licos.knowledge.SupportedComposition">SupportedComposition</a>]</span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="Support.html"><span class="name">Support</span></a><span class="params">(<span name="for">for: <span class="extype" name="scala.Predef.Map">Map</span>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>, <a href="SupportedComposition.html" class="extype" name="licos.knowledge.SupportedComposition">SupportedComposition</a>]</span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a></span>
       </span>
       
       
     </li><li name="licos.knowledge.SupportedComposition" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="SupportedCompositionextendsProductwithSerializable"></a><a id="SupportedComposition:SupportedComposition"></a>
+      <a id="SupportedCompositionextendsSerializablewithProduct"></a><a id="SupportedComposition:SupportedComposition"></a>
       <span class="permalink">
       <a href="../../licos/knowledge/SupportedComposition.html" title="Permalink">
         <i class="material-icons"></i>
@@ -1835,7 +1835,7 @@ or <a href="https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/src/test/ja
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SupportedComposition.html"><span class="name">SupportedComposition</span></a><span class="params">(<span name="A">A: <a href="Composition.html" class="extype" name="licos.knowledge.Composition">Composition</a></span>, <span name="B">B: <a href="Composition.html" class="extype" name="licos.knowledge.Composition">Composition</a></span>, <span name="C">C: <a href="Composition.html" class="extype" name="licos.knowledge.Composition">Composition</a></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="SupportedComposition.html"><span class="name">SupportedComposition</span></a><span class="params">(<span name="A">A: <a href="Composition.html" class="extype" name="licos.knowledge.Composition">Composition</a></span>, <span name="B">B: <a href="Composition.html" class="extype" name="licos.knowledge.Composition">Composition</a></span>, <span name="C">C: <a href="Composition.html" class="extype" name="licos.knowledge.Composition">Composition</a></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a></span>
       </span>
       
       

@@ -1,6 +1,6 @@
 package licos.knowledge
 
-sealed class Outcome(val label: String) extends Serializable {
+sealed abstract class Outcome(val label: String) extends Product with Serializable {
   override def toString: String = label
 }
 

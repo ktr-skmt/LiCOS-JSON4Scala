@@ -1,6 +1,6 @@
 package licos.knowledge
 
-final case class Support(`for`: Map[Int, SupportedComposition]) extends Product with Serializable {
+final case class Support(`for`: Map[Int, SupportedComposition]) extends Serializable {
 
   def A(numberOfPlayers: Int): Option[Composition] = {
     if (`for`.contains(numberOfPlayers)) {
@@ -28,4 +28,4 @@ final case class Support(`for`: Map[Int, SupportedComposition]) extends Product 
 
 }
 
-final case class SupportedComposition(A: Composition, B: Composition, C: Composition)
+final case class SupportedComposition(A: Composition, B: Composition, C: Composition) extends Serializable
