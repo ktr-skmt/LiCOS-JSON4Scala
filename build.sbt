@@ -11,8 +11,6 @@ name := jsonLibraryName
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
-coverageEnabled := true
-
 lazy val javaVersion: String = "8"
 
 lazy val wartremoverSettings = Seq(
@@ -99,7 +97,7 @@ lazy val json = (project in file(".")).
     autoAPIMappings := true
   ).settings(
     isSnapshot := true,
-    version := "0.3.6",
+    version := "0.3.7",
     name := jsonLibraryName,
     publishMavenStyle := true,
     publishArtifact in Test := false,

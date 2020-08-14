@@ -36,9 +36,6 @@ jobs:
             - "~/.sbt"
             - "~/.m2"
       - run:
-          name: coverage
-          command: cat /dev/null | sbt coverage
-      - run:
           name: test json.AvatarValidationSpec
           command: cat /dev/null | sbt "testOnly json.validation.village.AvatarValidationSpec"
       - run:
@@ -104,6 +101,3 @@ jobs:
       - run:
           name: test protocol.engine.village.JVillageProcessingEngineSuite
           command: cat /dev/null | sbt "testOnly protocol.engine.village.JVillageProcessingEngineSuite"
-      - run:
-          name: coverage report
-          command: cat /dev/null | sbt coverageReport
