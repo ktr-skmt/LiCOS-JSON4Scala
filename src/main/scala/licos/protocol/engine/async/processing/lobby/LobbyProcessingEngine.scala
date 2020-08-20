@@ -56,7 +56,7 @@ final class LobbyProcessingEngine(
     enterAvatarSelectionPageEngine:             Option[EnterAvatarSelectionPageAnalysisEngine]
 ) extends ProcessingEngine {
 
-  private final val logger = Logger[LobbyProcessingEngine]
+  private val logger = Logger[LobbyProcessingEngine]
 
   @SuppressWarnings(
     Array[String](

@@ -17,11 +17,11 @@ trait AuthUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonSourceCode]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonSourceCode]
     }
   }
 
@@ -32,11 +32,11 @@ trait AuthUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonProgrammingLanguage]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonProgrammingLanguage]
     }
   }
 }

@@ -16,27 +16,24 @@ import licos.json.engine.processing.{
   VillageProcessingEngine,
   VillageProcessingEngineFactory
 }
-import org.junit.experimental.theories.{DataPoints, Theories, Theory}
-import org.junit.runner.RunWith
-import org.scalatest.junit.AssertionsForJUnit
+import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor1}
 import play.api.libs.json.{JsResult, JsValue}
 
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success, Try}
 
-object VillageProcessingEngineSuite {
-  @DataPoints
-  def jsonExampleSeq: Array[VillageExample] = Array[VillageExample](
-    Vote("nightVoteForLog.jsonld"),
-    Chat("myMessageOnChatForLog.jsonld"),
-    Phase("morningForLog.jsonld")
-  )
-}
+final class VillageProcessingEngineSuite extends FunSuite with Matchers with TableDrivenPropertyChecks {
 
-@RunWith(classOf[Theories])
-class VillageProcessingEngineSuite extends AssertionsForJUnit {
+  private val fractions: TableFor1[VillageExample] =
+    Table(
+      "jsonExample",
+      Vote("nightVoteForLog.jsonld"),
+      Chat("myMessageOnChatForLog.jsonld"),
+      Phase("morningForLog.jsonld")
+    )
 
-  private final val log: Logger = Logger[VillageProcessingEngineSuite]
+  private val log: Logger = Logger[VillageProcessingEngineSuite]
 
   private val processingEngineFactory: VillageProcessingEngineFactory = SpecificProcessingEngineFactory
     .create(VillagePE)
@@ -47,38 +44,39 @@ class VillageProcessingEngineSuite extends AssertionsForJUnit {
 
   private val processingEngine: VillageProcessingEngine = processingEngineFactory.create
 
-  @Theory
-  def process(jsonExample: VillageExample): Unit = {
-    val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-    log.info(url)
-    val source = Source.fromURL(url)
-    val msg: String = source.getLines.mkString("\n")
-    source.close()
-    log.debug(msg)
-    processingEngine.process(new VillageBox(jsonType), msg) match {
-      case Right(jsValue: JsValue) =>
-        parseJsonTest(jsValue) match {
-          case Some(json: JsonTest) =>
-            assert(json.text == jsonType)
-          case None =>
-            fail(
-              Seq[String](
-                "Something is wrong right after parsing.",
-                msg
-              ).mkString("\n")
-            )
-        }
+  test("json.server2logger.villageProcessingEngineSuite") {
+    forEvery(fractions) { jsonExample: VillageExample =>
+      val jsonType:       String = jsonExample.`type`
+      val url:            String = jsonExample.path
+      implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+      log.info(url)
+      val source = Source.fromURL(url)
+      val msg: String = source.getLines.mkString("\n")
+      source.close()
+      log.debug(msg)
+      processingEngine.process(new VillageBox(jsonType), msg) match {
+        case Right(jsValue: JsValue) =>
+          parseJsonTest(jsValue) match {
+            case Some(json: JsonTest) =>
+              assert(json.text == jsonType)
+            case None =>
+              fail(
+                List[String](
+                  "Something is wrong right after parsing.",
+                  msg
+                ).mkString("\n")
+              )
+          }
 
-      case Left(jsValue: JsValue) =>
-        fail(
-          Seq[String](
-            "No response is generated.",
-            msg,
-            jsValue.toString
-          ).mkString("\n")
-        )
+        case Left(jsValue: JsValue) =>
+          fail(
+            List[String](
+              "No response is generated.",
+              msg,
+              jsValue.toString
+            ).mkString("\n")
+          )
+      }
     }
   }
 
@@ -87,7 +85,7 @@ class VillageProcessingEngineSuite extends AssertionsForJUnit {
       case Success(json: JsResult[JsonTest]) => json.asOpt
       case Failure(err:  Throwable) =>
         fail(
-          Seq[String](
+          List[String](
             "Parsing failed.",
             err.getMessage,
             jsValue.toString
