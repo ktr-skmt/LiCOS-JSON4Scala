@@ -9,10 +9,11 @@ import licos.protocol.engine.processing.SpecificProcessingEngineFactory$;
 import licos.protocol.engine.processing.VillagePE$;
 import licos.protocol.engine.processing.village.VillageProcessingEngine;
 import licos.protocol.engine.processing.village.VillageProcessingEngineFactory;
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.api.libs.json.Json;
@@ -35,46 +36,52 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-@RunWith(Theories.class)
+@RunWith(Parameterized.class)
 public class JVillageProcessingEngineSuite {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @DataPoints
-    public final static VillageExample[] exampleSeq = {
-            new ReceivedChatMessage("receipt/receivedChatMessage.json"),
-            new ReceivedFlavorTextMessage("receipt/receivedFlavorTextMessage.json"),
-            new ReceivedSystemMessage("receipt/receivedSystemMessage.json"),
-            new AnonymousAudienceChatFromClient("anonymousAudienceChat.jsonld"),
-            new Board("board.jsonld"),
-            new ChatFromClient("chat.jsonld"),
-            new ErrorFromClient("error.jsonld"),
-            new Vote("nightVote.jsonld"),
-            new Vote("noonVote.jsonld"),
-            new OnymousAudienceBoard("onymousAudienceBoard.jsonld"),
-            new OnymousAudienceChatFromClient("onymousAudienceChat.jsonld"),
-            new OnymousAudienceScroll("onymousAudienceScroll.jsonld"),
-            new Scroll("scroll.jsonld"),
-            new Star("star.jsonld"),
-            new NextGameInvitation("invitation/nextGameInvitation.json"),
-            new NextGameInvitationIsClosed("invitation/nextGameInvitationIsClosed.json"),
-            new AnonymousAudienceChatFromServer("anonymousAudienceChat.jsonld"),
-            new ErrorFromServer("error.jsonld"),
-            new FirstMorningPhase("firstMorning.jsonld"),
-            new FlavorText("flavorText.jsonld"),
-            new MorningPhase("morning.jsonld"),
-            new ChatFromServer("myMessageOnChat.jsonld"),
-            new NightPhase("night.jsonld"),
-            new NoonPhase("noon.jsonld"),
-            new OnymousAudienceChatFromServer("onymousAudienceChat.jsonld"),
-            new PostMortemDiscussion("postMortemDiscussion.jsonld"),
-            new GameResult("result.jsonld"),
-            new ChatFromServer("theirMessageOnChat.jsonld")
-    };
+    @Parameters
+    public static VillageExample[] data() {
+        return new VillageExample[] {
+                new ReceivedChatMessage("receipt/receivedChatMessage.json"),
+                new ReceivedFlavorTextMessage("receipt/receivedFlavorTextMessage.json"),
+                new ReceivedSystemMessage("receipt/receivedSystemMessage.json"),
+                new AnonymousAudienceChatFromClient("anonymousAudienceChat.jsonld"),
+                new Board("board.jsonld"),
+                new ChatFromClient("chat.jsonld"),
+                new ErrorFromClient("error.jsonld"),
+                new Vote("nightVote.jsonld"),
+                new Vote("noonVote.jsonld"),
+                new OnymousAudienceBoard("onymousAudienceBoard.jsonld"),
+                new OnymousAudienceChatFromClient("onymousAudienceChat.jsonld"),
+                new OnymousAudienceScroll("onymousAudienceScroll.jsonld"),
+                new Scroll("scroll.jsonld"),
+                new Star("star.jsonld"),
+                new NextGameInvitation("invitation/nextGameInvitation.json"),
+                new NextGameInvitationIsClosed("invitation/nextGameInvitationIsClosed.json"),
+                new AnonymousAudienceChatFromServer("anonymousAudienceChat.jsonld"),
+                new ErrorFromServer("error.jsonld"),
+                new FirstMorningPhase("firstMorning.jsonld"),
+                new FlavorText("flavorText.jsonld"),
+                new MorningPhase("morning.jsonld"),
+                new ChatFromServer("myMessageOnChat.jsonld"),
+                new NightPhase("night.jsonld"),
+                new NoonPhase("noon.jsonld"),
+                new OnymousAudienceChatFromServer("onymousAudienceChat.jsonld"),
+                new PostMortemDiscussion("postMortemDiscussion.jsonld"),
+                new GameResult("result.jsonld"),
+                new ChatFromServer("theirMessageOnChat.jsonld")
+        };
+    }
 
-    private VillageProcessingEngineFactory processingEngineFactory = (
+    @Parameter
+    public VillageExample jsonExample;
+
+    private final VillageProcessingEngineFactory processingEngineFactory = (
             (VillageProcessingEngineFactory) SpecificProcessingEngineFactory$.MODULE$
             .create(VillagePE$.MODULE$))
             .set(new JAnonymousAudienceChatFromClientAE())
@@ -107,10 +114,10 @@ public class JVillageProcessingEngineSuite {
             .set(new JOnymousAudienceChatFromServerAE())
             .set(new JPostMortemDiscussionAE());
 
-    private VillageProcessingEngine processingEngine = processingEngineFactory.create();
+    private final VillageProcessingEngine processingEngine = processingEngineFactory.create();
 
-    @Theory
-    public void process(VillageExample jsonExample) {
+    @Test
+    public void test() {
         String jsonType = jsonExample.type();
         URL url = jsonExample.path();
         log.info(url.toString());
@@ -151,7 +158,7 @@ public class JVillageProcessingEngineSuite {
                     if (responseTry.isSuccess()) {
                         VillageMessageProtocol response = responseTry.get();
                         if (response instanceof VillageMessageTestProtocol) {
-                            assert(((VillageMessageTestProtocol) response).text().equals(jsonType));
+                            assertEquals(((VillageMessageTestProtocol) response).text(), jsonType);
                         } else {
                             fail("No VillageMessageTestProtocol");
                         }

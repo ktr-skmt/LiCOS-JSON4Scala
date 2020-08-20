@@ -8,9 +8,8 @@ import licos.json2protocol.lobby.Json2LobbyMessageProtocol
 import licos.protocol.element.lobby.LobbyMessageProtocol
 import licos.protocol.engine.processing.lobby.{LobbyProcessingEngine, LobbyProcessingEngineFactory}
 import licos.protocol.engine.processing.{LobbyPE, SpecificProcessingEngineFactory}
-import org.junit.experimental.theories.{DataPoints, Theories, Theory}
-import org.junit.runner.RunWith
-import org.scalatest.junit.AssertionsForJUnit
+import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor1}
 import play.api.libs.json.Json
 import protocol.element.LobbyMessageTestProtocol
 import protocol.engine.LobbyExample
@@ -104,61 +103,59 @@ import protocol.engine.lobby.example.server2server.PlayedWithToken
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success}
 
-object LobbyProcessingEngineSuite {
-  @DataPoints
-  def exampleSeq: Array[LobbyExample] = Array[LobbyExample](
-    AdvancedSearch("advancedSearch.json"),
-    BuildVillage("buildVillage.json"),
-    ChangeLanguage("changeLanguage.json"),
-    ChangeUserEmail("changeUserEmail.json"),
-    ChangeUserName("changeUserName.json"),
-    ChangeUserPassword("changeUserPassword.json"),
-    EnterLobby("enterLobbyForAnonymousAudience.json"),
-    EnterLobby("enterLobbyForHumanPlayer.json"),
-    EnterLobby("enterLobbyForOnymousAudience.json"),
-    EnterLobby("enterLobbyForRobotPlayer.json"),
-    GetAvatarInfo("getAvatar.json"),
-    GetSettings("getSettings.json"),
-    IdSearch("idSearch.json"),
-    KickOutPlayer("kickOutPlayer.json"),
-    LeaveWaitingPage("leaveWaitingPage.json"),
-    Play("play.json"),
-    Pong("pong.json"),
-    Ready("ready.json"),
-    SelectVillage("selectVillage.json"),
-    AuthorizationRequest("authorizationRequest.json"),
-    AuthorizationRequestAcceptedResponse("authorizationRequestAcceptedResponse.json"),
-    AvatarInfo("avatar.json"),
-    Lobby("lobbyForAnonymousAudience.json"),
-    Lobby("lobbyForHumanPlayer.json"),
-    Lobby("lobbyForOnymousAudience.json"),
-    Lobby("lobbyForRobotPlayer.json"),
-    Ping("ping.json"),
-    Played("played.json"),
-    SearchResult("searchResult.json"),
-    Settings("settings.json"),
-    WaitingPage("waitingPage.json"),
-    PlayedWithToken("playedWithToken.json"),
-    AuthorizationRequestAccepted("authorizationRequestAccepted.json"),
-    RenewAvatarToken("renewAvatarToken.json"),
-    CreateHumanPlayer("createHumanPlayer.json"),
-    CreateOnymousAudience("createOnymousAudience.json"),
-    CreateRobotPlayer("createRobotPlayer.json"),
-    DeleteAvatar("deleteAvatar.json"),
-    RunRobotPlayerInTheBackground("runRobotPlayerInTheBackground.json"),
-    StopRobotPlayer("stopRobotPlayer.json"),
-    HumanPlayerSelectionPage("humanPlayerSelectionPage.json"),
-    OnymousAudienceSelectionPage("onymousAudienceSelectionPage.json"),
-    RobotPlayerSelectionPage("robotPlayerSelectionPage.json"),
-    ChangeAvatar("updateAvatarName.json"),
-    ChangeAvatar("updateAvatarImage.json"),
-    ChangeAvatar("updateAvatarLanguage.json"),
-    EnterAvatarSelectionPage("enterAvatarSelectionPage.json")
-  )
-}
+final class LobbyProcessingEngineSuite extends FunSuite with Matchers with TableDrivenPropertyChecks {
 
-@RunWith(classOf[Theories])
-final class LobbyProcessingEngineSuite extends AssertionsForJUnit {
+  private val fractions: TableFor1[LobbyExample] =
+    Table(
+      "jsonExample",
+      AdvancedSearch("advancedSearch.json"),
+      BuildVillage("buildVillage.json"),
+      ChangeLanguage("changeLanguage.json"),
+      ChangeUserEmail("changeUserEmail.json"),
+      ChangeUserName("changeUserName.json"),
+      ChangeUserPassword("changeUserPassword.json"),
+      EnterLobby("enterLobbyForAnonymousAudience.json"),
+      EnterLobby("enterLobbyForHumanPlayer.json"),
+      EnterLobby("enterLobbyForOnymousAudience.json"),
+      EnterLobby("enterLobbyForRobotPlayer.json"),
+      GetAvatarInfo("getAvatar.json"),
+      GetSettings("getSettings.json"),
+      IdSearch("idSearch.json"),
+      KickOutPlayer("kickOutPlayer.json"),
+      LeaveWaitingPage("leaveWaitingPage.json"),
+      Play("play.json"),
+      Pong("pong.json"),
+      Ready("ready.json"),
+      SelectVillage("selectVillage.json"),
+      AuthorizationRequest("authorizationRequest.json"),
+      AuthorizationRequestAcceptedResponse("authorizationRequestAcceptedResponse.json"),
+      AvatarInfo("avatar.json"),
+      Lobby("lobbyForAnonymousAudience.json"),
+      Lobby("lobbyForHumanPlayer.json"),
+      Lobby("lobbyForOnymousAudience.json"),
+      Lobby("lobbyForRobotPlayer.json"),
+      Ping("ping.json"),
+      Played("played.json"),
+      SearchResult("searchResult.json"),
+      Settings("settings.json"),
+      WaitingPage("waitingPage.json"),
+      PlayedWithToken("playedWithToken.json"),
+      AuthorizationRequestAccepted("authorizationRequestAccepted.json"),
+      RenewAvatarToken("renewAvatarToken.json"),
+      CreateHumanPlayer("createHumanPlayer.json"),
+      CreateOnymousAudience("createOnymousAudience.json"),
+      CreateRobotPlayer("createRobotPlayer.json"),
+      DeleteAvatar("deleteAvatar.json"),
+      RunRobotPlayerInTheBackground("runRobotPlayerInTheBackground.json"),
+      StopRobotPlayer("stopRobotPlayer.json"),
+      HumanPlayerSelectionPage("humanPlayerSelectionPage.json"),
+      OnymousAudienceSelectionPage("onymousAudienceSelectionPage.json"),
+      RobotPlayerSelectionPage("robotPlayerSelectionPage.json"),
+      ChangeAvatar("updateAvatarName.json"),
+      ChangeAvatar("updateAvatarImage.json"),
+      ChangeAvatar("updateAvatarLanguage.json"),
+      EnterAvatarSelectionPage("enterAvatarSelectionPage.json")
+    )
 
   private val log: Logger = Logger[LobbyProcessingEngineSuite]
 
@@ -207,37 +204,38 @@ final class LobbyProcessingEngineSuite extends AssertionsForJUnit {
 
   private val processingEngine: LobbyProcessingEngine = processingEngineFactory.create
 
-  @Theory
-  def process(jsonExample: LobbyExample): Unit = {
-    val jsonType:       String = jsonExample.`type`
-    val url:            URL    = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-    log.info(url.toString)
-    val source = Source.fromURL(url)
-    val msg: String = source.getLines.mkString("\n")
-    source.close()
-    log.debug(msg)
-    Json2LobbyMessageProtocol.toProtocolOpt(Json.parse(msg)) match {
-      case Some(protocol: LobbyMessageProtocol) =>
-        processingEngine.process(new LobbyBox(), protocol) match {
-          case Success(protocol: LobbyMessageProtocol) =>
-            protocol match {
-              case p: LobbyMessageTestProtocol =>
-                assert(p.text == jsonType)
-              case _ =>
-                fail("No LobbyMessageTestProtocol")
-            }
-          case Failure(error: Throwable) =>
-            fail(
-              Seq[String](
-                "No response is generated.",
-                error.getMessage,
-                msg
-              ).mkString("\n")
-            )
-        }
-      case _ =>
-        fail("No protocol")
+  test("protocol.lobbyProcessingEngineSuite") {
+    forEvery(fractions) { jsonExample: LobbyExample =>
+      val jsonType:       String = jsonExample.`type`
+      val url:            URL    = jsonExample.path
+      implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+      log.info(url.toString)
+      val source = Source.fromURL(url)
+      val msg: String = source.getLines.mkString("\n")
+      source.close()
+      log.debug(msg)
+      Json2LobbyMessageProtocol.toProtocolOpt(Json.parse(msg)) match {
+        case Some(protocol: LobbyMessageProtocol) =>
+          processingEngine.process(new LobbyBox(), protocol) match {
+            case Success(protocol: LobbyMessageProtocol) =>
+              protocol match {
+                case p: LobbyMessageTestProtocol =>
+                  p.text shouldBe jsonType
+                case _ =>
+                  fail("No LobbyMessageTestProtocol")
+              }
+            case Failure(error: Throwable) =>
+              fail(
+                List[String](
+                  "No response is generated.",
+                  error.getMessage,
+                  msg
+                ).mkString("\n")
+              )
+          }
+        case _ =>
+          fail("No protocol")
+      }
     }
   }
 }

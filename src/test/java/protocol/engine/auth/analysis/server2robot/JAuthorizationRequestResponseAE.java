@@ -13,7 +13,6 @@ import scala.util.Success;
 import scala.util.Try;
 
 public class JAuthorizationRequestResponseAE implements AuthorizationRequestResponseAnalysisEngine {
-
     @Override
     public Try<AuthMessageProtocol> process(AuthBOX box, AuthorizationRequestResponseProtocol authorizationRequestResponseProtocol) {
         if (box instanceof JAuthBox) {

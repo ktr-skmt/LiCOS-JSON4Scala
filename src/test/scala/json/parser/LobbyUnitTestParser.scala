@@ -24,11 +24,11 @@ trait LobbyUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonHostPlayer]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonHostPlayer]
     }
   }
 
@@ -39,11 +39,11 @@ trait LobbyUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonHuman]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonHuman]
     }
   }
 
@@ -54,11 +54,11 @@ trait LobbyUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonPingResult]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonPingResult]
     }
   }
 
@@ -69,11 +69,11 @@ trait LobbyUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonPlayerInWaitingPage]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonPlayerInWaitingPage]
     }
   }
 
@@ -84,11 +84,11 @@ trait LobbyUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonPlayerSetting]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonPlayerSetting]
     }
   }
 
@@ -99,11 +99,11 @@ trait LobbyUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonPlayerTokenInKickOutPlayer]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonPlayerTokenInKickOutPlayer]
     }
   }
 
@@ -114,11 +114,11 @@ trait LobbyUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonRobot]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonRobot]
     }
   }
 
@@ -129,11 +129,11 @@ trait LobbyUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonRoleSetting]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonRoleSetting]
     }
   }
 
@@ -144,11 +144,11 @@ trait LobbyUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonSupport]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonSupport]
     }
   }
 
@@ -159,11 +159,11 @@ trait LobbyUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonSupportedComposition]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonSupportedComposition]
     }
   }
 
@@ -174,11 +174,11 @@ trait LobbyUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonSubAvatarInfo]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonSubAvatarInfo]
     }
   }
 
@@ -189,11 +189,11 @@ trait LobbyUnitTestParser {
           case JsSuccess(j, _) => Option(j)
           case e: JsError =>
             logger.debug(e.toString)
-            None
+            Option.empty[JsonRobotPlayerInfo]
         }
       case Failure(err: Throwable) =>
         logger.error(err.getMessage)
-        None
+        Option.empty[JsonRobotPlayerInfo]
     }
   }
 }

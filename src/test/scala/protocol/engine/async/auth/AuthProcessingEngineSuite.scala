@@ -8,9 +8,8 @@ import licos.json2protocol.auth.Json2AuthMessageProtocol
 import licos.protocol.element.auth.AuthMessageProtocol
 import licos.protocol.engine.async.processing.auth.{AuthProcessingEngine, AuthProcessingEngineFactory}
 import licos.protocol.engine.async.processing.{AuthPE, SpecificProcessingEngineFactory}
-import org.junit.experimental.theories.{DataPoints, Theories, Theory}
-import org.junit.runner.RunWith
-import org.scalatest.junit.AssertionsForJUnit
+import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor1}
 import play.api.libs.json.Json
 import protocol.element.AuthMessageTestProtocol
 import protocol.engine.AuthExample
@@ -27,17 +26,15 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.io.{Codec, Source}
 
-object AuthProcessingEngineSuite {
-  @DataPoints
-  def exampleSeq: Array[AuthExample] = Array[AuthExample](
-    AuthenticationAndAuthorizationRequest("authenticationAndAuthorizationRequest.json"),
-    AuthenticationRequestResponse("authenticationRequestResponse.json"),
-    AuthorizationRequestResponse("authorizationRequestResponse.json")
-  )
-}
+final class AuthProcessingEngineSuite extends FunSuite with Matchers with TableDrivenPropertyChecks {
 
-@RunWith(classOf[Theories])
-final class AuthProcessingEngineSuite extends AssertionsForJUnit {
+  private val fractions: TableFor1[AuthExample] =
+    Table(
+      "jsonExample",
+      AuthenticationAndAuthorizationRequest("authenticationAndAuthorizationRequest.json"),
+      AuthenticationRequestResponse("authenticationRequestResponse.json"),
+      AuthorizationRequestResponse("authorizationRequestResponse.json")
+    )
 
   private val log: Logger = Logger[AuthProcessingEngineSuite]
 
@@ -50,46 +47,47 @@ final class AuthProcessingEngineSuite extends AssertionsForJUnit {
 
   private val processingEngine: AuthProcessingEngine = processingEngineFactory.create
 
-  @Theory
-  def process(jsonExample: AuthExample): Unit = {
-    val jsonType:       String = jsonExample.`type`
-    val url:            URL    = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-    log.info(url.toString)
-    val source = Source.fromURL(url)
-    val msg: String = source.getLines.mkString("\n")
-    source.close()
-    log.debug(msg)
+  test("protocol.async.authProcessingEngineSuite") {
+    forEvery(fractions) { jsonExample: AuthExample =>
+      val jsonType:       String = jsonExample.`type`
+      val url:            URL    = jsonExample.path
+      implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+      log.info(url.toString)
+      val source = Source.fromURL(url)
+      val msg: String = source.getLines.mkString("\n")
+      source.close()
+      log.debug(msg)
 
-    import scala.concurrent.ExecutionContext.Implicits.global
+      import scala.concurrent.ExecutionContext.Implicits.global
 
-    Json2AuthMessageProtocol.toProtocolOpt(Json.parse(msg)) match {
-      case Some(protocol: AuthMessageProtocol) =>
-        Await.ready(
-          processingEngine
-            .process(new AuthBox(), protocol)
-            .map { messageProtocol: AuthMessageProtocol =>
-              messageProtocol match {
-                case p: AuthMessageTestProtocol =>
-                  assert(p.text == jsonType)
-                case _ =>
-                  fail("No AuthMessageTestProtocol")
+      Json2AuthMessageProtocol.toProtocolOpt(Json.parse(msg)) match {
+        case Some(protocol: AuthMessageProtocol) =>
+          Await.ready(
+            processingEngine
+              .process(new AuthBox(), protocol)
+              .map { messageProtocol: AuthMessageProtocol =>
+                messageProtocol match {
+                  case p: AuthMessageTestProtocol =>
+                    p.text shouldBe jsonType
+                  case _ =>
+                    fail("No AuthMessageTestProtocol")
+                }
               }
-            }
-            .recover {
-              case error: Exception =>
-                fail(
-                  Seq[String](
-                    "No response is generated.",
-                    error.getMessage,
-                    msg
-                  ).mkString("\n")
-                )
-            },
-          Duration.Inf
-        )
-      case _ =>
-        fail("No protocol")
+              .recover {
+                case error: Exception =>
+                  fail(
+                    List[String](
+                      "No response is generated.",
+                      error.getMessage,
+                      msg
+                    ).mkString("\n")
+                  )
+              },
+            Duration.Inf
+          )
+        case _ =>
+          fail("No protocol")
+      }
     }
   }
 }

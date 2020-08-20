@@ -8,9 +8,8 @@ import licos.json2protocol.auth.Json2AuthMessageProtocol
 import licos.protocol.element.auth.AuthMessageProtocol
 import licos.protocol.engine.processing.auth.{AuthProcessingEngine, AuthProcessingEngineFactory}
 import licos.protocol.engine.processing.{AuthPE, SpecificProcessingEngineFactory}
-import org.junit.experimental.theories.{DataPoints, Theories, Theory}
-import org.junit.runner.RunWith
-import org.scalatest.junit.AssertionsForJUnit
+import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor1}
 import play.api.libs.json.Json
 import protocol.element.AuthMessageTestProtocol
 import protocol.engine.AuthExample
@@ -22,17 +21,15 @@ import protocol.engine.auth.example.server2robot.{AuthenticationRequestResponse,
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success}
 
-object AuthProcessingEngineSuite {
-  @DataPoints
-  def exampleSeq: Array[AuthExample] = Array[AuthExample](
-    AuthenticationAndAuthorizationRequest("authenticationAndAuthorizationRequest.json"),
-    AuthenticationRequestResponse("authenticationRequestResponse.json"),
-    AuthorizationRequestResponse("authorizationRequestResponse.json")
-  )
-}
+final class AuthProcessingEngineSuite extends FunSuite with Matchers with TableDrivenPropertyChecks {
 
-@RunWith(classOf[Theories])
-final class AuthProcessingEngineSuite extends AssertionsForJUnit {
+  private val fractions: TableFor1[AuthExample] =
+    Table(
+      "jsonExample",
+      AuthenticationAndAuthorizationRequest("authenticationAndAuthorizationRequest.json"),
+      AuthenticationRequestResponse("authenticationRequestResponse.json"),
+      AuthorizationRequestResponse("authorizationRequestResponse.json")
+    )
 
   private val log: Logger = Logger[AuthProcessingEngineSuite]
 
@@ -45,37 +42,39 @@ final class AuthProcessingEngineSuite extends AssertionsForJUnit {
 
   private val processingEngine: AuthProcessingEngine = processingEngineFactory.create
 
-  @Theory
-  def process(jsonExample: AuthExample): Unit = {
-    val jsonType:       String = jsonExample.`type`
-    val url:            URL    = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-    log.info(url.toString)
-    val source = Source.fromURL(url)
-    val msg: String = source.getLines.mkString("\n")
-    source.close()
-    log.debug(msg)
-    Json2AuthMessageProtocol.toProtocolOpt(Json.parse(msg)) match {
-      case Some(protocol: AuthMessageProtocol) =>
-        processingEngine.process(new AuthBox(), protocol) match {
-          case Success(protocol: AuthMessageProtocol) =>
-            protocol match {
-              case p: AuthMessageTestProtocol =>
-                assert(p.text == jsonType)
-              case _ =>
-                fail("No AuthMessageTestProtocol")
-            }
-          case Failure(error: Throwable) =>
-            fail(
-              Seq[String](
-                "No response is generated.",
-                error.getMessage,
-                msg
-              ).mkString("\n")
-            )
-        }
-      case _ =>
-        fail("No protocol")
+  test("protocol.authProcessingEngineSuite") {
+    forEvery(fractions) { jsonExample: AuthExample =>
+      val jsonType:       String = jsonExample.`type`
+      val url:            URL    = jsonExample.path
+      implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+      log.info(url.toString)
+      val source = Source.fromURL(url)
+      val msg: String = source.getLines.mkString("\n")
+      source.close()
+      log.debug(msg)
+      Json2AuthMessageProtocol.toProtocolOpt(Json.parse(msg)) match {
+        case Some(protocol: AuthMessageProtocol) =>
+          processingEngine.process(new AuthBox(), protocol) match {
+            case Success(protocol: AuthMessageProtocol) =>
+              protocol match {
+                case p: AuthMessageTestProtocol =>
+                  p.text shouldBe jsonType
+                case _ =>
+                  fail("No AuthMessageTestProtocol")
+              }
+            case Failure(error: Throwable) =>
+              fail(
+                List[String](
+                  "No response is generated.",
+                  error.getMessage,
+                  msg
+                ).mkString("\n")
+              )
+          }
+        case _ =>
+          fail("No protocol")
+      }
     }
   }
+
 }

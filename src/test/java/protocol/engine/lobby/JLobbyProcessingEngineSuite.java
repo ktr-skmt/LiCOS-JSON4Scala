@@ -6,16 +6,16 @@ import licos.protocol.engine.processing.LobbyPE$;
 import licos.protocol.engine.processing.SpecificProcessingEngineFactory$;
 import licos.protocol.engine.processing.lobby.LobbyProcessingEngine;
 import licos.protocol.engine.processing.lobby.LobbyProcessingEngineFactory;
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.api.libs.json.Json;
 import protocol.element.LobbyMessageTestProtocol;
 import protocol.engine.LobbyExample;
-
 import protocol.engine.lobby.analysis.client2server.*;
 import protocol.engine.lobby.analysis.server2client.*;
 import protocol.engine.lobby.analysis.server2server.JPlayedWithTokenAE;
@@ -33,15 +33,17 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-@RunWith(Theories.class)
+@RunWith(Parameterized.class)
 public class JLobbyProcessingEngineSuite {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @DataPoints
-    public final static LobbyExample[] exampleSeq = {
+    @Parameters
+    public static LobbyExample[] data() {
+        return new LobbyExample[] {
             new AdvancedSearch("advancedSearch.json"),
             new BuildVillage("buildVillage.json"),
             new ChangeLanguage("changeLanguage.json"),
@@ -89,9 +91,13 @@ public class JLobbyProcessingEngineSuite {
             new ChangeAvatar("updateAvatarImage.json"),
             new ChangeAvatar("updateAvatarLanguage.json"),
             new EnterAvatarSelectionPage("enterAvatarSelectionPage.json")
-    };
+        };
+    }
 
-    private LobbyProcessingEngineFactory processingEngineFactory = (
+    @Parameter
+    public LobbyExample jsonExample;
+
+    private final LobbyProcessingEngineFactory processingEngineFactory = (
             (LobbyProcessingEngineFactory) SpecificProcessingEngineFactory$.MODULE$
             .create(LobbyPE$.MODULE$))
             .set(new JAdvancedSearchAE())
@@ -134,10 +140,10 @@ public class JLobbyProcessingEngineSuite {
             .set(new JChangeAvatarAE())
             .set(new JEnterAvatarSelectionPageAE());
 
-    private LobbyProcessingEngine processingEngine = processingEngineFactory.create();
+    private final LobbyProcessingEngine processingEngine = processingEngineFactory.create();
 
-    @Theory
-    public void process(LobbyExample jsonExample) {
+    @Test
+    public void test() {
         String jsonType = jsonExample.type();
         URL url = jsonExample.path();
         log.info(url.toString());
@@ -160,7 +166,7 @@ public class JLobbyProcessingEngineSuite {
                     if (responseTry.isSuccess()) {
                         LobbyMessageProtocol response = responseTry.get();
                         if (response instanceof LobbyMessageTestProtocol) {
-                            assert(((LobbyMessageTestProtocol) response).text().equals(jsonType));
+                            assertEquals(((LobbyMessageTestProtocol) response).text(), jsonType);
                         } else {
                             fail("No LobbyMessageTestProtocol");
                         }

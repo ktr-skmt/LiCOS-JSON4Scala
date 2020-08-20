@@ -24,7 +24,7 @@ final class AuthProcessingEngine(
     authorizationRequestResponseEngine:          Option[AuthorizationRequestResponseAnalysisEngine]
 ) extends ProcessingEngine {
 
-  private final val logger = Logger[AuthProcessingEngine]
+  private val logger = Logger[AuthProcessingEngine]
 
   @SuppressWarnings(
     Array[String](

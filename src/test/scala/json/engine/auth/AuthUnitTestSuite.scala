@@ -6,47 +6,43 @@ import com.typesafe.scalalogging.Logger
 import json.engine.AuthUnitTestExample
 import json.engine.auth.unitTestExample.{ProgrammingLanguage, SourceCode}
 import json.parser.AuthUnitTestParser
-import org.junit.experimental.theories.{DataPoints, Theories, Theory}
-import org.junit.runner.RunWith
-import org.scalatest.junit.AssertionsForJUnit
+import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor1}
 import play.api.libs.json.{JsValue, Json}
 
 import scala.io.{Codec, Source}
 
-object AuthUnitTestSuite {
+final class AuthUnitTestSuite extends FunSuite with Matchers with TableDrivenPropertyChecks with AuthUnitTestParser {
 
-  @DataPoints
-  def exampleSeq: Array[AuthUnitTestExample] = Array[AuthUnitTestExample](
-    ProgrammingLanguage("programmingLanguage.json"),
-    SourceCode("sourceCode.json")
-  )
-
-}
-
-@RunWith(classOf[Theories])
-final class AuthUnitTestSuite extends AssertionsForJUnit with AuthUnitTestParser {
+  private val fractions: TableFor1[AuthUnitTestExample] =
+    Table(
+      "jsonExample",
+      ProgrammingLanguage("programmingLanguage.json"),
+      SourceCode("sourceCode.json")
+    )
 
   private val log: Logger = Logger[AuthUnitTestSuite]
 
-  @Theory
-  def process(jsonExample: AuthUnitTestExample): Unit = {
-    val jsonType:       String = jsonExample.`type`
-    val url:            String = jsonExample.path
-    implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
-    log.info(url)
-    val source = Source.fromURL(url)
-    val msg: String = source.getLines.mkString("\n")
-    source.close()
-    log.debug(msg)
-    val json: JsValue = Json.parse(msg)
+  test("json.authUnitTestSuite") {
+    forEvery(fractions) { jsonExample: AuthUnitTestExample =>
+      val jsonType:       String = jsonExample.`type`
+      val url:            String = jsonExample.path
+      implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
+      log.info(url)
+      val source = Source.fromURL(url)
+      val msg: String = source.getLines.mkString("\n")
+      source.close()
+      log.debug(msg)
+      val json: JsValue = Json.parse(msg)
 
-    jsonType match {
-      case "unitTest/SourceCode" =>
-        assert(parseSourceCode(json).nonEmpty)
-      case "unitTest/ProgrammingLanguage" =>
-        assert(parseProgrammingLanguage(json).nonEmpty)
-      case _ =>
-        fail("no json type")
+      jsonType match {
+        case "unitTest/SourceCode" =>
+          parseSourceCode(json).nonEmpty shouldBe true
+        case "unitTest/ProgrammingLanguage" =>
+          parseProgrammingLanguage(json).nonEmpty shouldBe true
+        case _ =>
+          fail("no json type")
+      }
     }
   }
 }
