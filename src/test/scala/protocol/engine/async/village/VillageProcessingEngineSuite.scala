@@ -183,7 +183,7 @@ final class VillageProcessingEngineSuite extends FunSuite with Matchers with Tab
       implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
       log.info(url.toString)
       val source = Source.fromURL(url)
-      val msg: String = source.getLines.mkString("\n")
+      val msg: String = source.getLines().mkString("\n")
       source.close()
       log.debug(msg)
 

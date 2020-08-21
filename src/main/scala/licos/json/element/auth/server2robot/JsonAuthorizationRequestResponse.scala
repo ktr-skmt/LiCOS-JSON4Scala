@@ -24,6 +24,7 @@ object JsonAuthorizationRequestResponse {
   import play.api.libs.json.Reads.pattern
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonAuthorizationRequestResponse] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "accessToken").read[String](AvatarValidation.token) and

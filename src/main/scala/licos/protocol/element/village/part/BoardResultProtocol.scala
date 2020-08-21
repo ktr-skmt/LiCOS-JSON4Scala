@@ -19,7 +19,7 @@ final case class BoardResultProtocol(
   def json(`@id`: String): JsonBoardResult = {
     JsonBoardResult(
       BoardResultContext.iri,
-      `@id`.concat(s"/board#${character.getId}"),
+      `@id`.concat(s"/board#${character.getId.toString}"),
       SimpleCharacterProtocol(character, villageId, language).json(`@id`),
       polarity.label,
       phase.label,

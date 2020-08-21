@@ -12,7 +12,10 @@ final case class VotingResultDetailProtocol(
 
   lazy val json: JsonVotingResultDetail = {
     val `@id`: String = LiCOSOnline
-      .state(villageId, s"votingResultsDetails#${sourceCharacter.character.getId}-${targetCharacter.character.getId}")
+      .state(
+        villageId,
+        s"votingResultsDetails#${sourceCharacter.character.getId.toString}-${targetCharacter.character.getId.toString}"
+      )
     JsonVotingResultDetail(
       `@id`,
       sourceCharacter.json(`@id`),

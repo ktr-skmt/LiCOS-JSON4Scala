@@ -20,6 +20,7 @@ object JsonNextGameInvitation {
   import play.api.libs.json.Reads.pattern
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonNextGameInvitation] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "villageId").read[Long](VillageValidation.id)

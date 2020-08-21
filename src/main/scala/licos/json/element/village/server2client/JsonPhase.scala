@@ -9,7 +9,7 @@ import licos.json.element.village.{JsonBase, JsonElement}
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath, Json, OFormat}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 final case class JsonPhase private (base: JsonBase, sub: JsonSubPhase) extends JsonElement with Element {
 
@@ -34,10 +34,10 @@ final case class JsonPhase private (base: JsonBase, sub: JsonSubPhase) extends J
       base: JsonBase,
       character.asScala.sortWith { (a1: JsonCharacter, a2: JsonCharacter) =>
         a1.name.en < a2.name.en
-      }.sortBy(!_.isMine): Seq[JsonCharacter],
+      }.sortBy(!_.isMine).toList: Seq[JsonCharacter],
       role.asScala.sortWith { (r1: JsonRole, r2: JsonRole) =>
         r1.name.en < r2.name.en
-      }: Seq[JsonRole]
+      }.toList: Seq[JsonRole]
     )
   }
 
@@ -59,7 +59,7 @@ final case class JsonPhase private (base: JsonBase, sub: JsonSubPhase) extends J
 }
 
 object JsonPhase {
-
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonFormat: Format[JsonPhase] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubPhase]
@@ -70,5 +70,6 @@ object JsonPhase {
 final case class JsonSubPhase(character: Seq[JsonCharacter], role: Seq[JsonRole])
 
 object JsonSubPhase {
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonFormat: OFormat[JsonSubPhase] = Json.format[JsonSubPhase]
 }

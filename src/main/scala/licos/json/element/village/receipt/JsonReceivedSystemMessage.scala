@@ -34,6 +34,7 @@ object JsonReceivedSystemMessage {
   import play.api.libs.json.Reads.pattern
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonReceivedSystemMessage] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "token").read[String](AvatarValidation.token) and

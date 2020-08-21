@@ -56,6 +56,7 @@ object JsonName {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonName] = (
     (JsPath \ "en").read[String] and
       (JsPath \ "ar").readNullable[String] and

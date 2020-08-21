@@ -101,7 +101,7 @@ final class VillageUnitTestSuite
       implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
       log.info(url)
       val source = Source.fromURL(url)
-      val msg: String = source.getLines.mkString("\n")
+      val msg: String = source.getLines().mkString("\n")
       source.close()
       log.debug(msg)
       val json: JsValue = Json.parse(msg)

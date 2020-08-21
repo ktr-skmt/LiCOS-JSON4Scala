@@ -28,9 +28,9 @@ trait LiCOSParser {
         name,
         "warning",
         s"""$errorMessage
-         |$sourceCode
+         |${Json.prettyPrint(sourceCode)}
          |""".stripMargin,
-        isFromServer = true
+        isFromServer
       )
     )
   }

@@ -12,7 +12,7 @@ final case class SimpleCharacterProtocol(character: Character, villageId: Long, 
     JsonSimpleCharacter(
       CharacterContext.iri,
       LiCOSOnline
-        .state(villageId, `@id`.concat(s"/character#${character.getId}")),
+        .state(villageId, `@id`.concat(s"/character#${character.getId.toString}")),
       character.getId,
       character.name.json(Option(language)),
       character.icon

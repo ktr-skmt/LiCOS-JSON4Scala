@@ -27,6 +27,7 @@ object JsonWaitingPage {
   import play.api.libs.json.Reads.pattern
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonWaitingPage] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "village").read[JsonVillage] and
@@ -51,6 +52,7 @@ object JsonPlayerInWaitingPage {
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonPlayerInWaitingPage] = (
     (JsPath \ "token").read[String](AvatarValidation.token) and
       (JsPath \ "name").read[String](AvatarValidation.name) and

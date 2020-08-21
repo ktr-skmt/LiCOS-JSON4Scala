@@ -45,6 +45,7 @@ final case class JsonChatFromClient private (base: JsonBase, sub: JsonSubChatFro
 
 object JsonChatFromClient {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonFormat: Format[JsonChatFromClient] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubChatFromClient]
@@ -65,6 +66,7 @@ object JsonSubChatFromClient {
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonSubChatFromClient] = (
     (JsPath \ "myCharacter").read[JsonRoleCharacter] and
       (JsPath \ "character").read[JsonSimpleCharacter] and

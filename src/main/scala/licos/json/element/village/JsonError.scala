@@ -29,6 +29,7 @@ final case class JsonError private (base: JsonBase, sub: JsonSubError) extends J
 
 object JsonError {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonFormat: Format[JsonError] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubError]
@@ -42,6 +43,7 @@ object JsonSubError {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonSubError] = (
     (JsPath \ "content").read[JsonName] and
       (JsPath \ "severity").read[String](ErrorValidation.severity) and

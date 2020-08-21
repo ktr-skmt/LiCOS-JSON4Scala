@@ -19,7 +19,7 @@ final case class CharacterProtocol(
 ) {
 
   lazy val json: JsonCharacter = {
-    val `@id`: String = LiCOSOnline.state(villageId, s"character#${character.getId}")
+    val `@id`: String = LiCOSOnline.state(villageId, s"character#${character.getId.toString}")
     JsonCharacter(
       CharacterContext.iri,
       `@id`,

@@ -14,6 +14,6 @@ object AvatarValidation {
   val token: Reads[String] = pattern(
     """[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}""".r
   )
-  val name:  Reads[String] = pattern("""[A-Za-z](?:[\u0021-\u007E]|\u0020[\u0021-\u007E]){4,14}""".r)
+  val name:  Reads[String] = pattern("[A-Za-z](?:[\u0021-\u007E]|\u0020[\u0021-\u007E]){4,14}".r)
   val image: Reads[String] = pattern(WerewolfWorld.characterIcon("""(?:[a-z]|anonymous)""").r)
 }

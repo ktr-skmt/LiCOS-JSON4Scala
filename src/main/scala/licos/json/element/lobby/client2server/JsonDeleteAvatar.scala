@@ -23,6 +23,7 @@ object JsonDeleteAvatar {
   import play.api.libs.json.Reads.pattern
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonDeleteAvatar] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "token").read[Seq[String]](Reads.seq[String](AvatarValidation.token)) and

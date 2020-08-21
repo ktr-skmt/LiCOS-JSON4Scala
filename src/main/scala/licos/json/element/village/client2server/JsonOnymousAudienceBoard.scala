@@ -39,6 +39,7 @@ final case class JsonOnymousAudienceBoard private (base: JsonBase, sub: JsonSubO
 
 object JsonOnymousAudienceBoard {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonFormat: Format[JsonOnymousAudienceBoard] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubOnymousAudienceBoard]
@@ -57,6 +58,7 @@ object JsonSubOnymousAudienceBoard {
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonSubOnymousAudienceBoard] = (
     (JsPath \ "avatar").read[JsonAvatar] and
       (JsPath \ "character").read[JsonSimpleCharacter] and

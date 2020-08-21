@@ -37,6 +37,7 @@ final case class JsonBoard private (base: JsonBase, sub: JsonSubBoard) extends J
 
 object JsonBoard {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonFormat: Format[JsonBoard] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubBoard]
@@ -56,6 +57,7 @@ object JsonSubBoard {
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonSubBoard] = (
     (JsPath \ "myCharacter").read[JsonRoleCharacter] and
       (JsPath \ "character").read[JsonSimpleCharacter] and

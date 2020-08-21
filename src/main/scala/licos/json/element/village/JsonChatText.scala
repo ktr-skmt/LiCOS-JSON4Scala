@@ -9,6 +9,7 @@ object JsonChatText {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonChatText] = (
     (JsPath \ "@value").read[String](ChatValidation.text.`@value`) and
       (JsPath \ "@language").read[String](ChatValidation.text.`@language`)

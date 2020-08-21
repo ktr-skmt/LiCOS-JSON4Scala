@@ -40,6 +40,7 @@ final case class JsonScroll private (base: JsonBase, sub: JsonSubScroll) extends
 
 object JsonScroll {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonFormat: Format[JsonScroll] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubScroll]
@@ -59,6 +60,7 @@ object JsonSubScroll {
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonSubScroll] = (
     (JsPath \ "myCharacter").read[JsonRoleCharacter] and
       (JsPath \ "nodeId").read[String](ScrollValidation.nodeId) and
