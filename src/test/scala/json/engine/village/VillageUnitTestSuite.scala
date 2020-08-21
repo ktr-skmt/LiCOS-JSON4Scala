@@ -41,14 +41,15 @@ import json.engine.village.unitTestExample.character.{
 }
 import json.engine.village.unitTestExample.role.{ResultRole, Role, SimpleRole}
 import json.parser.VillageUnitTestParser
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor1}
-import org.scalatest.{FunSuite, Matchers}
 import play.api.libs.json.{JsValue, Json}
 
 import scala.io.{Codec, Source}
 
 final class VillageUnitTestSuite
-    extends FunSuite
+    extends AnyFunSuite
     with Matchers
     with TableDrivenPropertyChecks
     with VillageUnitTestParser {

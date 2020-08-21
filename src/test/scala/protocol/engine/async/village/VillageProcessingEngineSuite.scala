@@ -10,7 +10,8 @@ import licos.knowledge.{Composition, HumanArchitecture, HumanPlayerLobby, Random
 import licos.protocol.element.village.VillageMessageProtocol
 import licos.protocol.engine.async.processing.village.{VillageProcessingEngine, VillageProcessingEngineFactory}
 import licos.protocol.engine.async.processing.{SpecificProcessingEngineFactory, VillagePE}
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor1}
 import play.api.libs.json.Json
 import protocol.element.VillageMessageTestProtocol
@@ -84,7 +85,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.io.{Codec, Source}
 
-final class VillageProcessingEngineSuite extends FunSuite with Matchers with TableDrivenPropertyChecks {
+final class VillageProcessingEngineSuite extends AnyFunSuite with Matchers with TableDrivenPropertyChecks {
 
   private val fractions: TableFor1[VillageExample] =
     Table(
