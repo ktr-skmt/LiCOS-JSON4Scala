@@ -108,8 +108,8 @@ lazy val json = (project in file(".")).
     libraryDependencies ++= {
       Seq(
         "com.typesafe.play" %% "play-json" % "2.8.1",
-        "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % "test",
-        "org.slf4j" % "slf4j-api" % "1.7.30" % "compile",
+        "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
+        "org.slf4j" % "slf4j-api" % "1.7.30" % Compile,
         "ch.qos.logback" % "logback-classic" % "1.2.3",
         "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
         "org.typelevel" %% "cats-core" % "2.1.1"
@@ -118,7 +118,11 @@ lazy val json = (project in file(".")).
   ).settings(
     dependencyOverrides ++= {
       Seq(
+        "com.fasterxml.jackson.datatype" % "jackson-datatype-jsr310" % "2.10.1",
         "com.fasterxml.jackson.core" % "jackson-annotations" % "2.9.8",
+        "com.fasterxml.jackson.core" % "jackson-core" % "2.10.2",
+        "com.fasterxml.jackson.core" % "jackson-databind" % "2.10.2",
+        "com.fasterxml.jackson.datatype" % "jackson-datatype-jdk8" % "2.10.2",
         "org.slf4j" % "slf4j-api" % "1.7.30"
       )
     }
