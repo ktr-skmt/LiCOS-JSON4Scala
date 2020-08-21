@@ -64,7 +64,7 @@ final case class ChatFromClientProtocol(
           myCharacter,
           village.id,
           village.language
-        ).json(LiCOSOnline.stateVillage.concat(s"#${village.id}")),
+        ).json(LiCOSOnline.stateVillage.concat(s"#${village.id.toString}")),
         isMine = true,
         ChatTextProtocol(
           text,

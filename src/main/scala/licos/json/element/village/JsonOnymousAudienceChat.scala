@@ -17,7 +17,7 @@ final case class JsonOnymousAudienceChat(base: JsonBase, sub: JsonSubOnymousAudi
       text:                         JsonChatText,
       maxLengthOfUnicodeCodePoints: Int,
       isFromServer:                 Boolean
-  ) {
+  ) = {
     this(
       base: JsonBase,
       JsonSubOnymousAudienceChat(
@@ -40,6 +40,7 @@ final case class JsonOnymousAudienceChat(base: JsonBase, sub: JsonSubOnymousAudi
 
 object JsonOnymousAudienceChat {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonFormat: Format[JsonOnymousAudienceChat] = (
     JsPath.format[JsonBase] and JsPath.format[JsonSubOnymousAudienceChat]
   )(JsonOnymousAudienceChat.apply, unlift(JsonOnymousAudienceChat.unapply))
@@ -58,6 +59,7 @@ object JsonSubOnymousAudienceChat {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonSubOnymousAudienceChat] = (
     (JsPath \ "avatar").read[JsonAvatar] and
       (JsPath \ "isMine").read[Boolean] and

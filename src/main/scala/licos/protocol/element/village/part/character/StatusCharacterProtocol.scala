@@ -18,7 +18,7 @@ final case class StatusCharacterProtocol(
 ) {
 
   lazy val json: JsonStatusCharacter = {
-    val `@id`: String = LiCOSOnline.state(villageId, s"character#${character.getId}")
+    val `@id`: String = LiCOSOnline.state(villageId, s"character#${character.getId.toString}")
     JsonStatusCharacter(
       CharacterContext.iri,
       `@id`,

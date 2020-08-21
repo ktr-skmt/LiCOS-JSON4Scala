@@ -13,6 +13,7 @@ object JsonPlayedWithToken {
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonPlayedWithToken] = (
     (JsPath \ "to").read[String](AvatarValidation.token) and
       (JsPath \ "json").read[JsonPlayed]

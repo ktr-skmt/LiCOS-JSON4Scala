@@ -49,7 +49,7 @@ final class AuthProcessingEngineSuite extends FunSuite with Matchers with TableD
       implicit val codec: Codec  = Codec(StandardCharsets.UTF_8)
       log.info(url.toString)
       val source = Source.fromURL(url)
-      val msg: String = source.getLines.mkString("\n")
+      val msg: String = source.getLines().mkString("\n")
       source.close()
       log.debug(msg)
       Json2AuthMessageProtocol.toProtocolOpt(Json.parse(msg)) match {

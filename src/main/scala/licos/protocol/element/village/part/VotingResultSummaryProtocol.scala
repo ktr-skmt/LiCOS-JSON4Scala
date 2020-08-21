@@ -16,7 +16,7 @@ final case class VotingResultSummaryProtocol(
 ) {
 
   lazy val json: JsonVotingResultSummary = {
-    val `@id`: String = LiCOSOnline.state(villageId, s"votingResultsSummary#${character.getId}")
+    val `@id`: String = LiCOSOnline.state(villageId, s"votingResultsSummary#${character.getId.toString}")
     JsonVotingResultSummary(
       `@id`,
       SimpleCharacterProtocol(

@@ -25,6 +25,7 @@ object JsonAvatarInfo {
   import play.api.libs.json.Reads.pattern
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonAvatarInfo] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       JsPath.read[JsonSubAvatarInfo]
@@ -49,6 +50,7 @@ object JsonSubAvatarInfo {
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonSubAvatarInfo] = (
     (JsPath \ "token").read[String](AvatarValidation.token) and
       (JsPath \ "name").read[String](AvatarValidation.name) and
@@ -76,6 +78,7 @@ object JsonGetAvatarInfo {
   import play.api.libs.json.Reads.pattern
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonGetAvatarInfo] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "token").read[String](AvatarValidation.token)

@@ -24,6 +24,7 @@ object JsonRobotPlayerSelectionPage {
   import play.api.libs.json.Reads.pattern
   import play.api.libs.json.JsPath
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonRobotPlayerSelectionPage] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "avatar").read[Seq[JsonRobotPlayerInfo]]
@@ -66,6 +67,7 @@ object JsonRobotPlayerInfo {
   import play.api.libs.functional.syntax._
   import play.api.libs.json.JsPath
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonRobotPlayerInfo] = (
     JsPath.read[JsonSubAvatarInfo] and
       (JsPath \ "status").read[String](RobotPlayerInfoValidation.status) and

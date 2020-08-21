@@ -6,7 +6,6 @@ abstract class TypeSystem(`type`: String) extends Element {
   protected def validType: String
 
   def isValid: Boolean = {
-    import cats.implicits._
-    `type` === validType
+    import cats.implicits._; `type` === validType
   }
 }

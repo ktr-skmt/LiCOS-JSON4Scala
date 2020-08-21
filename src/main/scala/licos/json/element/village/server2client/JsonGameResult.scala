@@ -9,7 +9,7 @@ import licos.json.element.village.{JsonBase, JsonElement}
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 final case class JsonGameResult private (base: JsonBase, sub: JsonSubGameResult) extends JsonElement with Element {
 
@@ -34,10 +34,10 @@ final case class JsonGameResult private (base: JsonBase, sub: JsonSubGameResult)
       base: JsonBase,
       character.asScala.sortWith { (a1: JsonResultCharacter, a2: JsonResultCharacter) =>
         a1.name.en < a2.name.en
-      }.sortBy(!_.isMine): Seq[JsonResultCharacter],
+      }.sortBy(!_.isMine).toList: Seq[JsonResultCharacter],
       role.asScala.sortWith { (r1: JsonResultRole, r2: JsonResultRole) =>
         r1.name.en < r2.name.en
-      }: Seq[JsonResultRole]
+      }.toList: Seq[JsonResultRole]
     )
   }
 
@@ -53,7 +53,7 @@ final case class JsonGameResult private (base: JsonBase, sub: JsonSubGameResult)
 }
 
 object JsonGameResult {
-
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonFormat: Format[JsonGameResult] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubGameResult]
@@ -67,6 +67,7 @@ object JsonSubGameResult {
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonSubGameResult] = (
     (JsPath \ "character").read[Seq[JsonResultCharacter]] and
       (JsPath \ "role").read[Seq[JsonResultRole]]

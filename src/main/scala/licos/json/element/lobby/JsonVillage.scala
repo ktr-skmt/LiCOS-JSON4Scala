@@ -24,6 +24,7 @@ object JsonVillage {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonVillage] = (
     (JsPath \ "name").read[String](VillageValidation.name) and
       (JsPath \ "id").read[Long](VillageValidation.id) and
@@ -45,6 +46,7 @@ object JsonHostPlayer {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonHostPlayer] = (
     (JsPath \ "name").read[String](AvatarValidation.name) and
       (JsPath \ "isAnonymous").read[Boolean] and
@@ -61,6 +63,7 @@ object JsonPlayerSetting {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonPlayerSetting] = (
     (JsPath \ "number").read[Int](VillageValidation.totalNumberOfPlayers) and
       (JsPath \ "current").read[Int](PlayerSettingValidation.current) and
@@ -78,6 +81,7 @@ object JsonRobot {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonRobot] = (
     (JsPath \ "min").read[Int](PlayerSettingValidation.robot.min) and
       (JsPath \ "current").read[Int](PlayerSettingValidation.robot.current)
@@ -93,6 +97,7 @@ object JsonHuman {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonHuman] = (
     (JsPath \ "max").read[Int](PlayerSettingValidation.human.max) and
       (JsPath \ "current").read[Int](PlayerSettingValidation.human.current)
@@ -117,6 +122,7 @@ object JsonRoleSetting {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonRoleSetting: Reads[JsonRoleSetting] = (
     (JsPath \ "villager").read[Int](RoleSettingValidation.villager) and
       (JsPath \ "werewolf").read[Int](RoleSettingValidation.werewolf) and

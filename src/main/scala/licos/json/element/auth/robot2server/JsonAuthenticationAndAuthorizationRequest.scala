@@ -40,6 +40,7 @@ object JsonAuthenticationAndAuthorizationRequest {
   import play.api.libs.json.Reads.{email, maxLength, minLength, pattern}
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonAuthenticationAndAuthorizationRequest] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "userEmail").read[String](email) and
@@ -60,6 +61,7 @@ object JsonSourceCode {
   import play.api.libs.json.Reads.pattern
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonSourceCode] = (
     (JsPath \ "timestamp").read[String](pattern(BaseValidation.timestampRegex)) and
       (JsPath \ "programmingLanguage").read[Seq[JsonProgrammingLanguage]] and
@@ -76,6 +78,7 @@ object JsonProgrammingLanguage {
   import play.api.libs.json.Reads.{maxLength, minLength}
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonProgrammingLanguage] = (
     (JsPath \ "name").read[String](minLength[String](1) keepAnd maxLength[String](Int.MaxValue)) and
       (JsPath \ "version").read[String](minLength[String](1) keepAnd maxLength[String](Int.MaxValue))

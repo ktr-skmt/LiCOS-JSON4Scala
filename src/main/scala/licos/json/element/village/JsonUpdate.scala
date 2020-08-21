@@ -9,6 +9,7 @@ object JsonUpdate {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonUpdate] = (
     (JsPath \ "@id").read[String](TimeValidation.`@id`) and
       (JsPath \ "phase").read[String](TimeValidation.phase) and

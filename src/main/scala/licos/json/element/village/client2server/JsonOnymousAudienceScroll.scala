@@ -32,6 +32,7 @@ final case class JsonOnymousAudienceScroll private (base: JsonBase, sub: JsonSub
 
 object JsonOnymousAudienceScroll {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonFormat: Format[JsonOnymousAudienceScroll] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubOnymousAudienceScroll]
@@ -51,6 +52,7 @@ object JsonSubOnymousAudienceScroll {
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonSubOnymousAudienceScroll] = (
     (JsPath \ "avatar").read[JsonAvatar] and
       (JsPath \ "nodeId").read[String] and

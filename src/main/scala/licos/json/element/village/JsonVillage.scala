@@ -34,6 +34,7 @@ object JsonVillage {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonVillage] = (
     (JsPath \ "@context").read[String](VillageValidation.`@context`) and
       (JsPath \ "@id").read[String](VillageValidation.`@id`) and

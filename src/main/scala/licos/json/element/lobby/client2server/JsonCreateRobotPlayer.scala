@@ -27,6 +27,7 @@ object JsonCreateRobotPlayer {
   import play.api.libs.json.Reads.pattern
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonCreateRobotPlayer] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "name").read[String](AvatarValidation.name) and
@@ -60,6 +61,7 @@ object JsonSupport {
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonSupport] = (
     (JsPath \ "4").read[JsonSupportedComposition] and
       (JsPath \ "5").read[JsonSupportedComposition] and
@@ -86,6 +88,7 @@ object JsonSupportedComposition {
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonSupportedComposition] = (
     (JsPath \ "A").read[Boolean] and
       (JsPath \ "B").read[Boolean] and

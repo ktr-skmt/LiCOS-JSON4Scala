@@ -5,7 +5,7 @@ import java.util.{List => JList}
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.validation.village.{AvatarValidation, BaseValidation, TimeValidation}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 final case class JsonBase(
     `@context`:                 Seq[String],
@@ -44,21 +44,21 @@ final case class JsonBase(
       votingResultsDetails:       JList[JsonVotingResultDetail]
   ) = {
     this(
-      `@context`.asScala:                   Seq[String],
-      `@id`:                                String,
-      village:                              JsonVillage,
-      token:                                String,
-      phase:                                String,
-      day:                                  Int,
-      phaseTimeLimit:                       Int,
-      phaseStartTime:                       String,
-      serverTimestamp:                      Option[String],
-      clientTimestamp:                      Option[String],
-      directionality:                       String,
-      intensionalDisclosureRange:           String,
-      extensionalDisclosureRange.asScala:   Seq[JsonStatusCharacter],
-      Option(votingResultsSummary.asScala): Option[Seq[JsonVotingResultSummary]],
-      Option(votingResultsDetails.asScala): Option[Seq[JsonVotingResultDetail]]
+      `@context`.asScala.toList:                   Seq[String],
+      `@id`:                                       String,
+      village:                                     JsonVillage,
+      token:                                       String,
+      phase:                                       String,
+      day:                                         Int,
+      phaseTimeLimit:                              Int,
+      phaseStartTime:                              String,
+      serverTimestamp:                             Option[String],
+      clientTimestamp:                             Option[String],
+      directionality:                              String,
+      intensionalDisclosureRange:                  String,
+      extensionalDisclosureRange.asScala.toList:   Seq[JsonStatusCharacter],
+      Option(votingResultsSummary.asScala.toList): Option[Seq[JsonVotingResultSummary]],
+      Option(votingResultsDetails.asScala.toList): Option[Seq[JsonVotingResultDetail]]
     )
   }
 
@@ -113,6 +113,7 @@ object JsonBase {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonBase] = (
     (JsPath \ "@context").read[Seq[String]](Reads.seq[String](BaseValidation.`@context`.item)) and
       (JsPath \ "@id").read[String](BaseValidation.`@id`) and

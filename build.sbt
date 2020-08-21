@@ -23,7 +23,7 @@ lazy val scalafmtSettings = Seq(
 )
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.12",
+  scalaVersion := "2.13.3",
   organization := "online.licos",
   fork in run := true
 ) ++ {
@@ -34,7 +34,6 @@ lazy val commonSettings = Seq(
     "-language:implicitConversions",
     "-unchecked",
     "-Xlint",
-    "-Ypartial-unification",
     s"-target:jvm-1.$javaVersion"
   )
 } ++ {
@@ -97,7 +96,7 @@ lazy val json = (project in file(".")).
     autoAPIMappings := true
   ).settings(
     isSnapshot := true,
-    version := "0.3.7",
+    version := "0.3.8",
     name := jsonLibraryName,
     publishMavenStyle := true,
     publishArtifact in Test := false,
@@ -109,9 +108,9 @@ lazy val json = (project in file(".")).
   ).settings(
     libraryDependencies ++= {
       Seq(
-        "com.typesafe.play" %% "play-json" % "2.7.4",
-        "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
-        "org.slf4j" % "slf4j-api" % "1.7.28" % "compile",
+        "com.typesafe.play" %% "play-json" % "2.8.1",//"2.7.4",
+        "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test,//"4.0.3" % Test,
+        "org.slf4j" % "slf4j-api" % "1.7.30" % "compile",
         "ch.qos.logback" % "logback-classic" % "1.2.3",
         "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
         "org.typelevel" %% "cats-core" % "2.1.1"
@@ -121,7 +120,7 @@ lazy val json = (project in file(".")).
     dependencyOverrides ++= {
       Seq(
         "com.fasterxml.jackson.core" % "jackson-annotations" % "2.9.8",
-        "org.slf4j" % "slf4j-api" % "1.7.28"
+        "org.slf4j" % "slf4j-api" % "1.7.30"
       )
     }
   )

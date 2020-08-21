@@ -22,6 +22,7 @@ final case class JsonStar(base: JsonBase, sub: JsonSubStar) extends JsonElement 
 
 object JsonStar {
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonFormat: Format[JsonStar] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubStar]
@@ -31,6 +32,7 @@ object JsonStar {
 final case class JsonSubStar(myCharacter: JsonRoleCharacter, star: JsonStarInfo)
 
 object JsonSubStar {
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonFormat: OFormat[JsonSubStar] = Json.format[JsonSubStar]
 }
 
@@ -48,6 +50,7 @@ object JsonStarInfo {
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonStarInfo] = (
     (JsPath \ "@context").read[String](StarValidation.`@context`) and
       (JsPath \ "@id").read[String](StarValidation.`@id`) and
@@ -57,5 +60,5 @@ object JsonStarInfo {
       (JsPath \ "isMarked").read[Boolean]
   )(JsonStarInfo.apply _)
 
-  implicit val jsonFormat: OFormat[JsonStarInfo] = Json.format[JsonStarInfo]
+  implicit val jsonWrites: OWrites[JsonStarInfo] = Json.writes[JsonStarInfo]
 }

@@ -22,6 +22,7 @@ object JsonPing {
   import play.api.libs.json.Reads.pattern
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonPing] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "id").read[String](AvatarValidation.token) and
@@ -38,6 +39,7 @@ object JsonPingResult {
   import play.api.libs.functional.syntax._
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonPingResult] = (
     (JsPath \ "token").read[String](AvatarValidation.token) and
       (JsPath \ "ping").read[String](PingValidation.results.ping) and

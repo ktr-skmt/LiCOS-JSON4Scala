@@ -50,6 +50,7 @@ object JsonStatusCharacter {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonStatusCharacter] = (
     (JsPath \ "@context").read[String](CharacterValidation.`@context`) and
       (JsPath \ "@id").read[String](CharacterValidation.`@id`) and

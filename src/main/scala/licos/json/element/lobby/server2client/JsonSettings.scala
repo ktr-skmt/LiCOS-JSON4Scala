@@ -22,6 +22,7 @@ object JsonSettings {
   import play.api.libs.json.Reads.{email, pattern}
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonSettings] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "userName").read[String](UserValidation.name) and

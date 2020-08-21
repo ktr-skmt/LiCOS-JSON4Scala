@@ -7,7 +7,7 @@ import licos.json.element.village.character.JsonSimpleCharacter
 import licos.json.element.village.iri.RoleContext
 import licos.json.validation.village.RoleValidation
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 final case class JsonResultRole(
     `@context`:      String,
@@ -55,13 +55,13 @@ final case class JsonResultRole(
       character:       JList[JsonSimpleCharacter]
   ) = {
     this(
-      `@context`:        String,
-      `@id`:             String,
-      isMine:            Boolean,
-      name:              JsonName,
-      image:             String,
-      numberOfPlayers:   Int,
-      character.asScala: Seq[JsonSimpleCharacter]
+      `@context`:               String,
+      `@id`:                    String,
+      isMine:                   Boolean,
+      name:                     JsonName,
+      image:                    String,
+      numberOfPlayers:          Int,
+      character.asScala.toList: Seq[JsonSimpleCharacter]
     )
   }
 
@@ -72,6 +72,7 @@ object JsonResultRole {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonResultRole] = (
     (JsPath \ "@context").read[String](RoleValidation.`@context`) and
       (JsPath \ "@id").read[String](RoleValidation.`@id`) and

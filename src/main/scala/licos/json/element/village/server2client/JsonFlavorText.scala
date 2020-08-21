@@ -7,7 +7,7 @@ import licos.json.element.village.{JsonBase, JsonElement}
 import play.api.libs.functional.syntax.{unlift, _}
 import play.api.libs.json.{Format, JsPath}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 final case class JsonFlavorText private (base: JsonBase, sub: JsonSubFlavorText) extends JsonElement with Element {
 
@@ -36,6 +36,7 @@ final case class JsonFlavorText private (base: JsonBase, sub: JsonSubFlavorText)
 }
 
 object JsonFlavorText {
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonFormat: Format[JsonFlavorText] = (
     JsPath.format[JsonBase] and
       JsPath.format[JsonSubFlavorText]
@@ -47,7 +48,7 @@ final case class JsonSubFlavorText(flavorText: Seq[JsonChatFromServer]) {
   @SuppressWarnings(Array[String]("org.wartremover.warts.Overloading"))
   def this(flavorText: JList[JsonChatFromServer]) = {
     this(
-      flavorText.asScala: Seq[JsonChatFromServer]
+      flavorText.asScala.toList: Seq[JsonChatFromServer]
     )
   }
 }

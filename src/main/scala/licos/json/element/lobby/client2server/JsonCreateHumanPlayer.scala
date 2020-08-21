@@ -28,6 +28,7 @@ object JsonCreateHumanPlayer {
   import play.api.libs.json.Reads.pattern
   import play.api.libs.json._
 
+  @SuppressWarnings(Array[String]("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   implicit val jsonReads: Reads[JsonCreateHumanPlayer] = (
     (JsPath \ "type").read[String](pattern(`type`.r)) and
       (JsPath \ "name").read[String](AvatarValidation.name) and
