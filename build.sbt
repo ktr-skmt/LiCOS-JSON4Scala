@@ -1,4 +1,3 @@
-
 val jsonLibraryName: String = "LiCOS-JSON4Scala"
 
 name := jsonLibraryName
@@ -96,7 +95,7 @@ lazy val json = (project in file(".")).
     autoAPIMappings := true
   ).settings(
     isSnapshot := true,
-    version := "0.3.8",
+    version := "0.3.9",
     name := jsonLibraryName,
     publishMavenStyle := true,
     publishArtifact in Test := false,
@@ -108,8 +107,8 @@ lazy val json = (project in file(".")).
   ).settings(
     libraryDependencies ++= {
       Seq(
-        "com.typesafe.play" %% "play-json" % "2.8.1",//"2.7.4",
-        "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test,//"4.0.3" % Test,
+        "com.typesafe.play" %% "play-json" % "2.8.1",
+        "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test,
         "org.slf4j" % "slf4j-api" % "1.7.30" % "compile",
         "ch.qos.logback" % "logback-classic" % "1.2.3",
         "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
@@ -127,4 +126,3 @@ lazy val json = (project in file(".")).
 
 json / Test / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.ScalaLibrary
 json / Test / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat
-
