@@ -8,7 +8,8 @@ import licos.json2protocol.lobby.Json2LobbyMessageProtocol
 import licos.protocol.element.lobby.LobbyMessageProtocol
 import licos.protocol.engine.processing.lobby.{LobbyProcessingEngine, LobbyProcessingEngineFactory}
 import licos.protocol.engine.processing.{LobbyPE, SpecificProcessingEngineFactory}
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor1}
 import play.api.libs.json.Json
 import protocol.element.LobbyMessageTestProtocol
@@ -103,7 +104,7 @@ import protocol.engine.lobby.example.server2server.PlayedWithToken
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success}
 
-final class LobbyProcessingEngineSuite extends FunSuite with Matchers with TableDrivenPropertyChecks {
+final class LobbyProcessingEngineSuite extends AnyFunSuite with Matchers with TableDrivenPropertyChecks {
 
   private val fractions: TableFor1[LobbyExample] =
     Table(

@@ -15,14 +15,15 @@ import licos.json.engine.processing.{
   AuthProcessingEngineFactory,
   SpecificProcessingEngineFactory
 }
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor1}
 import play.api.libs.json.{JsResult, JsValue}
 
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success, Try}
 
-final class AuthProcessingEngineSuite extends FunSuite with Matchers with TableDrivenPropertyChecks {
+final class AuthProcessingEngineSuite extends AnyFunSuite with Matchers with TableDrivenPropertyChecks {
 
   private val fractions: TableFor1[AuthExample] =
     Table(

@@ -6,13 +6,14 @@ import com.typesafe.scalalogging.Logger
 import json.engine.AuthUnitTestExample
 import json.engine.auth.unitTestExample.{ProgrammingLanguage, SourceCode}
 import json.parser.AuthUnitTestParser
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor1}
 import play.api.libs.json.{JsValue, Json}
 
 import scala.io.{Codec, Source}
 
-final class AuthUnitTestSuite extends FunSuite with Matchers with TableDrivenPropertyChecks with AuthUnitTestParser {
+final class AuthUnitTestSuite extends AnyFunSuite with Matchers with TableDrivenPropertyChecks with AuthUnitTestParser {
 
   private val fractions: TableFor1[AuthUnitTestExample] =
     Table(

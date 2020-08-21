@@ -8,7 +8,8 @@ import licos.json2protocol.auth.Json2AuthMessageProtocol
 import licos.protocol.element.auth.AuthMessageProtocol
 import licos.protocol.engine.async.processing.auth.{AuthProcessingEngine, AuthProcessingEngineFactory}
 import licos.protocol.engine.async.processing.{AuthPE, SpecificProcessingEngineFactory}
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor1}
 import play.api.libs.json.Json
 import protocol.element.AuthMessageTestProtocol
@@ -26,7 +27,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.io.{Codec, Source}
 
-final class AuthProcessingEngineSuite extends FunSuite with Matchers with TableDrivenPropertyChecks {
+final class AuthProcessingEngineSuite extends AnyFunSuite with Matchers with TableDrivenPropertyChecks {
 
   private val fractions: TableFor1[AuthExample] =
     Table(

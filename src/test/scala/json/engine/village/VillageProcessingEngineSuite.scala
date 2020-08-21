@@ -15,14 +15,15 @@ import licos.json.engine.processing.{
   VillageProcessingEngine,
   VillageProcessingEngineFactory
 }
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor1}
 import play.api.libs.json.{JsResult, JsValue}
 
 import scala.io.{Codec, Source}
 import scala.util.{Failure, Success, Try}
 
-final class VillageProcessingEngineSuite extends FunSuite with Matchers with TableDrivenPropertyChecks {
+final class VillageProcessingEngineSuite extends AnyFunSuite with Matchers with TableDrivenPropertyChecks {
 
   import json.engine.ClientToServerVillageExample.client2server
   import json.engine.ServerToClientVillageExample.server2client

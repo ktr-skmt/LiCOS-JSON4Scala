@@ -19,13 +19,18 @@ import json.engine.lobby.unitTestExample.{
   SupportedComposition
 }
 import json.parser.LobbyUnitTestParser
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor1}
 import play.api.libs.json.{JsValue, Json}
 
 import scala.io.{Codec, Source}
 
-final class LobbyUnitTestSuite extends FunSuite with Matchers with TableDrivenPropertyChecks with LobbyUnitTestParser {
+final class LobbyUnitTestSuite
+    extends AnyFunSuite
+    with Matchers
+    with TableDrivenPropertyChecks
+    with LobbyUnitTestParser {
 
   private val fractions: TableFor1[LobbyUnitTestExample] =
     Table(

@@ -108,7 +108,7 @@ lazy val json = (project in file(".")).
     libraryDependencies ++= {
       Seq(
         "com.typesafe.play" %% "play-json" % "2.8.1",
-        "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test,
+        "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % "test",
         "org.slf4j" % "slf4j-api" % "1.7.30" % "compile",
         "ch.qos.logback" % "logback-classic" % "1.2.3",
         "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",

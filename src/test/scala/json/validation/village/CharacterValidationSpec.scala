@@ -1,9 +1,10 @@
 package json.validation.village
 
 import licos.json.validation.village.CharacterValidation
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-final class CharacterValidationSpec extends FlatSpec with Matchers {
+final class CharacterValidationSpec extends AnyFlatSpec with Matchers {
   "Character @id" should "fully match the regex of Character @id" in {
     "https://licos.online/state/0.3/village#3/myCharacter" should fullyMatch regex CharacterValidation.`@idRegex`
     "https://licos.online/state/0.3/village#3/character" should fullyMatch regex CharacterValidation.`@idRegex`
