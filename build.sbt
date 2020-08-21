@@ -118,7 +118,7 @@ lazy val json = (project in file(".")).
   ).settings(
     dependencyOverrides ++= {
       Seq(
-        "com.fasterxml.jackson.datatype" % "jackson-datatype-jsr310" % "2.10.1",
+        "com.fasterxml.jackson.datatype" % "jackson-datatype-jsr310" % "2.10.2",
         "com.fasterxml.jackson.core" % "jackson-annotations" % "2.9.8",
         "com.fasterxml.jackson.core" % "jackson-core" % "2.10.2",
         "com.fasterxml.jackson.core" % "jackson-databind" % "2.10.2",
