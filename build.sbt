@@ -107,7 +107,7 @@ lazy val json = (project in file(".")).
   ).settings(
     libraryDependencies ++= {
       Seq(
-        "com.typesafe.play" %% "play-json" % "2.8.2",
+        "com.typesafe.play" %% "play-json" % "2.8.1",//no 2.8.2
         "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
         "org.slf4j" % "slf4j-api" % "1.7.30" % Compile,
         "ch.qos.logback" % "logback-classic" % "1.2.3",
