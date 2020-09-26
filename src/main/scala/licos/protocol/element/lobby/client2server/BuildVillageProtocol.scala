@@ -11,7 +11,7 @@ final case class BuildVillageProtocol(
     token:          UUID,
     name:           String,
     id:             Long,
-    idForSearching: Int,
+    idForSearching: Long,
     hostPlayer:     HostPlayerProtocol,
     playerSetting:  PlayerSettingProtocol,
     roleSetting:    RoleSettingProtocol,

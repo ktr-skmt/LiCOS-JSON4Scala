@@ -9,7 +9,7 @@ final case class JsonBuildVillage(
     token:          String,
     name:           String,
     id:             Long,
-    idForSearching: Int,
+    idForSearching: Long,
     hostPlayer:     JsonHostPlayer,
     playerSetting:  JsonPlayerSetting,
     roleSetting:    JsonRoleSetting,
@@ -23,7 +23,7 @@ final case class JsonBuildVillage(
       token:          String,
       name:           String,
       id:             Long,
-      idForSearching: Int,
+      idForSearching: Long,
       hostPlayer:     JsonHostPlayer,
       playerSetting:  JsonPlayerSetting,
       roleSetting:    JsonRoleSetting,
@@ -59,7 +59,7 @@ object JsonBuildVillage {
       (JsPath \ "token").read[String](AvatarValidation.token) and
       (JsPath \ "name").read[String](VillageValidation.name) and
       (JsPath \ "id").read[Long](BuildVillageValidation.id) and
-      (JsPath \ "idForSearching").read[Int](IdSearchValidation.idForSearching) and
+      (JsPath \ "idForSearching").read[Long](IdSearchValidation.idForSearching) and
       (JsPath \ "hostPlayer").read[JsonHostPlayer] and
       (JsPath \ "playerSetting").read[JsonPlayerSetting] and
       (JsPath \ "roleSetting").read[JsonRoleSetting] and

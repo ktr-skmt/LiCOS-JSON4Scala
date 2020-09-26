@@ -11,7 +11,7 @@ import licos.json.validation.village.{AvatarValidation, VillageValidation}
 final case class JsonVillage(
     name:           String,
     id:             Long,
-    idForSearching: Int,
+    idForSearching: Long,
     hostPlayer:     JsonHostPlayer,
     playerSetting:  JsonPlayerSetting,
     roleSetting:    JsonRoleSetting,
@@ -28,7 +28,7 @@ object JsonVillage {
   implicit val jsonReads: Reads[JsonVillage] = (
     (JsPath \ "name").read[String](VillageValidation.name) and
       (JsPath \ "id").read[Long](VillageValidation.id) and
-      (JsPath \ "idForSearching").read[Int](IdSearchValidation.idForSearching) and
+      (JsPath \ "idForSearching").read[Long](IdSearchValidation.idForSearching) and
       (JsPath \ "hostPlayer").read[JsonHostPlayer] and
       (JsPath \ "playerSetting").read[JsonPlayerSetting] and
       (JsPath \ "roleSetting").read[JsonRoleSetting] and

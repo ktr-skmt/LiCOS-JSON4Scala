@@ -1,14 +1,14 @@
 # LiCOS-JSON4Scala
 
+[![CircleCI](https://circleci.com/gh/ktr-skmt/LiCOS-JSON4Scala.svg?style=svg)](https://circleci.com/gh/ktr-skmt/LiCOS-JSON4Scala)
 [![Build Status](https://travis-ci.org/ktr-skmt/LiCOS-JSON4Scala.svg?branch=master)](https://travis-ci.org/ktr-skmt/LiCOS-JSON4Scala)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/ktr-skmt/LiCOS-JSON4Scala/blob/master/LICENSE)
-[![CircleCI](https://circleci.com/gh/ktr-skmt/LiCOS-JSON4Scala.svg?style=svg)](https://circleci.com/gh/ktr-skmt/LiCOS-JSON4Scala)
 
 ## API
 
 ### The latest version
 
-https://ktr-skmt.github.io/LiCOS-JSON4Scala/0.3.9/api/index.html
+https://ktr-skmt.github.io/LiCOS-JSON4Scala/0.4.0/api/index.html
 
 ### Old versions
 
