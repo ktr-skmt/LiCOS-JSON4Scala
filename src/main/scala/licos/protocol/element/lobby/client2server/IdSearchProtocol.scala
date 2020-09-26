@@ -6,7 +6,7 @@ import licos.json.element.lobby.client2server.JsonIdSearch
 import licos.knowledge.{Data2Knowledge, Lobby}
 import play.api.libs.json.{JsValue, Json}
 
-final case class IdSearchProtocol(token: UUID, lobby: Lobby, idForSearching: Int)
+final case class IdSearchProtocol(token: UUID, lobby: Lobby, idForSearching: Long)
     extends Client2ServerLobbyMessageProtocol {
 
   private lazy val json: Option[JsonIdSearch] = {

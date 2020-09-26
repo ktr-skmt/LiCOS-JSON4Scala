@@ -6,7 +6,7 @@ import licos.knowledge.{AvatarSetting, Data2Knowledge}
 final case class VillageProtocol(
     name:           String,
     id:             Long,
-    idForSearching: Int,
+    idForSearching: Long,
     hostPlayer:     HostPlayerProtocol,
     playerSetting:  PlayerSettingProtocol,
     roleSetting:    RoleSettingProtocol,
