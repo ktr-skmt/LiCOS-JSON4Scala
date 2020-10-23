@@ -8,7 +8,7 @@ final case class VillageInfoFromLobby(
     lobby:                   Lobby,
     hostPlayer:              HostPlayer,
     composition:             Composition,
-    idForSearching:          Int,
+    idForSearching:          Long,
     avatarSetting:           AvatarSetting,
     maxNumberOfHumanPlayers: Int,
     comment:                 Option[String],
