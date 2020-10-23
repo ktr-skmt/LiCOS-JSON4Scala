@@ -29,7 +29,7 @@ final case class VillageInfo(
   def composition:             Composition    = villageInfoFromLobby.composition
   def comment:                 Option[String] = villageInfoFromLobby.comment
   def hostPlayer:              HostPlayer     = villageInfoFromLobby.hostPlayer
-  def idForSearching:          Int            = villageInfoFromLobby.idForSearching
+  def idForSearching:          Long           = villageInfoFromLobby.idForSearching
   def lobby:                   Lobby          = villageInfoFromLobby.lobby
   def avatarSetting:           AvatarSetting  = villageInfoFromLobby.avatarSetting
   def maxNumberOfHumanPlayers: Int            = villageInfoFromLobby.maxNumberOfHumanPlayers
