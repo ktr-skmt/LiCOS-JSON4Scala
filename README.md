@@ -8,11 +8,11 @@
 
 ### The latest version
 
-https://ktr-skmt.github.io/LiCOS-JSON4Scala/0.4.2/api/index.html
+https://ktr-skmt.github.io/LiCOS-JSON4ScalaDoc/0.4.2/api/index.html
 
 ### Old versions
 
-https://ktr-skmt.github.io/LiCOS-JSON4Scala/index.html
+https://ktr-skmt.github.io/LiCOS-JSON4ScalaDoc/index.html
 
 ## Import
 
