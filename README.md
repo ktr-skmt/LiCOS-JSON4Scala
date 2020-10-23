@@ -19,7 +19,7 @@ https://ktr-skmt.github.io/LiCOS-JSON4ScalaDoc/index.html
 ### SBT
 
 ```scala
-resolvers += "LiCOS-JSON4Scala-snapshots-repository" at "https://github.com/ktr-skmt/LiCOS-JSON4Scala/raw/master/maven-repo/snapshots"
+resolvers += "LiCOS-JSON4Scala-snapshots-repository" at "https://github.com/ktr-skmt/LiCOS-JSON4Scala/raw/main/maven-repo/snapshots"
 ```
 
 ```scala
@@ -31,7 +31,7 @@ libraryDependences += "online.licos" % "licos-json4scala_2.13" % "(version)"
 ```javascript
 repositories {
     maven {
-        url "https://github.com/ktr-skmt/LiCOS-JSON4Scala/raw/master/maven-repo/snapshots"
+        url "https://github.com/ktr-skmt/LiCOS-JSON4Scala/raw/main/maven-repo/snapshots"
     }
 }
 ```
@@ -47,7 +47,7 @@ dependencies {
 ```xml
 <repository>
   <id>LiCOS-JSON4Scala-snapshots-repository</id>
-  <url>https://github.com/ktr-skmt/LiCOS-JSON4Scala/raw/master/maven-repo/snapshots</url>
+  <url>https://github.com/ktr-skmt/LiCOS-JSON4Scala/raw/main/maven-repo/snapshots</url>
 </repository>
 ```
 
@@ -66,7 +66,7 @@ dependencies {
     <settings defaultResolver="chain"/>
     <resolvers>
         <chain name="chain">
-            <ibiblio name="LiCOS-JSON4Scala-snapshots-repository" m2compatible="true" root="https://github.com/ktr-skmt/LiCOS-JSON4Scala/raw/master/maven-repo/snapshots"/>
+            <ibiblio name="LiCOS-JSON4Scala-snapshots-repository" m2compatible="true" root="https://github.com/ktr-skmt/LiCOS-JSON4Scala/raw/main/maven-repo/snapshots"/>
         </chain>
     </resolvers>
 </ivysettings>
