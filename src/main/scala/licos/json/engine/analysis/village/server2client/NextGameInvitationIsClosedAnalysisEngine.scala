@@ -23,8 +23,7 @@ trait NextGameInvitationIsClosedAnalysisEngine extends AnalysisEngine {
 
 object NextGameInvitationIsClosedAnalysisEngine {
 
-  /**
-    * Next-game-invitation-is-closed analysis engine name.
+  /** Next-game-invitation-is-closed analysis engine name.
     */
   val name:         String  = "village.server2client.NextGameInvitationIsClosedAnalysisEngine"
   val isFromServer: Boolean = true

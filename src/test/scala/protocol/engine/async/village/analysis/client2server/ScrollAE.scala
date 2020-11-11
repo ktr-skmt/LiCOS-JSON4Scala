@@ -11,8 +11,8 @@ import protocol.engine.village.VillageBox
 import scala.concurrent.{ExecutionContext, Future}
 
 final class ScrollAE extends ScrollAnalysisEngine {
-  override def process(box: VillageBOX, scroll: ScrollProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: VillageBOX, scroll: ScrollProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
       case _: VillageBox => Future.successful(VillageMessageTestProtocol(Scroll.`type`))

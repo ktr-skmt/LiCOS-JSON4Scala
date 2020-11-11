@@ -170,7 +170,7 @@ final class VillageProcessingEngineSuite extends AnyFunSuite with Matchers with 
         1,
         RandomAvatarSetting,
         15,
-        None,
+        Option.empty[String],
         "Christopher",
         new URL("https://werewolf.world/image/0.3/character_icons/50x50/a_50x50.png")
       )

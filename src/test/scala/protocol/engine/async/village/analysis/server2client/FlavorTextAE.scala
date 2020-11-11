@@ -11,8 +11,8 @@ import protocol.engine.village.VillageBox
 import scala.concurrent.{ExecutionContext, Future}
 
 final class FlavorTextAE extends FlavorTextAnalysisEngine {
-  override def process(box: VillageBOX, flavorText: FlavorTextProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: VillageBOX, flavorText: FlavorTextProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
       case _: VillageBox => Future.successful(VillageMessageTestProtocol(FlavorText.`type`))

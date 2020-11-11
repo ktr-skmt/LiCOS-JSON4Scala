@@ -9,8 +9,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait LeaveWaitingPageAnalysisEngine extends LobbyMessageAnalysisEngine {
   @SuppressWarnings(Array[String]("org.wartremover.warts.ImplicitParameter"))
-  def process(box: LobbyBOX, leaveWaitingPageProtocol: LeaveWaitingPageProtocol)(
-      implicit ec: ExecutionContext
+  def process(box: LobbyBOX, leaveWaitingPageProtocol: LeaveWaitingPageProtocol)(implicit
+      ec:          ExecutionContext
   ): Future[LobbyMessageProtocol]
 }
 

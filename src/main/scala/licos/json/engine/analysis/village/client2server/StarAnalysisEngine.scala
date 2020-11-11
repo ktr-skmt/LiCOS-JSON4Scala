@@ -23,8 +23,7 @@ trait StarAnalysisEngine extends AnalysisEngine {
 
 object StarAnalysisEngine {
 
-  /**
-    * Star analysis engine name.
+  /** Star analysis engine name.
     */
   val name:         String  = "village.client2server.StarAnalysisEngine"
   val isFromServer: Boolean = false

@@ -23,8 +23,7 @@ trait OnymousAudienceScrollAnalysisEngine extends AnalysisEngine {
 
 object OnymousAudienceScrollAnalysisEngine {
 
-  /**
-    * Onymous-audience-scroll analysis engine name.
+  /** Onymous-audience-scroll analysis engine name.
     */
   val name:         String  = "village.client2server.OnymousAudienceScrollAnalysisEngine"
   val isFromServer: Boolean = false

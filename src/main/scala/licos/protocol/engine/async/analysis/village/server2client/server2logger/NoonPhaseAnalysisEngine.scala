@@ -9,8 +9,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait NoonPhaseAnalysisEngine extends VillageMessageAnalysisEngine {
   @SuppressWarnings(Array[String]("org.wartremover.warts.ImplicitParameter"))
-  def process(box: VillageBOX, noonPhase: NoonPhaseProtocol)(
-      implicit ec: ExecutionContext
+  def process(box: VillageBOX, noonPhase: NoonPhaseProtocol)(implicit
+      ec:          ExecutionContext
   ): Future[VillageMessageProtocol]
 }
 

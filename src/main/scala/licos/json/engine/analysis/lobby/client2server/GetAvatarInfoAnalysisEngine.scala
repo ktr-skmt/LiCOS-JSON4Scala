@@ -22,8 +22,7 @@ trait GetAvatarInfoAnalysisEngine extends AnalysisEngine {
 
 object GetAvatarInfoAnalysisEngine {
 
-  /**
-    * Get-avatar-info analysis engine name.
+  /** Get-avatar-info analysis engine name.
     */
   val name:         String  = "lobby.client2server.GetAvatarInfoAnalysisEngine"
   val isFromServer: Boolean = false

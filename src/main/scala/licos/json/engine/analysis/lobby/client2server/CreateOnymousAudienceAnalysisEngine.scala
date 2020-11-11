@@ -22,8 +22,7 @@ trait CreateOnymousAudienceAnalysisEngine extends AnalysisEngine {
 
 object CreateOnymousAudienceAnalysisEngine {
 
-  /**
-    * Create-onymous-audience analysis engine name.
+  /** Create-onymous-audience analysis engine name.
     */
   val name:         String  = "lobby.client2server.CreateOnymousAudienceAnalysisEngine"
   val isFromServer: Boolean = false

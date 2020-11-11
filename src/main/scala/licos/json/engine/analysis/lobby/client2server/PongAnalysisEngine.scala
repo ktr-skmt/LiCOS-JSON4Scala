@@ -22,8 +22,7 @@ trait PongAnalysisEngine extends AnalysisEngine {
 
 object PongAnalysisEngine {
 
-  /**
-    * Pong analysis engine name.
+  /** Pong analysis engine name.
     */
   val name:         String  = "lobby.client2server.PongAnalysisEngine"
   val isFromServer: Boolean = false

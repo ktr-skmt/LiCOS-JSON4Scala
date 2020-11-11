@@ -22,8 +22,7 @@ trait GetSettingsAnalysisEngine extends AnalysisEngine {
 
 object GetSettingsAnalysisEngine {
 
-  /**
-    * Get-settings analysis engine name.
+  /** Get-settings analysis engine name.
     */
   val name:         String  = "lobby.client2server.GetSettingsAnalysisEngine"
   val isFromServer: Boolean = false

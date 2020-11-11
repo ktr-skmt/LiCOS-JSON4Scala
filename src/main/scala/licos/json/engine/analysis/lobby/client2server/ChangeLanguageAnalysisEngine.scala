@@ -6,7 +6,6 @@ import licos.json.engine.analysis.AnalysisEngine
 import play.api.libs.json.JsValue
 
 /** The analysis engine for changing a language.
-  *
   */
 trait ChangeLanguageAnalysisEngine extends AnalysisEngine {
 
@@ -21,8 +20,7 @@ trait ChangeLanguageAnalysisEngine extends AnalysisEngine {
 
 object ChangeLanguageAnalysisEngine {
 
-  /**
-    *  Change-language analysis engine name.
+  /**  Change-language analysis engine name.
     */
   val name:         String  = "lobby.client2server.ChangeLanguageAnalysisEngine"
   val isFromServer: Boolean = false

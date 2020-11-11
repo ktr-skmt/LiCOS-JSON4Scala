@@ -22,8 +22,7 @@ trait DeleteAvatarAnalysisEngine extends AnalysisEngine {
 
 object DeleteAvatarAnalysisEngine {
 
-  /**
-    * Delete-avatar analysis engine name.
+  /** Delete-avatar analysis engine name.
     */
   val name:         String  = "lobby.client2server.DeleteAvatarAnalysisEngine"
   val isFromServer: Boolean = false

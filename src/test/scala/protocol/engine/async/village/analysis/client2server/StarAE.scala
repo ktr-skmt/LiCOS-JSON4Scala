@@ -11,8 +11,8 @@ import protocol.engine.village.VillageBox
 import scala.concurrent.{ExecutionContext, Future}
 
 final class StarAE extends StarAnalysisEngine {
-  override def process(box: VillageBOX, star: StarProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: VillageBOX, star: StarProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
       case _: VillageBox => Future.successful(VillageMessageTestProtocol(Star.`type`))

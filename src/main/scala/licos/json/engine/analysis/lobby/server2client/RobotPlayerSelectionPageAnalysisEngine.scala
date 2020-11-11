@@ -22,8 +22,7 @@ trait RobotPlayerSelectionPageAnalysisEngine extends AnalysisEngine {
 
 object RobotPlayerSelectionPageAnalysisEngine {
 
-  /**
-    * Robot-player-selection-page analysis engine name.
+  /** Robot-player-selection-page analysis engine name.
     */
   val name:         String  = "lobby.server2client.RobotPlayerSelectionPageAnalysisEngine"
   val isFromServer: Boolean = true

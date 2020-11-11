@@ -8,8 +8,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait EnterAvatarSelectionPageAnalysisEngine {
   @SuppressWarnings(Array[String]("org.wartremover.warts.ImplicitParameter"))
-  def process(box: LobbyBOX, enterAvatarSelectionPageProtocol: EnterAvatarSelectionPageProtocol)(
-      implicit ec: ExecutionContext
+  def process(box: LobbyBOX, enterAvatarSelectionPageProtocol: EnterAvatarSelectionPageProtocol)(implicit
+      ec:          ExecutionContext
   ): Future[LobbyMessageProtocol]
 }
 

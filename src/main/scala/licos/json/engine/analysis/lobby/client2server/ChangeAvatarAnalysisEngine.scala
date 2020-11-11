@@ -21,8 +21,7 @@ trait ChangeAvatarAnalysisEngine {
 
 object ChangeAvatarAnalysisEngine {
 
-  /**
-    * Change-avatar analysis engine name.
+  /** Change-avatar analysis engine name.
     */
   val name:         String  = "lobby.client2server.ChangeAvatarAnalysisEngine"
   val isFromServer: Boolean = false

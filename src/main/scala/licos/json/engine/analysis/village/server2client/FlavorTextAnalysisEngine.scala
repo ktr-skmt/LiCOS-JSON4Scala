@@ -23,8 +23,7 @@ trait FlavorTextAnalysisEngine extends AnalysisEngine {
 
 object FlavorTextAnalysisEngine {
 
-  /**
-    * Flavor-text analysis engine name.
+  /** Flavor-text analysis engine name.
     */
   val name:         String  = "village.server2client.FlavorTextAnalysisEngine"
   val isFromServer: Boolean = true

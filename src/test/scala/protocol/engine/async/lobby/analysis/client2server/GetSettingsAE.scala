@@ -11,8 +11,8 @@ import protocol.engine.lobby.LobbyBox
 import scala.concurrent.{ExecutionContext, Future}
 
 final class GetSettingsAE extends GetSettingsAnalysisEngine {
-  override def process(box: LobbyBOX, getSettingsProtocol: GetSettingsProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: LobbyBOX, getSettingsProtocol: GetSettingsProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(GetSettings.`type`))

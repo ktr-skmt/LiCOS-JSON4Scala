@@ -1,12 +1,20 @@
 package licos.protocol.element.village.server2client.server2logger
 
+import java.time.OffsetDateTime
+
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{Contexts, FlavorTextMessage}
 import licos.json.element.village.server2client.{JsonChatFromServer, JsonFlavorText}
 import licos.knowledge.{Data2Knowledge, PublicChannel, ServerToClient}
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
-import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
+import licos.protocol.element.village.part.{
+  BaseProtocol,
+  ChatSettingsProtocol,
+  VillageProtocol,
+  VotingResultDetailProtocol,
+  VotingResultSummaryProtocol
+}
 import licos.util.TimestampGenerator
 import play.api.libs.json.{JsValue, Json}
 
@@ -39,12 +47,12 @@ final case class FlavorTextProtocol(
           village.phaseTimeLimit,
           village.phaseStartTime,
           Some(TimestampGenerator.now),
-          None,
+          Option.empty[OffsetDateTime],
           ServerToClient,
           PublicChannel,
           extensionalDisclosureRange,
-          None,
-          None
+          Option.empty[Seq[VotingResultSummaryProtocol]],
+          Option.empty[Seq[VotingResultDetailProtocol]]
         ).json,
         flavorText.flatMap(_.json.toList)
       )

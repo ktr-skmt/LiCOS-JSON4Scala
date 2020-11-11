@@ -11,8 +11,8 @@ import protocol.engine.lobby.example.client2server.EnterAvatarSelectionPage
 import scala.concurrent.{ExecutionContext, Future}
 
 final class EnterAvatarSelectionPageAE extends EnterAvatarSelectionPageAnalysisEngine {
-  override def process(box: LobbyBOX, enterAvatarSelectionPageProtocol: EnterAvatarSelectionPageProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: LobbyBOX, enterAvatarSelectionPageProtocol: EnterAvatarSelectionPageProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(EnterAvatarSelectionPage.`type`))

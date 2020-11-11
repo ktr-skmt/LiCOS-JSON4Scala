@@ -23,8 +23,7 @@ trait LobbyAnalysisEngine extends AnalysisEngine {
 
 object LobbyAnalysisEngine {
 
-  /**
-    * Lobby analysis engine name.
+  /** Lobby analysis engine name.
     */
   val name:         String  = "lobby.server2client.LobbyAnalysisEngine"
   val isFromServer: Boolean = true

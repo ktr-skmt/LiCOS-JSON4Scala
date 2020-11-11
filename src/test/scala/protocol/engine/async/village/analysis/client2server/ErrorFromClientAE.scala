@@ -11,8 +11,8 @@ import protocol.engine.village.VillageBox
 import scala.concurrent.{ExecutionContext, Future}
 
 final class ErrorFromClientAE extends ErrorFromClientAnalysisEngine {
-  override def process(box: VillageBOX, errorFromClient: ErrorFromClientProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: VillageBOX, errorFromClient: ErrorFromClientProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
       case _: VillageBox => Future.successful(VillageMessageTestProtocol(ErrorFromClient.`type`))

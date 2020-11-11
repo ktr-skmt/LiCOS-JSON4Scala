@@ -22,8 +22,7 @@ trait ChangeUserNameAnalysisEngine extends AnalysisEngine {
 
 object ChangeUserNameAnalysisEngine {
 
-  /**
-    * Change-user-name analysis engine name.
+  /** Change-user-name analysis engine name.
     */
   val name:         String  = "lobby.client2server.ChangeUserNameAnalysisEngine"
   val isFromServer: Boolean = false

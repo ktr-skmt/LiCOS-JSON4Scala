@@ -1,5 +1,7 @@
 package licos.knowledge
 
+import java.util.Locale
+
 import licos.protocol.element.village.part.NameProtocol
 import licos.util.WerewolfWorld
 
@@ -12,7 +14,7 @@ sealed abstract class Role(val species: Species, val team: Team, val numberOfPla
   override def toString: String                = name.en
   val characters:        ListBuffer[Character] = ListBuffer.empty[Character]
 
-  def icon: String = WerewolfWorld.roleIcon(name.en.toLowerCase)
+  def icon: String = WerewolfWorld.roleIcon(name.en.toLowerCase(Locale.ENGLISH))
 
   override def equals(o: Any): Boolean = {
     o match {

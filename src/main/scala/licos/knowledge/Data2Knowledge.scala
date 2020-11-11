@@ -1,5 +1,7 @@
 package licos.knowledge
 
+import java.util.Locale
+
 import licos.json.element.village.JsonName
 import licos.protocol.element.village.part.NameProtocol
 
@@ -115,7 +117,7 @@ object Data2Knowledge {
   }
 
   def roleOpt(name: String, numberOfPlayers: Int): Option[Role] = {
-    name.toLowerCase match {
+    name.toLowerCase(Locale.ENGLISH) match {
       case "villager"    => Some(VillagerRole(numberOfPlayers))
       case "werewolf"    => Some(WerewolfRole(numberOfPlayers))
       case "seer"        => Some(SeerRole(numberOfPlayers))

@@ -22,8 +22,7 @@ trait BuildVillageAnalysisEngine extends AnalysisEngine {
 
 object BuildVillageAnalysisEngine {
 
-  /**
-    * Build-village analysis engine name.
+  /** Build-village analysis engine name.
     */
   val name:         String  = "lobby.client2server.BuildVillageAnalysisEngine"
   val isFromServer: Boolean = false

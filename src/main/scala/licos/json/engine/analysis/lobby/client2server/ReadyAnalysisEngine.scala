@@ -22,8 +22,7 @@ trait ReadyAnalysisEngine extends AnalysisEngine {
 
 object ReadyAnalysisEngine {
 
-  /**
-    * Ready analysis engine name.
+  /** Ready analysis engine name.
     */
   val name:         String  = "lobby.client2server.ReadyAnalysisEngine"
   val isFromServer: Boolean = false

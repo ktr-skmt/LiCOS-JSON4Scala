@@ -8,8 +8,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait RunRobotPlayerInTheBackgroundAnalysisEngine {
   @SuppressWarnings(Array[String]("org.wartremover.warts.ImplicitParameter"))
-  def process(box: LobbyBOX, runRobotPlayerInTheBackgroundProtocol: RunRobotPlayerInTheBackgroundProtocol)(
-      implicit ec: ExecutionContext
+  def process(box: LobbyBOX, runRobotPlayerInTheBackgroundProtocol: RunRobotPlayerInTheBackgroundProtocol)(implicit
+      ec:          ExecutionContext
   ): Future[LobbyMessageProtocol]
 }
 

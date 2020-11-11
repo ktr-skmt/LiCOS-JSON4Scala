@@ -23,8 +23,7 @@ trait ReceivedFlavorTextMessageAnalysisEngine extends AnalysisEngine {
 
 object ReceivedFlavorTextMessageAnalysisEngine {
 
-  /**
-    * Received-flavor-text-message analysis engine name.
+  /** Received-flavor-text-message analysis engine name.
     */
   val name:         String  = "village.client2server.ReceivedFlavorTextMessageAnalysisEngine"
   val isFromServer: Boolean = false

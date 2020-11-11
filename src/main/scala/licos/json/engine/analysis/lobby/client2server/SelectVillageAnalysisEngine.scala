@@ -23,8 +23,7 @@ trait SelectVillageAnalysisEngine extends AnalysisEngine {
 
 object SelectVillageAnalysisEngine {
 
-  /**
-    * Select-village analysis engine name.
+  /** Select-village analysis engine name.
     */
   val name:         String  = "lobby.client2server.SelectVillageAnalysisEngine"
   val isFromServer: Boolean = false

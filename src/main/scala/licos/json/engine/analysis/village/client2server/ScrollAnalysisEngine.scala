@@ -23,8 +23,7 @@ trait ScrollAnalysisEngine extends AnalysisEngine {
 
 object ScrollAnalysisEngine {
 
-  /**
-    * Scroll analysis engine name.
+  /** Scroll analysis engine name.
     */
   val name:         String  = "village.client2server.ScrollAnalysisEngine"
   val isFromServer: Boolean = false

@@ -66,9 +66,8 @@ object AsyncProtocolVillageMessageRunner extends App {
               System.err.println(Json.prettyPrint(json))
             }
           }
-          .recover {
-            case error: Throwable =>
-              System.err.println(error.getMessage)
+          .recover { case error: Throwable =>
+            System.err.println(error.getMessage)
           },
         Duration.Inf
       )

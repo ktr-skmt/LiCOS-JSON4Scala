@@ -1,12 +1,21 @@
 package licos.protocol.element.village.client2server.server2logger
 
+import java.time.OffsetDateTime
+
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.JsonAnonymousAudienceChat
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.iri.{ChatMessage, Contexts}
 import licos.knowledge.{AnonymousAudienceChannel, ClientToServer, Data2Knowledge}
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
-import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, ChatTextProtocol, VillageProtocol}
+import licos.protocol.element.village.part.{
+  BaseProtocol,
+  ChatSettingsProtocol,
+  ChatTextProtocol,
+  VillageProtocol,
+  VotingResultDetailProtocol,
+  VotingResultSummaryProtocol
+}
 import licos.util.TimestampGenerator
 import play.api.libs.json.{JsValue, Json}
 
@@ -38,13 +47,13 @@ final case class AnonymousAudienceChatFromClientProtocol(
           village.day,
           village.phaseTimeLimit,
           village.phaseStartTime,
-          None,
+          Option.empty[OffsetDateTime],
           Some(TimestampGenerator.now),
           ClientToServer,
           AnonymousAudienceChannel,
           extensionalDisclosureRange,
-          None,
-          None
+          Option.empty[Seq[VotingResultSummaryProtocol]],
+          Option.empty[Seq[VotingResultDetailProtocol]]
         ).json,
         isMine = true,
         ChatTextProtocol(text, village.language).json,

@@ -23,8 +23,7 @@ trait GameResultAnalysisEngine extends AnalysisEngine {
 
 object GameResultAnalysisEngine {
 
-  /**
-    * Game result analysis engine name.
+  /** Game result analysis engine name.
     */
   val name:         String  = "village.server2client.GameResultAnalysisEngine"
   val isFromServer: Boolean = true

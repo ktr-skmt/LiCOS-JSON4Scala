@@ -6,8 +6,7 @@ trait AnonymousAudienceChatAnalysisEngine extends MetaAnonymousAudienceChatAnaly
 
 object AnonymousAudienceChatAnalysisEngine {
 
-  /**
-    * Anonymous-audience-chat analysis engine name.
+  /** Anonymous-audience-chat analysis engine name.
     */
   val name:         String  = "village.client2server.AnonymousAudienceChatAnalysisEngine"
   val isFromServer: Boolean = false

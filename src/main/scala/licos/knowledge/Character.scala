@@ -1,5 +1,7 @@
 package licos.knowledge
 
+import java.util.Locale
+
 import licos.protocol.element.village.part.NameProtocol
 import licos.util.WerewolfWorld
 
@@ -14,7 +16,7 @@ sealed abstract class Character(val name: NameProtocol) extends Product with Ser
     this
   }
 
-  def icon: String = WerewolfWorld.characterIcon(name.en.head.toString.toLowerCase)
+  def icon: String = WerewolfWorld.characterIcon(name.en.head.toString.toLowerCase(Locale.ENGLISH))
 
   override def equals(o: Any): Boolean = {
     o match {

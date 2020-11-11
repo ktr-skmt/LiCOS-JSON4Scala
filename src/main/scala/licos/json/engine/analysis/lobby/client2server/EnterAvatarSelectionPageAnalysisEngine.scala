@@ -21,8 +21,7 @@ trait EnterAvatarSelectionPageAnalysisEngine {
 
 object EnterAvatarSelectionPageAnalysisEngine {
 
-  /**
-    * Enter-avatar-selection-page analysis engine name.
+  /** Enter-avatar-selection-page analysis engine name.
     */
   val name:         String  = "lobby.client2server.EnterAvatarSelectionPageAnalysisEngine"
   val isFromServer: Boolean = false

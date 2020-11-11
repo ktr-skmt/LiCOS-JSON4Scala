@@ -1,5 +1,7 @@
 package licos.protocol.element.village.client2server.server2logger
 
+import java.time.OffsetDateTime
+
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonBoard
@@ -11,7 +13,13 @@ import licos.protocol.element.village.part.character.{
   StatusCharacterProtocol
 }
 import licos.protocol.element.village.part.role.SimpleRoleProtocol
-import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, VillageProtocol}
+import licos.protocol.element.village.part.{
+  BaseProtocol,
+  ChatSettingsProtocol,
+  VillageProtocol,
+  VotingResultDetailProtocol,
+  VotingResultSummaryProtocol
+}
 import licos.util.{LiCOSOnline, TimestampGenerator}
 import play.api.libs.json.{JsValue, Json}
 
@@ -47,13 +55,13 @@ final case class BoardProtocol(
           village.day,
           village.phaseTimeLimit,
           village.phaseStartTime,
-          None,
+          Option.empty[OffsetDateTime],
           Some(TimestampGenerator.now),
           ClientToServer,
           PrivateChannel,
           extensionalDisclosureRange,
-          None,
-          None
+          Option.empty[Seq[VotingResultSummaryProtocol]],
+          Option.empty[Seq[VotingResultDetailProtocol]]
         ).json,
         RoleCharacterProtocol(
           myCharacter,

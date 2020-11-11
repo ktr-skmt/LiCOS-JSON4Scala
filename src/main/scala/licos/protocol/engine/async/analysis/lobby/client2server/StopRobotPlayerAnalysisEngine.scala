@@ -8,8 +8,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait StopRobotPlayerAnalysisEngine {
   @SuppressWarnings(Array[String]("org.wartremover.warts.ImplicitParameter"))
-  def process(box: LobbyBOX, stopRobotPlayerProtocol: StopRobotPlayerProtocol)(
-      implicit ec: ExecutionContext
+  def process(box: LobbyBOX, stopRobotPlayerProtocol: StopRobotPlayerProtocol)(implicit
+      ec:          ExecutionContext
   ): Future[LobbyMessageProtocol]
 }
 

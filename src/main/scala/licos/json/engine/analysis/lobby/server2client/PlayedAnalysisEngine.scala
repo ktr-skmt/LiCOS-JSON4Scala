@@ -23,8 +23,7 @@ trait PlayedAnalysisEngine extends AnalysisEngine {
 
 object PlayedAnalysisEngine {
 
-  /**
-    * Played analysis engine name.
+  /** Played analysis engine name.
     */
   val name:         String  = "lobby.server2client.PlayedAnalysisEngine"
   val isFromServer: Boolean = true

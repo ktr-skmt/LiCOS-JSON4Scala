@@ -203,15 +203,14 @@ final class VillageProcessingEngineSuite extends AnyFunSuite with Matchers with 
                     fail("No VillageMessageTestProtocol")
                 }
               }
-              .recover {
-                case error: Throwable =>
-                  fail(
-                    List[String](
-                      "No response is generated.",
-                      error.getMessage,
-                      msg
-                    ).mkString("\n")
-                  )
+              .recover { case error: Throwable =>
+                fail(
+                  List[String](
+                    "No response is generated.",
+                    error.getMessage,
+                    msg
+                  ).mkString("\n")
+                )
               },
             Duration.Inf
           )

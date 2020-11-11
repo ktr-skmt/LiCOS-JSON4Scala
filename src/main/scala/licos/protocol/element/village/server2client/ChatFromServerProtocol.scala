@@ -1,11 +1,21 @@
 package licos.protocol.element.village.server2client
 
+import java.time.OffsetDateTime
+import java.util.UUID
+
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.iri.{ChatMessage, Contexts}
 import licos.json.element.village.server2client.JsonChatFromServer
 import licos.knowledge.{Data2Knowledge, PlayerChatChannel, ServerToClient}
-import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, ChatTextProtocol, VillageProtocol}
-import licos.protocol.element.village.part.character.SimpleCharacterProtocol
+import licos.protocol.element.village.part.{
+  BaseProtocol,
+  ChatSettingsProtocol,
+  ChatTextProtocol,
+  VillageProtocol,
+  VotingResultDetailProtocol,
+  VotingResultSummaryProtocol
+}
+import licos.protocol.element.village.part.character.{SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.util.{LiCOSOnline, TimestampGenerator}
 import play.api.libs.json.{JsValue, Json}
 
@@ -44,12 +54,12 @@ final case class ChatFromServerProtocol(
           village.phaseTimeLimit,
           village.phaseStartTime,
           Some(TimestampGenerator.now),
-          None,
+          Option.empty[OffsetDateTime],
           ServerToClient,
           channel.channel,
-          Nil,
-          None,
-          None
+          List.empty[StatusCharacterProtocol],
+          Option.empty[Seq[VotingResultSummaryProtocol]],
+          Option.empty[Seq[VotingResultDetailProtocol]]
         ).json,
         character.json(LiCOSOnline.stateVillage(village.id)),
         isMine,
@@ -69,6 +79,22 @@ final case class ChatFromServerProtocol(
 
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
+  }
+
+  def fromHostPlayerToAvatar(token: UUID): ChatFromServerProtocol = {
+    import cats.implicits._
+    def isCharacterMine: Boolean = token === village.token
+    ChatFromServerProtocol(
+      village.changeToken(token): VillageInfo,
+      channel:                    PlayerChatChannel,
+      character:                  SimpleCharacterProtocol,
+      isCharacterMine:            Boolean,
+      id:                         Int,
+      counter:                    Int,
+      interval:                   Int,
+      text:                       String,
+      isOver:                     Boolean
+    )
   }
 }
 

@@ -22,8 +22,7 @@ trait AdvancedSearchAnalysisEngine extends AnalysisEngine {
 
 object AdvancedSearchAnalysisEngine {
 
-  /**
-    * Advanced-search analysis engine name.
+  /** Advanced-search analysis engine name.
     */
   val name:         String  = "lobby.client2server.AdvancedSearchAnalysisEngine"
   val isFromServer: Boolean = false

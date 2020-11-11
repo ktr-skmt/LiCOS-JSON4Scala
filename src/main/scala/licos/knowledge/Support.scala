@@ -6,7 +6,7 @@ final case class Support(`for`: Map[Int, SupportedComposition]) extends Serializ
     if (`for`.contains(numberOfPlayers)) {
       Some(`for`(numberOfPlayers).A)
     } else {
-      None
+      Option.empty[Composition]
     }
   }
 
@@ -14,7 +14,7 @@ final case class Support(`for`: Map[Int, SupportedComposition]) extends Serializ
     if (`for`.contains(numberOfPlayers)) {
       Some(`for`(numberOfPlayers).B)
     } else {
-      None
+      Option.empty[Composition]
     }
   }
 
@@ -22,7 +22,7 @@ final case class Support(`for`: Map[Int, SupportedComposition]) extends Serializ
     if (`for`.contains(numberOfPlayers)) {
       Some(`for`(numberOfPlayers).C)
     } else {
-      None
+      Option.empty[Composition]
     }
   }
 

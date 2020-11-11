@@ -6,8 +6,7 @@ trait ErrorAnalysisEngine extends MetaErrorAnalysisEngine
 
 object ErrorAnalysisEngine {
 
-  /**
-    * Error analysis engine name.
+  /** Error analysis engine name.
     */
   val name:         String  = "village.client2server.ErrorAnalysisEngine"
   val isFromServer: Boolean = false

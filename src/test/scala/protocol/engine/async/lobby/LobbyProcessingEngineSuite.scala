@@ -238,15 +238,14 @@ final class LobbyProcessingEngineSuite
                     fail("No LobbyMessageTestProtocol")
                 }
               }
-              .recover {
-                case error: Throwable =>
-                  fail(
-                    List[String](
-                      "No response is generated.",
-                      error.getMessage,
-                      msg
-                    ).mkString("\n")
-                  )
+              .recover { case error: Throwable =>
+                fail(
+                  List[String](
+                    "No response is generated.",
+                    error.getMessage,
+                    msg
+                  ).mkString("\n")
+                )
               },
             Duration.Inf
           )

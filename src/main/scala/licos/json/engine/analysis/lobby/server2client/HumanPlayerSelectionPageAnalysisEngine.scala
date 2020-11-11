@@ -22,8 +22,7 @@ trait HumanPlayerSelectionPageAnalysisEngine extends AnalysisEngine {
 
 object HumanPlayerSelectionPageAnalysisEngine {
 
-  /**
-    *Human-player-selection-page analysis engine name.
+  /** Human-player-selection-page analysis engine name.
     */
   val name:         String  = "lobby.server2client.HumanPlayerSelectionPageAnalysisEngine"
   val isFromServer: Boolean = true

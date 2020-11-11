@@ -84,8 +84,8 @@ final class VillageProcessingEngine(
       "org.wartremover.warts.Overloading"
     )
   )
-  def process(box: VillageBOX, msg: VillageMessageProtocol)(
-      implicit ec: ExecutionContext
+  def process(box: VillageBOX, msg: VillageMessageProtocol)(implicit
+      ec:          ExecutionContext
   ): Future[VillageMessageProtocol] = {
 
     def log(label: String): Unit = {
