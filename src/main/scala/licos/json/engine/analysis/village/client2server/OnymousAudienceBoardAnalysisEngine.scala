@@ -23,8 +23,7 @@ trait OnymousAudienceBoardAnalysisEngine extends AnalysisEngine {
 
 object OnymousAudienceBoardAnalysisEngine {
 
-  /**
-    * Onymous-audience-board analysis engine name.
+  /** Onymous-audience-board analysis engine name.
     */
   val name:         String  = "village.client2server.OnymousAudienceBoardAnalysisEngine"
   val isFromServer: Boolean = false

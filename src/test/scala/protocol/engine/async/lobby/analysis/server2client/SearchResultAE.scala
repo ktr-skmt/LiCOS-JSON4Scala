@@ -11,8 +11,8 @@ import protocol.engine.lobby.LobbyBox
 import scala.concurrent.{ExecutionContext, Future}
 
 final class SearchResultAE extends SearchResultAnalysisEngine {
-  override def process(box: LobbyBOX, searchResultProtocol: SearchResultProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: LobbyBOX, searchResultProtocol: SearchResultProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(SearchResult.`type`))

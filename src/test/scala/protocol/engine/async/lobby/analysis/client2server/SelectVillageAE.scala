@@ -11,8 +11,8 @@ import protocol.engine.lobby.LobbyBox
 import scala.concurrent.{ExecutionContext, Future}
 
 final class SelectVillageAE extends SelectVillageAnalysisEngine {
-  override def process(box: LobbyBOX, selectVillageProtocol: SelectVillageProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: LobbyBOX, selectVillageProtocol: SelectVillageProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(SelectVillage.`type`))

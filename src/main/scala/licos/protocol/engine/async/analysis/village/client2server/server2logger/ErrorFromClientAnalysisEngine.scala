@@ -9,8 +9,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait ErrorFromClientAnalysisEngine extends VillageMessageAnalysisEngine {
   @SuppressWarnings(Array[String]("org.wartremover.warts.ImplicitParameter"))
-  def process(box: VillageBOX, errorFromClient: ErrorFromClientProtocol)(
-      implicit ec: ExecutionContext
+  def process(box: VillageBOX, errorFromClient: ErrorFromClientProtocol)(implicit
+      ec:          ExecutionContext
   ): Future[VillageMessageProtocol]
 }
 

@@ -11,8 +11,8 @@ import protocol.engine.lobby.LobbyBox
 import scala.concurrent.{ExecutionContext, Future}
 
 final class PongAE extends PongAnalysisEngine {
-  override def process(box: LobbyBOX, pongProtocol: PongProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: LobbyBOX, pongProtocol: PongProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(Pong.`type`))

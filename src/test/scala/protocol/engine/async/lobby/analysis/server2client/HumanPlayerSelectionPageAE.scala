@@ -11,8 +11,8 @@ import protocol.engine.lobby.example.server2client.HumanPlayerSelectionPage
 import scala.concurrent.{ExecutionContext, Future}
 
 final class HumanPlayerSelectionPageAE extends HumanPlayerSelectionPageAnalysisEngine {
-  override def process(box: LobbyBOX, humanPlayerSelectionPageProtocol: HumanPlayerSelectionPageProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: LobbyBOX, humanPlayerSelectionPageProtocol: HumanPlayerSelectionPageProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(HumanPlayerSelectionPage.`type`))

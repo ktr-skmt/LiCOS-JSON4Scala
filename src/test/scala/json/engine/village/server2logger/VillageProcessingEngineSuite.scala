@@ -84,7 +84,7 @@ final class VillageProcessingEngineSuite extends AnyFunSuite with Matchers with 
   private def parseJsonTest(jsValue: JsValue): Option[JsonTest] = {
     Try(jsValue.validate[JsonTest]) match {
       case Success(json: JsResult[JsonTest]) => json.asOpt
-      case Failure(err:  Throwable) =>
+      case Failure(err: Throwable) =>
         fail(
           List[String](
             "Parsing failed.",

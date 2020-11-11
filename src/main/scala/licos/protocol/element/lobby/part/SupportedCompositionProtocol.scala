@@ -26,7 +26,7 @@ final case class SupportedCompositionProtocol(
     if (isSupportedForTheNumberOfPlayers) {
       Some(Composition.support.`for`(numberOfPlayers).A)
     } else {
-      None
+      Option.empty[Composition]
     }
   }
 
@@ -34,7 +34,7 @@ final case class SupportedCompositionProtocol(
     if (isSupportedForTheNumberOfPlayers) {
       Some(Composition.support.`for`(numberOfPlayers).B)
     } else {
-      None
+      Option.empty[Composition]
     }
   }
 
@@ -42,7 +42,7 @@ final case class SupportedCompositionProtocol(
     if (isSupportedForTheNumberOfPlayers) {
       Some(Composition.support.`for`(numberOfPlayers).C)
     } else {
-      None
+      Option.empty[Composition]
     }
   }
 

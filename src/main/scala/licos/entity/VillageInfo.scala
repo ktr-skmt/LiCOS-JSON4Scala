@@ -37,40 +37,54 @@ final case class VillageInfo(
   def updateClientTimestamp(clientTimestamp: OffsetDateTime): VillageInfo = {
     VillageInfoFactory
       .create(
-        villageInfoFromLobby,
-        id,
-        name,
-        totalNumberOfPlayers,
-        language,
-        maxNumberOfChatMessages,
-        maxLengthOfUnicodeCodePoints,
-        token,
-        phase,
-        day,
-        phaseTimeLimit.toSeconds.toInt,
-        phaseStartTime,
-        Option(clientTimestamp),
-        serverTimestampOpt
+        villageInfoFromLobby:           VillageInfoFromLobby,
+        id:                             Long,
+        name:                           String,
+        totalNumberOfPlayers:           Int,
+        language:                       Locale,
+        maxNumberOfChatMessages:        Int,
+        maxLengthOfUnicodeCodePoints:   Int,
+        token:                          UUID,
+        phase:                          Phase,
+        day:                            Int,
+        phaseTimeLimit.toSeconds.toInt: Int,
+        phaseStartTime:                 OffsetDateTime,
+        Option(clientTimestamp):        Option[OffsetDateTime],
+        serverTimestampOpt:             Option[OffsetDateTime]
       )
   }
 
   def updateServerTimestamp(serverTimestamp: OffsetDateTime): VillageInfo = {
     VillageInfoFactory
       .create(
-        villageInfoFromLobby,
-        id,
-        name,
-        totalNumberOfPlayers,
-        language,
-        maxNumberOfChatMessages,
-        maxLengthOfUnicodeCodePoints,
-        token,
-        phase,
-        day,
-        phaseTimeLimit.toSeconds.toInt,
-        phaseStartTime,
-        clientTimestampOpt,
-        Option(serverTimestamp)
+        villageInfoFromLobby:           VillageInfoFromLobby,
+        id:                             Long,
+        name:                           String,
+        totalNumberOfPlayers:           Int,
+        language:                       Locale,
+        maxNumberOfChatMessages:        Int,
+        maxLengthOfUnicodeCodePoints:   Int,
+        token:                          UUID,
+        phase:                          Phase,
+        day:                            Int,
+        phaseTimeLimit.toSeconds.toInt: Int,
+        phaseStartTime:                 OffsetDateTime,
+        clientTimestampOpt:             Option[OffsetDateTime],
+        Option(serverTimestamp):        Option[OffsetDateTime]
       )
+  }
+
+  def changeToken(theToken: UUID): VillageInfo = {
+    VillageInfo(
+      villageInfoFromLobby: VillageInfoFromLobby,
+      village:              VillageProtocol,
+      theToken:             UUID,
+      phase:                Phase,
+      day:                  Int,
+      phaseTimeLimit:       FiniteDuration,
+      phaseStartTime:       OffsetDateTime,
+      clientTimestampOpt:   Option[OffsetDateTime],
+      serverTimestampOpt:   Option[OffsetDateTime]
+    )
   }
 }

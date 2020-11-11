@@ -20,9 +20,11 @@ final case class PlayerInVillage(character: Character, role: Role) extends Avata
 
   def getStatus(phase: Phase, day: Int): Status = {
     import cats.implicits._
-    if (updateDay === day &&
-        updatePhase.label === Noon.label &&
-        phase.label === Night.label) {
+    if (
+      updateDay === day &&
+      updatePhase.label === Noon.label &&
+      phase.label === Night.label
+    ) {
       Alive
     } else {
       status

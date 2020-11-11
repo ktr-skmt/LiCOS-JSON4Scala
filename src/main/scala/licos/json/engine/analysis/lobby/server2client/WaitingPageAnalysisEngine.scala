@@ -23,8 +23,7 @@ trait WaitingPageAnalysisEngine extends AnalysisEngine {
 
 object WaitingPageAnalysisEngine {
 
-  /**
-    * Waiting-page analysis engine name.
+  /** Waiting-page analysis engine name.
     */
   val name:         String  = "lobby.server2client.WaitingPageAnalysisEngine"
   val isFromServer: Boolean = true

@@ -1,6 +1,7 @@
 package licos.protocol.element.village.client2server.server2logger
 
 import java.net.URL
+import java.time.OffsetDateTime
 
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.character.JsonStatusCharacter
@@ -8,7 +9,14 @@ import licos.json.element.village.client2server.JsonOnymousAudienceScroll
 import licos.json.element.village.iri.{Contexts, ScrollMessage}
 import licos.knowledge.{ClientToServer, Data2Knowledge, PrivateChannel}
 import licos.protocol.element.village.part.character.StatusCharacterProtocol
-import licos.protocol.element.village.part.{AvatarProtocol, BaseProtocol, ChatSettingsProtocol, VillageProtocol}
+import licos.protocol.element.village.part.{
+  AvatarProtocol,
+  BaseProtocol,
+  ChatSettingsProtocol,
+  VillageProtocol,
+  VotingResultDetailProtocol,
+  VotingResultSummaryProtocol
+}
 import licos.util.{LiCOSOnline, TimestampGenerator}
 import play.api.libs.json.{JsValue, Json}
 
@@ -45,13 +53,13 @@ final case class OnymousAudienceScrollProtocol(
           village.day,
           village.phaseTimeLimit,
           village.phaseStartTime,
-          None,
+          Option.empty[OffsetDateTime],
           Some(TimestampGenerator.now),
           ClientToServer,
           PrivateChannel,
           extensionalDisclosureRange,
-          None,
-          None
+          Option.empty[Seq[VotingResultSummaryProtocol]],
+          Option.empty[Seq[VotingResultDetailProtocol]]
         ).json,
         AvatarProtocol(
           village.token,

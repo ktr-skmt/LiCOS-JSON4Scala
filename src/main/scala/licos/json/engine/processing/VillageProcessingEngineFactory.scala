@@ -10,35 +10,47 @@ import licos.json.engine.analysis.village.server2client._
 @SuppressWarnings(Array[String]("org.wartremover.warts.Var", "org.wartremover.warts.Overloading"))
 final class VillageProcessingEngineFactory extends ProcessingEngineFactory {
 
-  private var readyEngine:                     Option[ReadyAnalysisEngine]                      = None
-  private var receivedPlayerMessageEngine:     Option[ReceivedChatMessageAnalysisEngine]        = None
-  private var receivedSystemMessageEngine:     Option[ReceivedSystemMessageAnalysisEngine]      = None
-  private var receivedFlavorTextMessageEngine: Option[ReceivedFlavorTextMessageAnalysisEngine]  = None
-  private var chatFromClientEngine:            Option[village.client2server.ChatAnalysisEngine] = None
-  private var chatFromServerEngine:            Option[village.server2client.ChatAnalysisEngine] = None
+  private var readyEngine: Option[ReadyAnalysisEngine] = Option.empty[ReadyAnalysisEngine]
+  private var receivedPlayerMessageEngine: Option[ReceivedChatMessageAnalysisEngine] =
+    Option.empty[ReceivedChatMessageAnalysisEngine]
+  private var receivedSystemMessageEngine: Option[ReceivedSystemMessageAnalysisEngine] =
+    Option.empty[ReceivedSystemMessageAnalysisEngine]
+  private var receivedFlavorTextMessageEngine: Option[ReceivedFlavorTextMessageAnalysisEngine] =
+    Option.empty[ReceivedFlavorTextMessageAnalysisEngine]
+  private var chatFromClientEngine: Option[village.client2server.ChatAnalysisEngine] =
+    Option.empty[village.client2server.ChatAnalysisEngine]
+  private var chatFromServerEngine: Option[village.server2client.ChatAnalysisEngine] =
+    Option.empty[village.server2client.ChatAnalysisEngine]
   private var onymousAudienceChatFromClientEngine: Option[village.client2server.OnymousAudienceChatAnalysisEngine] =
-    None
+    Option.empty[village.client2server.OnymousAudienceChatAnalysisEngine]
   private var onymousAudienceChatFromServerEngine: Option[village.server2client.OnymousAudienceChatAnalysisEngine] =
-    None
+    Option.empty[village.server2client.OnymousAudienceChatAnalysisEngine]
   private var anonymousAudienceChatFromClientEngine: Option[village.client2server.AnonymousAudienceChatAnalysisEngine] =
-    None
+    Option.empty[village.client2server.AnonymousAudienceChatAnalysisEngine]
   private var anonymousAudienceChatFromServerEngine: Option[village.server2client.AnonymousAudienceChatAnalysisEngine] =
-    None
-  private var boardEngine:                      Option[BoardAnalysisEngine]                       = None
-  private var onymousAudienceBoardEngine:       Option[OnymousAudienceBoardAnalysisEngine]        = None
-  private var voteEngine:                       Option[VoteAnalysisEngine]                        = None
-  private var scrollEngine:                     Option[ScrollAnalysisEngine]                      = None
-  private var onymousAudienceScrollEngine:      Option[OnymousAudienceScrollAnalysisEngine]       = None
-  private var starEngine:                       Option[StarAnalysisEngine]                        = None
-  private var phaseEngine:                      Option[PhaseAnalysisEngine]                       = None
-  private var flavorTextEngine:                 Option[FlavorTextAnalysisEngine]                  = None
-  private var gameResultEngine:                 Option[GameResultAnalysisEngine]                  = None
-  private var buildVillageEngine:               Option[BuildVillageAnalysisEngine]                = None
-  private var leaveWaitingPageEngine:           Option[LeaveWaitingPageAnalysisEngine]            = None
-  private var nextGameInvitationEngine:         Option[NextGameInvitationAnalysisEngine]          = None
-  private var nextGameInvitationIsClosedEngine: Option[NextGameInvitationIsClosedAnalysisEngine]  = None
-  private var errorFromClientEngine:            Option[village.client2server.ErrorAnalysisEngine] = None
-  private var errorFromServerEngine:            Option[village.server2client.ErrorAnalysisEngine] = None
+    Option.empty[village.server2client.AnonymousAudienceChatAnalysisEngine]
+  private var boardEngine: Option[BoardAnalysisEngine] = Option.empty[BoardAnalysisEngine]
+  private var onymousAudienceBoardEngine: Option[OnymousAudienceBoardAnalysisEngine] =
+    Option.empty[OnymousAudienceBoardAnalysisEngine]
+  private var voteEngine:   Option[VoteAnalysisEngine]   = Option.empty[VoteAnalysisEngine]
+  private var scrollEngine: Option[ScrollAnalysisEngine] = Option.empty[ScrollAnalysisEngine]
+  private var onymousAudienceScrollEngine: Option[OnymousAudienceScrollAnalysisEngine] =
+    Option.empty[OnymousAudienceScrollAnalysisEngine]
+  private var starEngine:         Option[StarAnalysisEngine]         = Option.empty[StarAnalysisEngine]
+  private var phaseEngine:        Option[PhaseAnalysisEngine]        = Option.empty[PhaseAnalysisEngine]
+  private var flavorTextEngine:   Option[FlavorTextAnalysisEngine]   = Option.empty[FlavorTextAnalysisEngine]
+  private var gameResultEngine:   Option[GameResultAnalysisEngine]   = Option.empty[GameResultAnalysisEngine]
+  private var buildVillageEngine: Option[BuildVillageAnalysisEngine] = Option.empty[BuildVillageAnalysisEngine]
+  private var leaveWaitingPageEngine: Option[LeaveWaitingPageAnalysisEngine] =
+    Option.empty[LeaveWaitingPageAnalysisEngine]
+  private var nextGameInvitationEngine: Option[NextGameInvitationAnalysisEngine] =
+    Option.empty[NextGameInvitationAnalysisEngine]
+  private var nextGameInvitationIsClosedEngine: Option[NextGameInvitationIsClosedAnalysisEngine] =
+    Option.empty[NextGameInvitationIsClosedAnalysisEngine]
+  private var errorFromClientEngine: Option[village.client2server.ErrorAnalysisEngine] =
+    Option.empty[village.client2server.ErrorAnalysisEngine]
+  private var errorFromServerEngine: Option[village.server2client.ErrorAnalysisEngine] =
+    Option.empty[village.server2client.ErrorAnalysisEngine]
 
   /** Creates a village processing engine.
     *

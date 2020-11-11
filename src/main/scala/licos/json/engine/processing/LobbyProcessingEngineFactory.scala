@@ -9,46 +9,59 @@ import licos.json.engine.analysis.lobby.server2server.PlayedWithTokenAnalysisEng
 @SuppressWarnings(Array[String]("org.wartremover.warts.Var", "org.wartremover.warts.Overloading"))
 final class LobbyProcessingEngineFactory extends ProcessingEngineFactory {
 
-  private var pongEngine:                 Option[PongAnalysisEngine]                 = None
-  private var pingEngine:                 Option[PingAnalysisEngine]                 = None
-  private var waitingPageEngine:          Option[WaitingPageAnalysisEngine]          = None
-  private var lobbyEngine:                Option[LobbyAnalysisEngine]                = None
-  private var enterLobbyEngine:           Option[EnterLobbyAnalysisEngine]           = None
-  private var getAvatarInfoEngine:        Option[GetAvatarInfoAnalysisEngine]        = None
-  private var avatarInfoEngine:           Option[AvatarInfoAnalysisEngine]           = None
-  private var selectVillageEngine:        Option[SelectVillageAnalysisEngine]        = None
-  private var leaveWaitingPageEngine:     Option[LeaveWaitingPageAnalysisEngine]     = None
-  private var kickOutPlayerEngine:        Option[KickOutPlayerAnalysisEngine]        = None
-  private var buildVillageEngine:         Option[BuildVillageAnalysisEngine]         = None
-  private var advancedSearchEngine:       Option[AdvancedSearchAnalysisEngine]       = None
-  private var idSearchEngine:             Option[IdSearchAnalysisEngine]             = None
-  private var playEngine:                 Option[PlayAnalysisEngine]                 = None
-  private var playedEngine:               Option[PlayedAnalysisEngine]               = None
-  private var playedWithTokenEngine:      Option[PlayedWithTokenAnalysisEngine]      = None
-  private var readyEngine:                Option[ReadyAnalysisEngine]                = None
-  private var searchResultEngine:         Option[SearchResultAnalysisEngine]         = None
-  private var changeLanguageEngine:       Option[ChangeLanguageAnalysisEngine]       = None
-  private var changeUserEmailEngine:      Option[ChangeUserEmailAnalysisEngine]      = None
-  private var changeUserNameEngine:       Option[ChangeUserNameAnalysisEngine]       = None
-  private var changeUserPasswordEngine:   Option[ChangeUserPasswordAnalysisEngine]   = None
-  private var getSettingsEngine:          Option[GetSettingsAnalysisEngine]          = None
-  private var settingsEngine:             Option[SettingsAnalysisEngine]             = None
-  private var authorizationRequestEngine: Option[AuthorizationRequestAnalysisEngine] = None
+  private var pongEngine:          Option[PongAnalysisEngine]          = Option.empty[PongAnalysisEngine]
+  private var pingEngine:          Option[PingAnalysisEngine]          = Option.empty[PingAnalysisEngine]
+  private var waitingPageEngine:   Option[WaitingPageAnalysisEngine]   = Option.empty[WaitingPageAnalysisEngine]
+  private var lobbyEngine:         Option[LobbyAnalysisEngine]         = Option.empty[LobbyAnalysisEngine]
+  private var enterLobbyEngine:    Option[EnterLobbyAnalysisEngine]    = Option.empty[EnterLobbyAnalysisEngine]
+  private var getAvatarInfoEngine: Option[GetAvatarInfoAnalysisEngine] = Option.empty[GetAvatarInfoAnalysisEngine]
+  private var avatarInfoEngine:    Option[AvatarInfoAnalysisEngine]    = Option.empty[AvatarInfoAnalysisEngine]
+  private var selectVillageEngine: Option[SelectVillageAnalysisEngine] = Option.empty[SelectVillageAnalysisEngine]
+  private var leaveWaitingPageEngine: Option[LeaveWaitingPageAnalysisEngine] =
+    Option.empty[LeaveWaitingPageAnalysisEngine]
+  private var kickOutPlayerEngine:   Option[KickOutPlayerAnalysisEngine]   = Option.empty[KickOutPlayerAnalysisEngine]
+  private var buildVillageEngine:    Option[BuildVillageAnalysisEngine]    = Option.empty[BuildVillageAnalysisEngine]
+  private var advancedSearchEngine:  Option[AdvancedSearchAnalysisEngine]  = Option.empty[AdvancedSearchAnalysisEngine]
+  private var idSearchEngine:        Option[IdSearchAnalysisEngine]        = Option.empty[IdSearchAnalysisEngine]
+  private var playEngine:            Option[PlayAnalysisEngine]            = Option.empty[PlayAnalysisEngine]
+  private var playedEngine:          Option[PlayedAnalysisEngine]          = Option.empty[PlayedAnalysisEngine]
+  private var playedWithTokenEngine: Option[PlayedWithTokenAnalysisEngine] = Option.empty[PlayedWithTokenAnalysisEngine]
+  private var readyEngine:           Option[ReadyAnalysisEngine]           = Option.empty[ReadyAnalysisEngine]
+  private var searchResultEngine:    Option[SearchResultAnalysisEngine]    = Option.empty[SearchResultAnalysisEngine]
+  private var changeLanguageEngine:  Option[ChangeLanguageAnalysisEngine]  = Option.empty[ChangeLanguageAnalysisEngine]
+  private var changeUserEmailEngine: Option[ChangeUserEmailAnalysisEngine] = Option.empty[ChangeUserEmailAnalysisEngine]
+  private var changeUserNameEngine:  Option[ChangeUserNameAnalysisEngine]  = Option.empty[ChangeUserNameAnalysisEngine]
+  private var changeUserPasswordEngine: Option[ChangeUserPasswordAnalysisEngine] =
+    Option.empty[ChangeUserPasswordAnalysisEngine]
+  private var getSettingsEngine: Option[GetSettingsAnalysisEngine] = Option.empty[GetSettingsAnalysisEngine]
+  private var settingsEngine:    Option[SettingsAnalysisEngine]    = Option.empty[SettingsAnalysisEngine]
+  private var authorizationRequestEngine: Option[AuthorizationRequestAnalysisEngine] =
+    Option.empty[AuthorizationRequestAnalysisEngine]
   private var authorizationRequestAcceptedResponseEngine: Option[AuthorizationRequestAcceptedResponseAnalysisEngine] =
-    None
-  private var authorizationRequestAcceptedEngine:  Option[AuthorizationRequestAcceptedAnalysisEngine]  = None
-  private var renewAvatarTokenEngine:              Option[RenewAvatarTokenAnalysisEngine]              = None
-  private var createHumanPlayerEngine:             Option[CreateHumanPlayerAnalysisEngine]             = None
-  private var createOnymousAudienceEngine:         Option[CreateOnymousAudienceAnalysisEngine]         = None
-  private var createRobotPlayerEngine:             Option[CreateRobotPlayerAnalysisEngine]             = None
-  private var deleteAvatarEngine:                  Option[DeleteAvatarAnalysisEngine]                  = None
-  private var runRobotPlayerInTheBackgroundEngine: Option[RunRobotPlayerInTheBackgroundAnalysisEngine] = None
-  private var stopRobotPlayerEngine:               Option[StopRobotPlayerAnalysisEngine]               = None
-  private var humanPlayerSelectionPageEngine:      Option[HumanPlayerSelectionPageAnalysisEngine]      = None
-  private var onymousAudienceSelectionPageEngine:  Option[OnymousAudienceSelectionPageAnalysisEngine]  = None
-  private var robotPlayerSelectionPageEngine:      Option[RobotPlayerSelectionPageAnalysisEngine]      = None
-  private var changeAvatarEngine:                  Option[ChangeAvatarAnalysisEngine]                  = None
-  private var enterAvatarSelectionPageEngine:      Option[EnterAvatarSelectionPageAnalysisEngine]      = None
+    Option.empty[AuthorizationRequestAcceptedResponseAnalysisEngine]
+  private var authorizationRequestAcceptedEngine: Option[AuthorizationRequestAcceptedAnalysisEngine] =
+    Option.empty[AuthorizationRequestAcceptedAnalysisEngine]
+  private var renewAvatarTokenEngine: Option[RenewAvatarTokenAnalysisEngine] =
+    Option.empty[RenewAvatarTokenAnalysisEngine]
+  private var createHumanPlayerEngine: Option[CreateHumanPlayerAnalysisEngine] =
+    Option.empty[CreateHumanPlayerAnalysisEngine]
+  private var createOnymousAudienceEngine: Option[CreateOnymousAudienceAnalysisEngine] =
+    Option.empty[CreateOnymousAudienceAnalysisEngine]
+  private var createRobotPlayerEngine: Option[CreateRobotPlayerAnalysisEngine] =
+    Option.empty[CreateRobotPlayerAnalysisEngine]
+  private var deleteAvatarEngine: Option[DeleteAvatarAnalysisEngine] = Option.empty[DeleteAvatarAnalysisEngine]
+  private var runRobotPlayerInTheBackgroundEngine: Option[RunRobotPlayerInTheBackgroundAnalysisEngine] =
+    Option.empty[RunRobotPlayerInTheBackgroundAnalysisEngine]
+  private var stopRobotPlayerEngine: Option[StopRobotPlayerAnalysisEngine] = Option.empty[StopRobotPlayerAnalysisEngine]
+  private var humanPlayerSelectionPageEngine: Option[HumanPlayerSelectionPageAnalysisEngine] =
+    Option.empty[HumanPlayerSelectionPageAnalysisEngine]
+  private var onymousAudienceSelectionPageEngine: Option[OnymousAudienceSelectionPageAnalysisEngine] =
+    Option.empty[OnymousAudienceSelectionPageAnalysisEngine]
+  private var robotPlayerSelectionPageEngine: Option[RobotPlayerSelectionPageAnalysisEngine] =
+    Option.empty[RobotPlayerSelectionPageAnalysisEngine]
+  private var changeAvatarEngine: Option[ChangeAvatarAnalysisEngine] = Option.empty[ChangeAvatarAnalysisEngine]
+  private var enterAvatarSelectionPageEngine: Option[EnterAvatarSelectionPageAnalysisEngine] =
+    Option.empty[EnterAvatarSelectionPageAnalysisEngine]
 
   /** Creates a lobby processing engine.
     *

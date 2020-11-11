@@ -11,8 +11,8 @@ import protocol.engine.lobby.example.client2server.RenewAvatarToken
 import scala.concurrent.{ExecutionContext, Future}
 
 final class RenewAvatarTokenAE extends RenewAvatarTokenAnalysisEngine {
-  override def process(box: LobbyBOX, renewAvatarTokenProtocol: RenewAvatarTokenProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: LobbyBOX, renewAvatarTokenProtocol: RenewAvatarTokenProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(RenewAvatarToken.`type`))

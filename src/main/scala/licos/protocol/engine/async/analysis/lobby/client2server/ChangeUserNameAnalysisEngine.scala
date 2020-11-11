@@ -9,8 +9,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait ChangeUserNameAnalysisEngine extends LobbyMessageAnalysisEngine {
   @SuppressWarnings(Array[String]("org.wartremover.warts.ImplicitParameter"))
-  def process(box: LobbyBOX, changeUserNameProtocol: ChangeUserNameProtocol)(
-      implicit ec: ExecutionContext
+  def process(box: LobbyBOX, changeUserNameProtocol: ChangeUserNameProtocol)(implicit
+      ec:          ExecutionContext
   ): Future[LobbyMessageProtocol]
 }
 

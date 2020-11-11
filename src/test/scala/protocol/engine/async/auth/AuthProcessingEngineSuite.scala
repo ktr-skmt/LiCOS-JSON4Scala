@@ -74,15 +74,14 @@ final class AuthProcessingEngineSuite extends AnyFunSuite with Matchers with Tab
                     fail("No AuthMessageTestProtocol")
                 }
               }
-              .recover {
-                case error: Exception =>
-                  fail(
-                    List[String](
-                      "No response is generated.",
-                      error.getMessage,
-                      msg
-                    ).mkString("\n")
-                  )
+              .recover { case error: Exception =>
+                fail(
+                  List[String](
+                    "No response is generated.",
+                    error.getMessage,
+                    msg
+                  ).mkString("\n")
+                )
               },
             Duration.Inf
           )

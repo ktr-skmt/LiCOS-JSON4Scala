@@ -23,8 +23,7 @@ trait NextGameInvitationAnalysisEngine extends AnalysisEngine {
 
 object NextGameInvitationAnalysisEngine {
 
-  /**
-    * Next-game-invitation analysis engine name.
+  /** Next-game-invitation analysis engine name.
     */
   val name:         String  = "village.server2client.NextGameInvitationAnalysisEngine"
   val isFromServer: Boolean = true

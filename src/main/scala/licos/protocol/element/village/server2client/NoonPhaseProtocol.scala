@@ -54,34 +54,32 @@ object NoonPhaseProtocol {
               }
             },
             json.role.flatMap { jsonRole: JsonRole =>
-              Data2Knowledge.roleOpt(jsonRole.name.en, jsonRole.numberOfPlayers).toList.map {
-                role: Role =>
-                  RoleProtocol(
-                    role,
-                    jsonRole.isMine,
-                    jsonRole.numberOfPlayers,
-                    jsonRole.board.flatMap {
-                      jsonBoardResult: JsonBoardResult =>
-                        for {
-                          character <- Data2Knowledge
-                            .characterOpt(jsonBoardResult.character.name.en, jsonBoardResult.character.id)
-                            .toList
-                          polarity <- Data2Knowledge.polarityMarkOpt(jsonBoardResult.polarity).toList
-                          phase    <- Data2Knowledge.phaseOpt(jsonBoardResult.phase).toList
-                        } yield {
-                          BoardResultProtocol(
-                            character,
-                            polarity,
-                            phase,
-                            jsonBoardResult.day,
-                            village.id,
-                            village.language
-                          )
-                        }
-                    },
-                    village.id,
-                    village.language
-                  )
+              Data2Knowledge.roleOpt(jsonRole.name.en, jsonRole.numberOfPlayers).toList.map { role: Role =>
+                RoleProtocol(
+                  role,
+                  jsonRole.isMine,
+                  jsonRole.numberOfPlayers,
+                  jsonRole.board.flatMap { jsonBoardResult: JsonBoardResult =>
+                    for {
+                      character <- Data2Knowledge
+                        .characterOpt(jsonBoardResult.character.name.en, jsonBoardResult.character.id)
+                        .toList
+                      polarity <- Data2Knowledge.polarityMarkOpt(jsonBoardResult.polarity).toList
+                      phase    <- Data2Knowledge.phaseOpt(jsonBoardResult.phase).toList
+                    } yield {
+                      BoardResultProtocol(
+                        character,
+                        polarity,
+                        phase,
+                        jsonBoardResult.day,
+                        village.id,
+                        village.language
+                      )
+                    }
+                  },
+                  village.id,
+                  village.language
+                )
               }
             }
           )

@@ -22,8 +22,7 @@ trait RunRobotPlayerInTheBackgroundAnalysisEngine extends AnalysisEngine {
 
 object RunRobotPlayerInTheBackgroundAnalysisEngine {
 
-  /**
-    * Run-robot-player-in-the-background analysis engine name.
+  /** Run-robot-player-in-the-background analysis engine name.
     */
   val name:         String  = "lobby.client2server.RunRobotPlayerInTheBackgroundAnalysisEngine"
   val isFromServer: Boolean = false

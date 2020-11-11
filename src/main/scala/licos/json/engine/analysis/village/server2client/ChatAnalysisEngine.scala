@@ -23,8 +23,7 @@ trait ChatAnalysisEngine extends AnalysisEngine {
 
 object ChatAnalysisEngine {
 
-  /**
-    * Chat analysis engine name.
+  /** Chat analysis engine name.
     */
   val name:         String  = "village.server2client.ChatAnalysisEngine"
   val isFromServer: Boolean = true

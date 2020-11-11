@@ -23,8 +23,7 @@ trait ReceivedSystemMessageAnalysisEngine extends AnalysisEngine {
 
 object ReceivedSystemMessageAnalysisEngine {
 
-  /**
-    * Received-system-message analysis engine name.
+  /** Received-system-message analysis engine name.
     */
   val name:         String  = "village.client2server.ReceivedSystemMessageAnalysisEngine"
   val isFromServer: Boolean = false

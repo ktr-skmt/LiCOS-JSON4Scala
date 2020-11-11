@@ -8,7 +8,14 @@ import licos.json.element.village.client2server.JsonStar
 import licos.json.element.village.iri.{Contexts, StarMessage}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role}
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, StatusCharacterProtocol}
-import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, StarInfoProtocol, VillageProtocol}
+import licos.protocol.element.village.part.{
+  BaseProtocol,
+  ChatSettingsProtocol,
+  StarInfoProtocol,
+  VillageProtocol,
+  VotingResultDetailProtocol,
+  VotingResultSummaryProtocol
+}
 import licos.util.TimestampGenerator
 import play.api.libs.json.{JsValue, Json}
 
@@ -44,13 +51,13 @@ final case class StarProtocol(
           village.day,
           village.phaseTimeLimit,
           village.phaseStartTime,
-          None,
+          Option.empty[OffsetDateTime],
           Some(TimestampGenerator.now),
           ClientToServer,
           PrivateChannel,
           extensionalDisclosureRange,
-          None,
-          None
+          Option.empty[Seq[VotingResultSummaryProtocol]],
+          Option.empty[Seq[VotingResultDetailProtocol]]
         ).json,
         RoleCharacterProtocol(
           myCharacter,

@@ -23,8 +23,7 @@ trait PlayedWithTokenAnalysisEngine extends AnalysisEngine {
 
 object PlayedWithTokenAnalysisEngine {
 
-  /**
-    * Played-with-token analysis engine name.
+  /** Played-with-token analysis engine name.
     */
   val name:         String  = "lobby.server2server.PlayedWithTokenAnalysisEngine"
   val isFromServer: Boolean = true

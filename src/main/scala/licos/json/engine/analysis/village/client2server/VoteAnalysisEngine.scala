@@ -23,8 +23,7 @@ trait VoteAnalysisEngine extends AnalysisEngine {
 
 object VoteAnalysisEngine {
 
-  /**
-    * Vote analysis engine name.
+  /** Vote analysis engine name.
     */
   val name:         String  = "village.client2server.VoteAnalysisEngine"
   val isFromServer: Boolean = false

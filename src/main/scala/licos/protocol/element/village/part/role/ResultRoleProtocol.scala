@@ -17,7 +17,7 @@ final case class ResultRoleProtocol(
 ) {
 
   lazy val json: JsonResultRole = {
-    val `@id`: String = LiCOSOnline.state(villageId, s"role#${role.name.en.toLowerCase}")
+    val `@id`: String = LiCOSOnline.state(villageId, s"role#${role.name.en.toLowerCase(Locale.ENGLISH)}")
     JsonResultRole(
       RoleContext.iri,
       `@id`,

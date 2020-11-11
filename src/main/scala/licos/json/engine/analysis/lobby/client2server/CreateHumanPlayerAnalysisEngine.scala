@@ -22,8 +22,7 @@ trait CreateHumanPlayerAnalysisEngine extends AnalysisEngine {
 
 object CreateHumanPlayerAnalysisEngine {
 
-  /**
-    * Create-human-player analysis engine name.
+  /** Create-human-player analysis engine name.
     */
   val name:         String  = "lobby.client2server.CreateHumanPlayerAnalysisEngine"
   val isFromServer: Boolean = false

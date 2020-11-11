@@ -1,6 +1,7 @@
 package licos.protocol.element.village.client2server.server2logger
 
 import java.net.URL
+import java.time.OffsetDateTime
 
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.character.JsonStatusCharacter
@@ -9,7 +10,14 @@ import licos.json.element.village.iri.{BoardMessage, Contexts}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, OnymousAudienceChannel, PolarityMark, Role}
 import licos.protocol.element.village.part.character.{SimpleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.role.SimpleRoleProtocol
-import licos.protocol.element.village.part.{AvatarProtocol, BaseProtocol, ChatSettingsProtocol, VillageProtocol}
+import licos.protocol.element.village.part.{
+  AvatarProtocol,
+  BaseProtocol,
+  ChatSettingsProtocol,
+  VillageProtocol,
+  VotingResultDetailProtocol,
+  VotingResultSummaryProtocol
+}
 import licos.util.{LiCOSOnline, TimestampGenerator}
 import play.api.libs.json.{JsValue, Json}
 
@@ -45,13 +53,13 @@ final case class OnymousAudienceBoardProtocol(
           village.day,
           village.phaseTimeLimit,
           village.phaseStartTime,
-          None,
+          Option.empty[OffsetDateTime],
           Some(TimestampGenerator.now),
           ClientToServer,
           OnymousAudienceChannel,
           extensionalDisclosureRange,
-          None,
-          None
+          Option.empty[Seq[VotingResultSummaryProtocol]],
+          Option.empty[Seq[VotingResultDetailProtocol]]
         ).json,
         AvatarProtocol(
           village.token,

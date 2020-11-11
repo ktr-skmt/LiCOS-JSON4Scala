@@ -22,8 +22,7 @@ trait CreateRobotPlayerAnalysisEngine extends AnalysisEngine {
 
 object CreateRobotPlayerAnalysisEngine {
 
-  /**
-    * Create-robot-player analysis engine name.
+  /** Create-robot-player analysis engine name.
     */
   val name:         String  = "lobby.client2server.CreateRobotPlayerAnalysisEngine"
   val isFromServer: Boolean = false

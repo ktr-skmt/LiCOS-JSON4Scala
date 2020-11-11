@@ -23,8 +23,7 @@ trait PingAnalysisEngine extends AnalysisEngine {
 
 object PingAnalysisEngine {
 
-  /**
-    * Ping analysis engine name.
+  /** Ping analysis engine name.
     */
   val name:         String  = "lobby.server2client.PingAnalysisEngine"
   val isFromServer: Boolean = true

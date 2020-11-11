@@ -22,8 +22,7 @@ trait LeaveWaitingPageAnalysisEngine extends AnalysisEngine {
 
 object LeaveWaitingPageAnalysisEngine {
 
-  /**
-    * Leave-waiting-page analysis engine name.
+  /** Leave-waiting-page analysis engine name.
     */
   val name:         String  = "lobby.client2server.LeaveWaitingPageAnalysisEngine"
   val isFromServer: Boolean = false

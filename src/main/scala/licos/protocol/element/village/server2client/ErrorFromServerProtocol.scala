@@ -1,10 +1,20 @@
 package licos.protocol.element.village.server2client
 
+import java.time.OffsetDateTime
+
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.JsonError
 import licos.json.element.village.iri.{Contexts, ErrorMessage}
 import licos.knowledge.{Data2Knowledge, PrivateChannel, ServerToClient, Severity}
-import licos.protocol.element.village.part.{BaseProtocol, ChatSettingsProtocol, NameProtocol, VillageProtocol}
+import licos.protocol.element.village.part.character.StatusCharacterProtocol
+import licos.protocol.element.village.part.{
+  BaseProtocol,
+  ChatSettingsProtocol,
+  NameProtocol,
+  VillageProtocol,
+  VotingResultDetailProtocol,
+  VotingResultSummaryProtocol
+}
 import licos.util.TimestampGenerator
 import play.api.libs.json.{JsValue, Json}
 
@@ -38,12 +48,12 @@ final case class ErrorFromServerProtocol(
           village.phaseTimeLimit,
           village.phaseStartTime,
           Some(TimestampGenerator.now),
-          None,
+          Option.empty[OffsetDateTime],
           ServerToClient,
           PrivateChannel,
-          Nil,
-          None,
-          None
+          List.empty[StatusCharacterProtocol],
+          Option.empty[Seq[VotingResultSummaryProtocol]],
+          Option.empty[Seq[VotingResultDetailProtocol]]
         ).json,
         content.json(Option(village.language)),
         severity.label,

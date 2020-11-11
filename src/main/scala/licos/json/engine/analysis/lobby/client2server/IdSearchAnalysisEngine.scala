@@ -23,8 +23,7 @@ trait IdSearchAnalysisEngine extends AnalysisEngine {
 
 object IdSearchAnalysisEngine {
 
-  /**
-    * Id-search analysis engine name.
+  /** Id-search analysis engine name.
     */
   val name:         String  = "lobby.client2server.IdSearchAnalysisEngine"
   val isFromServer: Boolean = false

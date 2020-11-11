@@ -11,8 +11,8 @@ import protocol.engine.village.VillageBox
 import scala.concurrent.{ExecutionContext, Future}
 
 final class NightPhaseAE extends NightPhaseAnalysisEngine {
-  override def process(box: VillageBOX, nightPhase: NightPhaseProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: VillageBOX, nightPhase: NightPhaseProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[VillageMessageProtocol] = {
     box match {
       case _: VillageBox => Future.successful(VillageMessageTestProtocol(NightPhase.`type`))

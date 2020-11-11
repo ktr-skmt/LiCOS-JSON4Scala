@@ -8,36 +8,52 @@ import licos.protocol.engine.processing.ProcessingEngineFactory
 final class VillageProcessingEngineFactory extends ProcessingEngineFactory {
 
   private var anonymousAudienceChatFromClientAnalysisEngine: Option[AnonymousAudienceChatFromClientAnalysisEngine] =
-    None
-  private var boardAnalysisEngine:                         Option[BoardAnalysisEngine]                         = None
-  private var buildVillageAnalysisEngine:                  Option[BuildVillageAnalysisEngine]                  = None
-  private var chatFromClientAnalysisEngine:                Option[ChatFromClientAnalysisEngine]                = None
-  private var errorFromClientAnalysisEngine:               Option[ErrorFromClientAnalysisEngine]               = None
-  private var leaveWaitingPageAnalysisEngine:              Option[LeaveWaitingPageAnalysisEngine]              = None
-  private var onymousAudienceBoardAnalysisEngine:          Option[OnymousAudienceBoardAnalysisEngine]          = None
-  private var onymousAudienceChatFromClientAnalysisEngine: Option[OnymousAudienceChatFromClientAnalysisEngine] = None
-  private var onymousAudienceScrollAnalysisEngine:         Option[OnymousAudienceScrollAnalysisEngine]         = None
-  private var readyAnalysisEngine:                         Option[ReadyAnalysisEngine]                         = None
-  private var receivedChatMessageAnalysisEngine:           Option[ReceivedChatMessageAnalysisEngine]           = None
-  private var receivedFlavorTextMessageAnalysisEngine:     Option[ReceivedFlavorTextMessageAnalysisEngine]     = None
-  private var receivedSystemMessageAnalysisEngine:         Option[ReceivedSystemMessageAnalysisEngine]         = None
-  private var scrollAnalysisEngine:                        Option[ScrollAnalysisEngine]                        = None
-  private var starAnalysisEngine:                          Option[StarAnalysisEngine]                          = None
-  private var voteAnalysisEngine:                          Option[VoteAnalysisEngine]                          = None
+    Option.empty[AnonymousAudienceChatFromClientAnalysisEngine]
+  private var boardAnalysisEngine:        Option[BoardAnalysisEngine]        = Option.empty[BoardAnalysisEngine]
+  private var buildVillageAnalysisEngine: Option[BuildVillageAnalysisEngine] = Option.empty[BuildVillageAnalysisEngine]
+  private var chatFromClientAnalysisEngine: Option[ChatFromClientAnalysisEngine] =
+    Option.empty[ChatFromClientAnalysisEngine]
+  private var errorFromClientAnalysisEngine: Option[ErrorFromClientAnalysisEngine] =
+    Option.empty[ErrorFromClientAnalysisEngine]
+  private var leaveWaitingPageAnalysisEngine: Option[LeaveWaitingPageAnalysisEngine] =
+    Option.empty[LeaveWaitingPageAnalysisEngine]
+  private var onymousAudienceBoardAnalysisEngine: Option[OnymousAudienceBoardAnalysisEngine] =
+    Option.empty[OnymousAudienceBoardAnalysisEngine]
+  private var onymousAudienceChatFromClientAnalysisEngine: Option[OnymousAudienceChatFromClientAnalysisEngine] =
+    Option.empty[OnymousAudienceChatFromClientAnalysisEngine]
+  private var onymousAudienceScrollAnalysisEngine: Option[OnymousAudienceScrollAnalysisEngine] =
+    Option.empty[OnymousAudienceScrollAnalysisEngine]
+  private var readyAnalysisEngine: Option[ReadyAnalysisEngine] = Option.empty[ReadyAnalysisEngine]
+  private var receivedChatMessageAnalysisEngine: Option[ReceivedChatMessageAnalysisEngine] =
+    Option.empty[ReceivedChatMessageAnalysisEngine]
+  private var receivedFlavorTextMessageAnalysisEngine: Option[ReceivedFlavorTextMessageAnalysisEngine] =
+    Option.empty[ReceivedFlavorTextMessageAnalysisEngine]
+  private var receivedSystemMessageAnalysisEngine: Option[ReceivedSystemMessageAnalysisEngine] =
+    Option.empty[ReceivedSystemMessageAnalysisEngine]
+  private var scrollAnalysisEngine: Option[ScrollAnalysisEngine] = Option.empty[ScrollAnalysisEngine]
+  private var starAnalysisEngine:   Option[StarAnalysisEngine]   = Option.empty[StarAnalysisEngine]
+  private var voteAnalysisEngine:   Option[VoteAnalysisEngine]   = Option.empty[VoteAnalysisEngine]
   private var anonymousAudienceChatFromServerAnalysisEngine: Option[AnonymousAudienceChatFromServerAnalysisEngine] =
-    None
-  private var chatFromServerAnalysisEngine:                Option[ChatFromServerAnalysisEngine]                = None
-  private var errorFromServerAnalysisEngine:               Option[ErrorFromServerAnalysisEngine]               = None
-  private var firstMorningPhaseAnalysisEngine:             Option[FirstMorningPhaseAnalysisEngine]             = None
-  private var flavorTextAnalysisEngine:                    Option[FlavorTextAnalysisEngine]                    = None
-  private var gameResultAnalysisEngine:                    Option[GameResultAnalysisEngine]                    = None
-  private var morningPhaseAnalysisEngine:                  Option[MorningPhaseAnalysisEngine]                  = None
-  private var nextGameInvitationAnalysisEngine:            Option[NextGameInvitationAnalysisEngine]            = None
-  private var nextGameInvitationIsClosedAnalysisEngine:    Option[NextGameInvitationIsClosedAnalysisEngine]    = None
-  private var nightPhaseAnalysisEngine:                    Option[NightPhaseAnalysisEngine]                    = None
-  private var noonPhaseAnalysisEngine:                     Option[NoonPhaseAnalysisEngine]                     = None
-  private var onymousAudienceChatFromServerAnalysisEngine: Option[OnymousAudienceChatFromServerAnalysisEngine] = None
-  private var postMortemDiscussionAnalysisEngine:          Option[PostMortemDiscussionAnalysisEngine]          = None
+    Option.empty[AnonymousAudienceChatFromServerAnalysisEngine]
+  private var chatFromServerAnalysisEngine: Option[ChatFromServerAnalysisEngine] =
+    Option.empty[ChatFromServerAnalysisEngine]
+  private var errorFromServerAnalysisEngine: Option[ErrorFromServerAnalysisEngine] =
+    Option.empty[ErrorFromServerAnalysisEngine]
+  private var firstMorningPhaseAnalysisEngine: Option[FirstMorningPhaseAnalysisEngine] =
+    Option.empty[FirstMorningPhaseAnalysisEngine]
+  private var flavorTextAnalysisEngine:   Option[FlavorTextAnalysisEngine]   = Option.empty[FlavorTextAnalysisEngine]
+  private var gameResultAnalysisEngine:   Option[GameResultAnalysisEngine]   = Option.empty[GameResultAnalysisEngine]
+  private var morningPhaseAnalysisEngine: Option[MorningPhaseAnalysisEngine] = Option.empty[MorningPhaseAnalysisEngine]
+  private var nextGameInvitationAnalysisEngine: Option[NextGameInvitationAnalysisEngine] =
+    Option.empty[NextGameInvitationAnalysisEngine]
+  private var nextGameInvitationIsClosedAnalysisEngine: Option[NextGameInvitationIsClosedAnalysisEngine] =
+    Option.empty[NextGameInvitationIsClosedAnalysisEngine]
+  private var nightPhaseAnalysisEngine: Option[NightPhaseAnalysisEngine] = Option.empty[NightPhaseAnalysisEngine]
+  private var noonPhaseAnalysisEngine:  Option[NoonPhaseAnalysisEngine]  = Option.empty[NoonPhaseAnalysisEngine]
+  private var onymousAudienceChatFromServerAnalysisEngine: Option[OnymousAudienceChatFromServerAnalysisEngine] =
+    Option.empty[OnymousAudienceChatFromServerAnalysisEngine]
+  private var postMortemDiscussionAnalysisEngine: Option[PostMortemDiscussionAnalysisEngine] =
+    Option.empty[PostMortemDiscussionAnalysisEngine]
 
   override def create: VillageProcessingEngine = {
     new VillageProcessingEngine(

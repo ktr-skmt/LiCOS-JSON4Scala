@@ -9,8 +9,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait HumanPlayerSelectionPageAnalysisEngine extends LobbyMessageAnalysisEngine {
   @SuppressWarnings(Array[String]("org.wartremover.warts.ImplicitParameter"))
-  def process(box: LobbyBOX, humanPlayerSelectionPageProtocol: HumanPlayerSelectionPageProtocol)(
-      implicit ec: ExecutionContext
+  def process(box: LobbyBOX, humanPlayerSelectionPageProtocol: HumanPlayerSelectionPageProtocol)(implicit
+      ec:          ExecutionContext
   ): Future[LobbyMessageProtocol]
 }
 

@@ -1,5 +1,7 @@
 package licos.json.validation.village
 
+import java.util.Locale
+
 import licos.util.{LiCOSOnline, WerewolfWorld}
 import play.api.libs.json.Reads
 import play.api.libs.json.Reads.{max, min, pattern}
@@ -10,7 +12,7 @@ import scala.util.matching.Regex
 object RoleValidation {
   private val label:        String        = "role"
   private val roleNames:    String        = """(?:Hunter|Madman|Mason|Master|Medium|Seer|Villager|Werehamster|Werewolf)"""
-  def roleNamesInLowerCase: String        = roleNames.toLowerCase
+  def roleNamesInLowerCase: String        = roleNames.toLowerCase(Locale.ENGLISH)
   val `@context`:           Reads[String] = pattern(WerewolfWorld.context(label).r)
 
   val `@idRegex`: Regex = LiCOSOnline

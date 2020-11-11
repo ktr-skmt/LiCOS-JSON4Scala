@@ -22,8 +22,7 @@ trait StopRobotPlayerAnalysisEngine extends AnalysisEngine {
 
 object StopRobotPlayerAnalysisEngine {
 
-  /**
-    * Stop-robot-player analysis engine name.
+  /** Stop-robot-player analysis engine name.
     */
   val name:         String  = "lobby.client2server.StopRobotPlayerAnalysisEngine"
   val isFromServer: Boolean = false

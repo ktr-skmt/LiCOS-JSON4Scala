@@ -11,8 +11,8 @@ import protocol.engine.lobby.example.client2server.CreateOnymousAudience
 import scala.concurrent.{ExecutionContext, Future}
 
 final class CreateOnymousAudienceAE extends CreateOnymousAudienceAnalysisEngine {
-  override def process(box: LobbyBOX, createOnymousAudienceProtocol: CreateOnymousAudienceProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: LobbyBOX, createOnymousAudienceProtocol: CreateOnymousAudienceProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(CreateOnymousAudience.`type`))

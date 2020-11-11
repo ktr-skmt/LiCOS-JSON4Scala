@@ -22,8 +22,7 @@ trait KickOutPlayerAnalysisEngine extends AnalysisEngine {
 
 object KickOutPlayerAnalysisEngine {
 
-  /**
-    * Kick-out-player analysis engine name.
+  /** Kick-out-player analysis engine name.
     */
   val name:         String  = "lobby.client2server.KickOutPlayerAnalysisEngine"
   val isFromServer: Boolean = false

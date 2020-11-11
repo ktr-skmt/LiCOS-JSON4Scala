@@ -20,17 +20,17 @@ final case class NameProtocol() {
   private var zhCN_ : String = ""
   private var zhTW_ : String = ""
 
-  def ar(name:   String): NameProtocol = { ar_   = name; this }
-  def de(name:   String): NameProtocol = { de_   = name; this }
-  def en(name:   String): NameProtocol = { en_   = name; this }
-  def es(name:   String): NameProtocol = { es_   = name; this }
-  def it(name:   String): NameProtocol = { it_   = name; this }
-  def fr(name:   String): NameProtocol = { fr_   = name; this }
-  def ja(name:   String): NameProtocol = { ja_   = name; this }
-  def pt(name:   String): NameProtocol = { pt_   = name; this }
-  def ru(name:   String): NameProtocol = { ru_   = name; this }
-  def uk(name:   String): NameProtocol = { uk_   = name; this }
-  def vi(name:   String): NameProtocol = { vi_   = name; this }
+  def ar(name: String): NameProtocol = { ar_ = name; this }
+  def de(name: String): NameProtocol = { de_ = name; this }
+  def en(name: String): NameProtocol = { en_ = name; this }
+  def es(name: String): NameProtocol = { es_ = name; this }
+  def it(name: String): NameProtocol = { it_ = name; this }
+  def fr(name: String): NameProtocol = { fr_ = name; this }
+  def ja(name: String): NameProtocol = { ja_ = name; this }
+  def pt(name: String): NameProtocol = { pt_ = name; this }
+  def ru(name: String): NameProtocol = { ru_ = name; this }
+  def uk(name: String): NameProtocol = { uk_ = name; this }
+  def vi(name: String): NameProtocol = { vi_ = name; this }
   def zhCN(name: String): NameProtocol = { zhCN_ = name; this }
   def zhTW(name: String): NameProtocol = { zhTW_ = name; this }
 
@@ -284,14 +284,14 @@ final case class NameProtocol() {
     }
   }
 
-  private val ARABIC:     Locale = new Locale("ar")
-  private val SPANISH:    Locale = new Locale("es")
-  private val PORTUGUESE: Locale = new Locale("pt")
-  private val RUSSIAN:    Locale = new Locale("ru")
-  private val UKRAINIAN:  Locale = new Locale("uk")
-  private val VIETNAMESE: Locale = new Locale("vi")
-  private val CHINESE_  : Locale = new Locale("zh-CN")
-  private val TAIWANESE:  Locale = new Locale("zh-TW")
+  private val ARABIC:     Locale  = new Locale("ar")
+  private val SPANISH:    Locale  = new Locale("es")
+  private val PORTUGUESE: Locale  = new Locale("pt")
+  private val RUSSIAN:    Locale  = new Locale("ru")
+  private val UKRAINIAN:  Locale  = new Locale("uk")
+  private val VIETNAMESE: Locale  = new Locale("vi")
+  private val CHINESE_   : Locale = new Locale("zh-CN")
+  private val TAIWANESE:  Locale  = new Locale("zh-TW")
 
   def withLanguage(locale: Locale): String = {
     import Locale._

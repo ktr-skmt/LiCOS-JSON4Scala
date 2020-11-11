@@ -22,8 +22,7 @@ trait RenewAvatarTokenAnalysisEngine extends AnalysisEngine {
 
 object RenewAvatarTokenAnalysisEngine {
 
-  /**
-    * Renew-avatar-token analysis engine name.
+  /** Renew-avatar-token analysis engine name.
     */
   val name:         String  = "lobby.client2server.RenewAvatarTokenAnalysisEngine"
   val isFromServer: Boolean = false

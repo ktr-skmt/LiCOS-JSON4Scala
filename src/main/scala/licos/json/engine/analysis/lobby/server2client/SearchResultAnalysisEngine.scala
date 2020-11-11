@@ -23,8 +23,7 @@ trait SearchResultAnalysisEngine extends AnalysisEngine {
 
 object SearchResultAnalysisEngine {
 
-  /**
-    * Search-result analysis engine name.
+  /** Search-result analysis engine name.
     */
   val name:         String  = "lobby.server2client.SearchResultAnalysisEngine"
   val isFromServer: Boolean = true

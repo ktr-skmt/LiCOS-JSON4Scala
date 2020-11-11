@@ -23,8 +23,7 @@ trait BoardAnalysisEngine extends AnalysisEngine {
 
 object BoardAnalysisEngine {
 
-  /**
-    * Board analysis engine name.
+  /** Board analysis engine name.
     */
   val name:         String  = "village.client2server.JsonBoardAnalysisEngine"
   val isFromServer: Boolean = false

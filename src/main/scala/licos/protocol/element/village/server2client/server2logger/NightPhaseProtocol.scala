@@ -1,5 +1,7 @@
 package licos.protocol.element.village.server2client.server2logger
 
+import java.time.OffsetDateTime
+
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.JsonBoardResult
 import licos.json.element.village.character.{JsonCharacter, JsonStatusCharacter}
@@ -12,7 +14,9 @@ import licos.protocol.element.village.part.{
   BoardResultProtocol,
   ChatSettingsProtocol,
   UpdateProtocol,
-  VillageProtocol
+  VillageProtocol,
+  VotingResultDetailProtocol,
+  VotingResultSummaryProtocol
 }
 import licos.protocol.element.village.part.character.{CharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.role.RoleProtocol
@@ -49,12 +53,12 @@ final case class NightPhaseProtocol(
           village.phaseTimeLimit,
           village.phaseStartTime,
           Some(TimestampGenerator.now),
-          None,
+          Option.empty[OffsetDateTime],
           ServerToClient,
           PrivateChannel,
           extensionalDisclosureRange,
-          None,
-          None
+          Option.empty[Seq[VotingResultSummaryProtocol]],
+          Option.empty[Seq[VotingResultDetailProtocol]]
         ).json,
         character.map(_.json),
         role.map(_.json)
@@ -97,34 +101,32 @@ object NightPhaseProtocol {
             }
           },
           json.role.flatMap { jsonRole: JsonRole =>
-            Data2Knowledge.roleOpt(jsonRole.name.en, jsonRole.numberOfPlayers).toList.map {
-              role: Role =>
-                RoleProtocol(
-                  role,
-                  jsonRole.isMine,
-                  jsonRole.numberOfPlayers,
-                  jsonRole.board.flatMap {
-                    jsonBoardResult: JsonBoardResult =>
-                      for {
-                        character <- Data2Knowledge
-                          .characterOpt(jsonBoardResult.character.name.en, jsonBoardResult.character.id)
-                          .toList
-                        polarity <- Data2Knowledge.polarityMarkOpt(jsonBoardResult.polarity).toList
-                        phase    <- Data2Knowledge.phaseOpt(jsonBoardResult.phase).toList
-                      } yield {
-                        BoardResultProtocol(
-                          character,
-                          polarity,
-                          phase,
-                          jsonBoardResult.day,
-                          village.id,
-                          village.language
-                        )
-                      }
-                  },
-                  village.id,
-                  village.language
-                )
+            Data2Knowledge.roleOpt(jsonRole.name.en, jsonRole.numberOfPlayers).toList.map { role: Role =>
+              RoleProtocol(
+                role,
+                jsonRole.isMine,
+                jsonRole.numberOfPlayers,
+                jsonRole.board.flatMap { jsonBoardResult: JsonBoardResult =>
+                  for {
+                    character <- Data2Knowledge
+                      .characterOpt(jsonBoardResult.character.name.en, jsonBoardResult.character.id)
+                      .toList
+                    polarity <- Data2Knowledge.polarityMarkOpt(jsonBoardResult.polarity).toList
+                    phase    <- Data2Knowledge.phaseOpt(jsonBoardResult.phase).toList
+                  } yield {
+                    BoardResultProtocol(
+                      character,
+                      polarity,
+                      phase,
+                      jsonBoardResult.day,
+                      village.id,
+                      village.language
+                    )
+                  }
+                },
+                village.id,
+                village.language
+              )
             }
           },
           json.base.extensionalDisclosureRange.flatMap { jsonStatusCharacter: JsonStatusCharacter =>

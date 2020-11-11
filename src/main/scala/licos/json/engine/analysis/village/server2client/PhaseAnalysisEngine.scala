@@ -23,8 +23,7 @@ trait PhaseAnalysisEngine extends AnalysisEngine {
 
 object PhaseAnalysisEngine {
 
-  /**
-    * Phase analysis engine name.
+  /** Phase analysis engine name.
     */
   val name:         String  = "village.server2client.PhaseAnalysisEngine"
   val isFromServer: Boolean = true

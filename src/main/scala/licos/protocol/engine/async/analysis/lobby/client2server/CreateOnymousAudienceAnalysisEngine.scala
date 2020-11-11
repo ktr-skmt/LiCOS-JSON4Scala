@@ -8,8 +8,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait CreateOnymousAudienceAnalysisEngine {
   @SuppressWarnings(Array[String]("org.wartremover.warts.ImplicitParameter"))
-  def process(box: LobbyBOX, createOnymousAudienceProtocol: CreateOnymousAudienceProtocol)(
-      implicit ec: ExecutionContext
+  def process(box: LobbyBOX, createOnymousAudienceProtocol: CreateOnymousAudienceProtocol)(implicit
+      ec:          ExecutionContext
   ): Future[LobbyMessageProtocol]
 }
 

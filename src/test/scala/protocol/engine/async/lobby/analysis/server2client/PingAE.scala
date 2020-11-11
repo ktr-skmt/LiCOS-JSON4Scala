@@ -11,8 +11,8 @@ import protocol.engine.lobby.LobbyBox
 import scala.concurrent.{ExecutionContext, Future}
 
 final class PingAE extends PingAnalysisEngine {
-  override def process(box: LobbyBOX, pingProtocol: PingProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: LobbyBOX, pingProtocol: PingProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(Ping.`type`))

@@ -1,5 +1,7 @@
 package licos.protocol.element.village.server2client.server2logger
 
+import java.time.OffsetDateTime
+
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.{JsonBoardResult, JsonVotingResultDetail, JsonVotingResultSummary}
 import licos.json.element.village.character.{JsonCharacter, JsonStatusCharacter}
@@ -57,7 +59,7 @@ final case class PostMortemDiscussionProtocol(
           village.phaseTimeLimit,
           village.phaseStartTime,
           Some(TimestampGenerator.now),
-          None,
+          Option.empty[OffsetDateTime],
           ServerToClient,
           PublicChannel,
           extensionalDisclosureRange,
@@ -106,34 +108,32 @@ object PostMortemDiscussionProtocol {
               }
             },
             json.role.flatMap { jsonRole: JsonRole =>
-              Data2Knowledge.roleOpt(jsonRole.name.en, jsonRole.numberOfPlayers).toList.map {
-                role: Role =>
-                  RoleProtocol(
-                    role,
-                    jsonRole.isMine,
-                    jsonRole.numberOfPlayers,
-                    jsonRole.board.flatMap {
-                      jsonBoardResult: JsonBoardResult =>
-                        for {
-                          character <- Data2Knowledge
-                            .characterOpt(jsonBoardResult.character.name.en, jsonBoardResult.character.id)
-                            .toList
-                          polarity <- Data2Knowledge.polarityMarkOpt(jsonBoardResult.polarity).toList
-                          phase    <- Data2Knowledge.phaseOpt(jsonBoardResult.phase).toList
-                        } yield {
-                          BoardResultProtocol(
-                            character,
-                            polarity,
-                            phase,
-                            jsonBoardResult.day,
-                            village.id,
-                            village.language
-                          )
-                        }
-                    },
-                    village.id,
-                    village.language
-                  )
+              Data2Knowledge.roleOpt(jsonRole.name.en, jsonRole.numberOfPlayers).toList.map { role: Role =>
+                RoleProtocol(
+                  role,
+                  jsonRole.isMine,
+                  jsonRole.numberOfPlayers,
+                  jsonRole.board.flatMap { jsonBoardResult: JsonBoardResult =>
+                    for {
+                      character <- Data2Knowledge
+                        .characterOpt(jsonBoardResult.character.name.en, jsonBoardResult.character.id)
+                        .toList
+                      polarity <- Data2Knowledge.polarityMarkOpt(jsonBoardResult.polarity).toList
+                      phase    <- Data2Knowledge.phaseOpt(jsonBoardResult.phase).toList
+                    } yield {
+                      BoardResultProtocol(
+                        character,
+                        polarity,
+                        phase,
+                        jsonBoardResult.day,
+                        village.id,
+                        village.language
+                      )
+                    }
+                  },
+                  village.id,
+                  village.language
+                )
               }
 
             },
@@ -174,36 +174,35 @@ object PostMortemDiscussionProtocol {
               }
             },
             json.base.votingResultsDetails.toList.flatMap { details: Seq[JsonVotingResultDetail] =>
-              details.flatMap {
-                jsonVotingResultDetail: JsonVotingResultDetail =>
-                  for {
-                    sourceCharacter <- Data2Knowledge
-                      .characterOpt(
-                        jsonVotingResultDetail.sourceCharacter.name.en,
-                        jsonVotingResultDetail.sourceCharacter.id
-                      )
-                      .toList
-                    targetCharacter <- Data2Knowledge
-                      .characterOpt(
-                        jsonVotingResultDetail.targetCharacter.name.en,
-                        jsonVotingResultDetail.targetCharacter.id
-                      )
-                      .toList
-                  } yield {
-                    VotingResultDetailProtocol(
-                      SimpleCharacterProtocol(
-                        sourceCharacter,
-                        village.id,
-                        village.language
-                      ),
-                      SimpleCharacterProtocol(
-                        targetCharacter,
-                        village.id,
-                        village.language
-                      ),
-                      village.id
+              details.flatMap { jsonVotingResultDetail: JsonVotingResultDetail =>
+                for {
+                  sourceCharacter <- Data2Knowledge
+                    .characterOpt(
+                      jsonVotingResultDetail.sourceCharacter.name.en,
+                      jsonVotingResultDetail.sourceCharacter.id
                     )
-                  }
+                    .toList
+                  targetCharacter <- Data2Knowledge
+                    .characterOpt(
+                      jsonVotingResultDetail.targetCharacter.name.en,
+                      jsonVotingResultDetail.targetCharacter.id
+                    )
+                    .toList
+                } yield {
+                  VotingResultDetailProtocol(
+                    SimpleCharacterProtocol(
+                      sourceCharacter,
+                      village.id,
+                      village.language
+                    ),
+                    SimpleCharacterProtocol(
+                      targetCharacter,
+                      village.id,
+                      village.language
+                    ),
+                    village.id
+                  )
+                }
               }
             }
           )

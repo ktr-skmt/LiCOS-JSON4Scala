@@ -38,9 +38,11 @@ final case class PlayerInVillageForServer(character: Character, role: Role, only
 
   def getStatus(phase: Phase, day: Int): Status = {
     import cats.implicits._
-    if (updateDay === day &&
-        updatePhase.label === Noon.label &&
-        phase.label === Night.label) {
+    if (
+      updateDay === day &&
+      updatePhase.label === Noon.label &&
+      phase.label === Night.label
+    ) {
       Alive
     } else {
       status

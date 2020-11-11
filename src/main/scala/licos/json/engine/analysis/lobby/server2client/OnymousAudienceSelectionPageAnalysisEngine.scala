@@ -22,8 +22,7 @@ trait OnymousAudienceSelectionPageAnalysisEngine extends AnalysisEngine {
 
 object OnymousAudienceSelectionPageAnalysisEngine {
 
-  /**
-    * Onymous-audience-selection-page analysis engine name.
+  /** Onymous-audience-selection-page analysis engine name.
     */
   val name:         String  = "lobby.server2client.OnymousAudienceSelectionPageAnalysisEngine"
   val isFromServer: Boolean = true

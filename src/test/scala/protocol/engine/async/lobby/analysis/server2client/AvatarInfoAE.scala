@@ -11,8 +11,8 @@ import protocol.engine.lobby.LobbyBox
 import scala.concurrent.{ExecutionContext, Future}
 
 final class AvatarInfoAE extends AvatarInfoAnalysisEngine {
-  override def process(box: LobbyBOX, avatarInfoProtocol: AvatarInfoProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: LobbyBOX, avatarInfoProtocol: AvatarInfoProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(AvatarInfo.`type`))

@@ -11,8 +11,8 @@ import protocol.engine.lobby.LobbyBox
 import scala.concurrent.{ExecutionContext, Future}
 
 final class ChangeUserNameAE extends ChangeUserNameAnalysisEngine {
-  override def process(box: LobbyBOX, changeUserNameProtocol: ChangeUserNameProtocol)(
-      implicit ec:          ExecutionContext
+  override def process(box: LobbyBOX, changeUserNameProtocol: ChangeUserNameProtocol)(implicit
+      ec:                   ExecutionContext
   ): Future[LobbyMessageProtocol] = {
     box match {
       case _: LobbyBox => Future.successful(LobbyMessageTestProtocol(ChangeUserName.`type`))
