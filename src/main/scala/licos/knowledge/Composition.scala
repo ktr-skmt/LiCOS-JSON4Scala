@@ -23,7 +23,7 @@ final class Composition(
       werehamster.numberOfPlayers
   }
 
-  def allRoles: Seq[Role] = Seq[Role](master, villager, seer, medium, hunter, mason, madman, werewolf, werehamster)
+  def allRoles: List[Role] = List[Role](master, villager, seer, medium, hunter, mason, madman, werewolf, werehamster)
 
   def parse(roleLabel: String): Option[Role] = allRoles.find(_.name.en.equalsIgnoreCase(roleLabel))
 }

@@ -6,8 +6,13 @@ import licos.json.element.village.role.JsonRole
 import licos.json.element.village.server2client.JsonPhase
 import licos.json.element.village.{JsonBoardResult, JsonVotingResultSummary}
 import licos.knowledge.{Character, Data2Knowledge, Morning, Role}
-import licos.protocol.element.village.part.{BoardResultProtocol, UpdateProtocol, VotingResultSummaryProtocol}
-import licos.protocol.element.village.part.character.CharacterProtocol
+import licos.protocol.element.village.part.{
+  BoardResultProtocol,
+  UpdateProtocol,
+  VotingResultDetailProtocol,
+  VotingResultSummaryProtocol
+}
+import licos.protocol.element.village.part.character.{CharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.role.RoleProtocol
 import play.api.libs.json.{JsValue, Json}
 
@@ -24,6 +29,20 @@ final case class MorningPhaseProtocol(
 
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
+  }
+
+  def forLogger(
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol],
+      votingResultsDetail:        Seq[VotingResultDetailProtocol]
+  ): server2logger.MorningPhaseProtocol = {
+    server2logger.MorningPhaseProtocol(
+      village:                    VillageInfo,
+      character:                  Seq[CharacterProtocol],
+      role:                       Seq[RoleProtocol],
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol],
+      votingResultsSummary:       Seq[VotingResultSummaryProtocol],
+      votingResultsDetail:        Seq[VotingResultDetailProtocol]
+    )
   }
 }
 

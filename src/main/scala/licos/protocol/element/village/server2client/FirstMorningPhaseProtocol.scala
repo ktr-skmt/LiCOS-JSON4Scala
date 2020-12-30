@@ -7,7 +7,7 @@ import licos.json.element.village.role.JsonRole
 import licos.json.element.village.server2client.JsonPhase
 import licos.knowledge.{Data2Knowledge, Morning, Role}
 import licos.protocol.element.village.part.{BoardResultProtocol, UpdateProtocol}
-import licos.protocol.element.village.part.character.CharacterProtocol
+import licos.protocol.element.village.part.character.{CharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.role.RoleProtocol
 import play.api.libs.json.{JsValue, Json}
 
@@ -23,6 +23,15 @@ final case class FirstMorningPhaseProtocol(
 
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
+  }
+
+  def forLogger(extensionalDisclosureRange: Seq[StatusCharacterProtocol]): server2logger.FirstMorningPhaseProtocol = {
+    server2logger.FirstMorningPhaseProtocol(
+      village:                    VillageInfo,
+      character:                  Seq[CharacterProtocol],
+      role:                       Seq[RoleProtocol],
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+    )
   }
 }
 

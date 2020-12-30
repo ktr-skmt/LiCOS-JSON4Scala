@@ -7,6 +7,7 @@ import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonStar
 import licos.json.element.village.iri.{Contexts, StarMessage}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role}
+import licos.protocol.element.village.client2server.{StarProtocol => SimpleStarProtocol}
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{
   BaseProtocol,
@@ -79,6 +80,15 @@ final case class StarProtocol(
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
   }
+
+  def simpleProtocol: SimpleStarProtocol = SimpleStarProtocol(
+    village:         VillageInfo,
+    serverTimestamp: OffsetDateTime,
+    clientTimestamp: OffsetDateTime,
+    isMarked:        Boolean,
+    myCharacter:     Character,
+    myRole:          Role
+  )
 }
 
 object StarProtocol {

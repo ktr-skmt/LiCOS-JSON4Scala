@@ -16,6 +16,9 @@ import licos.protocol.element.village.part.{
   VotingResultDetailProtocol,
   VotingResultSummaryProtocol
 }
+import licos.protocol.element.village.server2client.{
+  AnonymousAudienceChatFromServerProtocol => SimpleAnonymousAudienceChatFromServerProtocol
+}
 import licos.util.TimestampGenerator
 import play.api.libs.json.{JsValue, Json}
 
@@ -70,6 +73,12 @@ final case class AnonymousAudienceChatFromServerProtocol(
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
   }
+
+  def simpleProtocol: SimpleAnonymousAudienceChatFromServerProtocol = SimpleAnonymousAudienceChatFromServerProtocol(
+    village: VillageInfo,
+    isMine:  Boolean,
+    text:    String
+  )
 }
 
 object AnonymousAudienceChatFromServerProtocol {

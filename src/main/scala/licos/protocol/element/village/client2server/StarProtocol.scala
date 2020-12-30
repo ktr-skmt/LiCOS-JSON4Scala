@@ -5,6 +5,7 @@ import java.time.OffsetDateTime
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.client2server.JsonStar
 import licos.knowledge.{Character, Data2Knowledge, Role}
+import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import play.api.libs.json.{JsValue, Json}
 
 final case class StarProtocol(
@@ -22,6 +23,18 @@ final case class StarProtocol(
 
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
+  }
+
+  def forLogger(extensionalDisclosureRange: Seq[StatusCharacterProtocol]): server2logger.StarProtocol = {
+    server2logger.StarProtocol(
+      village:                    VillageInfo,
+      serverTimestamp:            OffsetDateTime,
+      clientTimestamp:            OffsetDateTime,
+      isMarked:                   Boolean,
+      myCharacter:                Character,
+      myRole:                     Role,
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+    )
   }
 }
 

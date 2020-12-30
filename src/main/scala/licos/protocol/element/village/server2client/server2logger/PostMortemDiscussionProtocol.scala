@@ -24,6 +24,7 @@ import licos.protocol.element.village.part.character.{
   StatusCharacterProtocol
 }
 import licos.protocol.element.village.part.role.RoleProtocol
+import licos.protocol.element.village.server2client.{PostMortemDiscussionProtocol => SimplePostMortemDiscussionProtocol}
 import licos.util.TimestampGenerator
 import play.api.libs.json.{JsValue, Json}
 
@@ -75,6 +76,13 @@ final case class PostMortemDiscussionProtocol(
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
   }
+
+  def simpleProtocol: SimplePostMortemDiscussionProtocol = SimplePostMortemDiscussionProtocol(
+    village:              VillageInfo,
+    character:            Seq[CharacterProtocol],
+    role:                 Seq[RoleProtocol],
+    votingResultsSummary: Seq[VotingResultSummaryProtocol]
+  )
 }
 
 object PostMortemDiscussionProtocol {

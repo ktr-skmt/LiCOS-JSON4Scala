@@ -66,6 +66,16 @@ final case class ErrorFromServerProtocol(
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
   }
+
+  def forLogger(extensionalDisclosureRange: Seq[StatusCharacterProtocol]): server2logger.ErrorFromServerProtocol = {
+    server2logger.ErrorFromServerProtocol(
+      village:                    VillageInfo,
+      content:                    NameProtocol,
+      severity:                   Severity,
+      source:                     String,
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+    )
+  }
 }
 
 object ErrorFromServerProtocol {

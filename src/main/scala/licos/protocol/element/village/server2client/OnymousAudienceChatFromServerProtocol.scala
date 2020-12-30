@@ -4,6 +4,7 @@ import java.net.URL
 
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.JsonOnymousAudienceChat
+import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import play.api.libs.json.{JsValue, Json}
 
 final case class OnymousAudienceChatFromServerProtocol(
@@ -20,6 +21,19 @@ final case class OnymousAudienceChatFromServerProtocol(
 
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
+  }
+
+  def forLogger(
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+  ): server2logger.OnymousAudienceChatFromServerProtocol = {
+    server2logger.OnymousAudienceChatFromServerProtocol(
+      village:                    VillageInfo,
+      isMine:                     Boolean,
+      text:                       String,
+      myAvatarName:               String,
+      myAvatarImage:              URL,
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+    )
   }
 }
 

@@ -22,7 +22,7 @@ lazy val scalafmtSettings = Seq(
 )
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.13.3",
+  scalaVersion := "2.13.4",
   organization := "online.licos",
   fork in run := true
 ) ++ {
@@ -95,7 +95,7 @@ lazy val json = (project in file(".")).
     autoAPIMappings := true
   ).settings(
     isSnapshot := true,
-    version := "0.4.3",
+    version := "0.5.0",
     name := jsonLibraryName,
     publishMavenStyle := true,
     publishArtifact in Test := false,

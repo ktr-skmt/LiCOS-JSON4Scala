@@ -7,7 +7,11 @@ import licos.json.element.village.character.{JsonResultCharacter, JsonSimpleChar
 import licos.json.element.village.role.JsonResultRole
 import licos.json.element.village.server2client.JsonGameResult
 import licos.knowledge.{Character, Data2Knowledge, Role}
-import licos.protocol.element.village.part.character.{ResultCharacterProtocol, SimpleCharacterProtocol}
+import licos.protocol.element.village.part.character.{
+  ResultCharacterProtocol,
+  SimpleCharacterProtocol,
+  StatusCharacterProtocol
+}
 import licos.protocol.element.village.part.role.ResultRoleProtocol
 import play.api.libs.json.{JsValue, Json}
 
@@ -23,6 +27,15 @@ final case class GameResultProtocol(
 
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
+  }
+
+  def forLogger(extensionalDisclosureRange: Seq[StatusCharacterProtocol]): server2logger.GameResultProtocol = {
+    server2logger.GameResultProtocol(
+      village:                    VillageInfo,
+      character:                  Seq[ResultCharacterProtocol],
+      role:                       Seq[ResultRoleProtocol],
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+    )
   }
 }
 

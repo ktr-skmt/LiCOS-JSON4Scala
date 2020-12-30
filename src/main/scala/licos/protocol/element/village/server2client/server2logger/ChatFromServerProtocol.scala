@@ -16,6 +16,7 @@ import licos.protocol.element.village.part.{
   VotingResultDetailProtocol,
   VotingResultSummaryProtocol
 }
+import licos.protocol.element.village.server2client.{ChatFromServerProtocol => SimpleChatFromServerProtocol}
 import licos.util.{LiCOSOnline, TimestampGenerator}
 import play.api.libs.json.{JsValue, Json}
 
@@ -81,6 +82,18 @@ final case class ChatFromServerProtocol(
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
   }
+
+  def simpleProtocol: SimpleChatFromServerProtocol = SimpleChatFromServerProtocol(
+    village:   VillageInfo,
+    channel:   PlayerChatChannel,
+    character: SimpleCharacterProtocol,
+    isMine:    Boolean,
+    id:        Int,
+    counter:   Int,
+    interval:  Int,
+    text:      String,
+    isOver:    Boolean
+  )
 }
 
 object ChatFromServerProtocol {

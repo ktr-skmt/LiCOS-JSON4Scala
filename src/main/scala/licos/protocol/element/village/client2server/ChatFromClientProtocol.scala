@@ -3,6 +3,7 @@ package licos.protocol.element.village.client2server
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.client2server.JsonChatFromClient
 import licos.knowledge.{Character, Data2Knowledge, PlayerChatChannel, Role}
+import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import play.api.libs.json.{JsValue, Json}
 
 final case class ChatFromClientProtocol(
@@ -20,6 +21,18 @@ final case class ChatFromClientProtocol(
 
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
+  }
+
+  def forLogger(extensionalDisclosureRange: Seq[StatusCharacterProtocol]): server2logger.ChatFromClientProtocol = {
+    server2logger.ChatFromClientProtocol(
+      village:                    VillageInfo,
+      channel:                    PlayerChatChannel,
+      text:                       String,
+      isOver:                     Boolean,
+      myCharacter:                Character,
+      myRole:                     Role,
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+    )
   }
 }
 

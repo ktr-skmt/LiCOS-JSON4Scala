@@ -7,6 +7,7 @@ import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonChatFromClient
 import licos.json.element.village.iri.{ChatMessage, Contexts}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PlayerChatChannel, Role}
+import licos.protocol.element.village.client2server.{ChatFromClientProtocol => SimpleChatFromClientProtocol}
 import licos.protocol.element.village.part.character.{
   RoleCharacterProtocol,
   SimpleCharacterProtocol,
@@ -88,6 +89,15 @@ final case class ChatFromClientProtocol(
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
   }
+
+  def simpleProtocol: SimpleChatFromClientProtocol = SimpleChatFromClientProtocol(
+    village:     VillageInfo,
+    channel:     PlayerChatChannel,
+    text:        String,
+    isOver:      Boolean,
+    myCharacter: Character,
+    myRole:      Role
+  )
 }
 
 object ChatFromClientProtocol {

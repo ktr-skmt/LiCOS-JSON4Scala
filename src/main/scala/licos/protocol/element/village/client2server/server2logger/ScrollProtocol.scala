@@ -7,6 +7,7 @@ import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonScroll
 import licos.json.element.village.iri.{Contexts, ScrollMessage}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role}
+import licos.protocol.element.village.client2server.{ScrollProtocol => SimpleScrollProtocol}
 import licos.protocol.element.village.part.character.{RoleCharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.{
   BaseProtocol,
@@ -76,6 +77,16 @@ final case class ScrollProtocol(
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
   }
+
+  def simpleProtocol: SimpleScrollProtocol = SimpleScrollProtocol(
+    village:      VillageInfo,
+    nodeId:       String,
+    scrollTop:    Int,
+    scrollHeight: Int,
+    offsetHeight: Int,
+    myCharacter:  Character,
+    myRole:       Role
+  )
 }
 
 object ScrollProtocol {
