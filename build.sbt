@@ -22,7 +22,7 @@ lazy val scalafmtSettings = Seq(
 )
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.13.4",
+  scalaVersion := "2.13.5",
   organization := "online.licos",
   fork in run := true
 ) ++ {
@@ -107,12 +107,12 @@ lazy val json = (project in file(".")).
   ).settings(
     libraryDependencies ++= {
       Seq(
-        "com.typesafe.play" %% "play-json" % "2.9.1",
+        "com.typesafe.play" %% "play-json" % "2.9.2",
         "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
         "org.slf4j" % "slf4j-api" % "1.7.30" % Compile,
         "ch.qos.logback" % "logback-classic" % "1.2.3",
         "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
-        "org.typelevel" %% "cats-core" % "2.2.0"
+        "org.typelevel" %% "cats-core" % "2.4.2"
       )
     }
   ).settings(
