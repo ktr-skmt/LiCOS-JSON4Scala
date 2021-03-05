@@ -3,6 +3,7 @@ package licos.protocol.element.village.client2server
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.client2server.JsonScroll
 import licos.knowledge.{Character, Data2Knowledge, Role}
+import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import play.api.libs.json.{JsValue, Json}
 
 final case class ScrollProtocol(
@@ -21,6 +22,19 @@ final case class ScrollProtocol(
 
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
+  }
+
+  def forLogger(extensionalDisclosureRange: Seq[StatusCharacterProtocol]): server2logger.ScrollProtocol = {
+    server2logger.ScrollProtocol(
+      village:                    VillageInfo,
+      nodeId:                     String,
+      scrollTop:                  Int,
+      scrollHeight:               Int,
+      offsetHeight:               Int,
+      myCharacter:                Character,
+      myRole:                     Role,
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+    )
   }
 }
 

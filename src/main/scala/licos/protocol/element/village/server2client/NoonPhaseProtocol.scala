@@ -7,7 +7,7 @@ import licos.json.element.village.JsonBoardResult
 import licos.json.element.village.server2client.JsonPhase
 import licos.knowledge.{Data2Knowledge, Noon, Role}
 import licos.protocol.element.village.part.{BoardResultProtocol, UpdateProtocol}
-import licos.protocol.element.village.part.character.CharacterProtocol
+import licos.protocol.element.village.part.character.{CharacterProtocol, StatusCharacterProtocol}
 import licos.protocol.element.village.part.role.RoleProtocol
 import play.api.libs.json.{JsValue, Json}
 
@@ -20,6 +20,15 @@ final case class NoonPhaseProtocol(village: VillageInfo, character: Seq[Characte
 
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
+  }
+
+  def forLogger(extensionalDisclosureRange: Seq[StatusCharacterProtocol]): server2logger.NoonPhaseProtocol = {
+    server2logger.NoonPhaseProtocol(
+      village:                    VillageInfo,
+      character:                  Seq[CharacterProtocol],
+      role:                       Seq[RoleProtocol],
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+    )
   }
 }
 

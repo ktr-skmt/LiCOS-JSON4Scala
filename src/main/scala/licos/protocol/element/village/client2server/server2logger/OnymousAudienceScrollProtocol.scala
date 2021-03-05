@@ -17,6 +17,9 @@ import licos.protocol.element.village.part.{
   VotingResultDetailProtocol,
   VotingResultSummaryProtocol
 }
+import licos.protocol.element.village.client2server.{
+  OnymousAudienceScrollProtocol => SimpleOnymousAudienceScrollProtocol
+}
 import licos.util.{LiCOSOnline, TimestampGenerator}
 import play.api.libs.json.{JsValue, Json}
 
@@ -77,6 +80,17 @@ final case class OnymousAudienceScrollProtocol(
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
   }
+
+  def simpleProtocol: SimpleOnymousAudienceScrollProtocol = SimpleOnymousAudienceScrollProtocol(
+    village:       VillageInfo,
+    nodeId:        String,
+    scrollTop:     Int,
+    scrollHeight:  Int,
+    offsetHeight:  Int,
+    myAvatarName:  String,
+    myAvatarImage: URL
+  )
+
 }
 
 object OnymousAudienceScrollProtocol {

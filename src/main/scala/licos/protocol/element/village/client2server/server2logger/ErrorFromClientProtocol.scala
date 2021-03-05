@@ -16,6 +16,7 @@ import licos.protocol.element.village.part.{
   VotingResultDetailProtocol,
   VotingResultSummaryProtocol
 }
+import licos.protocol.element.village.client2server.{ErrorFromClientProtocol => SimpleErrorFromClientProtocol}
 import licos.util.TimestampGenerator
 import play.api.libs.json.{JsValue, Json}
 
@@ -68,6 +69,13 @@ final case class ErrorFromClientProtocol(
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
   }
+
+  def simpleProtocol: SimpleErrorFromClientProtocol = SimpleErrorFromClientProtocol(
+    village:  VillageInfo,
+    content:  NameProtocol,
+    severity: Severity,
+    source:   String
+  )
 }
 
 object ErrorFromClientProtocol {

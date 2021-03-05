@@ -3,6 +3,7 @@ package licos.protocol.element.village.client2server
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.client2server.JsonBoard
 import licos.knowledge.{Character, Data2Knowledge, PolarityMark, Role}
+import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import play.api.libs.json.{JsValue, Json}
 
 final case class BoardProtocol(
@@ -20,6 +21,18 @@ final case class BoardProtocol(
 
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
+  }
+
+  def forLogger(extensionalDisclosureRange: Seq[StatusCharacterProtocol]): server2logger.BoardProtocol = {
+    server2logger.BoardProtocol(
+      village:                    VillageInfo,
+      character:                  Character,
+      role:                       Role,
+      prediction:                 PolarityMark,
+      myCharacter:                Character,
+      myRole:                     Role,
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+    )
   }
 }
 

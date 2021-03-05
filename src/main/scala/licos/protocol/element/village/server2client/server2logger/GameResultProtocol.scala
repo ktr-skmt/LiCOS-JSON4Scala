@@ -22,6 +22,7 @@ import licos.protocol.element.village.part.character.{
   StatusCharacterProtocol
 }
 import licos.protocol.element.village.part.role.ResultRoleProtocol
+import licos.protocol.element.village.server2client.{GameResultProtocol => SimpleGameResultProtocol}
 import licos.util.TimestampGenerator
 import play.api.libs.json.{JsValue, Json}
 
@@ -71,6 +72,13 @@ final case class GameResultProtocol(
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
   }
+
+  def simpleProtocol: SimpleGameResultProtocol = SimpleGameResultProtocol(
+    village:   VillageInfo,
+    character: Seq[ResultCharacterProtocol],
+    role:      Seq[ResultRoleProtocol]
+  )
+
 }
 
 object GameResultProtocol {

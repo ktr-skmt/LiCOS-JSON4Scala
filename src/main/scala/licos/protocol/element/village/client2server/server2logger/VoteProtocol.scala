@@ -7,6 +7,7 @@ import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonVote
 import licos.json.element.village.iri.{Contexts, VoteMessage}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PrivateChannel, Role}
+import licos.protocol.element.village.client2server.{VoteProtocol => SimpleVoteProtocol}
 import licos.protocol.element.village.part.character.{
   RoleCharacterProtocol,
   SimpleCharacterProtocol,
@@ -78,6 +79,14 @@ final case class VoteProtocol(
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
   }
+
+  def simpleProtocol: SimpleVoteProtocol = SimpleVoteProtocol(
+    village:     VillageInfo,
+    character:   Character,
+    myCharacter: Character,
+    myRole:      Role
+  )
+
 }
 
 object VoteProtocol {

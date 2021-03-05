@@ -2,6 +2,7 @@ package licos.protocol.element.village.client2server
 
 import licos.entity.{VillageInfo, VillageInfoFactory, VillageInfoFromLobby}
 import licos.json.element.village.JsonAnonymousAudienceChat
+import licos.protocol.element.village.part.character.StatusCharacterProtocol
 import play.api.libs.json.{JsValue, Json}
 
 final case class AnonymousAudienceChatFromClientProtocol(village: VillageInfo, text: String)
@@ -13,6 +14,16 @@ final case class AnonymousAudienceChatFromClientProtocol(village: VillageInfo, t
 
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
+  }
+
+  def forLogger(
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+  ): server2logger.AnonymousAudienceChatFromClientProtocol = {
+    server2logger.AnonymousAudienceChatFromClientProtocol(
+      village:                    VillageInfo,
+      text:                       String,
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+    )
   }
 }
 

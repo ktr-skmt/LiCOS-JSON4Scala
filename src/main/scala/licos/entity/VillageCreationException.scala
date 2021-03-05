@@ -1,3 +1,3 @@
 package licos.entity
 
-class VillageCreationException(message: String) extends Exception
+class VillageCreationException(message: String) extends Exception(message)

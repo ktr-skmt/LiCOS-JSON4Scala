@@ -7,6 +7,7 @@ import licos.json.element.village.character.JsonStatusCharacter
 import licos.json.element.village.client2server.JsonBoard
 import licos.json.element.village.iri.{BoardMessage, Contexts}
 import licos.knowledge.{Character, ClientToServer, Data2Knowledge, PolarityMark, PrivateChannel, Role}
+import licos.protocol.element.village.client2server.{BoardProtocol => SimpleBoardProtocol}
 import licos.protocol.element.village.part.character.{
   RoleCharacterProtocol,
   SimpleCharacterProtocol,
@@ -87,6 +88,15 @@ final case class BoardProtocol(
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
   }
+
+  def simpleProtocol: SimpleBoardProtocol = SimpleBoardProtocol(
+    village:     VillageInfo,
+    character:   Character,
+    role:        Role,
+    prediction:  PolarityMark,
+    myCharacter: Character,
+    myRole:      Role
+  )
 }
 
 object BoardProtocol {

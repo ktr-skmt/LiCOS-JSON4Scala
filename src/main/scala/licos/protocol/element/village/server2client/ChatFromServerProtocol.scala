@@ -96,6 +96,21 @@ final case class ChatFromServerProtocol(
       isOver:                     Boolean
     )
   }
+
+  def forLogger(extensionalDisclosureRange: Seq[StatusCharacterProtocol]): server2logger.ChatFromServerProtocol = {
+    server2logger.ChatFromServerProtocol(
+      village:                    VillageInfo,
+      channel:                    PlayerChatChannel,
+      character:                  SimpleCharacterProtocol,
+      isMine:                     Boolean,
+      id:                         Int,
+      counter:                    Int,
+      interval:                   Int,
+      text:                       String,
+      isOver:                     Boolean,
+      extensionalDisclosureRange: Seq[StatusCharacterProtocol]
+    )
+  }
 }
 
 object ChatFromServerProtocol {

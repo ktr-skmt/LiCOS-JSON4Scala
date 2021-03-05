@@ -9,13 +9,13 @@ import licos.protocol.element.village.part.UpdateProtocol
 import licos.util.LiCOSOnline
 
 final case class CharacterProtocol(
-    character:      Character,
-    villageId:      Long,
-    language:       Locale,
-    isMine:         Boolean,
-    status:         Status,
-    updateProtocol: UpdateProtocol,
-    isAChoice:      Boolean
+    character: Character,
+    villageId: Long,
+    language:  Locale,
+    isMine:    Boolean,
+    status:    Status,
+    update:    UpdateProtocol,
+    isAChoice: Boolean
 ) {
 
   lazy val json: JsonCharacter = {
@@ -28,7 +28,7 @@ final case class CharacterProtocol(
       character.icon,
       isMine,
       status.label,
-      updateProtocol.json(`@id`),
+      update.json(`@id`),
       isAChoice
     )
   }

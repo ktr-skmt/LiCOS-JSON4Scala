@@ -24,6 +24,7 @@ import licos.protocol.element.village.part.character.{
   StatusCharacterProtocol
 }
 import licos.protocol.element.village.part.role.RoleProtocol
+import licos.protocol.element.village.server2client.{MorningPhaseProtocol => SimpleMorningPhaseProtocol}
 import licos.util.TimestampGenerator
 import play.api.libs.json.{JsValue, Json}
 
@@ -75,6 +76,13 @@ final case class MorningPhaseProtocol(
   override def toJsonOpt: Option[JsValue] = json.map { j =>
     Json.toJson(j)
   }
+
+  def simpleProtocol: SimpleMorningPhaseProtocol = SimpleMorningPhaseProtocol(
+    village:              VillageInfo,
+    character:            Seq[CharacterProtocol],
+    role:                 Seq[RoleProtocol],
+    votingResultsSummary: Seq[VotingResultSummaryProtocol]
+  )
 }
 
 object MorningPhaseProtocol {

@@ -1,7 +1,7 @@
 package licos.knowledge
 
 object CharacterList {
-  val all: Seq[Character] = Seq[Character](
+  val all: List[Character] = List[Character](
     Adil(),
     Borya(),
     Chacha(),
